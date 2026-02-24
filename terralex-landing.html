@@ -843,14 +843,14 @@ let particles = [];
 
 class Particle {
   constructor(gIdx) {
-    this.gIdx  = gIdx;          // index into gDots (null for extra morph-only)
-    // Current 2-D position (used only in morph mode)
-    this.x  = (W||1200) * Math.random();
-    this.y  = (H||800)  * Math.random();
-    // Morph target
-    this.tx = this.x;
-    this.ty = this.y;
-    // Visual (morph mode)
+    this.gIdx  = gIdx;          // index into gDots
+    // Current interpolated 3-D position (lerped between globe and morph)
+    // Initialised from the globe dot's own 3-D coord
+    const d = gDots[gIdx];
+    this.cx = d.p3[0]; this.cy = d.p3[1]; this.cz = d.p3[2];
+    // 3-D morph target (set by setMorphTargets)
+    this.tx3 = this.cx; this.ty3 = this.cy; this.tz3 = this.cz;
+    // Visual (varies in morph mode for subtle size/alpha scatter)
     this.size      = 1.0 + Math.random() * 0.6;
     this.baseAlpha = 0.45 + Math.random() * 0.35;
   }
@@ -868,172 +868,224 @@ let globeT       = 1.0;
 let targetGlobeT = 1.0;
 let snapshotTaken = false;
 
-// When we start scrolling away from hero, snapshot each particle's
-// current globe screen position as its morph starting point.
-function takeSnapshot(cosR, sinR) {
-  const yMin = -20, yMax = H + 20;
-  for (let i = 0; i < particles.length; i++) {
-    const d = gDots[i];
-    const [sx, sy, tz] = globeProject(d.p3[0], d.p3[1], d.p3[2], cosR, sinR);
-    if (tz > 0 && sy >= yMin && sy <= yMax) {
-      particles[i].x = sx;
-      particles[i].y = sy;
-    } else {
-      // Off-screen globe dot — park at bottom centre
-      particles[i].x = globeCX + (Math.random()-0.5) * GLOBE_R * 0.3;
-      particles[i].y = globeCY;
-    }
-  }
+// In 3-D morph mode, particles already track their own cx/cy/cz which
+// eases toward the weighted 3-D target each frame. takeSnapshot() is
+// called once at the start of a globe→morph transition to ensure the
+// morph targets are set; no 2-D snapshot is needed.
+function takeSnapshot() {
+  // Morph targets are set by setMorphTargets(); nothing else to do.
 }
 
 // ----------------------------------------------------------------
-// SHAPE GENERATORS (for the morph side)
-// All constrained to the RIGHT or LEFT half depending on section,
-// matching the "dots side" of the chessboard layout.
+// 3-D SHAPE GENERATORS
+// Returns arrays of [x, y, z] in globe-local (pre-rotation) space.
+//
+// Coordinate mapping:
+//   screen_x  = globeCX + local_x        (when rotation ≈ 0)
+//   screen_y  = globeCY - (local_y*cosT - local_z*sinT)
+//
+// Inverting for a target screen position (sx, sy):
+//   local_x   = sx - globeCX
+//   local_y   = (globeCY - sy) / cosT   (approx, ignoring z contribution)
+//
+// Depth: local_z gives the "into screen" distance after the tilt.
+// We place shapes at a comfortable local_z so they sit in the
+// visible part of the globe's projection cone.
 // ----------------------------------------------------------------
 
-// Sections and their dot-side:
-// proof    (odd)  → dots on RIGHT  → x in [0.5W, W]
-// how      (even) → dots on LEFT   → x in [0, 0.5W]
-// directory(odd)  → dots on RIGHT
-// stories  (even) → dots on LEFT
-// insights (odd)  → dots on RIGHT
-// events   (even) → dots on LEFT
+// Which screen half each shape lives on
+// odd  → dots RIGHT → screen_x ∈ [W/2, W]  → local_x ∈ [0, W/2]
+// even → dots LEFT  → screen_x ∈ [0, W/2]  → local_x ∈ [-W/2, 0]
+function shapeSide(name) {
+  const even = { network: true, shield: true, calendar: true };
+  return even[name] ? 'left' : 'right';
+}
 
-function dotBounds(shape) {
-  // Returns { x0, x1, y0, y1 } for where dots should cluster
-  const odd  = { x0: W*0.5, x1: W,     y0: 0, y1: H };
-  const even = { x0: 0,     x1: W*0.5, y0: 0, y1: H };
-  const sides = { scatter: odd, network: even, search: odd, shield: even, book: odd, calendar: even };
-  return sides[shape] || odd;
+// Convert a target screen position (sx, sy) to globe-local 3-D coords.
+// rDepth is the desired depth in the post-rotation (viewer) frame —
+// positive = in front of the globe centre, toward the viewer.
+//
+// Steps:
+//   1. Compute rotated-frame rx = sx - globeCX, rz = rDepth
+//   2. Compute rotated-frame ry from screen_y:
+//      screen_y = globeCY - (ry*cosT - rz*sinT)  →  ry = (globeCY - sy + rz*sinT) / cosT
+//   3. Invert Y-axis rotation (R^T since it's orthogonal):
+//      x = rx*cosR - rz*sinR
+//      y = ry
+//      z = rx*sinR + rz*cosR
+//
+// Uses module-level cosR / sinR (updated each draw frame).
+function screenTo3D(sx, sy, rDepth) {
+  const rx = sx - globeCX;
+  const rz = rDepth;
+  const ry = (globeCY - sy + rz * sinT) / cosT;
+  return [
+    rx * cosR - rz * sinR,
+    ry,
+    rx * sinR + rz * cosR
+  ];
+}
+
+// Panel bounds in screen space for each side
+function panelBounds(side) {
+  if (side === 'left')  return { sx0: 0,     sx1: W*0.5, sy0: H*0.1, sy1: H*0.9 };
+  return                       { sx0: W*0.5, sx1: W,     sy0: H*0.1, sy1: H*0.9 };
+}
+
+// Desired viewer-frame depth for morph shapes.
+// Positive = in front of the globe centre toward the viewer.
+// GLOBE_R * 0.65 places shapes near the equatorial surface of the globe.
+function morphDepth() { return GLOBE_R * 0.65; }
+
+// ---- Helper: scatter pts within panel bounds at lz depth ----
+function panelPt(side, fracX, fracY) {
+  const b = panelBounds(side);
+  const sx = b.sx0 + fracX * (b.sx1 - b.sx0);
+  const sy = b.sy0 + fracY * (b.sy1 - b.sy0);
+  return screenTo3D(sx, sy, morphDepth());
 }
 
 function shapeScatter(n) {
-  const b = dotBounds('scatter');
-  return Array.from({ length: n }, () => ({
-    x: b.x0 + Math.random() * (b.x1 - b.x0),
-    y: H * 0.1 + Math.random() * H * 0.8
-  }));
+  const side = shapeSide('scatter');
+  return Array.from({ length: n }, () =>
+    panelPt(side, Math.random(), 0.05 + Math.random() * 0.9)
+  );
 }
 
 function shapeNetwork(n) {
-  const b = dotBounds('network');
-  const W2 = b.x1 - b.x0;
-  // Node positions as fractions of the half-panel
+  const side = shapeSide('network');
+  const b    = panelBounds(side);
+  const lz   = morphDepth();
+  const W2   = b.sx1 - b.sx0, SH = b.sy1 - b.sy0;
+
   const nodes = [
     [0.5,0.35],[0.2,0.25],[0.8,0.25],[0.15,0.55],[0.85,0.55],
     [0.3,0.7],[0.7,0.7],[0.1,0.4],[0.9,0.4],[0.5,0.62]
   ];
   const edges = [[0,1],[0,2],[0,9],[1,3],[1,7],[2,4],[2,8],[3,5],[4,6],[5,9],[6,9],[7,3],[8,4]];
   const pts = [];
-  const nodeR  = Math.min(W2, H) * 0.04;
-  const perN   = Math.floor(n * 0.45 / nodes.length);
-  const perE   = Math.floor(n * 0.45 / edges.length);
-  for (const [nx,ny] of nodes) {
+  const nodeR = Math.min(W2, SH) * 0.04;
+  const perN  = Math.floor(n * 0.45 / nodes.length);
+  const perE  = Math.floor(n * 0.45 / edges.length);
+
+  for (const [nx, ny] of nodes) {
     for (let i = 0; i < perN; i++) {
-      const a = Math.random()*Math.PI*2, r = Math.random()*nodeR;
-      pts.push({ x: b.x0 + nx*W2 + Math.cos(a)*r, y: ny*H + Math.sin(a)*r });
+      const a = Math.random() * Math.PI * 2, r = Math.random() * nodeR;
+      const sx = b.sx0 + nx * W2 + Math.cos(a) * r;
+      const sy = b.sy0 + ny * SH + Math.sin(a) * r;
+      pts.push(screenTo3D(sx, sy, lz));
     }
   }
-  for (const [a,e] of edges) {
+  for (const [a, e] of edges) {
     for (let i = 0; i < perE; i++) {
-      const t = Math.random(), j = (Math.random()-0.5)*4;
-      pts.push({
-        x: b.x0 + (nodes[a][0]*(1-t) + nodes[e][0]*t)*W2 + j,
-        y: (nodes[a][1]*(1-t) + nodes[e][1]*t)*H + j
-      });
+      const t = Math.random(), j = (Math.random() - 0.5) * 4;
+      const sx = b.sx0 + (nodes[a][0] * (1-t) + nodes[e][0] * t) * W2 + j;
+      const sy = b.sy0 + (nodes[a][1] * (1-t) + nodes[e][1] * t) * SH + j;
+      pts.push(screenTo3D(sx, sy, lz));
     }
   }
-  while (pts.length < n) pts.push({ x: b.x0 + Math.random()*W2, y: Math.random()*H });
+  while (pts.length < n) pts.push(panelPt(side, Math.random(), Math.random()));
   return pts;
 }
 
 function shapeSearch(n) {
-  const b  = dotBounds('search');
-  const W2 = b.x1 - b.x0;
-  const cx = b.x0 + W2*0.5, cy = H*0.45, R = Math.min(W2,H)*0.22;
-  const pts = [];
-  const cN = Math.floor(n*0.55), hN = Math.floor(n*0.15), ha = Math.PI*0.75;
+  const side = shapeSide('search');
+  const b    = panelBounds(side);
+  const lz   = morphDepth();
+  const W2   = b.sx1 - b.sx0, SH = b.sy1 - b.sy0;
+  const csx  = b.sx0 + W2 * 0.5, csy = b.sy0 + SH * 0.45;
+  const R    = Math.min(W2, SH) * 0.22;
+  const pts  = [];
+  const cN   = Math.floor(n * 0.55), hN = Math.floor(n * 0.15), ha = Math.PI * 0.75;
+
   for (let i = 0; i < cN; i++) {
-    const a = Math.random()*Math.PI*2, r = R - 2 + (Math.random()-0.5)*14;
-    pts.push({ x: cx+Math.cos(a)*r, y: cy+Math.sin(a)*r });
+    const a = Math.random() * Math.PI * 2, r = R - 2 + (Math.random() - 0.5) * 14;
+    pts.push(screenTo3D(csx + Math.cos(a) * r, csy + Math.sin(a) * r, lz));
   }
-  const hsx = cx+Math.cos(ha)*R, hsy = cy+Math.sin(ha)*R, hl = R*0.65;
+  const hsx2 = csx + Math.cos(ha) * R, hsy2 = csy + Math.sin(ha) * R, hl = R * 0.65;
   for (let i = 0; i < hN; i++) {
-    const t = Math.random(), j = (Math.random()-0.5)*7;
-    pts.push({ x: hsx+Math.cos(ha)*hl*t+j, y: hsy+Math.sin(ha)*hl*t+j });
+    const t = Math.random(), j = (Math.random() - 0.5) * 7;
+    pts.push(screenTo3D(hsx2 + Math.cos(ha) * hl * t + j, hsy2 + Math.sin(ha) * hl * t + j, lz));
   }
   while (pts.length < n) {
-    const a = Math.random()*Math.PI*2, r = Math.random()*R*0.8;
-    pts.push({ x: cx+Math.cos(a)*r, y: cy+Math.sin(a)*r });
+    const a = Math.random() * Math.PI * 2, r = Math.random() * R * 0.8;
+    pts.push(screenTo3D(csx + Math.cos(a) * r, csy + Math.sin(a) * r, lz));
   }
   return pts;
 }
 
 function shapeShield(n) {
-  const b  = dotBounds('shield');
-  const W2 = b.x1 - b.x0;
-  const cx = b.x0 + W2*0.5;
-  const topY = H*0.18, sw = Math.min(W2,H)*0.26, sh = sw*1.35;
-  const pts = [];
+  const side = shapeSide('shield');
+  const b    = panelBounds(side);
+  const lz   = morphDepth();
+  const W2   = b.sx1 - b.sx0, SH = b.sy1 - b.sy0;
+  const csx  = b.sx0 + W2 * 0.5;
+  const topSY = b.sy0 + SH * 0.08, sw = Math.min(W2, SH) * 0.26, sh = sw * 1.35;
+  const pts  = [];
   for (let i = 0; i < n; i++) {
-    const t = Math.random(), y = topY + t*sh;
-    const hw = sw*(1 - t*t*0.72);
+    const t  = Math.random();
+    const sy = topSY + t * sh;
+    const hw = sw * (1 - t * t * 0.72);
     if (Math.random() < 0.38) {
-      const s = Math.random()<0.5 ? -1:1;
-      pts.push({ x: cx+s*hw+(Math.random()-0.5)*7, y });
+      const s = Math.random() < 0.5 ? -1 : 1;
+      pts.push(screenTo3D(csx + s * hw + (Math.random() - 0.5) * 7, sy, lz));
     } else {
-      pts.push({ x: cx+(Math.random()-0.5)*2*hw, y });
+      pts.push(screenTo3D(csx + (Math.random() - 0.5) * 2 * hw, sy, lz));
     }
   }
   return pts;
 }
 
 function shapeBook(n) {
-  const b  = dotBounds('book');
-  const W2 = b.x1 - b.x0;
-  const cx = b.x0 + W2*0.5, cy = H*0.45;
-  const bw = Math.min(W2,H)*0.3, bh = bw*0.7;
-  const pts = [];
-  for (let i = 0; i < Math.floor(n*0.95); i++) {
-    const side = Math.random()<0.5 ? -1:1;
+  const side = shapeSide('book');
+  const b    = panelBounds(side);
+  const lz   = morphDepth();
+  const W2   = b.sx1 - b.sx0, SH = b.sy1 - b.sy0;
+  const csx  = b.sx0 + W2 * 0.5, csy = b.sy0 + SH * 0.45;
+  const bw   = Math.min(W2, SH) * 0.3, bh = bw * 0.7;
+  const pts  = [];
+  for (let i = 0; i < Math.floor(n * 0.95); i++) {
+    const sde = Math.random() < 0.5 ? -1 : 1;
     const px = Math.random(), py = Math.random();
-    const curve = Math.sin(px*Math.PI)*bh*0.08;
-    const x = cx + side*(px*bw*0.46+8);
-    const y = cy - bh/2 + py*bh - curve;
-    const lineY = cy - bh/2 + Math.floor(py*12)/12*bh;
-    pts.push({ x, y: Math.random()<0.52 ? lineY+(Math.random()-0.5)*3 : y });
+    const curve = Math.sin(px * Math.PI) * bh * 0.08;
+    const sx = csx + sde * (px * bw * 0.46 + 8);
+    const sy = csy - bh/2 + py * bh - curve;
+    const lineSY = csy - bh/2 + Math.floor(py * 12) / 12 * bh;
+    pts.push(screenTo3D(sx, Math.random() < 0.52 ? lineSY + (Math.random()-0.5)*3 : sy, lz));
   }
-  while (pts.length < n) pts.push({ x: cx+(Math.random()-0.5)*5, y: H*0.45 });
+  while (pts.length < n) pts.push(screenTo3D(csx + (Math.random()-0.5)*5, csy, lz));
   return pts;
 }
 
 function shapeCalendar(n) {
-  const b  = dotBounds('calendar');
-  const W2 = b.x1 - b.x0;
-  const cx = b.x0 + W2*0.5, cy = H*0.43;
-  const cw = Math.min(W2,H)*0.36, ch = cw*0.82;
-  const left = cx-cw/2, top = cy-ch/2;
+  const side = shapeSide('calendar');
+  const b    = panelBounds(side);
+  const lz   = morphDepth();
+  const W2   = b.sx1 - b.sx0, SH = b.sy1 - b.sy0;
+  const csx  = b.sx0 + W2 * 0.5, csy = b.sy0 + SH * 0.43;
+  const cw   = Math.min(W2, SH) * 0.36, ch = cw * 0.82;
+  const left = csx - cw/2, top = csy - ch/2;
   const cols=7, rows=5, cellW=cw/cols, headerH=ch*0.18, cellH=(ch*0.78)/rows;
-  const pts = [];
+  const pts  = [];
   for (let i = 0; i < n; i++) {
     const r = Math.random();
+    let sx, sy;
     if (r < 0.14) {
-      const s = Math.floor(Math.random()*4);
-      let x,y;
-      if (s===0)      { x=left+Math.random()*cw; y=top+(Math.random()-0.5)*3; }
-      else if (s===1) { x=left+Math.random()*cw; y=top+ch+(Math.random()-0.5)*3; }
-      else if (s===2) { x=left+(Math.random()-0.5)*3; y=top+Math.random()*ch; }
-      else            { x=left+cw+(Math.random()-0.5)*3; y=top+Math.random()*ch; }
-      pts.push({x,y});
+      const s = Math.floor(Math.random() * 4);
+      if (s===0)      { sx=left+Math.random()*cw;          sy=top+(Math.random()-0.5)*3; }
+      else if (s===1) { sx=left+Math.random()*cw;          sy=top+ch+(Math.random()-0.5)*3; }
+      else if (s===2) { sx=left+(Math.random()-0.5)*3;     sy=top+Math.random()*ch; }
+      else            { sx=left+cw+(Math.random()-0.5)*3;  sy=top+Math.random()*ch; }
     } else if (r < 0.28) {
-      pts.push({ x: left+Math.random()*cw, y: top+Math.random()*headerH });
+      sx = left + Math.random() * cw;
+      sy = top + Math.random() * headerH;
     } else {
-      const col=Math.floor(Math.random()*cols), row=Math.floor(Math.random()*rows);
-      const ccx=left+(col+0.5)*cellW, ccy=top+headerH+(row+0.5)*cellH;
-      const rd=Math.min(cellW,cellH)*0.28, a=Math.random()*Math.PI*2, d=Math.random()*rd;
-      pts.push({ x:ccx+Math.cos(a)*d, y:ccy+Math.sin(a)*d });
+      const col = Math.floor(Math.random()*cols), row = Math.floor(Math.random()*rows);
+      const ccx = left+(col+0.5)*cellW, ccy = top+headerH+(row+0.5)*cellH;
+      const rd = Math.min(cellW,cellH)*0.28, a = Math.random()*Math.PI*2, d = Math.random()*rd;
+      sx = ccx + Math.cos(a)*d; sy = ccy + Math.sin(a)*d;
     }
+    pts.push(screenTo3D(sx, sy, lz));
   }
   return pts;
 }
@@ -1048,8 +1100,9 @@ function setMorphTargets(name) {
   const n    = particles.length;
   const tgts = gen(n);
   for (let i = 0; i < n; i++) {
-    particles[i].tx = tgts[i].x;
-    particles[i].ty = tgts[i].y;
+    particles[i].tx3 = tgts[i][0];
+    particles[i].ty3 = tgts[i][1];
+    particles[i].tz3 = tgts[i][2];
   }
 }
 
@@ -1094,6 +1147,7 @@ window.addEventListener('scroll', () => {
 // ----------------------------------------------------------------
 let rotation   = 0;
 const ROT_SPEED = 0.0004;
+let cosR = 1, sinR = 0;  // updated each frame; used by screenTo3D in shape generators
 let isDragging = false, dragStartX = 0, dragRot = 0;
 let mouseX = -9999, mouseY = -9999;
 let lineAnim    = 0;
@@ -1146,7 +1200,7 @@ function draw(ts) {
   globeT += (targetGlobeT - globeT) * 0.055;
 
   if (!snapshotTaken && globeT < 0.985 && gDots.length > 0) {
-    takeSnapshot(Math.cos(rotation), Math.sin(rotation));
+    takeSnapshot();
     snapshotTaken = true;
   }
   if (globeT > 0.995) snapshotTaken = false;
@@ -1155,40 +1209,41 @@ function draw(ts) {
 
   ctx.clearRect(0, 0, W, H);
 
-  const cosR = Math.cos(rotation), sinR = Math.sin(rotation);
+  cosR = Math.cos(rotation); sinR = Math.sin(rotation);
   const yMin = -20, yMax = H + 20;
   const dotBase = Math.max(0.7, GLOBE_R / 780);
   const inGlobe = globeT > 0.05;
 
   // ================================================================
-  // PASS 1 — land + ocean dots (unified globe↔morph)
+  // PASS 1 — land + ocean dots (unified globe↔morph, 3-D lerp)
+  //
+  // Each particle stores (cx,cy,cz) — its current interpolated 3-D
+  // position — which eases toward the target (tx3,ty3,tz3) in morph
+  // mode, or toward the globe's own p3 in globe mode.
+  // A single globeProject() call converts the lerped coord to screen.
   // ================================================================
+  const ease = 0.038;
   for (let i = 0; i < particles.length; i++) {
     const p = particles[i];
     const d = gDots[i];
 
-    const [gsx, gsy, gtz] = globeProject(d.p3[0], d.p3[1], d.p3[2], cosR, sinR);
-    const onFront = gtz > 0 && gsy >= yMin && gsy <= yMax;
+    // Globe position (rotates continuously)
+    const gx = d.p3[0], gy = d.p3[1], gz = d.p3[2];
 
-    // Always ease morph position
-    p.x += (p.tx - p.x) * 0.038;
-    p.y += (p.ty - p.y) * 0.038;
+    // 3-D lerp target: globe when globeT=1, morph target when globeT=0
+    const wx = gx * globeT + p.tx3 * (1 - globeT);
+    const wy = gy * globeT + p.ty3 * (1 - globeT);
+    const wz = gz * globeT + p.tz3 * (1 - globeT);
 
-    // Blend screen position
-    let px, py;
-    if (globeT >= 0.999) {
-      if (!onFront) continue;
-      px = gsx; py = gsy;
-    } else if (globeT <= 0.001) {
-      px = p.x; py = p.y;
-    } else {
-      const srcX = onFront ? gsx : globeCX + (i % 9 - 4) * 30;
-      const srcY = onFront ? gsy : globeCY + 30;
-      px = srcX * globeT + p.x * (1 - globeT);
-      py = srcY * globeT + p.y * (1 - globeT);
-    }
+    // Ease current 3-D position toward weighted target
+    p.cx += (wx - p.cx) * ease;
+    p.cy += (wy - p.cy) * ease;
+    p.cz += (wz - p.cz) * ease;
 
-    // Ocean: pixel-rect, very faint, skip in morph
+    // Project to screen
+    const [px, py, depth3] = globeProject(p.cx, p.cy, p.cz, cosR, sinR);
+
+    // Ocean dots: pixel-rect, very faint, fade out in morph
     if (d.isOcean) {
       const a = 0.07 * Math.min(globeT * 3, 1);
       if (a < 0.01) continue;
@@ -1197,16 +1252,22 @@ function draw(ts) {
       continue;
     }
 
-    // Land dot visual
-    const depth = onFront ? Math.max(0, gtz / GLOBE_R) : 0.5;
-    const gAlpha = 0.35 + 0.55 * depth;
-    const gSize  = dotBase * (0.55 + 0.45 * depth);
+    // In pure globe mode, skip back-hemisphere dots
+    if (globeT >= 0.999 && depth3 <= 0) continue;
+
+    // Depth for visual properties: use true 3-D depth clamped to [0,1]
+    const depthN = Math.max(0, Math.min(depth3 / GLOBE_R, 1));
+    const gAlpha = 0.35 + 0.55 * depthN;
+    const gSize  = dotBase * (0.55 + 0.45 * depthN);
     const mAlpha = p.baseAlpha;
     const mSize  = p.size;
 
     let alpha = gAlpha * globeT + mAlpha * (1 - globeT);
     let size  = gSize  * globeT + mSize  * (1 - globeT);
     alpha = Math.min(alpha, 1);
+
+    // Clip off-canvas dots
+    if (px < -10 || px > W + 10 || py < -10 || py > H + 10) continue;
 
     ctx.fillStyle = `rgba(0,0,0,${alpha.toFixed(3)})`;
     ctx.beginPath();
