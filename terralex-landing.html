@@ -394,7 +394,7 @@ footer {
 <!-- ============================================================
      PROOF — text LEFT, dots RIGHT (odd)
 ============================================================ -->
-<div class="split-section odd" id="proof" data-shape="scatter">
+<div class="split-section odd" id="proof" data-shape="shield-obj">
   <div class="split-text">
     <div class="section-label">The Network</div>
     <div class="section-title">A global standard for cross-border legal work</div>
@@ -1232,8 +1232,12 @@ function loadOBJ(name, objText, opts = {}) {
   objShapeMap[name] = true;
   console.log(`loadOBJ("${name}"): ${verts.length} verts, ${faces.length} faces → registered`);
 
-  // If this shape is currently active, refresh the morph targets immediately
-  if (currentShape === name && particles.length > 0) setMorphTargets(name);
+  // Apply immediately if this shape is currently visible or was requested
+  // while the file was still loading
+  if ((currentShape === name || pendingShape === name) && particles.length > 0) {
+    currentShape = name;
+    setMorphTargets(name);
+  }
 }
 
 // Convenience: load an OBJ file by URL (fetch)
@@ -1244,9 +1248,17 @@ function loadOBJFromURL(name, url, opts = {}) {
     .catch(err => console.warn(`loadOBJFromURL("${name}", "${url}"): ${err}`));
 }
 
+let pendingShape = null; // shape name requested before its OBJ was ready
+
 function setMorphTargets(name) {
   const gen = shapeMap[name];
-  if (!gen) return;
+  if (!gen) {
+    // OBJ not loaded yet — remember the request, apply when it arrives
+    pendingShape = name;
+    return;
+  }
+  pendingShape = null;
+  if (particles.length === 0) return;
   const n    = particles.length;
   const tgts = gen(n);
   for (let i = 0; i < n; i++) {
@@ -1539,17 +1551,25 @@ window.addEventListener('resize', () => {
 // ----------------------------------------------------------------
 // BOOT
 // ----------------------------------------------------------------
+
+// Load OBJ assets in parallel with the globe data.
+// loadOBJFromURL registers the shape as soon as the file arrives;
+// if the user hasn't scrolled to that section yet it's ready in time.
+loadOBJFromURL('shield-obj', '3d assets/11502_Shield_v202.obj', {
+  side:  'right',   // proof section is odd → dots on right
+  scale: 0.88       // slight breathing room inside the panel
+});
+
 fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
   .then(r => r.json())
   .then(topo => {
     buildMask(topoRings(topo));
     precomputeGlobe();
-    buildParticles();           // one particle per globe dot
-    buildFirmDots();            // exact lat/lon 3-D positions for firms
-    setMorphTargets('scatter'); // pre-warm morph targets (first section)
+    buildParticles();   // one particle per globe dot
+    buildFirmDots();    // exact lat/lon 3-D positions for firms
+    detectSection();    // sets currentShape + calls setMorphTargets for visible section
     document.getElementById('loading').style.opacity = '0';
     setTimeout(() => document.getElementById('loading').style.display = 'none', 600);
-    detectSection();
     requestAnimationFrame(draw);
   })
   .catch(() => {
