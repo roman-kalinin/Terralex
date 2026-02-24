@@ -1222,11 +1222,24 @@ function loadOBJ(name, objText, opts = {}) {
   const sideOpt   = opts.side   || 'auto';
   const scaleMul  = opts.scale  || 1.0;
 
+  // axes: which OBJ axes map to screen [x, y] for fitToPanel
+  // Default 'xy' — OBJ x→screenX, OBJ y→screenY (Y-flipped)
+  // Use 'xz' for top-down models where Z is the vertical axis
+  // Use 'zy' for side-on models exported with Z forward
+  const axes = opts.axes || 'xy';
+
   shapeMap[name] = (n) => {
-    const side = sideOpt === 'auto' ? shapeSide(name) : sideOpt;
+    const side   = sideOpt === 'auto' ? shapeSide(name) : sideOpt;
     const rDepth = opts.depth != null ? opts.depth : morphDepth();
-    const raw  = sampleMesh(verts, faces, n);
-    return fitToPanel(raw, side, scaleMul, rDepth);
+    const raw    = sampleMesh(verts, faces, n);
+    // Remap axes to [panelX, panelY] before fitting
+    const remapped = raw.map(([x, y, z]) => {
+      if (axes === 'xz') return [x,  z];   // top-down: use X and Z
+      if (axes === 'zy') return [z,  y];   // Z-forward: use Z and Y
+      if (axes === 'zx') return [z,  x];
+      return [x, y];                        // default
+    });
+    return fitToPanel(remapped, side, scaleMul, rDepth);
   };
 
   objShapeMap[name] = true;
@@ -1314,6 +1327,11 @@ let isDragging = false, dragStartX = 0, dragRot = 0;
 let mouseX = -9999, mouseY = -9999;
 let lineAnim    = 0;
 
+// Cursor-driven tilt for morph mode — eased toward mouse position
+let tiltYaw   = 0;  // Y-axis (left/right) — driven by mouseX
+let tiltPitch = 0;  // X-axis (up/down)    — driven by mouseY
+const TILT_MAX = 0.35; // max tilt angle in radians (~20°)
+
 // Nearest visible globe dot for general hover
 let hoveredDot = null;   // { sx, sy, firm? }
 
@@ -1367,11 +1385,27 @@ function draw(ts) {
   }
   if (globeT > 0.995) snapshotTaken = false;
 
-  if (!isDragging) rotation -= ROT_SPEED;
+  // Auto-rotation scales down to zero as globeT → 0, so morph shapes
+  // gradually stop spinning and hold still when fully morphed
+  if (!isDragging) rotation -= ROT_SPEED * globeT;
 
   ctx.clearRect(0, 0, W, H);
 
-  cosR = Math.cos(rotation); sinR = Math.sin(rotation);
+  // Ease cursor tilt toward mouse position (only active in morph mode)
+  const morphT = 1 - globeT; // 0 = globe, 1 = fully morphed
+  const targetYaw   = mouseX < 0 ? 0 : ((mouseX / W) - 0.5) * 2 * TILT_MAX * morphT;
+  const targetPitch = mouseY < 0 ? 0 : ((mouseY / H) - 0.5) * 2 * TILT_MAX * morphT;
+  tiltYaw   += (targetYaw   - tiltYaw)   * 0.06;
+  tiltPitch += (targetPitch - tiltPitch) * 0.06;
+
+  // Combined rotation = globe auto-rotation + cursor yaw tilt
+  const totalYaw = rotation + tiltYaw;
+  cosR = Math.cos(totalYaw); sinR = Math.sin(totalYaw);
+
+  // Extra X-axis tilt from cursor pitch — applied after base tilt
+  // We do this by composing a small rotation into the projection
+  const cosPitch = Math.cos(tiltPitch), sinPitch = Math.sin(tiltPitch);
+
   const yMin = -20, yMax = H + 20;
   const dotBase = Math.max(0.7, GLOBE_R / 780);
   const inGlobe = globeT > 0.05;
@@ -1402,8 +1436,18 @@ function draw(ts) {
     p.cy += (wy - p.cy) * ease;
     p.cz += (wz - p.cz) * ease;
 
+    // Apply cursor pitch (X-axis rotation) on top of the Y-axis rotation.
+    // Pitch is blended by morphT so it has no effect in globe mode.
+    let pcx = p.cx, pcy = p.cy, pcz = p.cz;
+    if (morphT > 0.01) {
+      // Rotate around X axis: y' = y*cosPitch - z*sinPitch, z' = y*sinPitch + z*cosPitch
+      const ny = pcy * cosPitch - pcz * sinPitch;
+      const nz = pcy * sinPitch + pcz * cosPitch;
+      pcy = ny; pcz = nz;
+    }
+
     // Project to screen
-    const [px, py, depth3] = globeProject(p.cx, p.cy, p.cz, cosR, sinR);
+    const [px, py, depth3] = globeProject(pcx, pcy, pcz, cosR, sinR);
 
     // Ocean dots: pixel-rect, very faint, fade out in morph
     if (d.isOcean) {
@@ -1557,7 +1601,8 @@ window.addEventListener('resize', () => {
 // if the user hasn't scrolled to that section yet it's ready in time.
 loadOBJFromURL('shield-obj', '3d assets/11502_Shield_v202.obj', {
   side:  'right',   // proof section is odd → dots on right
-  scale: 0.88       // slight breathing room inside the panel
+  scale: 0.88,
+  axes:  'xz'       // model is top-down: OBJ X→screenX, OBJ Z→screenY
 });
 
 fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
