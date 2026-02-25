@@ -333,51 +333,55 @@ nav.scrolled { padding: 14px 48px; }
 .story-link:hover { color: #fff; border-color: rgba(255,255,255,0.7); }
 
 /* ---- HOW IT WORKS — dark inversion ---- */
-/* When the how-section is dominant, body gets class .theme-dark.
-   The split-text pane background and dot colours all transition. */
-body.theme-dark {
-  background: #111;
+/* All dark-mode colour is driven by the CSS variable --dark (0→1),
+   set inline on <html> every frame from JS. No black backgrounds are
+   ever placed on HTML elements — only the canvas and html root change,
+   so dots are never clipped by content blocks.
+   color-mix() linearly blends white↔dark for each property. */
+
+html {
+  --dark: 0; /* updated by JS each frame, 0=light 1=dark */
 }
-body.theme-dark #masterCanvas {
-  /* dots re-coloured in JS, no CSS needed here */
+
+/* html background: white → #111 */
+html {
+  background: color-mix(in srgb, #111 calc(var(--dark) * 100%), #fff);
 }
-/* Nav goes dark */
-body.theme-dark nav {
-  background: rgba(17,17,17,0.93);
-  border-bottom-color: rgba(255,255,255,0.06);
+
+/* Nav background and text */
+nav {
+  background: color-mix(in srgb, rgba(17,17,17,0.93) calc(var(--dark) * 100%), rgba(255,255,255,0.93));
+  border-bottom-color: color-mix(in srgb, rgba(255,255,255,0.06) calc(var(--dark) * 100%), rgba(0,0,0,0.05));
 }
-body.theme-dark nav .nav-logo,
-body.theme-dark nav .nav-links a { color: #ddd; }
-body.theme-dark nav .nav-cta {
-  border-color: #ddd; color: #ddd;
+.nav-logo,
+.nav-links a {
+  color: color-mix(in srgb, #ddd calc(var(--dark) * 100%), #333);
 }
-body.theme-dark nav .nav-cta:hover { background: #ddd; color: #111; }
-/* How section text pane */
-#how.dark-active .split-text {
-  background: #111;
-  color: #e8e8e8;
+.nav-cta {
+  border-color: color-mix(in srgb, #ddd calc(var(--dark) * 100%), #111) !important;
+  color: color-mix(in srgb, #ddd calc(var(--dark) * 100%), #111) !important;
 }
-#how.dark-active .section-label { color: #666; }
-#how.dark-active .section-title { color: #f0f0f0; }
-#how.dark-active .step-num { color: #2a2a2a; }
-#how.dark-active .step h3 { color: #e0e0e0; }
-#how.dark-active .step p  { color: #777; }
-/* Add a dark fill behind the dots pane too */
-#how.dark-active .split-dots::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: #111;
-  pointer-events: none;
-  z-index: 1;
+
+/* How section — text pane: transparent so canvas shows through */
+#how .split-text {
+  background: transparent;
+  color: color-mix(in srgb, #e8e8e8 calc(var(--dark) * 100%), #333);
 }
-/* Smooth transitions */
-nav, nav .nav-logo, nav .nav-links a, nav .nav-cta,
-#how .split-text, #how .section-label, #how .section-title,
-#how .step-num, #how .step h3, #how .step p,
-#how .split-dots::before {
-  transition: background 0.5s ease, color 0.4s ease, border-color 0.4s ease;
+#how .section-label {
+  color: color-mix(in srgb, #666 calc(var(--dark) * 100%), #777);
 }
-html { transition: background 0.5s ease; }
+#how .section-title {
+  color: color-mix(in srgb, #f0f0f0 calc(var(--dark) * 100%), #111);
+}
+#how .step-num {
+  color: color-mix(in srgb, #333 calc(var(--dark) * 100%), #e8e8e8);
+}
+#how .step h3 {
+  color: color-mix(in srgb, #e0e0e0 calc(var(--dark) * 100%), #111);
+}
+#how .step p {
+  color: color-mix(in srgb, #777 calc(var(--dark) * 100%), #777);
+}
 
 /* ---- INSIGHTS — image card slider ---- */
 .insights-section {
@@ -1739,21 +1743,23 @@ function detectSection() {
 }
 
 // Dark theme inversion — driven by how much of #how is in the viewport.
-// dotTheme eases 0→1 as the section enters; 0=dark dots, 1=white dots.
-let dotTheme = 0; // 0 = normal (dark dots), 1 = inverted (white dots)
+// dotTheme eases 0→1; drives both canvas dot colour and the CSS --dark variable.
+// No black backgrounds are placed on any HTML element — only the canvas and
+// html root background change, so dots are never clipped by content blocks.
+let dotTheme = 0; // 0 = light (dark dots on white), 1 = dark (white dots on black)
 
 function updateTheme() {
   const howEl = document.getElementById('how');
   if (!howEl) return;
   const r = howEl.getBoundingClientRect();
-  // visibility fraction: 0 = not visible, 1 = fully covering viewport
+  // visibility fraction of the section vs viewport height
   const vis = Math.max(0, Math.min(1, (Math.min(r.bottom, H) - Math.max(r.top, 0)) / H));
-  const dark = vis > 0.25;
-  document.body.classList.toggle('theme-dark', dark);
-  howEl.classList.toggle('dark-active', dark);
-  // dotTheme target: 1 when how section is dominant
-  const target = vis > 0.25 ? Math.min((vis - 0.25) / 0.35, 1) : 0;
-  dotTheme += (target - dotTheme) * 0.07;
+  // target: ramp from 0→1 as vis goes 0.1→0.6, then back to 0 as section exits
+  const target = Math.max(0, Math.min(1, (vis - 0.1) / 0.5));
+  // Slow ease — ~0.025 at 60fps ≈ ~1.5s full transition
+  dotTheme += (target - dotTheme) * 0.025;
+  // Push to CSS so color-mix() in the stylesheet picks it up
+  document.documentElement.style.setProperty('--dark', dotTheme.toFixed(4));
 }
 
 // Parallax for stories background
@@ -1770,7 +1776,6 @@ function updateParallax() {
 window.addEventListener('scroll', detectSection, { passive: true });
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
-  updateTheme();
   updateParallax();
 }, { passive: true });
 
@@ -1859,6 +1864,7 @@ function draw(ts) {
   const now = frameTime * 0.001; // seconds
 
   globeT += (targetGlobeT - globeT) * 0.055;
+  updateTheme();
 
   if (!snapshotTaken && globeT < 0.985 && gDots.length > 0) {
     takeSnapshot();
@@ -1870,13 +1876,9 @@ function draw(ts) {
   // gradually stop spinning and hold still when fully morphed
   if (!isDragging) rotation -= ROT_SPEED * globeT;
 
-  // In dark-theme mode fill the canvas dark so dots show as white
-  if (dotTheme > 0.01) {
-    ctx.fillStyle = `rgba(17,17,17,${dotTheme.toFixed(3)})`;
-    ctx.fillRect(0, 0, W, H);
-  } else {
-    ctx.clearRect(0, 0, W, H);
-  }
+  // Always clear to transparent. The html background (white→#111 via --dark)
+  // shows through behind the canvas, so we never fill HTML elements black.
+  ctx.clearRect(0, 0, W, H);
 
   // Ease cursor tilt toward mouse position (only active in morph mode)
   const morphT = 1 - globeT; // 0 = globe, 1 = fully morphed
