@@ -487,11 +487,11 @@ footer {
   <div class="sep"></div>
 
   <div class="row"><label>Offset X</label>
-    <input type="range" id="edOffX" min="-800" max="800" step="1" value="0">
+    <input type="range" id="edOffX" min="-500" max="500" step="1" value="0">
     <input type="number" class="num" id="edOffXNum" step="1" value="0">
   </div>
   <div class="row"><label>Offset Y</label>
-    <input type="range" id="edOffY" min="-800" max="800" step="1" value="0">
+    <input type="range" id="edOffY" min="-500" max="500" step="1" value="0">
     <input type="number" class="num" id="edOffYNum" step="1" value="0">
   </div>
 
@@ -1054,29 +1054,21 @@ function shapeSide(name) {
   return even[name] ? 'left' : 'right';
 }
 
-// Convert a target screen position (sx, sy) to globe-local 3-D coords.
-// rDepth is the desired depth in the post-rotation (viewer) frame —
-// positive = in front of the globe centre, toward the viewer.
+// Convert a target screen position (sx, sy) to globe-local 3-D coords
+// using a CANONICAL rotation of zero (cosR=1, sinR=0).
 //
-// Steps:
-//   1. Compute rotated-frame rx = sx - globeCX, rz = rDepth
-//   2. Compute rotated-frame ry from screen_y:
-//      screen_y = globeCY - (ry*cosT - rz*sinT)  →  ry = (globeCY - sy + rz*sinT) / cosT
-//   3. Invert Y-axis rotation (R^T since it's orthogonal):
-//      x = rx*cosR - rz*sinR
-//      y = ry
-//      z = rx*sinR + rz*cosR
+// All shape generators must use this function — never the live cosR/sinR —
+// so that cached morph targets are rotation-independent. At render time the
+// loop applies the actual rotation, so the shape lands correctly at any angle.
 //
-// Uses module-level cosR / sinR (updated each draw frame).
+// At cosR=1, sinR=0 the inverse-rotation simplifies to:
+//   x = rx,  z = rDepth
+// ry is unchanged because the X-tilt (TILT=-0.42) is a fixed constant.
 function screenTo3D(sx, sy, rDepth) {
   const rx = sx - globeCX;
   const rz = rDepth;
   const ry = (globeCY - sy + rz * sinT) / cosT;
-  return [
-    rx * cosR - rz * sinR,
-    ry,
-    rx * sinR + rz * cosR
-  ];
+  return [rx, ry, rz];
 }
 
 // Panel bounds in screen space for each side
@@ -1436,19 +1428,15 @@ function loadOBJ(name, objText, opts = {}) {
 
     const result = fitToPanel(remapped, side, live.scale || 1.0, rDepth);
 
-    // offsetX/offsetY in screen pixels — convert to globe-space delta
+    // offsetX/offsetY are screen-pixel offsets applied linearly in globe-space.
+    // Projection: screenX = globeCX + local_x  →  delta_x = offsetX (1:1)
+    // Projection: screenY = globeCY - local_y*cosT  →  delta_y = -offsetY / cosT
     const ox = live.offsetX || 0;
     const oy = live.offsetY || 0;
     if (ox || oy) {
-      const b  = panelBounds(side);
-      const cx = (b.sx0 + b.sx1) / 2;
-      const cy = (b.sy0 + b.sy1) / 2;
-      const base  = screenTo3D(cx,      cy,      morphDepth());
-      const baseX = screenTo3D(cx + ox, cy,      morphDepth());
-      const baseY = screenTo3D(cx,      cy + oy, morphDepth());
-      const dx = baseX[0]-base[0], dy = baseX[1]-base[1], dz = baseX[2]-base[2];
-      const ex = baseY[0]-base[0], ey = baseY[1]-base[1], ez = baseY[2]-base[2];
-      return result.map(([x, y, z]) => [x+dx+ex, y+dy+ey, z+dz+ez]);
+      const dx = ox;
+      const dy = -oy / cosT;
+      return result.map(([x, y, z]) => [x + dx, y + dy, z]);
     }
     return result;
   };
@@ -1556,7 +1544,7 @@ window.addEventListener('scroll', () => {
 // ----------------------------------------------------------------
 let rotation   = 0;
 const ROT_SPEED = 0.0004;
-let cosR = 1, sinR = 0;  // updated each frame; used by screenTo3D in shape generators
+let cosR = 1, sinR = 0;  // updated each frame; used by the render loop and globeProject
 let isDragging = false, dragStartX = 0, dragRot = 0;
 let mouseX = -9999, mouseY = -9999;
 let lineAnim    = 0;
@@ -1648,9 +1636,9 @@ function draw(ts) {
   const dotBase = Math.max(0.7, GLOBE_R / 780);
   const inGlobe = globeT > 0.05;
 
-  // Pivot is always the globe projection origin — morph targets are already
-  // baked into globe-space via screenTo3D(sx,sy) using globeCX/globeCY,
-  // so projecting with globeCX/globeCY as origin lands them exactly on-screen.
+  // Pivot is always the globe projection origin — morph targets are baked in
+  // canonical (cosR=1,sinR=0) globe-space via screenTo3D, so the render loop's
+  // yaw rotation places them correctly on-screen at any rotation angle.
   const pivotX = globeCX;
   const pivotY = globeCY;
 
@@ -1847,6 +1835,8 @@ window.addEventListener('resize', () => {
     buildParticles();
     buildFirmDots();
   }
+  // Cached targets were baked with the old globeCX/globeCY/GLOBE_R — clear them.
+  for (const k in morphCache) delete morphCache[k];
   if (currentShape !== 'globe') setMorphTargets(currentShape);
 });
 
@@ -1859,32 +1849,29 @@ window.addEventListener('resize', () => {
 // if the user hasn't scrolled to that section yet it's ready in time.
 loadOBJFromURL('city-obj', '3d assets/City.obj', {
   side: 'right',
-  scale: 2.050,
+  scale: 1.690,
   rotX: -4,
   rotY: 9,
-  offsetX: 88,
-  offsetY: 38,
 });
 loadOBJFromURL('compass-obj', '3d assets/Compass 3d.obj', {
   side: 'right',
   scale: 0.870,
   rotX: 163,
   rotY: 116,
-  offsetY: -25,
+  offsetX: -104,
 });
 loadOBJFromURL('loudspeaker-obj', '3d assets/Loudspeaker.obj', {
   side: 'right',
   scale: 1.000,
-  offsetX: 15,
+  offsetX: 207,
 });
 loadOBJFromURL('handshake-obj', '3d assets/handshake.obj', {
   side: 'left',
-  scale: 1.250,
+  scale: 1.020,
   rotX: -19,
   rotY: -95,
   rotZ: 62,
-  offsetX: -781,
-  offsetY: 7,
+  offsetX: 48,
 });
 
 fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
