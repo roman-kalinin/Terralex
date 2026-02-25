@@ -251,41 +251,194 @@ nav.scrolled { padding: 14px 48px; }
 }
 .search-box button:hover { opacity: 0.8; }
 
-/* ---- STORIES ---- */
-.stories-stack { display: flex; flex-direction: column; gap: 24px; }
-.story-card {
-  border: 1px solid var(--faint); padding: 28px;
-  transition: border-color 0.25s, box-shadow 0.25s;
+/* ---- STORIES — full-width dark parallax ---- */
+.stories-parallax {
+  position: relative; z-index: 2;
+  min-height: 88vh;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
 }
-.story-card:hover { border-color: var(--light); box-shadow: 0 6px 32px rgba(0,0,0,0.04); }
-.story-tag { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); margin-bottom: 12px; }
+.stories-parallax-bg {
+  position: absolute; inset: -80px 0;
+  background: url('https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=1800&q=80&auto=format&fit=crop') center/cover no-repeat;
+  will-change: transform;
+}
+.stories-parallax-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(0,0,0,0.18) 0%,
+    rgba(0,0,0,0.62) 60%,
+    rgba(0,0,0,0.82) 100%);
+}
+/* Curved mask — ellipse cut out of the top */
+.stories-parallax::before {
+  content: '';
+  position: absolute; top: -1px; left: -5%; width: 110%; height: 140px;
+  background: #fff;
+  border-radius: 0 0 50% 50%;
+  z-index: 3;
+}
+.stories-parallax::after {
+  content: '';
+  position: absolute; bottom: -1px; left: -5%; width: 110%; height: 140px;
+  background: #fff;
+  border-radius: 50% 50% 0 0;
+  z-index: 3;
+}
+.stories-content {
+  position: relative; z-index: 4;
+  max-width: 860px; margin: 0 auto;
+  padding: 180px 64px;
+  text-align: center; color: #fff;
+}
+.stories-content .section-label { color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+.stories-content .section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 400; line-height: 1.18;
+  color: #fff; margin-bottom: 64px; max-width: none;
+}
+.stories-cards {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  text-align: left;
+}
+.story-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(12px);
+  padding: 32px;
+  transition: background 0.25s, border-color 0.25s;
+}
+.story-card:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.3);
+}
+.story-tag {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); margin-bottom: 12px;
+}
 .story-card h3 {
   font-family: 'Instrument Serif', serif;
-  font-size: 19px; font-weight: 400; line-height: 1.3; margin-bottom: 8px;
+  font-size: 18px; font-weight: 400; line-height: 1.3;
+  margin-bottom: 10px; color: #fff;
 }
-.story-card p { font-size: 13px; color: var(--mid); line-height: 1.55; }
+.story-card p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; }
 .story-link {
+  display: inline-block; margin-top: 14px;
+  font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+  color: rgba(255,255,255,0.7); text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.25); padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.story-link:hover { color: #fff; border-color: rgba(255,255,255,0.7); }
+
+/* ---- HOW IT WORKS — dark inversion ---- */
+/* When the how-section is dominant, body gets class .theme-dark.
+   The split-text pane background and dot colours all transition. */
+body.theme-dark {
+  background: #111;
+}
+body.theme-dark #masterCanvas {
+  /* dots re-coloured in JS, no CSS needed here */
+}
+/* Nav goes dark */
+body.theme-dark nav {
+  background: rgba(17,17,17,0.93);
+  border-bottom-color: rgba(255,255,255,0.06);
+}
+body.theme-dark nav .nav-logo,
+body.theme-dark nav .nav-links a { color: #ddd; }
+body.theme-dark nav .nav-cta {
+  border-color: #ddd; color: #ddd;
+}
+body.theme-dark nav .nav-cta:hover { background: #ddd; color: #111; }
+/* How section text pane */
+#how.dark-active .split-text {
+  background: #111;
+  color: #e8e8e8;
+}
+#how.dark-active .section-label { color: #666; }
+#how.dark-active .section-title { color: #f0f0f0; }
+#how.dark-active .step-num { color: #2a2a2a; }
+#how.dark-active .step h3 { color: #e0e0e0; }
+#how.dark-active .step p  { color: #777; }
+/* Add a dark fill behind the dots pane too */
+#how.dark-active .split-dots::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: #111;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Smooth transitions */
+nav, nav .nav-logo, nav .nav-links a, nav .nav-cta,
+#how .split-text, #how .section-label, #how .section-title,
+#how .step-num, #how .step h3, #how .step p,
+#how .split-dots::before {
+  transition: background 0.5s ease, color 0.4s ease, border-color 0.4s ease;
+}
+html { transition: background 0.5s ease; }
+
+/* ---- INSIGHTS — image card slider ---- */
+.insights-section {
+  position: relative; z-index: 2;
+  background: #fff;
+  padding: 100px 64px 120px;
+}
+.insights-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 48px;
+}
+.insights-header-left .section-label { margin-bottom: 8px; }
+.insights-header-left .section-title { margin-bottom: 0; font-size: clamp(22px, 2.8vw, 36px); }
+.insights-nav { display: flex; gap: 12px; padding-bottom: 4px; }
+.insights-nav button {
+  width: 40px; height: 40px;
+  border: 1px solid var(--faint); background: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: var(--dark);
+  transition: border-color 0.2s, color 0.2s;
+}
+.insights-nav button:hover { border-color: var(--black); color: var(--black); }
+.insights-track-wrap { overflow: hidden; }
+.insights-track {
+  display: flex; gap: 28px;
+  transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+  will-change: transform;
+}
+.insight-card {
+  flex: 0 0 calc(33.333% - 19px);
+  min-width: 0;
+  cursor: pointer;
+}
+.insight-card-img {
+  width: 100%; aspect-ratio: 4/3;
+  overflow: hidden; background: var(--faint);
+  margin-bottom: 20px;
+}
+.insight-card-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.insight-card:hover .insight-card-img img { transform: scale(1.04); }
+.insight-card-tag {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 10px;
+}
+.insight-card h4 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 19px; font-weight: 400; line-height: 1.3;
+  margin-bottom: 8px; color: var(--black);
+}
+.insight-card p { font-size: 13px; color: var(--mid); line-height: 1.55; }
+.insight-card-link {
   display: inline-block; margin-top: 12px;
   font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
   color: var(--black); text-decoration: none;
   border-bottom: 1px solid var(--faint); padding-bottom: 2px;
   transition: border-color 0.2s;
 }
-.story-link:hover { border-color: var(--black); }
-
-/* ---- INSIGHTS ---- */
-.insights-list { display: flex; flex-direction: column; gap: 0; }
-.insight-row {
-  padding: 20px 0; border-bottom: 1px solid var(--faint);
-  transition: padding-left 0.2s;
-}
-.insight-row:hover { padding-left: 8px; }
-.insight-date { font-size: 10px; letter-spacing: 1px; color: var(--light); margin-bottom: 6px; }
-.insight-row h4 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 17px; font-weight: 400; line-height: 1.3; margin-bottom: 4px;
-}
-.insight-row p { font-size: 12px; color: var(--mid); line-height: 1.5; }
+.insight-card-link:hover { border-color: var(--black); }
 
 /* ---- EVENTS ---- */
 .events-list { display: flex; flex-direction: column; gap: 0; }
@@ -638,14 +791,15 @@ footer {
 </div>
 
 <!-- ============================================================
-     SUCCESS STORIES — dots LEFT, text RIGHT (even)
+     SUCCESS STORIES — full-width dark parallax
 ============================================================ -->
-<div class="split-section even" id="stories" data-shape="shield">
-  <div class="split-dots"></div>
-  <div class="split-text">
+<div class="stories-parallax" id="stories" data-shape="globe">
+  <div class="stories-parallax-bg" id="storiesBg"></div>
+  <div class="stories-parallax-overlay"></div>
+  <div class="stories-content">
     <div class="section-label">Collaboration in Action</div>
-    <div class="section-title">Cross-border success stories</div>
-    <div class="stories-stack">
+    <div class="section-title">Cross-border success<br><em>at scale</em></div>
+    <div class="stories-cards">
       <div class="story-card">
         <div class="story-tag">M&A · 6 Jurisdictions</div>
         <h3>Multi-jurisdiction acquisition for a Fortune 500 technology company</h3>
@@ -658,41 +812,91 @@ footer {
         <p>Synchronized proceedings in four EU jurisdictions, achieving injunctions within 30 days.</p>
         <a href="#" class="story-link">Read the story →</a>
       </div>
+      <div class="story-card">
+        <div class="story-tag">Restructuring · 4 Markets</div>
+        <h3>Cross-border debt restructuring for a European infrastructure group</h3>
+        <p>Coordinated insolvency proceedings across the UK, Netherlands, Germany, and Spain.</p>
+        <a href="#" class="story-link">Read the story →</a>
+      </div>
+      <div class="story-card">
+        <div class="story-tag">Arbitration · Asia-Pacific</div>
+        <h3>International arbitration for a regional energy joint venture</h3>
+        <p>Singapore-seated arbitration resolved a $340M dispute across three APAC jurisdictions.</p>
+        <a href="#" class="story-link">Read the story →</a>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- ============================================================
-     INSIGHTS — text LEFT, dots RIGHT (odd)
+     INSIGHTS — full-width image card slider
 ============================================================ -->
-<div class="split-section odd" id="insights" data-shape="loudspeaker-obj">
-  <div class="split-text">
-    <div class="section-label">Insights & Guides</div>
-    <div class="section-title">Cross-border intelligence</div>
-    <div class="insights-list">
-      <div class="insight-row">
-        <div class="insight-date">Feb 2026</div>
-        <h4>EU AI Act Compliance Guide for US Multinationals</h4>
-        <p>Practical roadmap for companies operating across US and EU markets.</p>
-      </div>
-      <div class="insight-row">
-        <div class="insight-date">Jan 2026</div>
-        <h4>Global M&A Regulatory Trends</h4>
-        <p>Merger control developments across 40 jurisdictions.</p>
-      </div>
-      <div class="insight-row">
-        <div class="insight-date">Dec 2025</div>
-        <h4>Cross-Border Employment Handbook</h4>
-        <p>Hiring, termination, and compliance across 25 key markets.</p>
-      </div>
-      <div class="insight-row">
-        <div class="insight-date">Nov 2025</div>
-        <h4>International Arbitration Seat Comparison</h4>
-        <p>London, Singapore, Paris, and New York benchmarked.</p>
-      </div>
+<div class="insights-section" id="insights" data-shape="loudspeaker-obj">
+  <div class="insights-header">
+    <div class="insights-header-left">
+      <div class="section-label">Insights &amp; Guides</div>
+      <div class="section-title">Cross-border intelligence</div>
+    </div>
+    <div class="insights-nav">
+      <button id="insightsPrev" aria-label="Previous">←</button>
+      <button id="insightsNext" aria-label="Next">→</button>
     </div>
   </div>
-  <div class="split-dots"></div>
+  <div class="insights-track-wrap">
+    <div class="insights-track" id="insightsTrack">
+
+      <div class="insight-card">
+        <div class="insight-card-img">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=75&auto=format&fit=crop" alt="Annual Report">
+        </div>
+        <div class="insight-card-tag">Report · Feb 2026</div>
+        <h4>EU AI Act Compliance Guide for US Multinationals</h4>
+        <p>Practical roadmap for companies operating across US and EU markets.</p>
+        <a href="#" class="insight-card-link">Read the guide →</a>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-card-img">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=75&auto=format&fit=crop" alt="M&A Report">
+        </div>
+        <div class="insight-card-tag">Analysis · Jan 2026</div>
+        <h4>Global M&amp;A Regulatory Trends</h4>
+        <p>Merger control developments across 40 jurisdictions.</p>
+        <a href="#" class="insight-card-link">Read the analysis →</a>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-card-img">
+          <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=75&auto=format&fit=crop" alt="Employment Handbook">
+        </div>
+        <div class="insight-card-tag">Handbook · Dec 2025</div>
+        <h4>Cross-Border Employment Handbook</h4>
+        <p>Hiring, termination, and compliance across 25 key markets.</p>
+        <a href="#" class="insight-card-link">Download →</a>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-card-img">
+          <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=75&auto=format&fit=crop" alt="Arbitration">
+        </div>
+        <div class="insight-card-tag">Benchmarking · Nov 2025</div>
+        <h4>International Arbitration Seat Comparison</h4>
+        <p>London, Singapore, Paris, and New York benchmarked.</p>
+        <a href="#" class="insight-card-link">Read the report →</a>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-card-img">
+          <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=75&auto=format&fit=crop" alt="Tax Guide">
+        </div>
+        <div class="insight-card-tag">Guide · Oct 2025</div>
+        <h4>Global Transfer Pricing: 2025 Update</h4>
+        <p>Key developments in transfer pricing rules across 30 countries.</p>
+        <a href="#" class="insight-card-link">Read the guide →</a>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <!-- ============================================================
@@ -1534,10 +1738,65 @@ function detectSection() {
   }
 }
 
+// Dark theme inversion — driven by how much of #how is in the viewport.
+// dotTheme eases 0→1 as the section enters; 0=dark dots, 1=white dots.
+let dotTheme = 0; // 0 = normal (dark dots), 1 = inverted (white dots)
+
+function updateTheme() {
+  const howEl = document.getElementById('how');
+  if (!howEl) return;
+  const r = howEl.getBoundingClientRect();
+  // visibility fraction: 0 = not visible, 1 = fully covering viewport
+  const vis = Math.max(0, Math.min(1, (Math.min(r.bottom, H) - Math.max(r.top, 0)) / H));
+  const dark = vis > 0.25;
+  document.body.classList.toggle('theme-dark', dark);
+  howEl.classList.toggle('dark-active', dark);
+  // dotTheme target: 1 when how section is dominant
+  const target = vis > 0.25 ? Math.min((vis - 0.25) / 0.35, 1) : 0;
+  dotTheme += (target - dotTheme) * 0.07;
+}
+
+// Parallax for stories background
+function updateParallax() {
+  const bg = document.getElementById('storiesBg');
+  if (!bg) return;
+  const el = document.getElementById('stories');
+  const r  = el.getBoundingClientRect();
+  const progress = (H - r.top) / (H + r.height); // 0 at enter, 1 at exit
+  const shift = (progress - 0.5) * 120; // ±60px travel
+  bg.style.transform = `translateY(${shift}px)`;
+}
+
 window.addEventListener('scroll', detectSection, { passive: true });
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+  updateTheme();
+  updateParallax();
 }, { passive: true });
+
+// Insights slider
+(function () {
+  const track = document.getElementById('insightsTrack');
+  if (!track) return;
+  const cards  = track.children;
+  let idx = 0;
+  const visible = 3;
+  const max = cards.length - visible;
+
+  function slide() {
+    const cardW = cards[0].getBoundingClientRect().width;
+    const gap   = 28;
+    track.style.transform = `translateX(-${idx * (cardW + gap)}px)`;
+  }
+
+  document.getElementById('insightsNext').addEventListener('click', () => {
+    if (idx < max) { idx++; slide(); }
+  });
+  document.getElementById('insightsPrev').addEventListener('click', () => {
+    if (idx > 0) { idx--; slide(); }
+  });
+  window.addEventListener('resize', slide);
+})();
 
 // ----------------------------------------------------------------
 // MOUSE / TOUCH
@@ -1611,7 +1870,13 @@ function draw(ts) {
   // gradually stop spinning and hold still when fully morphed
   if (!isDragging) rotation -= ROT_SPEED * globeT;
 
-  ctx.clearRect(0, 0, W, H);
+  // In dark-theme mode fill the canvas dark so dots show as white
+  if (dotTheme > 0.01) {
+    ctx.fillStyle = `rgba(17,17,17,${dotTheme.toFixed(3)})`;
+    ctx.fillRect(0, 0, W, H);
+  } else {
+    ctx.clearRect(0, 0, W, H);
+  }
 
   // Ease cursor tilt toward mouse position (only active in morph mode)
   const morphT = 1 - globeT; // 0 = globe, 1 = fully morphed
@@ -1699,7 +1964,8 @@ function draw(ts) {
     if (d.isOcean) {
       const a = 0.07 * Math.min(globeT * 3, 1);
       if (a < 0.01) continue;
-      ctx.fillStyle = `rgba(0,0,0,${a.toFixed(3)})`;
+      const oc = Math.round(255 * dotTheme);
+      ctx.fillStyle = `rgba(${oc},${oc},${oc},${a.toFixed(3)})`;
       ctx.fillRect(px - 0.5, py - 0.5, 1, 1);
       continue;
     }
@@ -1709,9 +1975,9 @@ function draw(ts) {
 
     // Depth for visual properties: use true 3-D depth clamped to [0,1]
     const depthN = Math.max(0, Math.min(depth3 / GLOBE_R, 1));
-    const gAlpha = 0.35 + 0.55 * depthN;
+    const gAlpha = 0.18 + 0.38 * depthN;
     const gSize  = dotBase * (0.55 + 0.45 * depthN);
-    const mAlpha = p.baseAlpha;
+    const mAlpha = p.baseAlpha * 0.72;
     const mSize  = p.size;
 
     let alpha = gAlpha * globeT + mAlpha * (1 - globeT);
@@ -1721,7 +1987,8 @@ function draw(ts) {
     // Clip off-canvas dots
     if (px < -10 || px > W + 10 || py < -10 || py > H + 10) continue;
 
-    ctx.fillStyle = `rgba(0,0,0,${alpha.toFixed(3)})`;
+    const dc = Math.round(255 * dotTheme);
+    ctx.fillStyle = `rgba(${dc},${dc},${dc},${alpha.toFixed(3)})`;
     ctx.beginPath();
     ctx.arc(px, py, size, 0, 6.2832);
     ctx.fill();
@@ -1756,13 +2023,14 @@ function draw(ts) {
       // Outer glow ring (always visible, grows on pulse)
       const glowR = pSize * 3.5;
       const grd   = ctx.createRadialGradient(sx, sy, 0, sx, sy, glowR);
-      grd.addColorStop(0, `rgba(0,0,0,${(0.14 * pulse * globeT).toFixed(3)})`);
-      grd.addColorStop(1, 'rgba(0,0,0,0)');
+      const fc = Math.round(255 * dotTheme);
+      grd.addColorStop(0, `rgba(${fc},${fc},${fc},${(0.14 * pulse * globeT).toFixed(3)})`);
+      grd.addColorStop(1, `rgba(${fc},${fc},${fc},0)`);
       ctx.fillStyle = grd;
       ctx.beginPath(); ctx.arc(sx, sy, glowR, 0, 6.2832); ctx.fill();
 
       // Firm dot
-      ctx.fillStyle = `rgba(10,10,10,${pAlpha.toFixed(3)})`;
+      ctx.fillStyle = `rgba(${fc},${fc},${fc},${pAlpha.toFixed(3)})`;
       ctx.beginPath(); ctx.arc(sx, sy, pSize, 0, 6.2832); ctx.fill();
 
       // Hover check
@@ -1863,7 +2131,7 @@ loadOBJFromURL('compass-obj', '3d assets/Compass 3d.obj', {
 loadOBJFromURL('loudspeaker-obj', '3d assets/Loudspeaker.obj', {
   side: 'right',
   scale: 1.000,
-  offsetX: 207,
+  offsetX: -10,
 });
 loadOBJFromURL('handshake-obj', '3d assets/handshake.obj', {
   side: 'left',
