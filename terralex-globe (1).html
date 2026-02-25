@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TerraLex Global Network</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #ffffff;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'DM Sans', sans-serif;
+    overflow: hidden;
+    color: #1a1a1a;
+  }
+
+  canvas {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: default;
+  }
+
+  .tooltip {
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 20;
+  }
+
+  .tooltip.visible { opacity: 1; }
+
+  .tooltip-card {
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 4px;
+    padding: 8px 12px;
+    backdrop-filter: blur(10px);
+    min-width: 150px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  }
+
+  .tooltip-city {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 1px;
+  }
+
+  .tooltip-firm {
+    font-size: 11px;
+    color: #555;
+    letter-spacing: 0.3px;
+  }
+
+  .tooltip-practice {
+    font-size: 10px;
+    color: #999;
+    margin-top: 3px;
+    letter-spacing: 0.2px;
+  }
+
+  .line-layer {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 5;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="globe"></canvas>
+<svg class="line-layer" id="lines"></svg>
+<div class="tooltip" id="tooltip">
+  <div class="tooltip-card">
+    <div class="tooltip-city" id="tt-city"></div>
+    <div class="tooltip-firm" id="tt-firm"></div>
+    <div class="tooltip-practice" id="tt-practice"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// ACCURATE COASTLINE POLYGONS (simplified but recognizable)
+// ============================================================
+const P = [
+  // North America mainland
+  [[49,-125],[50,-127],[54,-131],[58,-137],[60,-141],[62,-147],[64,-141],[66,-141],[68,-152],[70,-157],
+   [71,-157],[71,-152],[70,-148],[69,-146],[71,-140],[72,-126],[74,-95],[78,-74],[82,-62],[80,-65],
+   [76,-64],[73,-56],[68,-56],[63,-58],[60,-64],[56,-58],[52,-56],[48,-53],[46,-53],[44,-60],
+   [43,-65],[41,-70],[40,-74],[39,-75],[35,-75],[30,-81],[25,-80],[25,-82],[27,-83],[29,-85],
+   [30,-88],[29,-91],[29,-94],[27,-97],[26,-97],[25,-99],[23,-98],[21,-101],[19,-105],[21,-106],
+   [24,-108],[27,-111],[29,-113],[31,-116],[32,-117],[34,-120],[37,-122],[39,-124],[42,-124],
+   [44,-124],[46,-124],[48,-124],[49,-125]],
+  // Mexico / Central America
+  [[19,-105],[18,-96],[17,-94],[16,-91],[15,-88],[14,-87],[13,-85],[10,-84],[9,-79],[8,-77],
+   [9,-78],[11,-82],[14,-87],[16,-90],[18,-97],[19,-99],[20,-103],[19,-105]],
+  // South America
+  [[12,-72],[11,-68],[10,-65],[8,-60],[7,-57],[5,-52],[3,-49],[1,-49],[-1,-47],[-3,-41],
+   [-5,-35],[-8,-35],[-10,-36],[-13,-38],[-16,-39],[-20,-40],[-22,-41],[-24,-44],[-26,-47],
+   [-29,-49],[-33,-52],[-36,-57],[-40,-62],[-43,-65],[-46,-67],[-49,-68],[-52,-70],[-55,-69],
+   [-55,-65],[-53,-64],[-52,-69],[-49,-66],[-44,-65],[-40,-63],[-37,-57],[-34,-54],[-30,-51],
+   [-27,-49],[-24,-46],[-22,-43],[-18,-40],[-15,-40],[-12,-38],[-10,-37],[-8,-35],[-5,-35],
+   [-3,-41],[-1,-47],[0,-50],[-1,-50],[-3,-44],[-5,-37],[-8,-35],[-10,-37],[-14,-46],
+   [-17,-49],[-20,-50],[-24,-54],[-24,-57],[-26,-56],[-28,-56],[-30,-57],[-33,-52],
+   [-30,-51],[-26,-49],[-20,-50],[-16,-48],[-12,-41],[-8,-38],[-5,-35],[-3,-38],[-5,-42],
+   [-3,-44],[-1,-47],[1,-49],[3,-51],[5,-55],[7,-57],[8,-60],[10,-65],[11,-72],[12,-72]],
+  // Europe (western)
+  [[36,-6],[37,-2],[38,0],[39,0],[41,1],[43,3],[43,6],[44,8],[44,12],[43,13],[42,15],
+   [40,18],[38,21],[36,23],[36,28],[38,24],[40,26],[42,28],[43,28],[44,24],[45,14],
+   [46,16],[47,15],[48,18],[50,20],[52,21],[54,22],[55,20],[55,14],[54,12],[54,10],
+   [56,10],[57,12],[56,16],[58,20],[60,24],[62,20],[60,18],[59,12],[58,8],[57,7],
+   [56,8],[55,10],[54,10],[53,7],[52,5],[51,4],[50,4],[49,2],[47,-1],[44,-1],
+   [43,-2],[42,-4],[40,-4],[38,-5],[37,-6],[36,-6]],
+  // Scandinavia
+  [[56,12],[58,8],[60,5],[62,5],[64,10],[66,14],[68,16],[70,20],[71,26],[70,28],[70,30],
+   [68,28],[66,24],[64,18],[62,15],[60,11],[58,14],[57,18],[56,16],[56,12]],
+  // UK
+  [[50,-5],[51,-3],[52,-1],[53,0],[54,-1],[55,-2],[56,-3],[57,-6],[58,-5],[58,-3],
+   [57,0],[56,0],[55,-1],[54,0],[53,1],[52,2],[51,1],[50,0],[50,-3],[50,-5]],
+  // Ireland
+  [[52,-10],[53,-10],[54,-8],[54,-6],[53,-6],[52,-7],[52,-10]],
+  // Iceland
+  [[64,-22],[65,-18],[66,-15],[66,-14],[65,-13],[64,-15],[63,-18],[63,-21],[64,-22]],
+  // Africa
+  [[36,0],[37,10],[36,11],[34,10],[33,10],[32,10],[30,10],[28,10],[25,13],[22,16],
+   [18,16],[15,18],[13,16],[11,15],[8,10],[6,5],[5,1],[4,1],[4,5],[3,10],
+   [1,10],[-1,12],[-3,12],[-6,12],[-8,14],[-10,14],[-12,14],[-15,17],[-17,18],
+   [-20,20],[-22,23],[-25,26],[-27,28],[-29,30],[-31,31],[-33,28],[-34,25],
+   [-34,18],[-33,17],[-30,16],[-27,15],[-24,14],[-20,12],[-17,12],[-14,12],
+   [-12,14],[-10,14],[-8,14],[-6,12],[-3,12],[-1,12],[0,10],[1,10],[3,10],
+   [4,10],[6,10],[5,42],[3,42],[1,43],[0,43],[-1,42],[-3,40],[-5,40],[-7,42],
+   [-5,43],[0,44],[3,44],[5,44],[8,46],[10,47],[12,50],[15,50],[20,45],[22,43],
+   [25,40],[28,36],[30,33],[32,32],[34,28],[36,22],[37,15],[37,10],[36,0]],
+  // Madagascar
+  [[-12,49],[-15,47],[-18,44],[-21,44],[-24,46],[-25,47],[-23,49],[-19,50],[-15,50],[-12,49]],
+  // Middle East / Arabian Peninsula
+  [[30,33],[28,34],[25,36],[23,38],[22,40],[20,42],[18,44],[16,44],[14,44],[13,45],
+   [12,44],[12,48],[14,50],[16,52],[18,54],[20,56],[22,56],[24,56],[26,56],
+   [28,54],[30,50],[32,48],[34,44],[36,36],[34,36],[32,35],[30,33]],
+  // India
+  [[30,68],[28,68],[26,70],[24,72],[22,73],[20,73],[18,74],[16,76],[14,77],[12,78],
+   [10,77],[8,77],[8,78],[10,80],[12,80],[14,80],[16,80],[18,79],[20,77],
+   [22,75],[24,74],[26,72],[28,70],[30,70],[32,72],[34,74],[36,74],[35,72],
+   [33,70],[30,68]],
+  // Southeast Asia (mainland)
+  [[22,98],[20,96],[18,98],[16,98],[14,99],[12,100],[10,99],[8,98],[6,100],[4,101],
+   [2,103],[1,104],[2,104],[4,103],[6,102],[8,100],[10,100],[12,102],[14,101],
+   [16,101],[18,103],[20,104],[22,105],[22,106],[20,106],[18,106],[16,107],[14,108],
+   [12,109],[10,106],[8,105],[10,106],[12,106],[14,105],[16,105],[18,103],[20,100],
+   [22,100],[22,98]],
+  // China / East Asia
+  [[22,108],[24,112],[26,114],[28,118],[30,122],[32,121],[34,120],[36,118],[38,118],
+   [40,118],[42,120],[44,124],[46,130],[48,134],[50,140],[52,141],[54,137],[56,133],
+   [54,128],[52,122],[50,118],[48,114],[46,110],[44,106],[42,100],[40,96],[38,92],
+   [36,85],[34,80],[32,78],[30,78],[28,82],[26,88],[24,94],[22,98],[22,108]],
+  // Russia/Siberia
+  [[56,40],[58,45],[60,48],[62,52],[64,56],[66,60],[68,65],[70,70],[72,80],[74,90],
+   [76,100],[74,110],[72,120],[70,130],[68,140],[66,150],[68,160],[70,170],[72,178],
+   [70,180],[68,170],[66,162],[64,160],[62,155],[60,150],[58,145],[56,140],
+   [54,135],[52,128],[50,120],[48,115],[46,108],[44,100],[43,92],[44,86],
+   [46,80],[48,72],[50,65],[52,60],[54,55],[56,50],[56,40]],
+  // Japan
+  [[31,131],[33,131],[34,132],[36,136],[37,137],[38,139],[40,140],[42,141],[44,143],
+   [45,142],[44,145],[42,144],[40,142],[38,141],[36,140],[34,136],[32,132],[31,131]],
+  // Korea
+  [[34,126],[36,127],[38,127],[39,128],[40,129],[42,130],[40,130],[38,129],[36,129],
+   [35,128],[34,126]],
+  // Philippines
+  [[18,120],[16,120],[14,121],[12,123],[10,124],[12,125],[14,124],[16,122],[18,121],[18,120]],
+  // Taiwan
+  [[25,121],[24,120],[23,120],[22,121],[23,122],[25,122],[25,121]],
+  // Indonesia (Sumatra-Java-Borneo simplified)
+  [[5,95],[3,98],[1,100],[-1,102],[-3,104],[-5,106],[-7,108],[-8,110],[-8,113],
+   [-7,114],[-6,114],[-5,112],[-4,110],[-3,108],[-1,106],[0,104],[2,100],[5,96],[5,95]],
+  // Borneo
+  [[7,116],[5,115],[3,112],[1,110],[0,110],[-1,112],[-2,114],[-3,116],[-2,118],
+   [-1,118],[0,117],[2,118],[4,118],[6,118],[7,117],[7,116]],
+  // Papua New Guinea / New Guinea
+  [[-2,132],[-4,134],[-6,137],[-8,140],[-7,142],[-6,144],[-5,146],[-4,148],
+   [-3,147],[-2,144],[-2,141],[-1,138],[-1,135],[-2,132]],
+  // Australia
+  [[-12,131],[-12,136],[-14,137],[-17,140],[-19,142],[-21,145],[-23,148],
+   [-26,150],[-28,153],[-30,153],[-33,152],[-35,151],[-37,150],[-39,147],
+   [-38,144],[-36,141],[-35,137],[-34,135],[-32,133],[-30,130],[-27,127],
+   [-24,124],[-21,120],[-18,117],[-15,115],[-13,117],[-12,121],[-13,126],[-12,131]],
+  // New Zealand
+  [[-35,173],[-37,175],[-39,177],[-41,176],[-43,173],[-45,170],[-47,167],
+   [-46,167],[-44,170],[-42,172],[-39,175],[-36,175],[-35,173]],
+  // Greenland
+  [[60,-44],[62,-42],[64,-40],[67,-36],[70,-28],[72,-22],[74,-18],[76,-18],
+   [78,-20],[80,-24],[82,-30],[83,-38],[82,-48],[80,-55],[78,-60],[76,-63],
+   [73,-60],[70,-54],[68,-50],[66,-48],[64,-46],[62,-45],[60,-44]],
+  // Sri Lanka
+  [[10,80],[9,80],[8,80],[7,80],[6,81],[7,82],[8,82],[9,81],[10,80]],
+];
+
+function ptInPoly(lat, lon, poly) {
+  let inside = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const yi = poly[i][0], xi = poly[i][1];
+    const yj = poly[j][0], xj = poly[j][1];
+    if (((yi > lat) !== (yj > lat)) && (lon < (xj - xi) * (lat - yi) / (yj - yi) + xi)) {
+      inside = !inside;
+    }
+  }
+  return inside;
+}
+
+function isLand(lat, lon) {
+  for (let i = 0; i < P.length; i++) {
+    if (ptInPoly(lat, lon, P[i])) return true;
+  }
+  return false;
+}
+
+// ============================================================
+// LAW FIRM LOCATIONS
+// ============================================================
+const firms = [
+  { city: "New York", firm: "Sullivan & Cromwell", practice: "M&A · Capital Markets", lat: 40.71, lon: -74.01 },
+  { city: "London", firm: "Slaughter and May", practice: "Corporate · Finance", lat: 51.51, lon: -0.13 },
+  { city: "Frankfurt", firm: "Hengeler Mueller", practice: "Banking · Antitrust", lat: 50.11, lon: 8.68 },
+  { city: "São Paulo", firm: "Machado Meyer", practice: "Infrastructure · Tax", lat: -23.55, lon: -46.63 },
+  { city: "Tokyo", firm: "Nishimura & Asahi", practice: "IP · Corporate", lat: 35.68, lon: 139.65 },
+  { city: "Singapore", firm: "Rajah & Tann", practice: "Arbitration · Trade", lat: 1.35, lon: 103.82 },
+  { city: "Sydney", firm: "Clayton Utz", practice: "Litigation · Energy", lat: -33.87, lon: 151.21 },
+  { city: "Paris", firm: "Bredin Prat", practice: "Competition · M&A", lat: 48.86, lon: 2.35 },
+  { city: "Dubai", firm: "Al Tamimi & Co", practice: "Construction · Banking", lat: 25.20, lon: 55.27 },
+  { city: "Mexico City", firm: "Creel García-Cuéllar", practice: "Energy · Real Estate", lat: 19.43, lon: -99.13 },
+  { city: "Johannesburg", firm: "Webber Wentzel", practice: "Mining · Finance", lat: -26.20, lon: 28.05 },
+  { city: "Mumbai", firm: "AZB & Partners", practice: "Private Equity · M&A", lat: 19.08, lon: 72.88 },
+  { city: "Toronto", firm: "Stikeman Elliott", practice: "Securities · Tax", lat: 43.65, lon: -79.38 },
+  { city: "Madrid", firm: "Uría Menéndez", practice: "EU Law · Banking", lat: 40.42, lon: -3.70 },
+  { city: "Hong Kong", firm: "Deacons", practice: "IP · Real Estate", lat: 22.32, lon: 114.17 },
+  { city: "Berlin", firm: "Gleiss Lutz", practice: "Employment · Public", lat: 52.52, lon: 13.41 },
+  { city: "Shanghai", firm: "Fangda Partners", practice: "Capital Markets · PE", lat: 31.23, lon: 121.47 },
+  { city: "Buenos Aires", firm: "Marval O'Farrell", practice: "Energy · Arbitration", lat: -34.60, lon: -58.38 },
+  { city: "Lagos", firm: "Templars", practice: "Oil & Gas · Finance", lat: 6.52, lon: 3.38 },
+  { city: "Seoul", firm: "Kim & Chang", practice: "Antitrust · IP", lat: 37.57, lon: 126.98 },
+];
+
+// ============================================================
+// CANVAS
+// ============================================================
+const canvas = document.getElementById('globe');
+const ctx = canvas.getContext('2d');
+const dpr = window.devicePixelRatio || 1;
+
+let W, H, GLOBE_R, globeCX, globeCY;
+
+function resize() {
+  W = window.innerWidth;
+  H = window.innerHeight;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  // Large globe, center at bottom, only top ~40% pokes up
+  GLOBE_R = Math.max(W, H) * 0.7;
+  globeCX = W / 2;
+  globeCY = H + GLOBE_R * 0.5;
+}
+resize();
+
+// ============================================================
+// PROJECTION — tilted forward so top faces viewer, spins "away"
+// ============================================================
+const TILT = -0.5; // tilt forward
+
+function latLonTo3D(lat, lon, r) {
+  const phi = (90 - lat) * Math.PI / 180;
+  const theta = (lon + 180) * Math.PI / 180;
+  return [
+    -r * Math.sin(phi) * Math.cos(theta),
+     r * Math.cos(phi),
+     r * Math.sin(phi) * Math.sin(theta)
+  ];
+}
+
+const cosT = Math.cos(TILT), sinT = Math.sin(TILT);
+
+function transformFast(x, y, z, cosR, sinR) {
+  // Y-rotate then X-tilt
+  const rx = x * cosR + z * sinR;
+  const ry = y;
+  const rz = -x * sinR + z * cosR;
+  return [rx, ry * cosT - rz * sinT, ry * sinT + rz * cosT];
+}
+
+// ============================================================
+// PRECOMPUTE DOTS — dense
+// ============================================================
+const DOT_SPACING = 1.8;
+let landPts = []; // [x,y,z] arrays
+let oceanPts = [];
+
+function precompute() {
+  landPts = [];
+  oceanPts = [];
+  for (let lat = -90; lat <= 90; lat += DOT_SPACING) {
+    const phi = lat * Math.PI / 180;
+    const circ = Math.cos(phi);
+    const lonStep = DOT_SPACING / Math.max(circ, 0.1);
+    for (let lon = -180; lon < 180; lon += lonStep) {
+      const p = latLonTo3D(lat, lon, GLOBE_R);
+      if (isLand(lat, lon)) {
+        landPts.push(p);
+      }
+    }
+  }
+  // Sparse ocean
+  const OS = DOT_SPACING * 5;
+  for (let lat = -90; lat <= 90; lat += OS) {
+    const phi = lat * Math.PI / 180;
+    const circ = Math.cos(phi);
+    const lonStep = OS / Math.max(circ, 0.1);
+    for (let lon = -180; lon < 180; lon += lonStep) {
+      if (!isLand(lat, lon)) {
+        oceanPts.push(latLonTo3D(lat, lon, GLOBE_R));
+      }
+    }
+  }
+}
+
+// ============================================================
+// STATE
+// ============================================================
+let rotation = 0;
+const ROT_SPEED = 0.0005;
+let hoveredFirm = null;
+let lineAnim = 0;
+let mouseX = -999, mouseY = -999;
+let isDragging = false, dragStartX = 0, dragRot = 0;
+
+// ============================================================
+// DRAW
+// ============================================================
+function draw() {
+  if (!isDragging) rotation -= ROT_SPEED;
+
+  ctx.clearRect(0, 0, W, H);
+
+  const cosR = Math.cos(rotation), sinR = Math.sin(rotation);
+
+  // Clip to viewport bottom area
+  const yLimit = H + 10;
+
+  // --- Ocean dots ---
+  for (let i = 0; i < oceanPts.length; i++) {
+    const p = oceanPts[i];
+    const t = transformFast(p[0], p[1], p[2], cosR, sinR);
+    if (t[2] < 0) continue;
+    const sx = globeCX + t[0];
+    const sy = globeCY - t[1];
+    if (sy > yLimit || sy < -10) continue;
+    ctx.fillStyle = 'rgba(0,0,0,0.06)';
+    ctx.fillRect(sx - 0.4, sy - 0.4, 0.8, 0.8);
+  }
+
+  // --- Land dots ---
+  const dotBase = Math.max(0.7, GLOBE_R / 700);
+  for (let i = 0; i < landPts.length; i++) {
+    const p = landPts[i];
+    const t = transformFast(p[0], p[1], p[2], cosR, sinR);
+    if (t[2] < 0) continue;
+    const sx = globeCX + t[0];
+    const sy = globeCY - t[1];
+    if (sy > yLimit || sy < -10) continue;
+    const depth = t[2] / GLOBE_R;
+    const alpha = 0.15 + 0.75 * depth;
+    const size = dotBase * (0.5 + 0.6 * depth);
+    ctx.fillStyle = `rgba(0,0,0,${alpha})`;
+    ctx.beginPath();
+    ctx.arc(sx, sy, size, 0, 6.283);
+    ctx.fill();
+  }
+
+  // --- Firms ---
+  const svgEl = document.getElementById('lines');
+  svgEl.innerHTML = '';
+  svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svgEl.style.width = W + 'px';
+  svgEl.style.height = H + 'px';
+
+  const tooltipEl = document.getElementById('tooltip');
+  let foundHover = null;
+
+  for (const f of firms) {
+    const p = latLonTo3D(f.lat, f.lon, GLOBE_R);
+    const t = transformFast(p[0], p[1], p[2], cosR, sinR);
+    if (t[2] < 0) continue;
+    const sx = globeCX + t[0];
+    const sy = globeCY - t[1];
+    if (sy > yLimit || sy < -10) continue;
+
+    const depth = t[2] / GLOBE_R;
+    const dx = mouseX - sx, dy = mouseY - sy;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const isHov = dist < 24 && !isDragging;
+
+    if (isHov) foundHover = { ...f, sx, sy };
+
+    const dotR = isHov ? 5 : 2.8;
+    const dotAlpha = isHov ? 0.9 : 0.3 + 0.5 * depth;
+
+    // Glow
+    const gR = isHov ? 20 : 8;
+    const g = ctx.createRadialGradient(sx, sy, 0, sx, sy, gR);
+    g.addColorStop(0, `rgba(0,0,0,${isHov ? 0.15 : 0.05})`);
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(sx, sy, gR, 0, 6.283);
+    ctx.fill();
+
+    ctx.fillStyle = `rgba(20,20,20,${dotAlpha})`;
+    ctx.beginPath();
+    ctx.arc(sx, sy, dotR, 0, 6.283);
+    ctx.fill();
+
+    if (isHov) {
+      lineAnim = Math.min(lineAnim + 0.07, 1);
+      const lineH = 70 * lineAnim;
+      const topY = sy - lineH;
+
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', sx);
+      line.setAttribute('y1', sy);
+      line.setAttribute('x2', sx);
+      line.setAttribute('y2', topY);
+      line.setAttribute('stroke', 'rgba(30,30,30,0.5)');
+      line.setAttribute('stroke-width', '1');
+      svgEl.appendChild(line);
+
+      const circ = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circ.setAttribute('cx', sx);
+      circ.setAttribute('cy', topY);
+      circ.setAttribute('r', 2.5 * lineAnim);
+      circ.setAttribute('fill', '#1a1a1a');
+      svgEl.appendChild(circ);
+
+      tooltipEl.style.left = (sx + 14) + 'px';
+      tooltipEl.style.top = (topY - 48) + 'px';
+      tooltipEl.classList.add('visible');
+      document.getElementById('tt-city').textContent = f.city;
+      document.getElementById('tt-firm').textContent = f.firm;
+      document.getElementById('tt-practice').textContent = f.practice;
+    }
+  }
+
+  if (!foundHover) {
+    lineAnim = 0;
+    tooltipEl.classList.remove('visible');
+  }
+  hoveredFirm = foundHover;
+  canvas.style.cursor = foundHover ? 'pointer' : 'default';
+
+  requestAnimationFrame(draw);
+}
+
+// ============================================================
+// MOUSE
+// ============================================================
+window.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  if (isDragging) {
+    rotation = dragRot + (e.clientX - dragStartX) * 0.002;
+  }
+});
+
+window.addEventListener('mousedown', (e) => {
+  if (!hoveredFirm) {
+    isDragging = true;
+    dragStartX = e.clientX;
+    dragRot = rotation;
+    canvas.style.cursor = 'grabbing';
+  }
+});
+
+window.addEventListener('mouseup', () => { isDragging = false; });
+
+window.addEventListener('touchmove', (e) => {
+  const t = e.touches[0];
+  mouseX = t.clientX; mouseY = t.clientY;
+  if (isDragging) rotation = dragRot + (t.clientX - dragStartX) * 0.002;
+}, { passive: true });
+window.addEventListener('touchstart', (e) => {
+  const t = e.touches[0];
+  mouseX = t.clientX; mouseY = t.clientY;
+  isDragging = true; dragStartX = t.clientX; dragRot = rotation;
+}, { passive: true });
+window.addEventListener('touchend', () => { isDragging = false; }, { passive: true });
+
+// ============================================================
+// INIT
+// ============================================================
+window.addEventListener('resize', () => {
+  resize();
+  precompute();
+});
+
+precompute();
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>

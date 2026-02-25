@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TerraLex Global Network</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #ffffff;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'DM Sans', sans-serif;
+    overflow: hidden;
+    color: #1a1a1a;
+  }
+
+  canvas {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: default;
+  }
+
+  .tooltip {
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    z-index: 20;
+  }
+  .tooltip.visible { opacity: 1; }
+
+  .tooltip-card {
+    background: rgba(255,255,255,0.97);
+    border: 1px solid rgba(0,0,0,0.09);
+    border-radius: 4px;
+    padding: 9px 13px;
+    backdrop-filter: blur(12px);
+    min-width: 160px;
+    box-shadow: 0 4px 28px rgba(0,0,0,0.08);
+  }
+
+  .tooltip-city {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 2px;
+  }
+
+  .tooltip-firm {
+    font-size: 11px;
+    color: #444;
+    letter-spacing: 0.3px;
+  }
+
+  .tooltip-practice {
+    font-size: 10px;
+    color: #999;
+    margin-top: 3px;
+    letter-spacing: 0.2px;
+  }
+
+  .line-layer {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  #loading {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 13px;
+    color: #aaa;
+    letter-spacing: 1px;
+    font-family: 'DM Sans', sans-serif;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="globe"></canvas>
+<svg class="line-layer" id="lines"></svg>
+<div class="tooltip" id="tooltip">
+  <div class="tooltip-card">
+    <div class="tooltip-city" id="tt-city"></div>
+    <div class="tooltip-firm" id="tt-firm"></div>
+    <div class="tooltip-practice" id="tt-practice"></div>
+  </div>
+</div>
+<div id="loading">Loading globe…</div>
+
+<script>
+// ============================================================
+// LAW FIRM LOCATIONS
+// ============================================================
+const firms = [
+  { city: "New York",      firm: "Sullivan & Cromwell",    practice: "M&A · Capital Markets",     lat: 40.71, lon: -74.01 },
+  { city: "London",        firm: "Slaughter and May",      practice: "Corporate · Finance",        lat: 51.51, lon: -0.13  },
+  { city: "Frankfurt",     firm: "Hengeler Mueller",       practice: "Banking · Antitrust",        lat: 50.11, lon: 8.68   },
+  { city: "São Paulo",     firm: "Machado Meyer",          practice: "Infrastructure · Tax",       lat: -23.55, lon: -46.63},
+  { city: "Tokyo",         firm: "Nishimura & Asahi",      practice: "IP · Corporate",             lat: 35.68, lon: 139.65 },
+  { city: "Singapore",     firm: "Rajah & Tann",           practice: "Arbitration · Trade",        lat: 1.35,  lon: 103.82 },
+  { city: "Sydney",        firm: "Clayton Utz",            practice: "Litigation · Energy",        lat: -33.87, lon: 151.21},
+  { city: "Paris",         firm: "Bredin Prat",            practice: "Competition · M&A",          lat: 48.86, lon: 2.35   },
+  { city: "Dubai",         firm: "Al Tamimi & Co",         practice: "Construction · Banking",     lat: 25.20, lon: 55.27  },
+  { city: "Mexico City",   firm: "Creel García-Cuéllar",   practice: "Energy · Real Estate",       lat: 19.43, lon: -99.13 },
+  { city: "Johannesburg",  firm: "Webber Wentzel",         practice: "Mining · Finance",           lat: -26.20, lon: 28.05 },
+  { city: "Mumbai",        firm: "AZB & Partners",         practice: "Private Equity · M&A",       lat: 19.08, lon: 72.88  },
+  { city: "Toronto",       firm: "Stikeman Elliott",        practice: "Securities · Tax",          lat: 43.65, lon: -79.38 },
+  { city: "Madrid",        firm: "Uría Menéndez",          practice: "EU Law · Banking",           lat: 40.42, lon: -3.70  },
+  { city: "Hong Kong",     firm: "Deacons",                practice: "IP · Real Estate",           lat: 22.32, lon: 114.17 },
+  { city: "Berlin",        firm: "Gleiss Lutz",            practice: "Employment · Public",        lat: 52.52, lon: 13.41  },
+  { city: "Shanghai",      firm: "Fangda Partners",        practice: "Capital Markets · PE",       lat: 31.23, lon: 121.47 },
+  { city: "Buenos Aires",  firm: "Marval O'Farrell",       practice: "Energy · Arbitration",       lat: -34.60, lon: -58.38},
+  { city: "Lagos",         firm: "Templars",               practice: "Oil & Gas · Finance",        lat: 6.52,  lon: 3.38   },
+  { city: "Seoul",         firm: "Kim & Chang",            practice: "Antitrust · IP",             lat: 37.57, lon: 126.98 },
+];
+
+// ============================================================
+// CANVAS SETUP
+// ============================================================
+const canvas = document.getElementById('globe');
+const ctx = canvas.getContext('2d');
+const dpr = window.devicePixelRatio || 1;
+
+let W, H, GLOBE_R, globeCX, globeCY;
+
+function resize() {
+  W = window.innerWidth;
+  H = window.innerHeight;
+  canvas.width  = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width  = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  GLOBE_R = Math.max(W, H) * 0.72;
+  globeCX = W / 2;
+  globeCY = H + GLOBE_R * 0.52;
+}
+resize();
+
+// ============================================================
+// 3-D MATH
+// ============================================================
+const TILT = -0.42; // tilt top toward viewer
+const cosT = Math.cos(TILT), sinT = Math.sin(TILT);
+
+function latLonTo3D(lat, lon, r) {
+  const phi   = (90 - lat) * Math.PI / 180;
+  const theta = (lon + 180) * Math.PI / 180;
+  return [
+    -r * Math.sin(phi) * Math.cos(theta),
+     r * Math.cos(phi),
+     r * Math.sin(phi) * Math.sin(theta)
+  ];
+}
+
+function transform(x, y, z, cosR, sinR) {
+  // Y-axis rotation (spin)
+  const rx = x * cosR + z * sinR;
+  const ry = y;
+  const rz = -x * sinR + z * cosR;
+  // X-axis tilt
+  return [
+    rx,
+    ry * cosT - rz * sinT,
+    ry * sinT + rz * cosT
+  ];
+}
+
+// ============================================================
+// LAND MASK — offscreen canvas sampled per-pixel
+// ============================================================
+// We draw a 720×360 equirectangular world map onto an offscreen
+// canvas using real Natural Earth polygon paths, then sample
+// that bitmap for isLand() checks. We fetch the TopoJSON from
+// CDN (55 KB, one-time), convert rings to canvas paths.
+// ============================================================
+
+let landMaskCtx = null;
+const MASK_W = 720, MASK_H = 360;
+
+function buildMask(rings) {
+  const oc = document.createElement('canvas');
+  oc.width  = MASK_W;
+  oc.height = MASK_H;
+  const mc = oc.getContext('2d');
+  mc.fillStyle = '#000';
+  mc.fillRect(0, 0, MASK_W, MASK_H);
+  mc.fillStyle = '#fff';
+
+  for (const ring of rings) {
+    if (ring.length < 3) continue;
+    mc.beginPath();
+    for (let i = 0; i < ring.length; i++) {
+      const lon = ring[i][0], lat = ring[i][1];
+      const px = ((lon + 180) / 360) * MASK_W;
+      const py = ((90  -  lat) / 180) * MASK_H;
+      if (i === 0) mc.moveTo(px, py); else mc.lineTo(px, py);
+    }
+    mc.closePath();
+    mc.fill();
+  }
+  landMaskCtx = mc;
+}
+
+function isLand(lat, lon) {
+  if (!landMaskCtx) return false;
+  const px = Math.floor(((lon + 180) / 360) * MASK_W);
+  const py = Math.floor(((90  -  lat) / 180) * MASK_H);
+  const d  = landMaskCtx.getImageData(
+    Math.max(0, Math.min(px, MASK_W - 1)),
+    Math.max(0, Math.min(py, MASK_H - 1)),
+    1, 1
+  ).data;
+  return d[0] > 128; // white = land
+}
+
+// ============================================================
+// TopoJSON → rings
+// ============================================================
+function topoRings(topo) {
+  // Minimal TopoJSON decoder (no library needed for arc-based format)
+  const land = topo.objects.land;
+  const arcs  = topo.arcs;
+  const scale = topo.transform ? topo.transform.scale : [1, 1];
+  const trans = topo.transform ? topo.transform.translate : [0, 0];
+
+  // Decode arcs (delta-encoded integers → lon/lat)
+  const decodedArcs = arcs.map(arc => {
+    let x = 0, y = 0;
+    return arc.map(([dx, dy]) => {
+      x += dx; y += dy;
+      return [x * scale[0] + trans[0], y * scale[1] + trans[1]];
+    });
+  });
+
+  function stitchArcs(indices) {
+    const pts = [];
+    for (const idx of indices) {
+      const arcPts = idx >= 0
+        ? decodedArcs[idx].slice()
+        : decodedArcs[~idx].slice().reverse();
+      // drop first point of each arc after the first (it duplicates last of prev)
+      pts.push(...(pts.length === 0 ? arcPts : arcPts.slice(1)));
+    }
+    return pts;
+  }
+
+  const rings = [];
+  function extractRings(geometry) {
+    if (!geometry) return;
+    if (geometry.type === 'Polygon') {
+      for (const ring of geometry.arcs) rings.push(stitchArcs(ring));
+    } else if (geometry.type === 'MultiPolygon') {
+      for (const poly of geometry.arcs)
+        for (const ring of poly) rings.push(stitchArcs(ring));
+    } else if (geometry.type === 'GeometryCollection') {
+      for (const g of geometry.geometries) extractRings(g);
+    }
+  }
+  extractRings(land);
+  return rings;
+}
+
+// ============================================================
+// DOT GRID — precomputed 3-D points
+// ============================================================
+const LAND_STEP  = 1.5;  // degrees between land dots
+const OCEAN_STEP = 7.0;  // degrees between ocean dots
+
+let landPts  = [];
+let oceanPts = [];
+
+function precompute() {
+  landPts  = [];
+  oceanPts = [];
+
+  for (let lat = -90; lat <= 90; lat += LAND_STEP) {
+    const phi     = lat * Math.PI / 180;
+    const cosLat  = Math.cos(phi);
+    const lonStep = LAND_STEP / Math.max(cosLat, 0.08);
+    for (let lon = -180; lon < 180; lon += lonStep) {
+      if (isLand(lat, lon)) {
+        landPts.push(latLonTo3D(lat, lon, GLOBE_R));
+      }
+    }
+  }
+
+  for (let lat = -90; lat <= 90; lat += OCEAN_STEP) {
+    const phi     = lat * Math.PI / 180;
+    const cosLat  = Math.cos(phi);
+    const lonStep = OCEAN_STEP / Math.max(cosLat, 0.08);
+    for (let lon = -180; lon < 180; lon += lonStep) {
+      if (!isLand(lat, lon)) {
+        oceanPts.push(latLonTo3D(lat, lon, GLOBE_R));
+      }
+    }
+  }
+}
+
+// ============================================================
+// STATE
+// ============================================================
+let rotation    = 0;
+const ROT_SPEED = 0.0004;
+let hoveredFirm = null;
+let lineAnim    = 0;
+let mouseX = -9999, mouseY = -9999;
+let isDragging = false, dragStartX = 0, dragRot = 0;
+
+// ============================================================
+// RENDER LOOP
+// ============================================================
+function draw() {
+  if (!isDragging) rotation -= ROT_SPEED;
+
+  ctx.clearRect(0, 0, W, H);
+
+  const cosR = Math.cos(rotation);
+  const sinR = Math.sin(rotation);
+  const yMin = -20, yMax = H + 20;
+
+  const dotBase = Math.max(0.8, GLOBE_R / 750);
+
+  // --- Ocean dots ---
+  for (let i = 0; i < oceanPts.length; i++) {
+    const [ox, oy, oz] = oceanPts[i];
+    const [tx, ty, tz] = transform(ox, oy, oz, cosR, sinR);
+    if (tz < 0) continue;
+    const sx = globeCX + tx;
+    const sy = globeCY - ty;
+    if (sy < yMin || sy > yMax) continue;
+    ctx.fillStyle = 'rgba(0,0,0,0.055)';
+    ctx.fillRect(sx - 0.5, sy - 0.5, 1, 1);
+  }
+
+  // --- Land dots ---
+  for (let i = 0; i < landPts.length; i++) {
+    const [lx, ly, lz] = landPts[i];
+    const [tx, ty, tz] = transform(lx, ly, lz, cosR, sinR);
+    if (tz < 0) continue;
+    const sx = globeCX + tx;
+    const sy = globeCY - ty;
+    if (sy < yMin || sy > yMax) continue;
+
+    const depth = tz / GLOBE_R; // 0 (edge) → 1 (center)
+    const alpha = 0.12 + 0.78 * depth;
+    const size  = dotBase * (0.45 + 0.65 * depth);
+
+    ctx.fillStyle = `rgba(0,0,0,${alpha.toFixed(2)})`;
+    ctx.beginPath();
+    ctx.arc(sx, sy, size, 0, 6.2832);
+    ctx.fill();
+  }
+
+  // --- Firm markers + hover line ---
+  const svgEl = document.getElementById('lines');
+  svgEl.innerHTML = '';
+  svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svgEl.style.width  = W + 'px';
+  svgEl.style.height = H + 'px';
+
+  const tooltipEl = document.getElementById('tooltip');
+  let foundHover  = null;
+
+  for (const f of firms) {
+    const [px, py, pz] = latLonTo3D(f.lat, f.lon, GLOBE_R);
+    const [tx, ty, tz] = transform(px, py, pz, cosR, sinR);
+    if (tz < 0) continue;
+    const sx = globeCX + tx;
+    const sy = globeCY - ty;
+    if (sy < yMin || sy > yMax) continue;
+
+    const depth = tz / GLOBE_R;
+    const dx    = mouseX - sx, dy = mouseY - sy;
+    const dist  = Math.sqrt(dx * dx + dy * dy);
+    const isHov = dist < 22 && !isDragging;
+
+    if (isHov) foundHover = { ...f, sx, sy };
+
+    // Glow
+    const gR = isHov ? 22 : 9;
+    const g  = ctx.createRadialGradient(sx, sy, 0, sx, sy, gR);
+    g.addColorStop(0, `rgba(0,0,0,${isHov ? 0.13 : 0.04})`);
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(sx, sy, gR, 0, 6.2832);
+    ctx.fill();
+
+    // Dot
+    const dotR  = isHov ? 5.5 : 2.5 + depth * 1.2;
+    const alpha = isHov ? 0.92 : 0.28 + 0.58 * depth;
+    ctx.fillStyle = `rgba(20,20,20,${alpha})`;
+    ctx.beginPath();
+    ctx.arc(sx, sy, dotR, 0, 6.2832);
+    ctx.fill();
+
+    if (isHov) {
+      lineAnim = Math.min(lineAnim + 0.06, 1);
+      const lineH = 80 * lineAnim;
+      const topY  = sy - lineH;
+
+      // Vertical line
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', sx); line.setAttribute('y1', sy);
+      line.setAttribute('x2', sx); line.setAttribute('y2', topY);
+      line.setAttribute('stroke', 'rgba(30,30,30,0.45)');
+      line.setAttribute('stroke-width', '1');
+      svgEl.appendChild(line);
+
+      // Terminal dot
+      const circ = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circ.setAttribute('cx', sx);
+      circ.setAttribute('cy', topY);
+      circ.setAttribute('r', 2.5 * lineAnim);
+      circ.setAttribute('fill', '#1a1a1a');
+      svgEl.appendChild(circ);
+
+      // Tooltip position — nudge left if near right edge
+      const ttX = sx + 16 > W - 190 ? sx - 190 : sx + 16;
+      tooltipEl.style.left = ttX + 'px';
+      tooltipEl.style.top  = (topY - 52) + 'px';
+      tooltipEl.classList.add('visible');
+      document.getElementById('tt-city').textContent    = f.city;
+      document.getElementById('tt-firm').textContent    = f.firm;
+      document.getElementById('tt-practice').textContent = f.practice;
+    }
+  }
+
+  if (!foundHover) {
+    lineAnim = Math.max(lineAnim - 0.1, 0);
+    tooltipEl.classList.remove('visible');
+  }
+  hoveredFirm = foundHover;
+  canvas.style.cursor = foundHover ? 'pointer' : 'default';
+
+  requestAnimationFrame(draw);
+}
+
+// ============================================================
+// MOUSE / TOUCH
+// ============================================================
+window.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  if (isDragging) rotation = dragRot + (e.clientX - dragStartX) * 0.002;
+});
+window.addEventListener('mousedown', e => {
+  if (!hoveredFirm) {
+    isDragging = true;
+    dragStartX = e.clientX;
+    dragRot    = rotation;
+    canvas.style.cursor = 'grabbing';
+  }
+});
+window.addEventListener('mouseup', () => { isDragging = false; });
+
+window.addEventListener('touchmove', e => {
+  const t = e.touches[0];
+  mouseX = t.clientX; mouseY = t.clientY;
+  if (isDragging) rotation = dragRot + (t.clientX - dragStartX) * 0.002;
+}, { passive: true });
+window.addEventListener('touchstart', e => {
+  const t = e.touches[0];
+  mouseX = t.clientX; mouseY = t.clientY;
+  isDragging = true; dragStartX = t.clientX; dragRot = rotation;
+}, { passive: true });
+window.addEventListener('touchend', () => { isDragging = false; }, { passive: true });
+
+window.addEventListener('resize', () => {
+  resize();
+  if (landMaskCtx) precompute();
+});
+
+// ============================================================
+// BOOT — fetch TopoJSON, build mask, start
+// ============================================================
+fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
+  .then(r => r.json())
+  .then(topo => {
+    const rings = topoRings(topo);
+    buildMask(rings);
+    precompute();
+    document.getElementById('loading').style.display = 'none';
+    requestAnimationFrame(draw);
+  })
+  .catch(() => {
+    // Fallback: start anyway with empty land mask
+    document.getElementById('loading').textContent = 'Globe (offline mode)';
+    setTimeout(() => {
+      document.getElementById('loading').style.display = 'none';
+    }, 1500);
+    requestAnimationFrame(draw);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TerraLex — Elite Global Legal Network</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Instrument+Serif:ital@0;1&display=swap');
+
+:root {
+  --black: #111;
+  --dark: #333;
+  --mid: #777;
+  --light: #bbb;
+  --faint: #e8e8e8;
+  --bg: #fff;
+  --accent: #111;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--black);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- NAV ---- */
+nav {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 48px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  transition: all 0.3s;
+}
+nav.scrolled { padding: 14px 48px; }
+.nav-logo {
+  font-family: 'Instrument Serif', serif;
+  font-size: 24px; font-weight: 400; letter-spacing: 1px;
+  color: var(--black);
+}
+.nav-logo span { font-style: italic; opacity: 0.4; font-size: 14px; margin-left: 6px; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a {
+  font-size: 13px; letter-spacing: 0.5px; text-decoration: none;
+  color: var(--dark); transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--black); }
+.nav-cta {
+  font-size: 12px !important; letter-spacing: 1px !important;
+  text-transform: uppercase;
+  padding: 10px 24px; border: 1px solid var(--black);
+  transition: all 0.25s !important;
+}
+.nav-cta:hover { background: var(--black); color: #fff !important; }
+
+/* ---- DOT CANVAS (fixed background) ---- */
+.dot-canvas {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0; pointer-events: none;
+}
+
+/* ---- SECTIONS ---- */
+section {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 120px 48px;
+}
+
+/* ---- HERO ---- */
+.hero {
+  min-height: 100vh;
+  text-align: center;
+  justify-content: flex-end;
+  padding-bottom: 15vh;
+}
+.hero-pretitle {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 400; line-height: 1.15;
+  max-width: 700px; margin: 0 auto;
+}
+.hero h1 em { font-style: italic; }
+.hero-sub {
+  font-size: 16px; color: var(--mid); max-width: 500px;
+  margin: 24px auto 0; line-height: 1.6;
+}
+.hero-ctas {
+  display: flex; gap: 16px; justify-content: center;
+  margin-top: 40px; flex-wrap: wrap;
+}
+.btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 14px 36px; border: 1px solid var(--black);
+  text-decoration: none; color: var(--black);
+  transition: all 0.25s; cursor: pointer; background: transparent;
+}
+.btn:hover { background: var(--black); color: #fff; }
+.btn-primary { background: var(--black); color: #fff; }
+.btn-primary:hover { background: transparent; color: var(--black); }
+
+/* ---- PROOF POINTS ---- */
+.proof {
+  min-height: 60vh;
+  background: transparent;
+}
+.proof-grid {
+  display: flex; gap: 80px; justify-content: center;
+  flex-wrap: wrap; text-align: center;
+}
+.proof-item {}
+.proof-number {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 400; line-height: 1;
+}
+.proof-label {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--mid); margin-top: 8px;
+}
+
+/* ---- HOW IT WORKS ---- */
+.how {
+  min-height: 100vh;
+}
+.section-label {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 16px; text-align: center;
+}
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400; text-align: center;
+  max-width: 600px; margin: 0 auto 60px; line-height: 1.2;
+}
+.steps {
+  display: flex; gap: 48px; justify-content: center;
+  flex-wrap: wrap; max-width: 960px;
+}
+.step {
+  flex: 1; min-width: 240px; max-width: 280px; text-align: center;
+}
+.step-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 48px; color: var(--faint); line-height: 1;
+  margin-bottom: 16px;
+}
+.step h3 {
+  font-size: 16px; font-weight: 500; margin-bottom: 10px;
+}
+.step p {
+  font-size: 13px; color: var(--mid); line-height: 1.6;
+}
+
+/* ---- DIRECTORY SEARCH ---- */
+.directory {
+  min-height: 100vh;
+  text-align: center;
+}
+.search-box {
+  display: flex; gap: 0; max-width: 720px; width: 100%;
+  margin-top: 40px; border: 1px solid var(--faint);
+  overflow: hidden;
+}
+.search-box input, .search-box select {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; padding: 16px 20px;
+  border: none; outline: none; background: #fff;
+  flex: 1; min-width: 0;
+  border-right: 1px solid var(--faint);
+}
+.search-box select { color: var(--mid); cursor: pointer; }
+.search-box button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 16px 32px; background: var(--black); color: #fff;
+  border: none; cursor: pointer; transition: opacity 0.2s;
+  white-space: nowrap;
+}
+.search-box button:hover { opacity: 0.85; }
+
+/* ---- SUCCESS STORIES ---- */
+.stories {
+  min-height: 100vh;
+}
+.stories-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px; max-width: 960px; width: 100%; margin-top: 48px;
+}
+.story-card {
+  border: 1px solid var(--faint); padding: 36px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.story-card:hover {
+  border-color: var(--light);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.04);
+}
+.story-tag {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 16px;
+}
+.story-card h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px; font-weight: 400; line-height: 1.3;
+  margin-bottom: 12px;
+}
+.story-card p {
+  font-size: 13px; color: var(--mid); line-height: 1.6;
+}
+.story-link {
+  display: inline-block; margin-top: 16px;
+  font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--black); text-decoration: none;
+  border-bottom: 1px solid var(--faint);
+  padding-bottom: 2px; transition: border-color 0.2s;
+}
+.story-link:hover { border-color: var(--black); }
+
+/* ---- GUIDES / INSIGHTS ---- */
+.insights {
+  min-height: 100vh;
+}
+.insights-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px; max-width: 960px; width: 100%; margin-top: 48px;
+}
+.insight-card {
+  padding: 28px; border: 1px solid var(--faint);
+  transition: all 0.25s;
+}
+.insight-card:hover { border-color: var(--light); box-shadow: 0 6px 30px rgba(0,0,0,0.03); }
+.insight-date {
+  font-size: 10px; letter-spacing: 1px; color: var(--light); margin-bottom: 12px;
+}
+.insight-card h4 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px; font-weight: 400; line-height: 1.3; margin-bottom: 8px;
+}
+.insight-card p {
+  font-size: 12px; color: var(--mid); line-height: 1.5;
+}
+
+/* ---- EVENTS ---- */
+.events {
+  min-height: 80vh;
+}
+.events-list {
+  max-width: 720px; width: 100%; margin-top: 48px;
+}
+.event-row {
+  display: flex; align-items: center; gap: 32px;
+  padding: 24px 0; border-bottom: 1px solid var(--faint);
+  transition: all 0.2s;
+}
+.event-row:hover { padding-left: 12px; }
+.event-date-block { text-align: center; min-width: 56px; }
+.event-month {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid);
+}
+.event-day {
+  font-family: 'Instrument Serif', serif;
+  font-size: 32px; line-height: 1;
+}
+.event-info h4 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+.event-info p { font-size: 12px; color: var(--mid); }
+
+/* ---- CTA BANNER ---- */
+.cta-banner {
+  min-height: 60vh;
+  text-align: center;
+}
+.cta-banner h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400; max-width: 550px; line-height: 1.2;
+  margin-bottom: 32px;
+}
+.cta-banner-sub {
+  font-size: 14px; color: var(--mid); max-width: 460px;
+  margin: 0 auto 36px; line-height: 1.6;
+}
+
+/* ---- FOOTER ---- */
+footer {
+  padding: 60px 48px 40px;
+  border-top: 1px solid var(--faint);
+  display: flex; justify-content: space-between; align-items: flex-start;
+  flex-wrap: wrap; gap: 48px;
+  position: relative; z-index: 1; background: #fff;
+}
+.footer-left {}
+.footer-logo {
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px; margin-bottom: 8px;
+}
+.footer-disclaimer {
+  font-size: 11px; color: var(--light); max-width: 360px; line-height: 1.5;
+}
+.footer-cols { display: flex; gap: 56px; }
+.footer-col h5 {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 12px;
+}
+.footer-col a {
+  display: block; font-size: 13px; color: var(--dark);
+  text-decoration: none; margin-bottom: 8px; transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--black); }
+.footer-bottom {
+  width: 100%; padding-top: 32px; margin-top: 16px;
+  border-top: 1px solid var(--faint);
+  font-size: 11px; color: var(--light);
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">TerraLex<span>est. 1990</span></div>
+  <div class="nav-links">
+    <a href="#how">How It Works</a>
+    <a href="#directory">Find Counsel</a>
+    <a href="#stories">Success Stories</a>
+    <a href="#insights">Insights</a>
+    <a href="#events">Events</a>
+    <a href="#" class="nav-cta">Member Portal</a>
+  </div>
+</nav>
+
+<!-- DOT CANVAS -->
+<canvas class="dot-canvas" id="dotCanvas"></canvas>
+
+<!-- HERO -->
+<section class="hero" id="hero" data-shape="globe">
+  <div class="hero-pretitle">Elite Global Legal Network</div>
+  <h1>Find trusted counsel <em>anywhere</em> your business operates</h1>
+  <p class="hero-sub">One network of carefully vetted independent firms. Coordinated cross-border execution across 120+ countries.</p>
+  <div class="hero-ctas">
+    <a href="#directory" class="btn btn-primary">Find Counsel</a>
+    <a href="#" class="btn">Request an Introduction</a>
+  </div>
+</section>
+
+<!-- PROOF POINTS -->
+<section class="proof" id="proof" data-shape="scatter">
+  <div class="proof-grid">
+    <div class="proof-item">
+      <div class="proof-number">23,000+</div>
+      <div class="proof-label">Attorneys</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-number">200+</div>
+      <div class="proof-label">Jurisdictions</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-number">120+</div>
+      <div class="proof-label">Countries</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-number">155</div>
+      <div class="proof-label">Member Firms</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how" data-shape="network">
+  <div class="section-label">How It Works</div>
+  <div class="section-title">Three steps to trusted cross-border counsel</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Search the Directory</h3>
+      <p>Filter by jurisdiction, practice area, industry, or language to find the right firm.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Request an Introduction</h3>
+      <p>Submit a single request. TerraLex coordinates the connection with vetted counsel.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Engage with Confidence</h3>
+      <p>Work with firms held to consistent quality standards, backed by network accountability.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DIRECTORY SEARCH -->
+<section class="directory" id="directory" data-shape="search">
+  <div class="section-label">Directory</div>
+  <div class="section-title">Find counsel across jurisdictions</div>
+  <div class="search-box">
+    <select>
+      <option>Jurisdiction</option>
+      <option>United States</option>
+      <option>United Kingdom</option>
+      <option>Germany</option>
+      <option>France</option>
+      <option>Brazil</option>
+      <option>Japan</option>
+      <option>Singapore</option>
+      <option>Australia</option>
+    </select>
+    <select>
+      <option>Practice Area</option>
+      <option>M&A</option>
+      <option>Capital Markets</option>
+      <option>Litigation</option>
+      <option>IP &amp; Technology</option>
+      <option>Employment</option>
+      <option>Antitrust</option>
+      <option>Tax</option>
+    </select>
+    <input type="text" placeholder="Keyword or firm name...">
+    <button>Search</button>
+  </div>
+</section>
+
+<!-- SUCCESS STORIES -->
+<section class="stories" id="stories" data-shape="shield">
+  <div class="section-label">Collaboration in Action</div>
+  <div class="section-title">Cross-border success stories</div>
+  <div class="stories-grid">
+    <div class="story-card">
+      <div class="story-tag">M&A · 6 Jurisdictions</div>
+      <h3>Multi-jurisdiction acquisition for a Fortune 500 technology company</h3>
+      <p>Coordinated due diligence and regulatory filings across the US, UK, Germany, France, Japan, and Singapore in under 90 days.</p>
+      <a href="#" class="story-link">Read the story →</a>
+    </div>
+    <div class="story-card">
+      <div class="story-tag">Litigation · EU Cross-Border</div>
+      <h3>Pan-European IP enforcement for a luxury goods brand</h3>
+      <p>Synchronized proceedings in four EU jurisdictions, achieving preliminary injunctions within 30 days of engagement.</p>
+      <a href="#" class="story-link">Read the story →</a>
+    </div>
+    <div class="story-card">
+      <div class="story-tag">Restructuring · Americas</div>
+      <h3>Cross-border restructuring for a Latin American infrastructure group</h3>
+      <p>Navigated insolvency frameworks in Brazil, Mexico, and the United States with a unified strategy and creditor coordination.</p>
+      <a href="#" class="story-link">Read the story →</a>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHTS / GUIDES -->
+<section class="insights" id="insights" data-shape="book">
+  <div class="section-label">Insights & Guides</div>
+  <div class="section-title">Cross-border intelligence</div>
+  <div class="insights-grid">
+    <div class="insight-card">
+      <div class="insight-date">Feb 2026</div>
+      <h4>EU AI Act Compliance Guide for US Multinationals</h4>
+      <p>Practical roadmap for companies operating across US and EU markets.</p>
+    </div>
+    <div class="insight-card">
+      <div class="insight-date">Jan 2026</div>
+      <h4>Global M&A Regulatory Trends</h4>
+      <p>Merger control developments across 40 jurisdictions.</p>
+    </div>
+    <div class="insight-card">
+      <div class="insight-date">Dec 2025</div>
+      <h4>Cross-Border Employment Handbook</h4>
+      <p>Hiring, termination, and compliance across 25 key markets.</p>
+    </div>
+    <div class="insight-card">
+      <div class="insight-date">Nov 2025</div>
+      <h4>International Arbitration Seat Comparison</h4>
+      <p>Benchmarking arbitration frameworks in London, Singapore, Paris, and New York.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="events" id="events" data-shape="calendar">
+  <div class="section-label">Events</div>
+  <div class="section-title">Connect with the network</div>
+  <div class="events-list">
+    <div class="event-row">
+      <div class="event-date-block">
+        <div class="event-month">Mar</div>
+        <div class="event-day">12</div>
+      </div>
+      <div class="event-info">
+        <h4>Cross-Border M&A: Navigating Regulatory Complexity</h4>
+        <p>Webinar · 11:00 AM EST · 60 min</p>
+      </div>
+    </div>
+    <div class="event-row">
+      <div class="event-date-block">
+        <div class="event-month">Apr</div>
+        <div class="event-day">05</div>
+      </div>
+      <div class="event-info">
+        <h4>TerraLex Annual Conference — London</h4>
+        <p>In Person · 3 Days · Member & Invited Guests</p>
+      </div>
+    </div>
+    <div class="event-row">
+      <div class="event-date-block">
+        <div class="event-month">May</div>
+        <div class="event-day">20</div>
+      </div>
+      <div class="event-info">
+        <h4>NextGen Lawyers: Building a Cross-Border Practice</h4>
+        <p>Virtual Roundtable · 1:00 PM CET · 45 min</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner" id="join" data-shape="globe">
+  <div class="section-label">Membership</div>
+  <h2>Join the network that top firms trust for cross-border counsel</h2>
+  <p class="cta-banner-sub">One vetted firm per jurisdiction. Invitation-only standards. A shared commitment to responsiveness and quality.</p>
+  <div class="hero-ctas">
+    <a href="#" class="btn btn-primary">Explore Membership</a>
+    <a href="#" class="btn">Schedule a Conversation</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo">TerraLex</div>
+    <div class="footer-disclaimer">TerraLex member firms are independent law firms. TerraLex is not a law firm and does not provide legal services.</div>
+  </div>
+  <div class="footer-cols">
+    <div class="footer-col">
+      <h5>Network</h5>
+      <a href="#">Find Counsel</a>
+      <a href="#">Practice Areas</a>
+      <a href="#">Cross-Border Guides</a>
+      <a href="#">Success Stories</a>
+    </div>
+    <div class="footer-col">
+      <h5>About</h5>
+      <a href="#">About TerraLex</a>
+      <a href="#">Leadership</a>
+      <a href="#">Standards</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Members</h5>
+      <a href="#">Member Portal</a>
+      <a href="#">Join TerraLex</a>
+      <a href="#">Events</a>
+      <a href="#">Resources</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 TerraLex. All rights reserved. &nbsp;·&nbsp; Privacy &nbsp;·&nbsp; Cookies &nbsp;·&nbsp; Terms</div>
+</footer>
+
+<script>
+// ============================================================
+// DOT PARTICLE SYSTEM — shapes morph per section on scroll
+// ============================================================
+
+const canvas = document.getElementById('dotCanvas');
+const ctx = canvas.getContext('2d');
+const dpr = window.devicePixelRatio || 1;
+let W, H;
+
+function resizeCanvas() {
+  W = window.innerWidth;
+  H = window.innerHeight;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// ---- PARTICLE CLASS ----
+const NUM = 1800;
+const particles = [];
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.tx = this.x;
+    this.ty = this.y;
+    this.size = 1 + Math.random() * 1;
+    this.alpha = 0.15 + Math.random() * 0.4;
+    this.baseAlpha = this.alpha;
+  }
+  update() {
+    this.x += (this.tx - this.x) * 0.035;
+    this.y += (this.ty - this.y) * 0.035;
+  }
+  draw() {
+    ctx.fillStyle = `rgba(0,0,0,${this.alpha})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, 6.283);
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < NUM; i++) particles.push(new Particle());
+
+// ============================================================
+// SHAPE GENERATORS — each returns array of {x, y} targets
+// ============================================================
+
+function shapeGlobe(n) {
+  // Half-sphere at bottom center — dense dot globe
+  const pts = [];
+  const R = Math.min(W, H) * 0.55;
+  const cx = W / 2, cy = H + R * 0.2;
+  for (let i = 0; i < n; i++) {
+    // Random point on sphere surface, biased to visible top
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.random() * Math.PI * 0.6; // top portion
+    const x = cx + R * Math.sin(phi) * Math.cos(theta);
+    const y = cy - R * Math.cos(phi);
+    // Reject if off screen
+    if (y > H + 20 || y < -20) { pts.push({ x: Math.random() * W, y: H + 50 }); continue; }
+    pts.push({ x, y });
+  }
+  return pts;
+}
+
+function shapeScatter(n) {
+  // Spread across viewport in organic clusters
+  const pts = [];
+  for (let i = 0; i < n; i++) {
+    pts.push({
+      x: W * 0.1 + Math.random() * W * 0.8,
+      y: H * 0.15 + Math.random() * H * 0.7
+    });
+  }
+  return pts;
+}
+
+function shapeNetwork(n) {
+  // Network graph: cluster nodes connected by particle trails
+  const nodes = [
+    { x: 0.5, y: 0.4 },
+    { x: 0.25, y: 0.3 }, { x: 0.75, y: 0.3 },
+    { x: 0.2, y: 0.6 }, { x: 0.8, y: 0.6 },
+    { x: 0.35, y: 0.7 }, { x: 0.65, y: 0.7 },
+    { x: 0.15, y: 0.45 }, { x: 0.85, y: 0.45 },
+    { x: 0.5, y: 0.65 },
+  ];
+  // Edges
+  const edges = [
+    [0,1],[0,2],[0,9],[1,3],[1,7],[2,4],[2,8],[3,5],[4,6],[5,9],[6,9],[7,3],[8,4]
+  ];
+  const pts = [];
+  const nodeR = Math.min(W, H) * 0.035;
+
+  // Particles around nodes
+  const perNode = Math.floor(n * 0.45 / nodes.length);
+  for (const nd of nodes) {
+    for (let i = 0; i < perNode; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const r = Math.random() * nodeR;
+      pts.push({ x: nd.x * W + Math.cos(a) * r, y: nd.y * H + Math.sin(a) * r });
+    }
+  }
+
+  // Particles along edges
+  const perEdge = Math.floor(n * 0.45 / edges.length);
+  for (const [a, b] of edges) {
+    for (let i = 0; i < perEdge; i++) {
+      const t = Math.random();
+      const jitter = (Math.random() - 0.5) * 4;
+      pts.push({
+        x: nodes[a].x * W + (nodes[b].x * W - nodes[a].x * W) * t + jitter,
+        y: nodes[a].y * H + (nodes[b].y * H - nodes[a].y * H) * t + jitter
+      });
+    }
+  }
+
+  // Fill remaining
+  while (pts.length < n) pts.push({ x: Math.random() * W, y: Math.random() * H });
+  return pts;
+}
+
+function shapeSearch(n) {
+  // Magnifying glass
+  const pts = [];
+  const cx = W / 2, cy = H * 0.42;
+  const R = Math.min(W, H) * 0.18;
+
+  // Circle
+  const circleN = Math.floor(n * 0.6);
+  for (let i = 0; i < circleN; i++) {
+    const a = Math.random() * Math.PI * 2;
+    const r = R - 2 + (Math.random() - 0.5) * 12;
+    pts.push({ x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r });
+  }
+
+  // Handle
+  const handleN = Math.floor(n * 0.15);
+  const handleAngle = Math.PI * 0.75;
+  const hsx = cx + Math.cos(handleAngle) * R;
+  const hsy = cy + Math.sin(handleAngle) * R;
+  const hlen = R * 0.7;
+  for (let i = 0; i < handleN; i++) {
+    const t = Math.random();
+    const jitter = (Math.random() - 0.5) * 6;
+    pts.push({
+      x: hsx + Math.cos(handleAngle) * hlen * t + jitter,
+      y: hsy + Math.sin(handleAngle) * hlen * t + jitter
+    });
+  }
+
+  // Inner fill (sparse)
+  while (pts.length < n) {
+    const a = Math.random() * Math.PI * 2;
+    const r = Math.random() * R * 0.85;
+    pts.push({ x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r });
+  }
+  return pts;
+}
+
+function shapeShield(n) {
+  // Shield / crest shape
+  const pts = [];
+  const cx = W / 2, topY = H * 0.2;
+  const sw = Math.min(W, H) * 0.22;
+  const sh = sw * 1.4;
+
+  for (let i = 0; i < n; i++) {
+    // Parametric shield
+    const t = Math.random();
+    const y = topY + t * sh;
+    // Width narrows toward bottom in a curve
+    const progress = t;
+    const halfW = sw * (1 - progress * progress * 0.7);
+    const x = cx + (Math.random() - 0.5) * 2 * halfW;
+
+    // Bias toward edges
+    if (Math.random() < 0.4) {
+      const side = Math.random() < 0.5 ? -1 : 1;
+      const edgeX = cx + side * halfW + (Math.random() - 0.5) * 6;
+      pts.push({ x: edgeX, y });
+    } else {
+      pts.push({ x, y });
+    }
+  }
+  return pts;
+}
+
+function shapeBook(n) {
+  // Open book shape
+  const pts = [];
+  const cx = W / 2, cy = H * 0.45;
+  const bw = Math.min(W, H) * 0.28;
+  const bh = bw * 0.7;
+
+  for (let i = 0; i < n; i++) {
+    const side = Math.random() < 0.5 ? -1 : 1;
+    const px = Math.random();
+    const py = Math.random();
+
+    // Page curve
+    const curve = Math.sin(px * Math.PI) * bh * 0.08;
+    const x = cx + side * (px * bw * 0.48 + 8);
+    const y = cy - bh / 2 + py * bh - curve;
+
+    // Bias toward lines (text lines)
+    const lineY = cy - bh / 2 + Math.floor(py * 12) / 12 * bh;
+
+    if (Math.random() < 0.55) {
+      pts.push({ x, y: lineY + (Math.random() - 0.5) * 3 });
+    } else {
+      pts.push({ x, y });
+    }
+  }
+
+  // Spine
+  for (let i = 0; i < Math.floor(n * 0.05); i++) {
+    pts.pop();
+    pts.push({
+      x: cx + (Math.random() - 0.5) * 4,
+      y: cy - bh / 2 + Math.random() * bh
+    });
+  }
+  return pts;
+}
+
+function shapeCalendar(n) {
+  // Calendar grid
+  const pts = [];
+  const cx = W / 2, cy = H * 0.42;
+  const cw = Math.min(W, H) * 0.3;
+  const ch = cw * 0.85;
+  const left = cx - cw / 2, top = cy - ch / 2;
+  const cols = 7, rows = 5;
+  const cellW = cw / cols, cellH = (ch * 0.75) / rows;
+  const headerH = ch * 0.2;
+
+  for (let i = 0; i < n; i++) {
+    const rand = Math.random();
+
+    if (rand < 0.15) {
+      // Border
+      const side = Math.floor(Math.random() * 4);
+      let x, y;
+      if (side === 0) { x = left + Math.random() * cw; y = top + (Math.random()-0.5)*3; }
+      else if (side === 1) { x = left + Math.random() * cw; y = top + ch + (Math.random()-0.5)*3; }
+      else if (side === 2) { x = left + (Math.random()-0.5)*3; y = top + Math.random() * ch; }
+      else { x = left + cw + (Math.random()-0.5)*3; y = top + Math.random() * ch; }
+      pts.push({ x, y });
+    } else if (rand < 0.3) {
+      // Header bar
+      pts.push({
+        x: left + Math.random() * cw,
+        y: top + Math.random() * headerH
+      });
+    } else {
+      // Grid cells
+      const col = Math.floor(Math.random() * cols);
+      const row = Math.floor(Math.random() * rows);
+      const cellCX = left + (col + 0.5) * cellW;
+      const cellCY = top + headerH + (row + 0.5) * cellH;
+      const r = Math.min(cellW, cellH) * 0.25;
+      const a = Math.random() * Math.PI * 2;
+      const d = Math.random() * r;
+      pts.push({ x: cellCX + Math.cos(a) * d, y: cellCY + Math.sin(a) * d });
+    }
+  }
+  return pts;
+}
+
+// ============================================================
+// SHAPE MAP
+// ============================================================
+const shapeMap = {
+  globe: shapeGlobe,
+  scatter: shapeScatter,
+  network: shapeNetwork,
+  search: shapeSearch,
+  shield: shapeShield,
+  book: shapeBook,
+  calendar: shapeCalendar
+};
+
+// ============================================================
+// SCROLL DETECTION — which section is in view
+// ============================================================
+let currentShape = 'globe';
+let shapeTargets = shapeGlobe(NUM);
+// Assign initial targets
+for (let i = 0; i < NUM; i++) {
+  particles[i].tx = shapeTargets[i].x;
+  particles[i].ty = shapeTargets[i].y;
+}
+
+function detectSection() {
+  const sections = document.querySelectorAll('section[data-shape]');
+  let best = null, bestDist = Infinity;
+
+  for (const s of sections) {
+    const rect = s.getBoundingClientRect();
+    const center = rect.top + rect.height / 2;
+    const dist = Math.abs(center - H / 2);
+    if (dist < bestDist) { bestDist = dist; best = s; }
+  }
+
+  if (best) {
+    const shape = best.dataset.shape;
+    if (shape !== currentShape) {
+      currentShape = shape;
+      const gen = shapeMap[shape];
+      if (gen) {
+        shapeTargets = gen(NUM);
+        for (let i = 0; i < NUM; i++) {
+          particles[i].tx = shapeTargets[i].x;
+          particles[i].ty = shapeTargets[i].y;
+          particles[i].alpha = particles[i].baseAlpha;
+        }
+      }
+    }
+  }
+}
+
+window.addEventListener('scroll', detectSection, { passive: true });
+
+// ============================================================
+// NAV scroll class
+// ============================================================
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// ============================================================
+// ANIMATION LOOP
+// ============================================================
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+
+  for (const p of particles) {
+    p.update();
+    p.draw();
+  }
+
+  requestAnimationFrame(animate);
+}
+
+// Init
+detectSection();
+animate();
+
+// Handle resize
+window.addEventListener('resize', () => {
+  resizeCanvas();
+  const gen = shapeMap[currentShape];
+  if (gen) {
+    shapeTargets = gen(NUM);
+    for (let i = 0; i < NUM; i++) {
+      particles[i].tx = shapeTargets[i].x;
+      particles[i].ty = shapeTargets[i].y;
+    }
+  }
+});
+</script>
+</body>
+</html>

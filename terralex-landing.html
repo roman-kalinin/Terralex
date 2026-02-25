@@ -405,12 +405,25 @@ footer {
   background: #fff;
   cursor: pointer;
 }
-#objEditor .row .val {
-  width: 36px;
-  text-align: right;
+#objEditor .row .num {
+  width: 48px;
+  flex-shrink: 0;
+  background: #222;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
   color: #ccc;
   font-size: 11px;
-  font-variant-numeric: tabular-nums;
+  font-family: 'DM Sans', sans-serif;
+  text-align: right;
+  padding: 2px 4px;
+  -moz-appearance: textfield;
+}
+#objEditor .row .num::-webkit-inner-spin-button,
+#objEditor .row .num::-webkit-outer-spin-button { opacity: 0.4; }
+#objEditor .row .num:focus {
+  outline: none;
+  border-color: #666;
+  color: #fff;
 }
 #objEditor .sep {
   height: 1px;
@@ -453,33 +466,33 @@ footer {
 
   <div class="row"><label>Scale</label>
     <input type="range" id="edScale" min="0.1" max="3" step="0.01" value="1">
-    <div class="val" id="edScaleVal">1.00</div>
+    <input type="number" class="num" id="edScaleNum" step="0.01" value="1">
   </div>
 
   <div class="sep"></div>
 
   <div class="row"><label>Rotate X</label>
     <input type="range" id="edRotX" min="-180" max="180" step="1" value="0">
-    <div class="val" id="edRotXVal">0°</div>
+    <input type="number" class="num" id="edRotXNum" step="1" value="0">
   </div>
   <div class="row"><label>Rotate Y</label>
     <input type="range" id="edRotY" min="-180" max="180" step="1" value="0">
-    <div class="val" id="edRotYVal">0°</div>
+    <input type="number" class="num" id="edRotYNum" step="1" value="0">
   </div>
   <div class="row"><label>Rotate Z</label>
     <input type="range" id="edRotZ" min="-180" max="180" step="1" value="0">
-    <div class="val" id="edRotZVal">0°</div>
+    <input type="number" class="num" id="edRotZNum" step="1" value="0">
   </div>
 
   <div class="sep"></div>
 
   <div class="row"><label>Offset X</label>
-    <input type="range" id="edOffX" min="-400" max="400" step="1" value="0">
-    <div class="val" id="edOffXVal">0</div>
+    <input type="range" id="edOffX" min="-800" max="800" step="1" value="0">
+    <input type="number" class="num" id="edOffXNum" step="1" value="0">
   </div>
   <div class="row"><label>Offset Y</label>
-    <input type="range" id="edOffY" min="-400" max="400" step="1" value="0">
-    <div class="val" id="edOffYVal">0</div>
+    <input type="range" id="edOffY" min="-800" max="800" step="1" value="0">
+    <input type="number" class="num" id="edOffYNum" step="1" value="0">
   </div>
 
   <div class="btn-row">
@@ -563,7 +576,7 @@ footer {
 <!-- ============================================================
      HOW IT WORKS — dots LEFT, text RIGHT (even)
 ============================================================ -->
-<div class="split-section even" id="how" data-shape="network">
+<div class="split-section even" id="how" data-shape="handshake-obj">
   <div class="split-dots"></div>
   <div class="split-text">
     <div class="section-label">How It Works</div>
@@ -591,7 +604,7 @@ footer {
 <!-- ============================================================
      DIRECTORY — text LEFT, dots RIGHT (odd)
 ============================================================ -->
-<div class="split-section odd" id="directory" data-shape="search">
+<div class="split-section odd" id="directory" data-shape="compass-obj">
   <div class="split-text">
     <div class="section-label">Directory</div>
     <div class="section-title">Find counsel across every jurisdiction</div>
@@ -652,7 +665,7 @@ footer {
 <!-- ============================================================
      INSIGHTS — text LEFT, dots RIGHT (odd)
 ============================================================ -->
-<div class="split-section odd" id="insights" data-shape="book">
+<div class="split-section odd" id="insights" data-shape="loudspeaker-obj">
   <div class="split-text">
     <div class="section-label">Insights & Guides</div>
     <div class="section-title">Cross-border intelligence</div>
@@ -864,7 +877,7 @@ const MASK_W = 720, MASK_H = 360;
 function buildMask(rings) {
   const oc = document.createElement('canvas');
   oc.width = MASK_W; oc.height = MASK_H;
-  const mc = oc.getContext('2d');
+  const mc = oc.getContext('2d', { willReadFrequently: true });
   mc.fillStyle = '#000'; mc.fillRect(0, 0, MASK_W, MASK_H);
   mc.fillStyle = '#fff';
   for (const ring of rings) {
@@ -1398,49 +1411,55 @@ function loadOBJ(name, objText, opts = {}) {
   const getC = makeGetter(axesToks[2]);
 
   shapeMap[name] = (n) => {
-    const side   = sideOpt === 'auto' ? shapeSide(name) : sideOpt;
-    const rDepth = opts.depth != null ? opts.depth : morphDepth();
+    // Read all parameters from opts directly — editor updates opts live via _objOpts[name]
+    const live   = window._objOpts[name];
+    const side   = (live.side && live.side !== 'auto') ? live.side : (sideOpt === 'auto' ? shapeSide(name) : sideOpt);
+    const rDepth = live.depth != null ? live.depth : morphDepth();
     const raw    = sampleMesh(verts, faces, n);
-    // Remap to [screenX, screenY, depth] — all three axes preserved
     let remapped = raw.map(v => [getA(v), getB(v), getC(v)]);
 
-    // Editor overrides: per-shape rotation and offset applied before fitToPanel
-    const ov = (window._editorOverrides && window._editorOverrides[name]) || {};
-    const rx = (ov.rotX || 0) * Math.PI / 180;
-    const ry = (ov.rotY || 0) * Math.PI / 180;
-    const rz = (ov.rotZ || 0) * Math.PI / 180;
+    // Pre-fit rotation (rotX/Y/Z in degrees)
+    const rx = ((live.rotX || 0)) * Math.PI / 180;
+    const ry = ((live.rotY || 0)) * Math.PI / 180;
+    const rz = ((live.rotZ || 0)) * Math.PI / 180;
     if (rx || ry || rz) {
       remapped = remapped.map(([x, y, d]) => {
-        // rotZ (around depth axis)
         let x2 = x * Math.cos(rz) - y * Math.sin(rz);
         let y2 = x * Math.sin(rz) + y * Math.cos(rz);
-        let d2 = d;
-        // rotX (around screenX axis)
-        let y3 = y2 * Math.cos(rx) - d2 * Math.sin(rx);
-        let d3 = y2 * Math.sin(rx) + d2 * Math.cos(rx);
-        // rotY (around screenY axis)
+        let y3 = y2 * Math.cos(rx) - d  * Math.sin(rx);
+        let d3 = y2 * Math.sin(rx) + d  * Math.cos(rx);
         let x3 = x2 * Math.cos(ry) + d3 * Math.sin(ry);
         let d4 = -x2 * Math.sin(ry) + d3 * Math.cos(ry);
         return [x3, y3, d4];
       });
     }
 
-    const effScale = scaleMul * (ov.scale != null ? ov.scale : 1);
-    const result = fitToPanel(remapped, side, effScale, rDepth);
+    const result = fitToPanel(remapped, side, live.scale || 1.0, rDepth);
 
-    // offsetX/offsetY: shift all points in screen space after fitting
-    const ox = ov.offsetX || 0;
-    const oy = ov.offsetY || 0;
+    // offsetX/offsetY in screen pixels — convert to globe-space delta
+    const ox = live.offsetX || 0;
+    const oy = live.offsetY || 0;
     if (ox || oy) {
-      return result.map(([x, y, z]) => {
-        const [sx, sy, sd] = globeProject(x, y, z, 1, 0);
-        return screenTo3D(sx + ox, sy + oy, sd);
-      });
+      const b  = panelBounds(side);
+      const cx = (b.sx0 + b.sx1) / 2;
+      const cy = (b.sy0 + b.sy1) / 2;
+      const base  = screenTo3D(cx,      cy,      morphDepth());
+      const baseX = screenTo3D(cx + ox, cy,      morphDepth());
+      const baseY = screenTo3D(cx,      cy + oy, morphDepth());
+      const dx = baseX[0]-base[0], dy = baseX[1]-base[1], dz = baseX[2]-base[2];
+      const ex = baseY[0]-base[0], ey = baseY[1]-base[1], ez = baseY[2]-base[2];
+      return result.map(([x, y, z]) => [x+dx+ex, y+dy+ey, z+dz+ez]);
     }
     return result;
   };
 
   objShapeMap[name] = true;
+
+  // Seed _objOpts synchronously from opts so the renderer always has the correct
+  // values even before the editor's async fetch completes.
+  if (!window._objOpts) window._objOpts = {};
+  window._objOpts[name] = { scale: 1, rotX: 0, rotY: 0, rotZ: 0, offsetX: 0, offsetY: 0, ...opts };
+
   console.log(`loadOBJ("${name}"): ${verts.length} verts, ${faces.length} faces → registered`);
 
   // Apply immediately if this shape is currently visible or was requested
@@ -1464,17 +1483,28 @@ let pendingShape = null; // shape name requested before its OBJ was ready
 // Centroid of current morph targets in 3-D — used as rotation pivot
 let morphCX = 0, morphCY = 0, morphCZ = 0;
 
-function setMorphTargets(name) {
+// Cache of generated targets per shape — keyed by "name:n" so we don't
+// re-randomize on every scroll-back, which would cause the shape to jump.
+const morphCache = {};
+
+function setMorphTargets(name, force) {
   const gen = shapeMap[name];
   if (!gen) {
-    // OBJ not loaded yet — remember the request, apply when it arrives
     pendingShape = name;
     return;
   }
   pendingShape = null;
   if (particles.length === 0) return;
-  const n    = particles.length;
-  const tgts = gen(n);
+  const n   = particles.length;
+  const key = name + ':' + n;
+
+  // Use cached targets unless forced (e.g. editor slider change)
+  let tgts = morphCache[key];
+  if (!tgts || force) {
+    tgts = gen(n);
+    morphCache[key] = tgts;
+  }
+
   let sumX = 0, sumY = 0, sumZ = 0;
   for (let i = 0; i < n; i++) {
     particles[i].tx3 = tgts[i][0];
@@ -1828,8 +1858,33 @@ window.addEventListener('resize', () => {
 // loadOBJFromURL registers the shape as soon as the file arrives;
 // if the user hasn't scrolled to that section yet it's ready in time.
 loadOBJFromURL('city-obj', '3d assets/City.obj', {
-  side:  'right',
-  scale: 1.0,
+  side: 'right',
+  scale: 2.050,
+  rotX: -4,
+  rotY: 9,
+  offsetX: 88,
+  offsetY: 38,
+});
+loadOBJFromURL('compass-obj', '3d assets/Compass 3d.obj', {
+  side: 'right',
+  scale: 0.870,
+  rotX: 163,
+  rotY: 116,
+  offsetY: -25,
+});
+loadOBJFromURL('loudspeaker-obj', '3d assets/Loudspeaker.obj', {
+  side: 'right',
+  scale: 1.000,
+  offsetX: 15,
+});
+loadOBJFromURL('handshake-obj', '3d assets/handshake.obj', {
+  side: 'left',
+  scale: 1.250,
+  rotX: -19,
+  rotY: -95,
+  rotZ: 62,
+  offsetX: -781,
+  offsetY: 7,
 });
 
 fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
@@ -1854,173 +1909,194 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
 // OBJ SHAPE EDITOR
 // ----------------------------------------------------------------
 (function () {
-  const panel     = document.getElementById('objEditor');
-  const nameEl    = document.getElementById('edShapeName');
-  const statusEl  = document.getElementById('edSaveStatus');
+  const panel    = document.getElementById('objEditor');
+  const nameEl   = document.getElementById('edShapeName');
+  const statusEl = document.getElementById('edSaveStatus');
+
+  const KEYS    = ['scale','rotX','rotY','rotZ','offsetX','offsetY'];
+  const NEUTRAL = { scale: 1, rotX: 0, rotY: 0, rotZ: 0, offsetX: 0, offsetY: 0 };
 
   const sliders = {
-    scale:  { el: document.getElementById('edScale'),  val: document.getElementById('edScaleVal'),  fmt: v => v.toFixed(2) },
-    rotX:   { el: document.getElementById('edRotX'),   val: document.getElementById('edRotXVal'),   fmt: v => v + '°' },
-    rotY:   { el: document.getElementById('edRotY'),   val: document.getElementById('edRotYVal'),   fmt: v => v + '°' },
-    rotZ:   { el: document.getElementById('edRotZ'),   val: document.getElementById('edRotZVal'),   fmt: v => v + '°' },
-    offsetX:{ el: document.getElementById('edOffX'),   val: document.getElementById('edOffXVal'),   fmt: v => (v > 0 ? '+' : '') + v },
-    offsetY:{ el: document.getElementById('edOffY'),   val: document.getElementById('edOffYVal'),   fmt: v => (v > 0 ? '+' : '') + v },
+    scale:  { el: document.getElementById('edScale'),  num: document.getElementById('edScaleNum'),  dec: 2 },
+    rotX:   { el: document.getElementById('edRotX'),   num: document.getElementById('edRotXNum'),   dec: 0 },
+    rotY:   { el: document.getElementById('edRotY'),   num: document.getElementById('edRotYNum'),   dec: 0 },
+    rotZ:   { el: document.getElementById('edRotZ'),   num: document.getElementById('edRotZNum'),   dec: 0 },
+    offsetX:{ el: document.getElementById('edOffX'),   num: document.getElementById('edOffXNum'),   dec: 0 },
+    offsetY:{ el: document.getElementById('edOffY'),   num: document.getElementById('edOffYNum'),   dec: 0 },
   };
 
-  window._editorOverrides = {};
-  let activeShape = null;
+  // _objOpts: single source of truth for each shape's parameters.
+  // The renderer (loadOBJ shapeMap) reads from this directly.
+  // Populated from the file on startup, updated live as sliders move.
+  window._objOpts = {};
+  const dirtyShapes = new Set(); // shapes touched by sliders — don't overwrite from file fetch
 
-  // On load, parse saved opts from the page's own source so sliders
-  // reflect what's already written in the file, not hardcoded defaults.
-  async function loadSavedOpts() {
-    try {
-      const res  = await fetch('/terralex-landing.html?nc=' + Date.now(), { cache: 'no-store' });
-      const html = await res.text();
-      // Find every loadOBJFromURL call and extract its opts
-      const re = /loadOBJFromURL\s*\(\s*['"]([^'"]+)['"]\s*,\s*'[^']*'\s*,\s*\{([^}]*)\}/gs;
-      let m;
-      while ((m = re.exec(html)) !== null) {
-        const name = m[1], block = m[2];
-        const opts = {};
-        for (const raw of block.split('\n')) {
-          const line = raw.replace(/\/\/.*$/, '').trim().replace(/,$/, '').trim();
-          if (!line) continue;
-          const colon = line.indexOf(':');
-          if (colon < 0) continue;
-          const k = line.slice(0, colon).trim();
-          const v = parseFloat(line.slice(colon + 1).trim());
-          if (!isNaN(v) && ['scale','rotX','rotY','rotZ','offsetX','offsetY'].includes(k)) {
-            opts[k] = v;
-          }
-        }
-        if (Object.keys(opts).length) window._editorOverrides[name] = opts;
+  let htmlSource   = null;
+  let activeShape  = null;
+  let lastObjShape = null;
+
+  // Parse all loadOBJFromURL opts from an HTML string into _objOpts
+  function parseAllOpts(html, overrideDirty) {
+    const re = /loadOBJFromURL\s*\(\s*['"]([^'"]+)['"]\s*,\s*'[^']*'\s*,\s*\{([^}]*)\}/gs;
+    let m;
+    while ((m = re.exec(html)) !== null) {
+      const name = m[1];
+      // Don't overwrite shapes the user is actively editing, unless forced (after Apply)
+      if (!overrideDirty && dirtyShapes.has(name)) continue;
+      const parsed = { ...NEUTRAL };
+      for (const raw of m[2].split('\n')) {
+        const line = raw.replace(/\/\/.*$/, '').trim().replace(/,$/, '').trim();
+        if (!line) continue;
+        const colon = line.indexOf(':');
+        if (colon < 0) continue;
+        const k   = line.slice(0, colon).trim();
+        const val = line.slice(colon + 1).trim();
+        if (KEYS.includes(k)) parsed[k] = parseFloat(val);
+        else parsed[k] = val;
       }
-    } catch (e) { /* silent — editor still works with defaults */ }
-  }
-  loadSavedOpts();
-
-  function getValues() {
-    return {
-      scale:   parseFloat(sliders.scale.el.value),
-      rotX:    parseFloat(sliders.rotX.el.value),
-      rotY:    parseFloat(sliders.rotY.el.value),
-      rotZ:    parseFloat(sliders.rotZ.el.value),
-      offsetX: parseFloat(sliders.offsetX.el.value),
-      offsetY: parseFloat(sliders.offsetY.el.value),
-    };
-  }
-
-  function setSliders(v) {
-    sliders.scale.el.value   = v.scale   ?? 1;
-    sliders.rotX.el.value    = v.rotX    ?? 0;
-    sliders.rotY.el.value    = v.rotY    ?? 0;
-    sliders.rotZ.el.value    = v.rotZ    ?? 0;
-    sliders.offsetX.el.value = v.offsetX ?? 0;
-    sliders.offsetY.el.value = v.offsetY ?? 0;
-    updateLabels();
-  }
-
-  function updateLabels() {
-    for (const [key, s] of Object.entries(sliders)) {
-      s.val.textContent = s.fmt(parseFloat(s.el.value));
+      window._objOpts[name] = parsed;
     }
   }
 
-  function liveUpdate() {
+  // Fetch file once — populate _objOpts and keep htmlSource for patching
+  fetch('/terralex-landing.html?nc=' + Date.now(), { cache: 'no-store' })
+    .then(r => r.text())
+    .then(html => { htmlSource = html; parseAllOpts(html); })
+    .catch(() => {});
+
+  function readSliders() {
+    const v = {};
+    for (const k of KEYS) {
+      // Read from number input — it holds the true value even beyond slider range
+      const raw = parseFloat(sliders[k].num.value);
+      v[k] = isNaN(raw) ? parseFloat(sliders[k].el.value) : raw;
+    }
+    return v;
+  }
+
+  function writeSliders(v) {
+    for (const k of KEYS) {
+      const val = v[k] != null ? v[k] : NEUTRAL[k];
+      sliders[k].el.value  = val;
+      sliders[k].num.value = parseFloat(val).toFixed(sliders[k].dec);
+    }
+  }
+
+  function syncNumToSlider(k) {
+    const s   = sliders[k];
+    const val = parseFloat(s.num.value);
+    if (isNaN(val)) return;
+    // Extend slider range before setting value so it doesn't get clamped
+    if (val < parseFloat(s.el.min)) s.el.min = val;
+    if (val > parseFloat(s.el.max)) s.el.max = val;
+    s.el.value = val;
+  }
+
+  function onChanged() {
     if (!activeShape) return;
-    updateLabels();
-    window._editorOverrides[activeShape] = getValues();
-    if (typeof setMorphTargets === 'function') setMorphTargets(activeShape);
+    dirtyShapes.add(activeShape);
+    window._objOpts[activeShape] = { ...(window._objOpts[activeShape] || {}), ...readSliders() };
+    if (typeof morphCache !== 'undefined') delete morphCache[activeShape + ':' + particles.length];
+    if (typeof setMorphTargets === 'function') setMorphTargets(activeShape, true);
     statusEl.textContent = '';
   }
 
-  for (const s of Object.values(sliders)) {
-    s.el.addEventListener('input', liveUpdate);
+  for (const k of KEYS) {
+    sliders[k].el.addEventListener('input', () => {
+      sliders[k].num.value = parseFloat(sliders[k].el.value).toFixed(sliders[k].dec);
+      onChanged();
+    });
+    sliders[k].num.addEventListener('input', () => { syncNumToSlider(k); onChanged(); });
+    sliders[k].num.addEventListener('change', () => { syncNumToSlider(k); onChanged(); });
   }
 
   function syncPanel() {
     const shape = (typeof currentShape !== 'undefined') ? currentShape : null;
     const isObj = shape && (typeof objShapeMap !== 'undefined') && objShapeMap[shape];
     if (isObj) {
-      if (shape !== activeShape) {
-        activeShape = shape;
-        nameEl.textContent = shape;
-        const existing = window._editorOverrides[shape] || {};
-        setSliders({ scale: 1, rotX: 0, rotY: 0, rotZ: 0, offsetX: 0, offsetY: 0, ...existing });
-        statusEl.textContent = '';
-      }
       panel.classList.add('visible');
+      if (shape !== lastObjShape) {
+        lastObjShape = activeShape = shape;
+        nameEl.textContent = shape;
+        statusEl.textContent = '';
+        // Load current _objOpts (already seeded from file) into sliders
+        const cur = window._objOpts[shape] || {};
+        writeSliders({ ...NEUTRAL, ...cur });
+      } else {
+        activeShape = shape;
+      }
     } else {
       panel.classList.remove('visible');
-      activeShape = null;
     }
   }
 
-  setInterval(syncPanel, 300);
+  setInterval(syncPanel, 400);
 
+  // Reset: restore sliders to what's saved in htmlSource
   document.getElementById('edReset').addEventListener('click', () => {
-    setSliders({ scale: 1, rotX: 0, rotY: 0, rotZ: 0, offsetX: 0, offsetY: 0 });
-    if (activeShape) {
-      window._editorOverrides[activeShape] = getValues();
-      if (typeof setMorphTargets === 'function') setMorphTargets(activeShape);
-    }
-    statusEl.textContent = 'Reset to defaults';
+    if (!activeShape || !htmlSource) return;
+    parseAllOpts(htmlSource);  // re-parse from last saved state
+    const cur = window._objOpts[activeShape] || {};
+    writeSliders({ ...NEUTRAL, ...cur });
+    if (typeof setMorphTargets === 'function') setMorphTargets(activeShape);
+    statusEl.textContent = 'Reset to saved';
+    setTimeout(() => { statusEl.textContent = ''; }, 1500);
   });
+
+  // Patch an HTML string: rebuild the opts block for one shape
+  function patchOpts(html, shapeName, vals) {
+    const esc = shapeName.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+    const re  = new RegExp(
+      `(loadOBJFromURL\\s*\\(\\s*['"]${esc}['"]\\s*,\\s*'[^']*'\\s*,\\s*\\{)([^}]*)(\\})`, 's'
+    );
+    const match = re.exec(html);
+    if (!match) return null;
+
+    // Keep non-editor keys (side, axes, depth, …), replace editor keys
+    const managed = new Set(KEYS);
+    const kept = [];
+    for (const raw of match[2].split('\n')) {
+      const line = raw.replace(/\/\/.*$/, '').trim().replace(/,$/, '').trim();
+      if (!line) continue;
+      const colon = line.indexOf(':');
+      if (colon < 0) continue;
+      const k = line.slice(0, colon).trim();
+      if (!managed.has(k)) kept.push(`  ${k}: ${line.slice(colon + 1).trim()},`);
+    }
+    kept.push(`  scale: ${parseFloat(vals.scale).toFixed(3)},`);
+    if (vals.rotX)    kept.push(`  rotX: ${vals.rotX},`);
+    if (vals.rotY)    kept.push(`  rotY: ${vals.rotY},`);
+    if (vals.rotZ)    kept.push(`  rotZ: ${vals.rotZ},`);
+    if (vals.offsetX) kept.push(`  offsetX: ${vals.offsetX},`);
+    if (vals.offsetY) kept.push(`  offsetY: ${vals.offsetY},`);
+
+    return html.replace(re, match[1] + '\n' + kept.join('\n') + '\n' + match[3]);
+  }
 
   document.getElementById('edApply').addEventListener('click', async () => {
     if (!activeShape) return;
-    const v = getValues();
+    if (!htmlSource)  { statusEl.textContent = '⚠ Source not loaded yet'; return; }
+
+    const vals    = readSliders();
+    const patched = patchOpts(htmlSource, activeShape, vals);
+    if (!patched) { statusEl.textContent = '⚠ Shape not found in file'; return; }
+
     statusEl.textContent = 'Saving…';
     try {
-      const res  = await fetch('/terralex-landing.html?nc=' + Date.now(), { cache: 'no-store' });
-      let   html = await res.text();
-
-      const shapeEsc = activeShape.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-      const re = new RegExp(
-        `(loadOBJFromURL\\s*\\(\\s*['"]${shapeEsc}['"]\\s*,\\s*'[^']*'\\s*,\\s*\\{)([^}]*)(\\})`,
-        's'
-      );
-
-      const match = re.exec(html);
-      if (!match) {
-        statusEl.textContent = '⚠ Could not find loadOBJFromURL call in file';
-        return;
-      }
-
-      const optsBlock = match[2];
-      const managed = new Set(['scale','rotX','rotY','rotZ','offsetX','offsetY']);
-      const kept = [];
-      for (const raw of optsBlock.split('\n')) {
-        const line = raw.replace(/\/\/.*$/, '').trim().replace(/,$/, '').trim();
-        if (!line) continue;
-        const colon = line.indexOf(':');
-        if (colon < 0) continue;
-        const k = line.slice(0, colon).trim();
-        const val = line.slice(colon + 1).trim();
-        if (!managed.has(k)) kept.push(`  ${k}: ${val},`);
-      }
-
-      kept.push(`  scale: ${v.scale.toFixed(3)},`);
-      if (v.rotX)    kept.push(`  rotX: ${v.rotX},`);
-      if (v.rotY)    kept.push(`  rotY: ${v.rotY},`);
-      if (v.rotZ)    kept.push(`  rotZ: ${v.rotZ},`);
-      if (v.offsetX) kept.push(`  offsetX: ${v.offsetX},`);
-      if (v.offsetY) kept.push(`  offsetY: ${v.offsetY},`);
-
-      const newOptsBody = '\n' + kept.join('\n') + '\n';
-      const patched = html.replace(re, match[1] + newOptsBody + match[3]);
-
-      const save = await fetch('/save', {
-        method: 'POST',
+      const res  = await fetch('/save', {
+        method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ filename: 'terralex-landing.html', content: patched }),
+        body:    JSON.stringify({ filename: 'terralex-landing.html', content: patched }),
       });
-      const json = await save.json();
+      const json = await res.json();
       if (json.ok) {
-        statusEl.textContent = '✓ Saved to file';
-        setTimeout(() => { statusEl.textContent = ''; }, 2500);
+        htmlSource = patched;
+        dirtyShapes.delete(activeShape);               // no longer dirty — file matches
+        parseAllOpts(patched, true);                   // sync _objOpts from saved state
+        statusEl.textContent = '✓ Saved';
+        setTimeout(() => { statusEl.textContent = ''; }, 2000);
       } else {
-        statusEl.textContent = '⚠ Save failed: ' + json.error;
+        statusEl.textContent = '⚠ ' + json.error;
       }
     } catch (e) {
       statusEl.textContent = '⚠ ' + e.message;
