@@ -386,7 +386,7 @@ nav {
 /* ---- INSIGHTS — image card slider ---- */
 .insights-section {
   position: relative; z-index: 2;
-  background: #fff;
+  background: transparent;
   padding: 100px 64px 120px;
 }
 .insights-header {
@@ -906,7 +906,7 @@ footer {
 <!-- ============================================================
      EVENTS — dots LEFT, text RIGHT (even)
 ============================================================ -->
-<div class="split-section even" id="events" data-shape="calendar">
+<div class="split-section even" id="events" data-shape="loudspeaker-obj">
   <div class="split-dots"></div>
   <div class="split-text">
     <div class="section-label">Events</div>
@@ -1683,32 +1683,77 @@ let morphCX = 0, morphCY = 0, morphCZ = 0;
 // re-randomize on every scroll-back, which would cause the shape to jump.
 const morphCache = {};
 
-function setMorphTargets(name, force) {
+// Scroll-driven shape blend — mirrors how globeT works for globe↔morph.
+// prevTargets: the shape we're coming from (or globe targets when globeT<1).
+// nextTargets: the shape we're going to.
+// shapeBlend: 0 = fully on prevTargets, 1 = fully on nextTargets.
+// targetShapeBlend: driven each frame by the incoming section's scroll position.
+let prevTargets    = null; // [x,y,z][] — where dots are coming from
+let nextTargets    = null; // [x,y,z][] — where dots are going to
+let shapeBlend     = 1;    // starts at 1 (no transition in progress)
+let targetShapeBlend = 1;
+let blendingShape  = null; // name of the shape currently being transitioned to
+let currentSection = null; // the DOM element of the dominant section
+
+function getTargets(name, force) {
   const gen = shapeMap[name];
-  if (!gen) {
-    pendingShape = name;
-    return;
-  }
-  pendingShape = null;
-  if (particles.length === 0) return;
+  if (!gen) return null;
   const n   = particles.length;
   const key = name + ':' + n;
+  let tgts  = morphCache[key];
+  if (!tgts || force) { tgts = gen(n); morphCache[key] = tgts; }
+  return tgts;
+}
 
-  // Use cached targets unless forced (e.g. editor slider change)
-  let tgts = morphCache[key];
-  if (!tgts || force) {
-    tgts = gen(n);
-    morphCache[key] = tgts;
+function setMorphTargets(name, force) {
+  const gen = shapeMap[name];
+  if (!gen) { pendingShape = name; return; }
+  pendingShape = null;
+  if (particles.length === 0) return;
+
+  const tgts = getTargets(name, force);
+
+  // If force (editor change), snap immediately — no blend
+  if (force) {
+    nextTargets   = tgts;
+    prevTargets   = tgts;
+    shapeBlend    = 1;
+    targetShapeBlend = 1;
+    blendingShape = name;
+  } else {
+    // Capture where dots currently are as the "from" state
+    const n = particles.length;
+    prevTargets = particles.map(p => [p.tx3, p.ty3, p.tz3]);
+    nextTargets = tgts;
+    shapeBlend  = 0;
+    targetShapeBlend = 0; // will be driven by scroll in detectSection
+    blendingShape = name;
   }
 
+  // Centroid from next targets for pivot
   let sumX = 0, sumY = 0, sumZ = 0;
-  for (let i = 0; i < n; i++) {
-    particles[i].tx3 = tgts[i][0];
-    particles[i].ty3 = tgts[i][1];
-    particles[i].tz3 = tgts[i][2];
+  for (let i = 0; i < tgts.length; i++) {
     sumX += tgts[i][0]; sumY += tgts[i][1]; sumZ += tgts[i][2];
   }
-  morphCX = sumX / n; morphCY = sumY / n; morphCZ = sumZ / n;
+  morphCX = sumX / tgts.length;
+  morphCY = sumY / tgts.length;
+  morphCZ = sumZ / tgts.length;
+}
+
+// Called every frame. Eases shapeBlend toward targetShapeBlend and
+// writes the blended positions into particles[i].tx3/ty3/tz3.
+function updateShapeBlend() {
+  if (!prevTargets || !nextTargets) return;
+  shapeBlend += (targetShapeBlend - shapeBlend) * 0.045;
+  const t = Math.max(0, Math.min(1, shapeBlend));
+  if (t >= 0.9999 && shapeBlend >= targetShapeBlend) return; // stable, nothing to do
+  const n = particles.length;
+  for (let i = 0; i < n; i++) {
+    const prev = prevTargets[i], next = nextTargets[i];
+    particles[i].tx3 = prev[0] + (next[0] - prev[0]) * t;
+    particles[i].ty3 = prev[1] + (next[1] - prev[1]) * t;
+    particles[i].tz3 = prev[2] + (next[2] - prev[2]) * t;
+  }
 }
 
 // ----------------------------------------------------------------
@@ -1724,8 +1769,8 @@ function detectSection() {
   const interactEl = document.getElementById('globeInteract');
   interactEl.style.pointerEvents = heroVis > 0.05 ? 'auto' : 'none';
 
-  // Find dominant non-hero section and its dots-pane element
-  const sections = document.querySelectorAll('.split-section[data-shape]');
+  // Find dominant non-hero section
+  const sections = document.querySelectorAll('[data-shape]:not(#hero):not(#join)');
   let best = null, bestVis = -Infinity;
   for (const s of sections) {
     const r   = s.getBoundingClientRect();
@@ -1735,10 +1780,21 @@ function detectSection() {
 
   if (best) {
     const shape = best.dataset.shape;
-    if (shape !== currentShape && shape !== 'globe') {
+    if (shape === 'globe') return;
+
+    if (shape !== currentShape) {
+      // New section becoming dominant — start a blend from current targets
       currentShape = shape;
-      setMorphTargets(shape);
+      currentSection = best;
+      setMorphTargets(shape); // sets prevTargets, nextTargets, shapeBlend=0
     }
+
+    // Drive targetShapeBlend from how centred the section is in the viewport.
+    // When the section top hits mid-screen → blend starts; fully centred → blend=1.
+    const r = best.getBoundingClientRect();
+    // fraction: 0 when section just entered, 1 when section fills or passes centre
+    const entered = Math.max(0, Math.min(1, (H - r.top) / (H * 0.7)));
+    targetShapeBlend = entered;
   }
 }
 
@@ -1908,6 +1964,9 @@ function draw(ts) {
   // yaw rotation places them correctly on-screen at any rotation angle.
   const pivotX = globeCX;
   const pivotY = globeCY;
+
+  // Blend shape targets continuously based on scroll position
+  updateShapeBlend();
 
   // ================================================================
   // PASS 1 — land + ocean dots (unified globe↔morph, 3-D lerp)
