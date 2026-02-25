@@ -345,9 +345,149 @@ footer {
   border-top: 1px solid var(--faint);
   font-size: 11px; color: var(--light);
 }
+
+/* ── OBJ Shape Editor HUD ───────────────────────────────────────── */
+#objEditor {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  width: 260px;
+  background: rgba(17,17,17,0.93);
+  color: #ddd;
+  border-radius: 10px;
+  padding: 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
+  user-select: none;
+}
+#objEditor.visible { display: block; }
+#objEditor h4 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#objEditor h4 span { color: #fff; font-size: 12px; text-transform: none; letter-spacing: 0; }
+#objEditor .row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+#objEditor .row label {
+  width: 58px;
+  flex-shrink: 0;
+  color: #888;
+  font-size: 11px;
+}
+#objEditor .row input[type=range] {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 3px;
+  background: #444;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+#objEditor .row input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
+#objEditor .row .val {
+  width: 36px;
+  text-align: right;
+  color: #ccc;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+#objEditor .sep {
+  height: 1px;
+  background: #2a2a2a;
+  margin: 10px 0;
+}
+#objEditor .btn-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+#objEditor button {
+  flex: 1;
+  padding: 7px 0;
+  border: none;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+#objEditor #edReset  { background: #2a2a2a; color: #aaa; }
+#objEditor #edReset:hover  { background: #333; color: #fff; }
+#objEditor #edApply  { background: #fff; color: #111; }
+#objEditor #edApply:hover  { background: #e0e0e0; }
+#edSaveStatus {
+  margin-top: 8px;
+  font-size: 10px;
+  text-align: center;
+  color: #666;
+  min-height: 14px;
+}
 </style>
 </head>
 <body>
+
+<!-- OBJ SHAPE EDITOR HUD -->
+<div id="objEditor">
+  <h4>Shape Editor &nbsp;<span id="edShapeName">—</span></h4>
+
+  <div class="row"><label>Scale</label>
+    <input type="range" id="edScale" min="0.1" max="3" step="0.01" value="1">
+    <div class="val" id="edScaleVal">1.00</div>
+  </div>
+
+  <div class="sep"></div>
+
+  <div class="row"><label>Rotate X</label>
+    <input type="range" id="edRotX" min="-180" max="180" step="1" value="0">
+    <div class="val" id="edRotXVal">0°</div>
+  </div>
+  <div class="row"><label>Rotate Y</label>
+    <input type="range" id="edRotY" min="-180" max="180" step="1" value="0">
+    <div class="val" id="edRotYVal">0°</div>
+  </div>
+  <div class="row"><label>Rotate Z</label>
+    <input type="range" id="edRotZ" min="-180" max="180" step="1" value="0">
+    <div class="val" id="edRotZVal">0°</div>
+  </div>
+
+  <div class="sep"></div>
+
+  <div class="row"><label>Offset X</label>
+    <input type="range" id="edOffX" min="-400" max="400" step="1" value="0">
+    <div class="val" id="edOffXVal">0</div>
+  </div>
+  <div class="row"><label>Offset Y</label>
+    <input type="range" id="edOffY" min="-400" max="400" step="1" value="0">
+    <div class="val" id="edOffYVal">0</div>
+  </div>
+
+  <div class="btn-row">
+    <button id="edReset">Reset</button>
+    <button id="edApply">Apply to file</button>
+  </div>
+  <div id="edSaveStatus"></div>
+</div>
 
 <!-- NAV -->
 <nav id="nav">
@@ -394,7 +534,7 @@ footer {
 <!-- ============================================================
      PROOF — text LEFT, dots RIGHT (odd)
 ============================================================ -->
-<div class="split-section odd" id="proof" data-shape="shield-obj">
+<div class="split-section odd" id="proof" data-shape="city-obj">
   <div class="split-text">
     <div class="section-label">The Network</div>
     <div class="section-title">A global standard for cross-border legal work</div>
@@ -1175,17 +1315,25 @@ function sampleMesh(verts, faces, n) {
   return pts;
 }
 
-// Fit raw mesh points into panel screen bounds, then convert to globe-local 3D
+// Fit raw mesh points into panel screen bounds, then convert to globe-local 3D.
+// rawPts can be [x,y] or [x,y,depth] — if depth is present it is scaled and
+// preserved (true 3D volume); otherwise rDepth is used for every point.
 function fitToPanel(rawPts, side, scaleMul, rDepth) {
   if (rawPts.length === 0) return [];
 
-  // Bounding box of raw points (x, y axes — z is depth, handled separately)
+  const has3D = rawPts[0].length >= 3;
+
+  // Bounding box of raw points (x, y axes — depth handled separately)
   let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-  for (const [x, y] of rawPts) {
+  let minD = Infinity, maxD = -Infinity;
+  for (const pt of rawPts) {
+    const x = pt[0], y = pt[1];
     if (x < minX) minX = x; if (x > maxX) maxX = x;
     if (y < minY) minY = y; if (y > maxY) maxY = y;
+    if (has3D) { const d = pt[2]; if (d < minD) minD = d; if (d > maxD) maxD = d; }
   }
   const rangeX = maxX - minX || 1, rangeY = maxY - minY || 1;
+  const rangeD = has3D ? (maxD - minD || 1) : 1;
 
   // Target panel in screen space (with padding)
   const b   = panelBounds(side);
@@ -1200,12 +1348,16 @@ function fitToPanel(rawPts, side, scaleMul, rDepth) {
   const fitW = rangeX * sc, fitH = rangeY * sc;
   const offX = tX0 + (tW - fitW) / 2;
   const offY = tY0 + (tH - fitH) / 2;
+  // Depth scale: keep same proportion as XY so the shape has volume
+  const scD = sc;
 
-  return rawPts.map(([x, y]) => {
+  return rawPts.map(pt => {
+    const x = pt[0], y = pt[1];
     const sx = offX + (x - minX) * sc;
     // OBJ Y-axis is up; screen Y is down — flip Y
     const sy = offY + fitH - (y - minY) * sc;
-    return screenTo3D(sx, sy, rDepth);
+    const sd = has3D ? rDepth + (pt[2] - (minD + maxD) / 2) * scD : rDepth;
+    return screenTo3D(sx, sy, sd);
   });
 }
 
@@ -1222,24 +1374,70 @@ function loadOBJ(name, objText, opts = {}) {
   const sideOpt   = opts.side   || 'auto';
   const scaleMul  = opts.scale  || 1.0;
 
-  // axes: which OBJ axes map to screen [x, y] for fitToPanel
-  // Default 'xy' — OBJ x→screenX, OBJ y→screenY (Y-flipped)
-  // Use 'xz' for top-down models where Z is the vertical axis
-  // Use 'zy' for side-on models exported with Z forward
-  const axes = opts.axes || 'xy';
+  // axes: 3-character string mapping OBJ [x,y,z] → [screenX, screenY, depth]
+  // Each char picks which OBJ axis goes into that output slot; prefix '-' to negate.
+  // e.g. 'xzy' → OBJ X→screenX, OBJ Z→screenY, OBJ Y→depth
+  //      '-xzy' negates screenX;  individual tokens: '-x', 'z', 'y'
+  // Parse axes string: tokenise into up to 3 items, each optionally prefixed with '-'
+  // e.g. 'xzy' → [{x},{z},{y}]   '-xzy' → [{-x},{z},{y}]   'x-zy' → [{x},{-z},{y}]
+  const rawToks = (opts.axes || 'xyz').match(/-?[xyz]/g) || ['x','y','z'];
+  while (rawToks.length < 3) rawToks.push('z');
+  const axesToks = rawToks.map(tok => ({
+    axis: tok.replace('-', ''),
+    neg:  tok[0] === '-'
+  }));
+  const makeGetter = ({ axis, neg }) => {
+    const s = neg ? -1 : 1;
+    if (axis === 'x') return v => s * v[0];
+    if (axis === 'y') return v => s * v[1];
+    if (axis === 'z') return v => s * v[2];
+    return () => 0;
+  };
+  const getA = makeGetter(axesToks[0]);
+  const getB = makeGetter(axesToks[1]);
+  const getC = makeGetter(axesToks[2]);
 
   shapeMap[name] = (n) => {
     const side   = sideOpt === 'auto' ? shapeSide(name) : sideOpt;
     const rDepth = opts.depth != null ? opts.depth : morphDepth();
     const raw    = sampleMesh(verts, faces, n);
-    // Remap axes to [panelX, panelY] before fitting
-    const remapped = raw.map(([x, y, z]) => {
-      if (axes === 'xz') return [x,  z];   // top-down: use X and Z
-      if (axes === 'zy') return [z,  y];   // Z-forward: use Z and Y
-      if (axes === 'zx') return [z,  x];
-      return [x, y];                        // default
-    });
-    return fitToPanel(remapped, side, scaleMul, rDepth);
+    // Remap to [screenX, screenY, depth] — all three axes preserved
+    let remapped = raw.map(v => [getA(v), getB(v), getC(v)]);
+
+    // Editor overrides: per-shape rotation and offset applied before fitToPanel
+    const ov = (window._editorOverrides && window._editorOverrides[name]) || {};
+    const rx = (ov.rotX || 0) * Math.PI / 180;
+    const ry = (ov.rotY || 0) * Math.PI / 180;
+    const rz = (ov.rotZ || 0) * Math.PI / 180;
+    if (rx || ry || rz) {
+      remapped = remapped.map(([x, y, d]) => {
+        // rotZ (around depth axis)
+        let x2 = x * Math.cos(rz) - y * Math.sin(rz);
+        let y2 = x * Math.sin(rz) + y * Math.cos(rz);
+        let d2 = d;
+        // rotX (around screenX axis)
+        let y3 = y2 * Math.cos(rx) - d2 * Math.sin(rx);
+        let d3 = y2 * Math.sin(rx) + d2 * Math.cos(rx);
+        // rotY (around screenY axis)
+        let x3 = x2 * Math.cos(ry) + d3 * Math.sin(ry);
+        let d4 = -x2 * Math.sin(ry) + d3 * Math.cos(ry);
+        return [x3, y3, d4];
+      });
+    }
+
+    const effScale = scaleMul * (ov.scale != null ? ov.scale : 1);
+    const result = fitToPanel(remapped, side, effScale, rDepth);
+
+    // offsetX/offsetY: shift all points in screen space after fitting
+    const ox = ov.offsetX || 0;
+    const oy = ov.offsetY || 0;
+    if (ox || oy) {
+      return result.map(([x, y, z]) => {
+        const [sx, sy, sd] = globeProject(x, y, z, 1, 0);
+        return screenTo3D(sx + ox, sy + oy, sd);
+      });
+    }
+    return result;
   };
 
   objShapeMap[name] = true;
@@ -1263,6 +1461,9 @@ function loadOBJFromURL(name, url, opts = {}) {
 
 let pendingShape = null; // shape name requested before its OBJ was ready
 
+// Centroid of current morph targets in 3-D — used as rotation pivot
+let morphCX = 0, morphCY = 0, morphCZ = 0;
+
 function setMorphTargets(name) {
   const gen = shapeMap[name];
   if (!gen) {
@@ -1274,11 +1475,14 @@ function setMorphTargets(name) {
   if (particles.length === 0) return;
   const n    = particles.length;
   const tgts = gen(n);
+  let sumX = 0, sumY = 0, sumZ = 0;
   for (let i = 0; i < n; i++) {
     particles[i].tx3 = tgts[i][0];
     particles[i].ty3 = tgts[i][1];
     particles[i].tz3 = tgts[i][2];
+    sumX += tgts[i][0]; sumY += tgts[i][1]; sumZ += tgts[i][2];
   }
+  morphCX = sumX / n; morphCY = sumY / n; morphCZ = sumZ / n;
 }
 
 // ----------------------------------------------------------------
@@ -1398,8 +1602,12 @@ function draw(ts) {
   tiltYaw   += (targetYaw   - tiltYaw)   * 0.06;
   tiltPitch += (targetPitch - tiltPitch) * 0.06;
 
-  // Combined rotation = globe auto-rotation + cursor yaw tilt
-  const totalYaw = rotation + tiltYaw;
+  // Combined yaw: in globe mode = full rotation + tilt; in morph mode = tilt only.
+  // Blending by globeT means the shape settles to a fixed orientation as it morphs,
+  // regardless of where the globe happened to be when the user scrolled.
+  const globeYaw = rotation + tiltYaw;
+  const morphYaw = tiltYaw;
+  const totalYaw = globeYaw * globeT + morphYaw * (1 - globeT);
   cosR = Math.cos(totalYaw); sinR = Math.sin(totalYaw);
 
   // Extra X-axis tilt from cursor pitch — applied after base tilt
@@ -1409,6 +1617,12 @@ function draw(ts) {
   const yMin = -20, yMax = H + 20;
   const dotBase = Math.max(0.7, GLOBE_R / 780);
   const inGlobe = globeT > 0.05;
+
+  // Pivot is always the globe projection origin — morph targets are already
+  // baked into globe-space via screenTo3D(sx,sy) using globeCX/globeCY,
+  // so projecting with globeCX/globeCY as origin lands them exactly on-screen.
+  const pivotX = globeCX;
+  const pivotY = globeCY;
 
   // ================================================================
   // PASS 1 — land + ocean dots (unified globe↔morph, 3-D lerp)
@@ -1436,18 +1650,32 @@ function draw(ts) {
     p.cy += (wy - p.cy) * ease;
     p.cz += (wz - p.cz) * ease;
 
-    // Apply cursor pitch (X-axis rotation) on top of the Y-axis rotation.
-    // Pitch is blended by morphT so it has no effect in globe mode.
-    let pcx = p.cx, pcy = p.cy, pcz = p.cz;
+    // Rotation pivot: in morph mode rotate around the shape's centroid,
+    // in globe mode around the world origin (0,0,0). Blend by globeT.
+    const pivCX = morphCX * morphT;
+    const pivCY = morphCY * morphT;
+    const pivCZ = morphCZ * morphT;
+
+    let pcx = p.cx - pivCX;
+    let pcy = p.cy - pivCY;
+    let pcz = p.cz - pivCZ;
+
+    // Cursor pitch (X-axis rotation) — only active in morph mode
     if (morphT > 0.01) {
-      // Rotate around X axis: y' = y*cosPitch - z*sinPitch, z' = y*sinPitch + z*cosPitch
       const ny = pcy * cosPitch - pcz * sinPitch;
       const nz = pcy * sinPitch + pcz * cosPitch;
       pcy = ny; pcz = nz;
     }
 
-    // Project to screen
-    const [px, py, depth3] = globeProject(pcx, pcy, pcz, cosR, sinR);
+    // Yaw (Y-axis rotation)
+    const rx = pcx * cosR + pcz * sinR;
+    const ry = pcy;
+    const rz = -pcx * sinR + pcz * cosR;
+
+    // Re-add pivot after rotation, then project to screen
+    const px = pivotX + rx + pivCX;
+    const py = pivotY - ((ry + pivCY) * cosT - (rz + pivCZ) * sinT);
+    const depth3 = (ry + pivCY) * sinT + (rz + pivCZ) * cosT;
 
     // Ocean dots: pixel-rect, very faint, fade out in morph
     if (d.isOcean) {
@@ -1599,10 +1827,9 @@ window.addEventListener('resize', () => {
 // Load OBJ assets in parallel with the globe data.
 // loadOBJFromURL registers the shape as soon as the file arrives;
 // if the user hasn't scrolled to that section yet it's ready in time.
-loadOBJFromURL('shield-obj', '3d assets/11502_Shield_v202.obj', {
-  side:  'right',   // proof section is odd → dots on right
-  scale: 0.88,
-  axes:  'xz'       // model is top-down: OBJ X→screenX, OBJ Z→screenY
+loadOBJFromURL('city-obj', '3d assets/City.obj', {
+  side:  'right',
+  scale: 1.0,
 });
 
 fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
@@ -1622,6 +1849,184 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
     detectSection();
     requestAnimationFrame(draw);
   });
+
+// ----------------------------------------------------------------
+// OBJ SHAPE EDITOR
+// ----------------------------------------------------------------
+(function () {
+  const panel     = document.getElementById('objEditor');
+  const nameEl    = document.getElementById('edShapeName');
+  const statusEl  = document.getElementById('edSaveStatus');
+
+  const sliders = {
+    scale:  { el: document.getElementById('edScale'),  val: document.getElementById('edScaleVal'),  fmt: v => v.toFixed(2) },
+    rotX:   { el: document.getElementById('edRotX'),   val: document.getElementById('edRotXVal'),   fmt: v => v + '°' },
+    rotY:   { el: document.getElementById('edRotY'),   val: document.getElementById('edRotYVal'),   fmt: v => v + '°' },
+    rotZ:   { el: document.getElementById('edRotZ'),   val: document.getElementById('edRotZVal'),   fmt: v => v + '°' },
+    offsetX:{ el: document.getElementById('edOffX'),   val: document.getElementById('edOffXVal'),   fmt: v => (v > 0 ? '+' : '') + v },
+    offsetY:{ el: document.getElementById('edOffY'),   val: document.getElementById('edOffYVal'),   fmt: v => (v > 0 ? '+' : '') + v },
+  };
+
+  window._editorOverrides = {};
+  let activeShape = null;
+
+  // On load, parse saved opts from the page's own source so sliders
+  // reflect what's already written in the file, not hardcoded defaults.
+  async function loadSavedOpts() {
+    try {
+      const res  = await fetch('/terralex-landing.html?nc=' + Date.now(), { cache: 'no-store' });
+      const html = await res.text();
+      // Find every loadOBJFromURL call and extract its opts
+      const re = /loadOBJFromURL\s*\(\s*['"]([^'"]+)['"]\s*,\s*'[^']*'\s*,\s*\{([^}]*)\}/gs;
+      let m;
+      while ((m = re.exec(html)) !== null) {
+        const name = m[1], block = m[2];
+        const opts = {};
+        for (const raw of block.split('\n')) {
+          const line = raw.replace(/\/\/.*$/, '').trim().replace(/,$/, '').trim();
+          if (!line) continue;
+          const colon = line.indexOf(':');
+          if (colon < 0) continue;
+          const k = line.slice(0, colon).trim();
+          const v = parseFloat(line.slice(colon + 1).trim());
+          if (!isNaN(v) && ['scale','rotX','rotY','rotZ','offsetX','offsetY'].includes(k)) {
+            opts[k] = v;
+          }
+        }
+        if (Object.keys(opts).length) window._editorOverrides[name] = opts;
+      }
+    } catch (e) { /* silent — editor still works with defaults */ }
+  }
+  loadSavedOpts();
+
+  function getValues() {
+    return {
+      scale:   parseFloat(sliders.scale.el.value),
+      rotX:    parseFloat(sliders.rotX.el.value),
+      rotY:    parseFloat(sliders.rotY.el.value),
+      rotZ:    parseFloat(sliders.rotZ.el.value),
+      offsetX: parseFloat(sliders.offsetX.el.value),
+      offsetY: parseFloat(sliders.offsetY.el.value),
+    };
+  }
+
+  function setSliders(v) {
+    sliders.scale.el.value   = v.scale   ?? 1;
+    sliders.rotX.el.value    = v.rotX    ?? 0;
+    sliders.rotY.el.value    = v.rotY    ?? 0;
+    sliders.rotZ.el.value    = v.rotZ    ?? 0;
+    sliders.offsetX.el.value = v.offsetX ?? 0;
+    sliders.offsetY.el.value = v.offsetY ?? 0;
+    updateLabels();
+  }
+
+  function updateLabels() {
+    for (const [key, s] of Object.entries(sliders)) {
+      s.val.textContent = s.fmt(parseFloat(s.el.value));
+    }
+  }
+
+  function liveUpdate() {
+    if (!activeShape) return;
+    updateLabels();
+    window._editorOverrides[activeShape] = getValues();
+    if (typeof setMorphTargets === 'function') setMorphTargets(activeShape);
+    statusEl.textContent = '';
+  }
+
+  for (const s of Object.values(sliders)) {
+    s.el.addEventListener('input', liveUpdate);
+  }
+
+  function syncPanel() {
+    const shape = (typeof currentShape !== 'undefined') ? currentShape : null;
+    const isObj = shape && (typeof objShapeMap !== 'undefined') && objShapeMap[shape];
+    if (isObj) {
+      if (shape !== activeShape) {
+        activeShape = shape;
+        nameEl.textContent = shape;
+        const existing = window._editorOverrides[shape] || {};
+        setSliders({ scale: 1, rotX: 0, rotY: 0, rotZ: 0, offsetX: 0, offsetY: 0, ...existing });
+        statusEl.textContent = '';
+      }
+      panel.classList.add('visible');
+    } else {
+      panel.classList.remove('visible');
+      activeShape = null;
+    }
+  }
+
+  setInterval(syncPanel, 300);
+
+  document.getElementById('edReset').addEventListener('click', () => {
+    setSliders({ scale: 1, rotX: 0, rotY: 0, rotZ: 0, offsetX: 0, offsetY: 0 });
+    if (activeShape) {
+      window._editorOverrides[activeShape] = getValues();
+      if (typeof setMorphTargets === 'function') setMorphTargets(activeShape);
+    }
+    statusEl.textContent = 'Reset to defaults';
+  });
+
+  document.getElementById('edApply').addEventListener('click', async () => {
+    if (!activeShape) return;
+    const v = getValues();
+    statusEl.textContent = 'Saving…';
+    try {
+      const res  = await fetch('/terralex-landing.html?nc=' + Date.now(), { cache: 'no-store' });
+      let   html = await res.text();
+
+      const shapeEsc = activeShape.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+      const re = new RegExp(
+        `(loadOBJFromURL\\s*\\(\\s*['"]${shapeEsc}['"]\\s*,\\s*'[^']*'\\s*,\\s*\\{)([^}]*)(\\})`,
+        's'
+      );
+
+      const match = re.exec(html);
+      if (!match) {
+        statusEl.textContent = '⚠ Could not find loadOBJFromURL call in file';
+        return;
+      }
+
+      const optsBlock = match[2];
+      const managed = new Set(['scale','rotX','rotY','rotZ','offsetX','offsetY']);
+      const kept = [];
+      for (const raw of optsBlock.split('\n')) {
+        const line = raw.replace(/\/\/.*$/, '').trim().replace(/,$/, '').trim();
+        if (!line) continue;
+        const colon = line.indexOf(':');
+        if (colon < 0) continue;
+        const k = line.slice(0, colon).trim();
+        const val = line.slice(colon + 1).trim();
+        if (!managed.has(k)) kept.push(`  ${k}: ${val},`);
+      }
+
+      kept.push(`  scale: ${v.scale.toFixed(3)},`);
+      if (v.rotX)    kept.push(`  rotX: ${v.rotX},`);
+      if (v.rotY)    kept.push(`  rotY: ${v.rotY},`);
+      if (v.rotZ)    kept.push(`  rotZ: ${v.rotZ},`);
+      if (v.offsetX) kept.push(`  offsetX: ${v.offsetX},`);
+      if (v.offsetY) kept.push(`  offsetY: ${v.offsetY},`);
+
+      const newOptsBody = '\n' + kept.join('\n') + '\n';
+      const patched = html.replace(re, match[1] + newOptsBody + match[3]);
+
+      const save = await fetch('/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename: 'terralex-landing.html', content: patched }),
+      });
+      const json = await save.json();
+      if (json.ok) {
+        statusEl.textContent = '✓ Saved to file';
+        setTimeout(() => { statusEl.textContent = ''; }, 2500);
+      } else {
+        statusEl.textContent = '⚠ Save failed: ' + json.error;
+      }
+    } catch (e) {
+      statusEl.textContent = '⚠ ' + e.message;
+    }
+  });
+})();
 </script>
 </body>
 </html>
