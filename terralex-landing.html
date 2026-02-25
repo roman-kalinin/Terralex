@@ -43,11 +43,8 @@ nav {
   transition: padding 0.3s;
 }
 nav.scrolled { padding: 14px 48px; }
-.nav-logo {
-  font-family: 'Instrument Serif', serif;
-  font-size: 24px; font-weight: 400; letter-spacing: 1px;
-}
-.nav-logo span { font-style: italic; opacity: 0.4; font-size: 14px; margin-left: 6px; }
+.nav-logo { display: flex; align-items: center; }
+.nav-logo-img { height: 40px; width: auto; display: block; transition: filter 0.4s; }
 .nav-links { display: flex; gap: 32px; align-items: center; }
 .nav-links a {
   font-size: 13px; letter-spacing: 0.5px; text-decoration: none;
@@ -57,9 +54,10 @@ nav.scrolled { padding: 14px 48px; }
 .nav-cta {
   font-size: 12px !important; letter-spacing: 1px !important;
   text-transform: uppercase; padding: 10px 24px;
-  border: 1px solid var(--black); transition: all 0.25s !important;
+  border: 1px solid #2a5caa !important; color: #2a5caa !important;
+  transition: all 0.25s !important;
 }
-.nav-cta:hover { background: var(--black); color: #fff !important; }
+.nav-cta:hover { background: #2a5caa !important; color: #fff !important; }
 
 /* ----------------------------------------------------------------
    FIXED CANVAS + OVERLAYS
@@ -136,21 +134,56 @@ nav.scrolled { padding: 14px 48px; }
   margin-top: 40px; flex-wrap: wrap;
 }
 
+/* Hero announcement cards — top-left corner */
+.hero-cards {
+  position: absolute; top: 120px; left: 48px;
+  display: flex; flex-direction: column; gap: 12px;
+  width: 260px; z-index: 10;
+}
+.hero-card {
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.5);
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+  text-decoration: none; color: inherit;
+  display: block;
+}
+.hero-card:hover { background: rgba(255,255,255,0.88); transform: translateY(-2px); }
+.hero-card-img {
+  width: 100%; height: 90px; object-fit: cover; display: block;
+}
+.hero-card-body { padding: 12px 14px 14px; }
+.hero-card-tag {
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: #2a5caa; font-weight: 600; margin-bottom: 6px; display: block;
+}
+.hero-card-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 13px; line-height: 1.4; color: #111; margin: 0 0 6px;
+}
+.hero-card-link {
+  font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  color: #2a5caa; font-weight: 600;
+}
+
 /* ----------------------------------------------------------------
    BUTTONS
 ---------------------------------------------------------------- */
 .btn {
   font-family: 'DM Sans', sans-serif;
   font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
-  padding: 14px 36px; border: 1px solid var(--black);
-  text-decoration: none; color: var(--black);
+  padding: 14px 36px; border: 1px solid #2a5caa;
+  text-decoration: none; color: #2a5caa;
   transition: all 0.25s; cursor: pointer; background: transparent;
   position: relative; z-index: 5;
   display: inline-block;
 }
-.btn:hover { background: var(--black); color: #fff; }
-.btn-primary { background: var(--black); color: #fff; }
-.btn-primary:hover { background: transparent; color: var(--black); }
+.btn:hover { background: #2a5caa; color: #fff; }
+.btn-primary { background: #2a5caa; color: #fff; }
+.btn-primary:hover { background: transparent; color: #2a5caa; }
 
 /* ----------------------------------------------------------------
    CHESSBOARD SECTIONS
@@ -246,117 +279,137 @@ nav.scrolled { padding: 14px 48px; }
 .search-box button {
   font-family: 'DM Sans', sans-serif;
   font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
-  padding: 16px 24px; background: var(--black); color: #fff;
+  padding: 16px 24px; background: #2a5caa; color: #fff;
   border: none; cursor: pointer; transition: opacity 0.2s;
 }
 .search-box button:hover { opacity: 0.8; }
 
-/* ---- STORIES — full-width dark parallax ---- */
+/* ---- STORIES — scroll-reveal parallax ---- */
 .stories-parallax {
   position: relative; z-index: 2;
-  min-height: 160vh;   /* tall so scroll-drift has room to travel */
-  overflow: hidden;
+  min-height: 200vh;  /* tall scroll container — content is sticky inside */
+}
+/* The visible viewport-locked frame */
+.stories-sticky {
+  position: sticky; top: 0;
+  height: 100vh;
+  overflow: hidden;  /* clips the bg zoom */
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
 }
 .stories-parallax-bg {
-  position: absolute; inset: -200px 0;   /* large oversize = more travel room */
-  background: url('Images/sean-pollock-PhYq704ffdA-unsplash.jpg') center/cover no-repeat;
+  position: absolute; inset: 0;
+  background: url('Images/sean-pollock-PhYq704ffdA-unsplash.jpg') center 30%/cover no-repeat;
   will-change: transform;
+  /* JS drives scale + translateY via inline style */
 }
 .stories-parallax-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(to bottom,
-    rgba(0,0,0,0.55) 0%,
-    rgba(0,0,0,0.72) 50%,
+    rgba(0,0,0,0.45) 0%,
+    rgba(0,0,0,0.70) 60%,
     rgba(0,0,0,0.88) 100%);
+  z-index: 1;
 }
 .stories-content {
-  position: sticky; top: 0;   /* sticks while the tall section scrolls past */
-  z-index: 4;
+  position: relative; z-index: 2;
   width: 100%;
-  padding: 140px 0 100px;
+  padding: 80px 0 60px;
   text-align: center; color: #fff;
-  min-height: 100vh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  display: flex; flex-direction: column; align-items: center;
 }
-.stories-content .section-label { color: rgba(255,255,255,0.45); margin-bottom: 20px; }
+.stories-content .section-label { color: rgba(255,255,255,0.45); margin-bottom: 16px; }
 .stories-content .section-title {
   font-family: 'Instrument Serif', serif;
   font-size: clamp(28px, 4vw, 52px);
   font-weight: 400; line-height: 1.18;
-  color: #fff; margin-bottom: 64px; max-width: none;
+  color: #fff; margin-bottom: 48px; max-width: none;
 }
 
-/* Horizontal scrolling strip of cards */
-.stories-strip-wrap {
-  overflow: hidden;
-  width: 100%;
-}
+/* Horizontal strip */
+.stories-strip-wrap { overflow: hidden; width: 100%; }
 .stories-strip {
-  display: flex; gap: 20px;
-  padding: 0 64px 8px;
+  display: flex; gap: 24px;
+  padding: 0 64px 24px;
   will-change: transform;
-  transition: none;  /* JS-driven, no CSS transition */
 }
 
-/* Each card: fixed width, image fills top, text below — hover reveals desc */
+/* Cards — fixed height, no layout shift on hover.
+   Image fills top half; text layer is absolutely positioned at bottom,
+   so reveal pushes text up without changing card size. */
 .story-card {
-  flex: 0 0 320px;
-  background: rgba(8,8,8,0.82);
-  border: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
+  flex: 0 0 380px;
+  height: 480px;
+  position: relative;
   overflow: hidden;
-  display: flex; flex-direction: column;
+  background: rgba(6,6,6,0.85);
+  border: 1px solid rgba(255,255,255,0.07);
+  backdrop-filter: blur(8px);
   transition: border-color 0.3s;
+  text-align: left;
 }
-.story-card:hover { border-color: rgba(255,255,255,0.22); }
+.story-card:hover { border-color: rgba(255,255,255,0.2); }
 
+/* Image fills the whole card; overlay darkens bottom */
 .story-card-img {
-  width: 100%; aspect-ratio: 16/9; overflow: hidden; flex-shrink: 0;
+  position: absolute; inset: 0;
 }
 .story-card-img img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.6s ease;
-  display: block;
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.7s ease;
 }
-.story-card:hover .story-card-img img { transform: scale(1.05); }
+.story-card:hover .story-card-img img { transform: scale(1.06); }
+/* gradient scrim over image */
+.story-card-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.92) 0%,
+    rgba(0,0,0,0.55) 45%,
+    rgba(0,0,0,0.15) 100%);
+}
 
+/* Text layer sits at the bottom, always visible */
 .story-card-body {
-  padding: 20px 24px 24px;
-  overflow: hidden;
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 0 28px 28px;
+  z-index: 2;
 }
 .story-tag {
   font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-  color: rgba(255,255,255,0.38); margin-bottom: 10px;
+  color: rgba(255,255,255,0.45); margin-bottom: 10px; display: block;
 }
 .story-card h3 {
   font-family: 'Instrument Serif', serif;
-  font-size: 17px; font-weight: 400; line-height: 1.35;
+  font-size: 20px; font-weight: 400; line-height: 1.3;
   color: #fff; margin: 0;
-  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  transform: translateY(0);
+  transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
 }
+.story-card:hover h3 { transform: translateY(-8px); }
 
-/* Hidden-by-default bottom content — slides up on hover */
+/* Reveal: clipped to zero height, slides up from below on hover */
 .story-card-reveal {
-  max-height: 0; overflow: hidden;
-  transition: max-height 0.38s cubic-bezier(0.4,0,0.2,1);
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.42s cubic-bezier(0.4,0,0.2,1),
+              opacity    0.32s ease;
+  opacity: 0;
 }
-.story-card:hover .story-card-reveal { max-height: 120px; }
-.story-card:hover h3 { transform: translateY(-4px); }
+.story-card:hover .story-card-reveal { max-height: 100px; opacity: 1; }
 
 .story-card p {
-  font-size: 13px; color: rgba(255,255,255,0.5);
-  line-height: 1.6; margin: 12px 0 0;
+  font-size: 13px; color: rgba(255,255,255,0.55);
+  line-height: 1.6; margin: 8px 0 0; padding: 0;
 }
 .story-link {
   display: inline-block; margin-top: 10px;
   font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
-  color: rgba(255,255,255,0.65); text-decoration: none;
+  color: rgba(255,255,255,0.6); text-decoration: none;
   border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 2px;
   transition: color 0.2s, border-color 0.2s;
 }
-.story-link:hover { color: #fff; border-color: rgba(255,255,255,0.65); }
+.story-link:hover { color: #fff; border-color: #fff; }
 
 /* ---- HOW IT WORKS — dark inversion ---- */
 /* All dark-mode colour is driven by the CSS variable --dark (0→1),
@@ -379,9 +432,11 @@ nav {
   background: color-mix(in srgb, rgba(17,17,17,0.93) calc(var(--dark) * 100%), rgba(255,255,255,0.93));
   border-bottom-color: color-mix(in srgb, rgba(255,255,255,0.06) calc(var(--dark) * 100%), rgba(0,0,0,0.05));
 }
-.nav-logo,
 .nav-links a {
   color: color-mix(in srgb, #ddd calc(var(--dark) * 100%), #333);
+}
+.nav-logo-img {
+  filter: invert(calc(var(--dark) * 1));
 }
 .nav-cta {
   border-color: color-mix(in srgb, #ddd calc(var(--dark) * 100%), #111) !important;
@@ -429,7 +484,7 @@ nav {
   font-size: 18px; color: var(--dark);
   transition: border-color 0.2s, color 0.2s;
 }
-.insights-nav button:hover { border-color: var(--black); color: var(--black); }
+.insights-nav button:hover { border-color: #2a5caa; color: #2a5caa; }
 .insights-track-wrap { overflow: hidden; }
 .insights-track {
   display: flex; gap: 28px;
@@ -686,7 +741,7 @@ footer {
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo">TerraLex<span>est. 1990</span></div>
+  <div class="nav-logo"><img src="Branding/Logo.svg" alt="TerraLex" class="nav-logo-img"></div>
   <div class="nav-links">
     <a href="#how">How It Works</a>
     <a href="#directory">Find Counsel</a>
@@ -717,8 +772,29 @@ footer {
      HERO — globe fills full viewport, text sits at bottom
 ============================================================ -->
 <section class="hero" id="hero" data-shape="globe">
+
+  <!-- Announcement cards — top left -->
+  <div class="hero-cards">
+    <a href="#" class="hero-card">
+      <img class="hero-card-img" src="Images/scott-graham-5fNmWej4tAA-unsplash.jpg" alt="Annual Report">
+      <div class="hero-card-body">
+        <span class="hero-card-tag">Annual Report 2025</span>
+        <p class="hero-card-title">The New TerraLex 2025 Annual Report</p>
+        <span class="hero-card-link">Access the report →</span>
+      </div>
+    </a>
+    <a href="#" class="hero-card">
+      <img class="hero-card-img" src="Images/giammarco-boscaro-zeH-ljawHtg-unsplash.jpg" alt="Cross-Border Guides">
+      <div class="hero-card-body">
+        <span class="hero-card-tag">New Guides</span>
+        <p class="hero-card-title">Four New Cross-Border Guides</p>
+        <span class="hero-card-link">Access the guides →</span>
+      </div>
+    </a>
+  </div>
+
   <div class="hero-pretitle">Elite Global Legal Network</div>
-  <h1>Find trusted counsel <em>anywhere</em> your business operates</h1>
+  <h1>Find trusted counsel <em><span style="color:#2a5caa">anywhere</span></em> your business operates</h1>
   <p class="hero-sub">One network of carefully vetted independent firms. Coordinated cross-border execution across 120+ countries.</p>
   <div class="hero-ctas">
     <a href="#directory" class="btn btn-primary">Find Counsel</a>
@@ -786,7 +862,7 @@ footer {
 <!-- ============================================================
      DIRECTORY — text LEFT, dots RIGHT (odd)
 ============================================================ -->
-<div class="split-section odd" id="directory" data-shape="compass-obj">
+<div class="split-section odd" id="directory" data-shape="magnifying-glass-obj">
   <div class="split-text">
     <div class="section-label">Directory</div>
     <div class="section-title">Find counsel across every jurisdiction</div>
@@ -823,6 +899,7 @@ footer {
      SUCCESS STORIES — full-width dark parallax + horizontal cards
 ============================================================ -->
 <div class="stories-parallax" id="stories" data-shape="globe">
+  <div class="stories-sticky">
   <div class="stories-parallax-bg" id="storiesBg"></div>
   <div class="stories-parallax-overlay"></div>
   <div class="stories-content">
@@ -904,12 +981,13 @@ footer {
       </div>
     </div>
   </div>
+  </div><!-- /.stories-sticky -->
 </div>
 
 <!-- ============================================================
      INSIGHTS — full-width image card slider
 ============================================================ -->
-<div class="insights-section" id="insights" data-shape="compass-obj">
+<div class="insights-section" id="insights" data-shape="magnifying-glass-obj">
   <div class="insights-header">
     <div class="insights-header-left">
       <div class="section-label">Insights &amp; Guides</div>
@@ -1549,8 +1627,12 @@ function parseOBJ(text) {
       verts.push([parseFloat(x), parseFloat(y), parseFloat(z) || 0]);
     } else if (line.startsWith('f ')) {
       // Face entries can be  "f v"  "f v/vt"  "f v/vt/vn"  "f v//vn"
+      // Indices may be positive (1-based) or negative (relative to current end of verts)
       const tokens = line.split(/\s+/).slice(1);
-      const idx = tokens.map(t => parseInt(t.split('/')[0]) - 1); // 1-indexed → 0-indexed
+      const idx = tokens.map(t => {
+        const i = parseInt(t.split('/')[0]);
+        return i < 0 ? verts.length + i : i - 1; // negative = relative, positive = 1-based
+      });
       // Fan-triangulate polygons
       for (let i = 1; i + 1 < idx.length; i++) {
         faces.push([idx[0], idx[i], idx[i + 1]]);
@@ -1850,8 +1932,8 @@ function detectSection() {
   const interactEl = document.getElementById('globeInteract');
   interactEl.style.pointerEvents = heroVis > 0.05 ? 'auto' : 'none';
 
-  // Find dominant non-hero section
-  const sections = document.querySelectorAll('[data-shape]:not(#hero):not(#join)');
+  // Find dominant non-hero section (include #join so globe returns after events)
+  const sections = document.querySelectorAll('[data-shape]:not(#hero)');
   let best = null, bestVis = -Infinity;
   for (const s of sections) {
     const r   = s.getBoundingClientRect();
@@ -1861,7 +1943,18 @@ function detectSection() {
 
   if (best) {
     const shape = best.dataset.shape;
-    if (shape === 'globe') return;
+
+    // When a globe-shape section is dominant (stories, join), dissolve back to globe.
+    if (shape === 'globe') {
+      if (currentShape !== 'globe') {
+        currentShape = 'globe';
+        targetShapeBlend = 0;
+      }
+      // #join at the end of the page: force globe return even though hero is offscreen.
+      // #stories in the middle: leave targetGlobeT driven by heroVis (dots fade behind photo).
+      if (best.id === 'join') targetGlobeT = 1;
+      return;
+    }
 
     if (shape !== currentShape) {
       // New section becoming dominant — start a blend from current targets.
@@ -1909,19 +2002,23 @@ function updateParallax() {
   const el = document.getElementById('stories');
   if (!bg || !el) return;
   const r = el.getBoundingClientRect();
-  const progress = (H - r.top) / (H + r.height); // 0 at enter, 1 at exit
+  // progress: 0 = section top just hit viewport bottom, 1 = section top at viewport top
+  const progress = Math.max(0, Math.min(1, (H - r.top) / H));
 
-  // Background: large travel (±220px) for obvious parallax depth
-  const shift = (progress - 0.5) * 440;
-  bg.style.transform = `translateY(${shift}px)`;
+  // Zoom-from-mask: start scaled in (1.35) and zooms out to full (1.0) as section enters.
+  // The sticky container clips the overflow, creating a reveal-from-center effect.
+  const scale = 1.35 - progress * 0.35;
+  // Subtle vertical parallax as user scrolls through the sticky phase
+  const fullProgress = Math.max(0, Math.min(1, (H - r.top) / (H + r.height)));
+  const shift = (fullProgress - 0.5) * 180;
+  bg.style.transform = `scale(${scale.toFixed(4)}) translateY(${shift.toFixed(1)}px)`;
 
-  // Cards: drift left→right as section scrolls through viewport
-  // progress 0 = section just entered (cards shifted left), 1 = section exited (shifted right)
+  // Cards: drift left→right through the full sticky scroll
   const strip = document.getElementById('storiesStrip');
   if (strip) {
     const maxShift = strip.scrollWidth - strip.parentElement.clientWidth + 128;
-    const cardShift = Math.max(0, (progress - 0.05) / 0.9) * maxShift;
-    strip.style.transform = `translateX(${cardShift}px)`;
+    const cardShift = Math.max(0, (fullProgress - 0.05) / 0.9) * maxShift;
+    strip.style.transform = `translateX(${cardShift.toFixed(1)}px)`;
   }
 }
 
@@ -2278,12 +2375,10 @@ loadOBJFromURL('city-obj', '3d assets/City.obj', {
   rotX: -4,
   rotY: 9,
 });
-loadOBJFromURL('compass-obj', '3d assets/Compass 3d.obj', {
+loadOBJFromURL('magnifying-glass-obj', '3d assets/Magnifying glass.obj', {
   side: 'right',
   scale: 0.870,
-  rotX: 163,
-  rotY: 116,
-  offsetX: -104,
+  offsetX: -206,
 });
 loadOBJFromURL('loudspeaker-obj', '3d assets/Loudspeaker.obj', {
   side: 'right',
