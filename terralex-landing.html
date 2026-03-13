@@ -3,1349 +3,1452 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TerraLex — Elite Global Legal Network</title>
+<title>TerraLex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<!-- GSAP + plugins (ScrollSmoother is Club GSAP, use Lenis for smooth scroll) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Instrument+Serif:ital@0;1&display=swap');
-
-:root {
-  --black: #111;
-  --dark: #333;
-  --mid: #777;
-  --light: #bbb;
-  --faint: #e8e8e8;
-  --bg: #fff;
-}
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { width: 100%; scroll-behavior: auto; /* Lenis handles this */ }
+body { width: 100%; min-height: 100%; }
 
 body {
-  background: transparent; /* canvas IS the background */
-  font-family: 'DM Sans', sans-serif;
-  color: var(--black);
+  font-family: 'Source Sans 3', sans-serif;
+  background: #fff;
+  background-image:
+    linear-gradient(90deg,
+      rgba(213,214,216,0.5) 0%,
+      rgba(243,241,239,0.5) 27.4%,
+      rgba(249,244,241,0.5) 51.9%,
+      rgba(232,232,232,0.5) 71.2%,
+      rgba(171,184,189,0.5) 100%
+    );
+  background-attachment: fixed;
+  color: #fff;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* White sits behind everything so the page isn't see-through before canvas loads */
-html { background: #fff; }
-
 /* ----------------------------------------------------------------
-   NAV
----------------------------------------------------------------- */
-nav {
-  position: fixed; top: 0; left: 0; width: 100%; z-index: 200;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 48px;
-  background: rgba(255,255,255,0.93);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  transition: padding 0.3s;
-}
-nav.scrolled { padding: 14px 48px; }
-.nav-logo {
-  font-family: 'Instrument Serif', serif;
-  font-size: 24px; font-weight: 400; letter-spacing: 1px;
-}
-.nav-logo span { font-style: italic; opacity: 0.4; font-size: 14px; margin-left: 6px; }
-.nav-links { display: flex; gap: 32px; align-items: center; }
-.nav-links a {
-  font-size: 13px; letter-spacing: 0.5px; text-decoration: none;
-  color: var(--dark); transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--black); }
-.nav-cta {
-  font-size: 12px !important; letter-spacing: 1px !important;
-  text-transform: uppercase; padding: 10px 24px;
-  border: 1px solid var(--black); transition: all 0.25s !important;
-}
-.nav-cta:hover { background: var(--black); color: #fff !important; }
-
-/* ----------------------------------------------------------------
-   FIXED CANVAS + OVERLAYS
----------------------------------------------------------------- */
-#masterCanvas {
-  position: fixed; top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  z-index: 0; pointer-events: none;
-}
-#globeInteract {
-  position: fixed; top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  z-index: 1; cursor: default;
-}
-.line-layer {
-  position: fixed; top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  pointer-events: none; z-index: 10;
-}
-.tooltip {
-  position: fixed; pointer-events: none;
-  opacity: 0; transition: opacity 0.2s ease; z-index: 20;
-}
-.tooltip.visible { opacity: 1; }
-.tooltip-card {
-  background: rgba(255,255,255,0.97);
-  border: 1px solid rgba(0,0,0,0.09); border-radius: 4px;
-  padding: 9px 13px; backdrop-filter: blur(12px);
-  min-width: 160px; box-shadow: 0 4px 28px rgba(0,0,0,0.08);
-}
-.tooltip-city {
-  font-family: 'Instrument Serif', serif;
-  font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 2px;
-}
-.tooltip-firm  { font-size: 11px; color: #444; letter-spacing: 0.3px; }
-.tooltip-practice { font-size: 10px; color: #999; margin-top: 3px; letter-spacing: 0.2px; }
-
-#loading {
-  position: fixed; bottom: 40px; left: 50%;
-  transform: translateX(-50%);
-  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-  color: #bbb; z-index: 100; transition: opacity 0.5s;
-}
-
-/* ----------------------------------------------------------------
-   HERO — full-width, globe shows through, text at bottom centre
+   HERO WRAPPER
 ---------------------------------------------------------------- */
 .hero {
-  position: relative; z-index: 2;
-  min-height: 100vh;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: flex-end;
-  padding: 0 48px 14vh;
-  text-align: center;
-  background: transparent;
-}
-.hero-pretitle {
-  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--mid); margin-bottom: 20px;
-}
-.hero h1 {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(36px, 5vw, 64px);
-  font-weight: 400; line-height: 1.15;
-  max-width: 700px; margin: 0 auto;
-}
-.hero h1 em { font-style: italic; }
-.hero-sub {
-  font-size: 16px; color: var(--mid); max-width: 500px;
-  margin: 24px auto 0; line-height: 1.6;
-}
-.hero-ctas {
-  display: flex; gap: 16px; justify-content: center;
-  margin-top: 40px; flex-wrap: wrap;
-}
-
-/* ----------------------------------------------------------------
-   BUTTONS
----------------------------------------------------------------- */
-.btn {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
-  padding: 14px 36px; border: 1px solid var(--black);
-  text-decoration: none; color: var(--black);
-  transition: all 0.25s; cursor: pointer; background: transparent;
-  position: relative; z-index: 5;
-  display: inline-block;
-}
-.btn:hover { background: var(--black); color: #fff; }
-.btn-primary { background: var(--black); color: #fff; }
-.btn-primary:hover { background: transparent; color: var(--black); }
-
-/* ----------------------------------------------------------------
-   CHESSBOARD SECTIONS
-   Sections alternate: odd = text LEFT / dots RIGHT
-                       even = dots LEFT / text RIGHT
-   Each section is a full-width flex row split 50/50.
-   The canvas shows through on the "dots" side (transparent).
-   The "text" side has a solid white background so copy is legible.
----------------------------------------------------------------- */
-.split-section {
-  position: relative; z-index: 2;
-  min-height: 100vh;
-  display: flex; flex-direction: row;
-  align-items: stretch;
-  background: transparent; /* dots pane must be see-through to fixed canvas */
-}
-
-/* Text pane */
-.split-text {
-  width: 50%;
-  background: transparent;
-  display: flex; flex-direction: column;
-  justify-content: center;
-  padding: 100px 64px;
-  position: relative; z-index: 3;
-}
-
-/* Dot pane — transparent, lets fixed canvas show through */
-.split-dots {
-  width: 50%;
-  background: transparent;
   position: relative;
-  /* subtle inner shadow toward the text side to blend edge */
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Odd sections: text LEFT, dots RIGHT */
-.split-section.odd  .split-text { order: 1; }
-.split-section.odd  .split-dots { order: 2; }
-
-/* Even sections: dots LEFT, text RIGHT */
-.split-section.even .split-dots { order: 1; }
-.split-section.even .split-text { order: 2; }
-
-.section-label {
-  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--mid); margin-bottom: 16px;
-}
-.section-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(26px, 3.5vw, 44px);
-  font-weight: 400; line-height: 1.2;
-  max-width: 480px; margin-bottom: 48px;
+/* ----------------------------------------------------------------
+   SLIDES — stacked, each absolutely fills the hero
+---------------------------------------------------------------- */
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
 }
 
-/* ---- PROOF ---- */
-.proof-grid {
-  display: flex; flex-direction: column; gap: 40px;
-}
-.proof-item {}
-.proof-number {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(40px, 5vw, 64px);
-  font-weight: 400; line-height: 1;
-}
-.proof-label {
-  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--mid); margin-top: 4px;
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 2;
 }
 
-/* ---- HOW ---- */
-.steps { display: flex; flex-direction: column; gap: 36px; }
-.step {}
-.step-num {
-  font-family: 'Instrument Serif', serif;
-  font-size: 36px; color: var(--faint); line-height: 1; margin-bottom: 8px;
+/* Background image layer inside each slide */
+.slide-bg {
+  position: absolute;
+  inset: -50px -70px;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  /* transition driven entirely by JS — no CSS-class-based transition here */
+  will-change: transform, filter;
 }
-.step h3 { font-size: 16px; font-weight: 500; margin-bottom: 6px; }
-.step p  { font-size: 13px; color: var(--mid); line-height: 1.6; }
 
-/* ---- DIRECTORY ---- */
-.search-box {
-  display: flex; flex-direction: column; gap: 0;
-  max-width: 420px; border: 1px solid var(--faint); overflow: hidden;
+.slide-1 .slide-bg { background-image: url('Content/Section 1 - Hero, slider/Hero slide 1.png'); }
+.slide-2 .slide-bg { background-image: url('hero requested images/slide2-bg.jpg'); }
+.slide-3 .slide-bg { background-image: url('hero requested images/slide3-bg.jpg'); }
+
+/* Dark gradient overlay per slide */
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
-.search-box input, .search-box select {
+.slide-1 .slide-overlay { background: linear-gradient(152deg, rgba(0,0,0,0.54) 0%, rgba(0,0,0,0) 94%); }
+.slide-2 .slide-overlay { background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); }
+.slide-3 .slide-overlay { background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); }
+
+
+/* Slide fade transition */
+.slide {
+  transition: opacity 0.7s ease;
+}
+
+/* ----------------------------------------------------------------
+   NAV — fixed, transitions between hero and scrolled states
+---------------------------------------------------------------- */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 56px;
+  height: 64px;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+nav.scrolled {
+  background: rgba(255,255,255,0.95);
+  border-bottom-color: rgba(0,0,0,0.08);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.nav-logo img {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+/* logo swap via filter: hero=white, scrolled=original color */
+.nav-logo .logo-hero  { display: block; }
+.nav-logo .logo-scrolled { display: none; }
+nav.scrolled .nav-logo .logo-hero    { display: none; }
+nav.scrolled .nav-logo .logo-scrolled { display: block; }
+
+.nav-links {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+}
+.nav-links a {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s, color 0.3s;
+}
+nav.scrolled .nav-links a { color: #171717; }
+.nav-links a:hover { opacity: 0.7; }
+
+.nav-actions {
+  display: flex;
+  align-items: stretch;
+  height: 40px;
+  gap: 12px;
+}
+
+/* Member Log-in button */
+.btn-member {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 17px;
+  width: 175px;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid transparent;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+}
+.btn-member:hover { background: rgba(0,0,0,0.65); }
+nav.scrolled .btn-member {
+  background: transparent;
+  border-color: #4d6586;
+  color: #4d6586;
+}
+nav.scrolled .btn-member:hover { background: rgba(77,101,134,0.06); }
+
+/* Find Lawyer button */
+.btn-find-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 175px;
+  background: #fff;
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.3s, color 0.3s, opacity 0.2s;
+}
+.btn-find-nav:hover { opacity: 0.88; }
+nav.scrolled .btn-find-nav {
+  background: #4d6586;
+  color: #fff;
+}
+nav.scrolled .btn-find-nav:hover { opacity: 0.88; }
+
+
+/* ----------------------------------------------------------------
+   SLIDE CONTENT (headline, body, cta)
+---------------------------------------------------------------- */
+.slide-content {
+  position: relative;
+  z-index: 5;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 82px 56px 0;
+  gap: 24px;
+  /* animate in */
+  opacity: 0;
+  transform: translateY(16px);
+  transition: none;
+}
+
+.slide.active .slide-content {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s;
+}
+
+.hero-headline {
+  font-size: clamp(48px, 5.6vw, 100px);
+  font-weight: 700;
+  line-height: 0.89;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  max-width: 900px;
+}
+.hero-headline .dim { color: rgba(255,255,255,0.5); }
+
+.hero-body {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #fff;
+  max-width: 620px;
+}
+.hero-body strong { font-weight: 700; }
+
+.hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin-top: 8px;
+}
+
+.cta-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 49px;
+  width: 245px;
+  background: rgb(77, 101, 134);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.cta-primary:hover { opacity: 0.85; }
+
+.cta-secondary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.75);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.cta-secondary:hover { color: #fff; }
+
+/* ----------------------------------------------------------------
+   TICKER STRIP — shared, sits at bottom of hero
+---------------------------------------------------------------- */
+.hero-ticker {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 50;
+  display: flex;
+  background: rgba(0,0,0,0.76);
+  height: 50px;
+}
+
+.ticker-item {
+  flex: 1;
+  position: relative;
+  height: 50px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  /* no border between items */
+}
+
+.ticker-item p {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  color: rgba(255,255,255,0.45);
+  position: relative;
+  z-index: 1;
+  transition: color 0.4s ease;
+}
+
+/* Green indicator — fixed-width panel that slides left→right */
+.ticker-progress {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(91deg, rgba(157,173,90,0) 0%, rgba(157,173,90,0.2) 100%);
+  border-right: 1px solid #9dad5a;
+  z-index: 0;
+  pointer-events: none;
+  transition: none;
+}
+
+/* Active ticker item */
+.ticker-item.active p { color: #fff; }
+.ticker-item.active .ticker-progress {
+  left: 0%;
+  transition: left var(--slide-duration, 6s) linear;
+}
+
+/* ================================================================
+   SECTION 2 — DIRECTORY
+================================================================ */
+.s2-directory {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #fff;
+  background-image: linear-gradient(90deg,
+    rgba(213,214,216,0.5) 0%,
+    rgba(243,241,239,0.5) 27.4%,
+    rgba(249,244,241,0.5) 51.9%,
+    rgba(232,232,232,0.5) 71.2%,
+    rgba(171,184,189,0.5) 100%
+  );
+}
+
+/* Globe iframe — fills the entire section */
+.s2-globe-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.s2-globe-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  opacity: 0.55;
+}
+
+/* Content column — shifted up 80px */
+.s2-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 28px;
+  max-width: 860px;
+  padding: 120px 40px;
+  margin-top: -80px;
+}
+
+.s2-label {
   font-family: 'DM Sans', sans-serif;
-  font-size: 14px; padding: 14px 18px;
-  border: none; outline: none; background: #fff;
-  border-bottom: 1px solid var(--faint); color: var(--dark);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #6b6b80;
 }
-.search-box select { cursor: pointer; }
-.search-box input  { color: var(--black); }
-.search-box button {
+
+.s2-heading {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: clamp(48px, 6vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  color: #0a0a0f;
+}
+.s2-heading-bold  { font-weight: 700; color: #0a0a0f; }
+.s2-heading-light { font-weight: 300; color: rgba(10,10,15,0.45); }
+
+.s2-sub {
   font-family: 'DM Sans', sans-serif;
-  font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
-  padding: 16px 24px; background: var(--black); color: #fff;
-  border: none; cursor: pointer; transition: opacity 0.2s;
-}
-.search-box button:hover { opacity: 0.8; }
-
-/* ---- STORIES ---- */
-.stories-stack { display: flex; flex-direction: column; gap: 24px; }
-.story-card {
-  border: 1px solid var(--faint); padding: 28px;
-  transition: border-color 0.25s, box-shadow 0.25s;
-}
-.story-card:hover { border-color: var(--light); box-shadow: 0 6px 32px rgba(0,0,0,0.04); }
-.story-tag { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); margin-bottom: 12px; }
-.story-card h3 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 19px; font-weight: 400; line-height: 1.3; margin-bottom: 8px;
-}
-.story-card p { font-size: 13px; color: var(--mid); line-height: 1.55; }
-.story-link {
-  display: inline-block; margin-top: 12px;
-  font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
-  color: var(--black); text-decoration: none;
-  border-bottom: 1px solid var(--faint); padding-bottom: 2px;
-  transition: border-color 0.2s;
-}
-.story-link:hover { border-color: var(--black); }
-
-/* ---- INSIGHTS ---- */
-.insights-list { display: flex; flex-direction: column; gap: 0; }
-.insight-row {
-  padding: 20px 0; border-bottom: 1px solid var(--faint);
-  transition: padding-left 0.2s;
-}
-.insight-row:hover { padding-left: 8px; }
-.insight-date { font-size: 10px; letter-spacing: 1px; color: var(--light); margin-bottom: 6px; }
-.insight-row h4 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 17px; font-weight: 400; line-height: 1.3; margin-bottom: 4px;
-}
-.insight-row p { font-size: 12px; color: var(--mid); line-height: 1.5; }
-
-/* ---- EVENTS ---- */
-.events-list { display: flex; flex-direction: column; gap: 0; }
-.event-row {
-  display: flex; align-items: center; gap: 28px;
-  padding: 22px 0; border-bottom: 1px solid var(--faint);
-  transition: padding-left 0.2s;
-}
-.event-row:hover { padding-left: 10px; }
-.event-date-block { text-align: center; min-width: 48px; }
-.event-month { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); }
-.event-day { font-family: 'Instrument Serif', serif; font-size: 28px; line-height: 1; }
-.event-info h4 { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
-.event-info p  { font-size: 12px; color: var(--mid); }
-
-/* ---- CTA BANNER (full-width, no split) ---- */
-.cta-banner {
-  position: relative; z-index: 2;
-  min-height: 60vh; background: #fff;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center; padding: 100px 48px;
-  border-top: 1px solid var(--faint);
-}
-.cta-banner h2 {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 400; max-width: 540px; line-height: 1.2; margin-bottom: 20px;
-}
-.cta-banner-sub {
-  font-size: 14px; color: var(--mid); max-width: 460px;
-  margin: 0 auto 36px; line-height: 1.6;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #6b6b80;
+  max-width: 560px;
 }
 
-/* ---- FOOTER ---- */
-footer {
-  padding: 60px 48px 40px;
-  border-top: 1px solid var(--faint);
-  display: flex; justify-content: space-between; align-items: flex-start;
-  flex-wrap: wrap; gap: 48px;
-  position: relative; z-index: 3; background: #fff;
+/* Search bar */
+.s2-search {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  height: 51px;
+  margin-top: 8px;
 }
-.footer-logo { font-family: 'Instrument Serif', serif; font-size: 20px; margin-bottom: 8px; }
-.footer-disclaimer { font-size: 11px; color: var(--light); max-width: 360px; line-height: 1.5; }
-.footer-cols { display: flex; gap: 56px; }
-.footer-col h5 {
-  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--mid); margin-bottom: 12px;
+
+.s2-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 220px;
+  padding: 0 14px;
+  background: rgba(255,255,255,0.56);
+  backdrop-filter: blur(1.85px);
+  -webkit-backdrop-filter: blur(1.85px);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-right: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #6b6b80;
+  white-space: nowrap;
+  transition: background 0.2s;
 }
-.footer-col a {
-  display: block; font-size: 13px; color: var(--dark);
-  text-decoration: none; margin-bottom: 8px; transition: color 0.2s;
+.s2-dropdown:first-child { border-radius: 7px 0 0 7px; }
+.s2-dropdown:hover { background: rgba(255,255,255,0.8); }
+.s2-dropdown img { flex-shrink: 0; opacity: 0.5; }
+
+.s2-search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  background: #4d6586;
+  border: none;
+  border-radius: 0 7px 7px 0;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s;
 }
-.footer-col a:hover { color: var(--black); }
-.footer-bottom {
-  width: 100%; padding-top: 32px; margin-top: 16px;
-  border-top: 1px solid var(--faint);
-  font-size: 11px; color: var(--light);
+.s2-search-btn:hover { opacity: 0.88; }
+
+/* ================================================================
+   SECTION 3 — NUMBERS
+================================================================ */
+.s3-numbers {
+  position: relative;
+  width: 100%;
+  padding: 160px 56px 140px;
+  background: #fff;
+  background-image: linear-gradient(90deg,
+    rgba(213,214,216,0.5) 0%,
+    rgba(243,241,239,0.5) 27.4%,
+    rgba(249,244,241,0.5) 51.9%,
+    rgba(232,232,232,0.5) 71.2%,
+    rgba(171,184,189,0.5) 100%
+  );
+}
+
+.s3-header {
+  text-align: center;
+  margin-bottom: 110px;
+}
+.s3-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #6b6b80;
+  margin-bottom: 18px;
+}
+.s3-heading {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  color: #030303;
+}
+.s3-heading-light { font-weight: 300; color: rgba(3,3,3,0.5); }
+.s3-heading-bold  { font-weight: 700; color: #030303; }
+
+/* 3×2 grid */
+.s3-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.s3-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 48px;
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.s3-number {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: clamp(48px, 5vw, 72px);
+  font-weight: 700;
+  letter-spacing: -3px;
+  color: #373737;
+  line-height: 1;
+  white-space: nowrap;
+}
+.s3-suffix {
+  /* inline next to number */
+}
+.s3-stat-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #373737;
+  text-align: center;
+  margin-top: 14px;
+}
+
+/* ================================================================
+   SECTION 4 — CASE STUDIES
+================================================================ */
+.s4-case-studies {
+  position: relative;
+  width: 100%;
+  /* Light bg for phase 1 collage — transitions to dark for cards */
+}
+
+/* ── Phase 1+2: ZoomParallax container (300vh, sticky) ── */
+.s4-zoom-container {
+  position: relative;
+  height: 300vh; /* matches Framer Motion reference: 300vh */
+  background: #fff;
+  background-image: linear-gradient(90deg,
+    rgba(213,214,216,0.5) 0%,
+    rgba(243,241,239,0.5) 27.4%,
+    rgba(249,244,241,0.5) 51.9%,
+    rgba(232,232,232,0.5) 71.2%,
+    rgba(171,184,189,0.5) 100%
+  );
+}
+
+.s4-zoom-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Text header — normal-flow block ABOVE the zoom container ── */
+.s4-header {
+  text-align: center;
+  padding: 100px 0 72px;
+  background: #fff;
+  background-image: linear-gradient(90deg,
+    rgba(213,214,216,0.5) 0%,
+    rgba(243,241,239,0.5) 27.4%,
+    rgba(249,244,241,0.5) 51.9%,
+    rgba(232,232,232,0.5) 71.2%,
+    rgba(171,184,189,0.5) 100%
+  );
+}
+.s4-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.4);
+  margin-bottom: 10px;
+}
+.s4-heading {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: clamp(48px, 5.2vw, 76px);
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: #000;
+}
+.s4-heading-light { font-weight: 300; color: rgba(0,0,0,0.4); }
+.s4-heading-bold  { font-weight: 700; }
+
+/* ── ZoomParallax tiles — exact port of Framer Motion component ── */
+/*
+  Each .s4-tile is a FULL-VIEWPORT wrapper: position absolute, top 0, left 0,
+  100% × 100%, flex-centered. Scale is applied to the whole wrapper.
+  Inside is .s4-inner — the actual image/video box, offset from center
+  via margin-top / margin-left, matching the React component exactly:
+
+  index 0 (video, default): 25vw × 25vh, centered
+  index 1:  35vw × 30vh,  margin-top:-30vh, margin-left:5vw
+  index 2:  20vw × 45vh,  margin-top:-10vh, margin-left:-25vw
+  index 3:  25vw × 25vh,                   margin-left:27.5vw
+  index 4:  20vw × 25vh,  margin-top:27.5vh, margin-left:5vw
+  index 5:  30vw × 25vh,  margin-top:27.5vh, margin-left:-22.5vw
+  index 6:  15vw × 15vh,  margin-top:22.5vh, margin-left:25vw
+*/
+/* Full-viewport wrapper — scale applied here, from viewport center */
+.s4-tile {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+  transform-origin: center center;
+}
+
+/* Inner image box — position:relative so top/left offset from anchor */
+.s4-inner {
+  position: relative;
+  overflow: hidden;
+  width: 25vw;
+  height: 25vh;
+  flex-shrink: 0;
+}
+.s4-inner img, .s4-inner video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/*
+  Per-index offsets — exact port of the Tailwind classes in the reference:
+  top/left on position:relative shift from the flex-centered position.
+  Negative top = up, negative left = left.
+
+  index 1: top:-30vh  left:5vw    35vw×30vh
+  index 2: top:-10vh  left:-25vw  20vw×45vh
+  index 3:            left:27.5vw 25vw×25vh
+  index 4: top:27.5vh left:5vw    20vw×25vh
+  index 5: top:27.5vh left:-22.5vw 30vw×25vh
+  index 6: top:22.5vh left:25vw   15vw×15vh
+*/
+.s4-tile-1 .s4-inner { width: 35vw; height: 30vh; top: -30vh;  left: 5vw; }
+.s4-tile-2 .s4-inner { width: 20vw; height: 45vh; top: -10vh;  left: -25vw; }
+.s4-tile-3 .s4-inner { width: 25vw; height: 25vh;              left: 27.5vw; }
+.s4-tile-4 .s4-inner { width: 20vw; height: 25vh; top: 27.5vh; left: 5vw; }
+.s4-tile-5 .s4-inner { width: 30vw; height: 25vh; top: 27.5vh; left: -22.5vw; }
+.s4-tile-6 .s4-inner { width: 15vw; height: 15vh; top: 22.5vh; left: 25vw; }
+
+/* ================================================================
+   PHASE 4 — CARD CAROUSEL
+================================================================ */
+.s4-cards-section {
+  background: #0a0a0f;
+  padding: 0 0 120px;
+  overflow: hidden;
+}
+
+.s4-cards-track-wrap {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.s4-cards-track {
+  display: flex;
+  gap: 24px;
+  padding: 80px 80px 40px;
+  will-change: transform;
+  width: max-content;
+}
+
+/* Individual case study card */
+.s4-card {
+  flex-shrink: 0;
+  width: 380px;
+  background: #16161f;
+  border: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.s4-card-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.s4-tag-pill {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 4px 10px;
+}
+.s4-geo-pill {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.8px;
+  color: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 4px 10px;
+}
+
+.s4-card-title {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  color: #fff;
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.s4-card-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 32px;
+}
+
+.s4-card-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+.s4-card-link:hover { color: #fff; }
+.s4-card-link svg { transition: transform 0.2s; }
+.s4-card-link:hover svg { transform: translateX(4px); }
+
+/* CTA card */
+.s4-card-cta {
+  background: #4d6586;
+  border-color: transparent;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  min-height: 360px;
+}
+.s4-cta-title {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  color: #fff;
+}
+.s4-cta-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.6;
+}
+.s4-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 24px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.s4-cta-btn:hover { background: rgba(255,255,255,0.25); }
+
+/* Decorative arc on CTA card */
+.s4-card-cta::before {
+  content: '';
+  position: absolute;
+  right: -60px;
+  top: -60px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+  pointer-events: none;
+}
+.s4-card-cta::after {
+  content: '';
+  position: absolute;
+  right: -100px;
+  top: -100px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.06);
+  pointer-events: none;
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="nav">
-  <div class="nav-logo">TerraLex<span>est. 1990</span></div>
-  <div class="nav-links">
-    <a href="#how">How It Works</a>
-    <a href="#directory">Find Counsel</a>
-    <a href="#stories">Success Stories</a>
-    <a href="#insights">Insights</a>
-    <a href="#events">Events</a>
-    <a href="#" class="nav-cta">Member Portal</a>
-  </div>
-</nav>
+<section class="hero">
 
-<!-- MASTER CANVAS -->
-<canvas id="masterCanvas"></canvas>
-<!-- Globe interaction surface -->
-<div id="globeInteract"></div>
-<!-- SVG line overlay -->
-<svg class="line-layer" id="lines"></svg>
-<!-- Tooltip -->
-<div class="tooltip" id="tooltip">
-  <div class="tooltip-card">
-    <div class="tooltip-city" id="tt-city"></div>
-    <div class="tooltip-firm" id="tt-firm"></div>
-    <div class="tooltip-practice" id="tt-practice"></div>
+  <!-- ============================================================
+       SLIDE 1
+  ============================================================ -->
+  <div class="slide slide-1 active">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <h1 class="hero-headline">
+        <span class="dim">The elite global legal network</span> committed to collaboration
+      </h1>
+      <p class="hero-body">
+        TerraLex is the elite global legal network committed to collaboration.
+        <strong>With over 30 years of experience,</strong> TerraLex boasts a vast community of
+        <strong>over 23,000 attorneys</strong> from highly regarded independent law firms worldwide.
+        We are the strategic partner for multijurisdictional entities, offering innovative and
+        forward-thinking solutions beyond conventional legal assistance.
+      </p>
+      <div class="hero-ctas">
+        <a href="#" class="cta-primary">Find Trusted Counsel</a>
+        <a href="#" class="cta-secondary">
+          How TerraLex Works
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="rgba(255,255,255,0.75)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
   </div>
-</div>
-<div id="loading">Loading globe…</div>
+
+  <!-- ============================================================
+       SLIDE 2
+  ============================================================ -->
+  <div class="slide slide-2">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <h1 class="hero-headline">
+        <span class="dim">TerraLex Announces</span> Its Inaugural NextGen Advisory Committee
+      </h1>
+      <p class="hero-body">
+        December 4th, 2024. Miami Lakes, FL – TerraLex, an elite global legal network, is proud to announce
+        the formation of its first-ever NextGen Advisory Committee. Comprising eight dynamic lawyers from
+        member firms representing each of the continents.
+      </p>
+      <div class="hero-ctas">
+        <a href="#" class="cta-primary">Find Trusted Counsel</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 3
+  ============================================================ -->
+  <div class="slide slide-3">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <h1 class="hero-headline">
+        <span class="dim">TerraLex Members Assist in</span> $15-Million Investment in Swiss Fintech Company
+      </h1>
+      <p class="hero-body">
+        TerraLex member firms Wiggin and Dana (USA) and LALIVE (Switzerland–Geneva) have supported
+        US-based Point72 Ventures in a $15-million investment in Swiss fintech company.
+      </p>
+      <div class="hero-ctas">
+        <a href="#" class="cta-primary">Find Trusted Counsel</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       NAV (shared, above all slides)
+  ============================================================ -->
+  <nav id="mainNav">
+    <a href="#" class="nav-logo">
+      <img class="logo-hero" src="Content/Logo white.svg" alt="TerraLex">
+      <img class="logo-scrolled" src="Content/Logo default.svg" alt="TerraLex">
+    </a>
+    <div class="nav-links">
+      <a href="#">Find Counsel</a>
+      <a href="#">Why TerraLex</a>
+      <a href="#">Standards</a>
+      <a href="#">Guides</a>
+      <a href="#">Events</a>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="btn-member">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        Member Log-in
+      </a>
+      <a href="#" class="btn-find-nav">Find Lawyer</a>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       TICKER STRIP (shared)
+  ============================================================ -->
+  <div class="hero-ticker">
+    <div class="ticker-item active" data-slide="0">
+      <div class="ticker-progress"></div>
+      <p>The elite global legal network committed to collaboration</p>
+    </div>
+    <div class="ticker-item" data-slide="1">
+      <div class="ticker-progress"></div>
+      <p>Fastned EV Network Expands Across 8 European Jurisdictions</p>
+    </div>
+    <div class="ticker-item" data-slide="2">
+      <div class="ticker-progress"></div>
+      <p>TerraLex Firms Complete US–India Acquisition in Record Time</p>
+    </div>
+  </div>
+
+</section>
+
+
 
 <!-- ============================================================
-     HERO — globe fills full viewport, text sits at bottom
+     SECTION 2 — DIRECTORY
 ============================================================ -->
-<section class="hero" id="hero" data-shape="globe">
-  <div class="hero-pretitle">Elite Global Legal Network</div>
-  <h1>Find trusted counsel <em>anywhere</em> your business operates</h1>
-  <p class="hero-sub">One network of carefully vetted independent firms. Coordinated cross-border execution across 120+ countries.</p>
-  <div class="hero-ctas">
-    <a href="#directory" class="btn btn-primary">Find Counsel</a>
-    <a href="#" class="btn">Request an Introduction</a>
+<section class="s2-directory">
+
+  <!-- Globe iframe — centered behind content -->
+  <div class="s2-globe-wrap">
+    <iframe src="globe-widget.html" class="s2-globe-frame" scrolling="no" frameborder="0"></iframe>
   </div>
+
+  <!-- Content column -->
+  <div class="s2-content">
+
+    <p class="s2-label">Directory</p>
+
+    <h2 class="s2-heading">
+      <span class="s2-heading-bold">Find the Right Lawyer.</span><br>
+      <span class="s2-heading-light">Anywhere. Right Now.</span>
+    </h2>
+
+    <p class="s2-sub">TerraLex connects you with elite independent law firms across every jurisdiction and practice area — vetted, trusted, and ready to act.</p>
+
+    <!-- Search bar -->
+    <div class="s2-search">
+      <div class="s2-dropdown">
+        <span>Jurisdiction</span>
+        <img src="https://www.figma.com/api/mcp/asset/39be3c4b-9af8-4200-af30-8c77069336fa" alt="" width="15" height="15">
+      </div>
+      <div class="s2-dropdown">
+        <span>Practice Area</span>
+        <img src="https://www.figma.com/api/mcp/asset/39be3c4b-9af8-4200-af30-8c77069336fa" alt="" width="15" height="15">
+      </div>
+      <div class="s2-dropdown">
+        <span>Industry</span>
+        <img src="https://www.figma.com/api/mcp/asset/39be3c4b-9af8-4200-af30-8c77069336fa" alt="" width="15" height="15">
+      </div>
+      <button class="s2-search-btn">Search</button>
+    </div>
+
+  </div>
+
 </section>
 
 <!-- ============================================================
-     PROOF — text LEFT, dots RIGHT (odd)
+     SECTION 3 — NUMBERS
 ============================================================ -->
-<div class="split-section odd" id="proof" data-shape="scatter">
-  <div class="split-text">
-    <div class="section-label">The Network</div>
-    <div class="section-title">A global standard for cross-border legal work</div>
-    <div class="proof-grid">
-      <div class="proof-item">
-        <div class="proof-number">23,000+</div>
-        <div class="proof-label">Attorneys worldwide</div>
-      </div>
-      <div class="proof-item">
-        <div class="proof-number">200+</div>
-        <div class="proof-label">Jurisdictions covered</div>
-      </div>
-      <div class="proof-item">
-        <div class="proof-number">155</div>
-        <div class="proof-label">Member firms</div>
-      </div>
-      <div class="proof-item">
-        <div class="proof-number">120+</div>
-        <div class="proof-label">Countries</div>
-      </div>
+<section class="s3-numbers">
+
+  <div class="s3-header">
+    <p class="s3-label">The Network at Scale</p>
+    <h2 class="s3-heading">
+      <span class="s3-heading-light">The numbers that </span><span class="s3-heading-bold">speak for themselves.</span>
+    </h2>
+  </div>
+
+  <div class="s3-grid">
+    <div class="s3-cell">
+      <div class="s3-number"><span class="s3-count" data-target="140">0</span></div>
+      <p class="s3-stat-label">Member Firms</p>
+    </div>
+    <div class="s3-cell">
+      <div class="s3-number"><span class="s3-count" data-target="23000" data-suffix="k+">0</span></div>
+      <p class="s3-stat-label">Attorneys</p>
+    </div>
+    <div class="s3-cell">
+      <div class="s3-number"><span class="s3-count" data-target="120" data-suffix="+">0</span></div>
+      <p class="s3-stat-label">Countries</p>
+    </div>
+    <div class="s3-cell">
+      <div class="s3-number"><span class="s3-count" data-target="20" data-suffix="+">0</span></div>
+      <p class="s3-stat-label">Cross-Border Guides</p>
+    </div>
+    <div class="s3-cell">
+      <div class="s3-number"><span class="s3-count" data-target="50" data-suffix="+">0</span></div>
+      <p class="s3-stat-label">Annual Programs</p>
+    </div>
+    <div class="s3-cell">
+      <div class="s3-number"><span class="s3-count" data-target="35">0</span></div>
+      <p class="s3-stat-label">Years of Excellence</p>
     </div>
   </div>
-  <div class="split-dots"></div>
-</div>
+
+</section>
 
 <!-- ============================================================
-     HOW IT WORKS — dots LEFT, text RIGHT (even)
+     SECTION 4 — CASE STUDIES
 ============================================================ -->
-<div class="split-section even" id="how" data-shape="network">
-  <div class="split-dots"></div>
-  <div class="split-text">
-    <div class="section-label">How It Works</div>
-    <div class="section-title">Three steps to trusted cross-border counsel</div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <h3>Search the Directory</h3>
-        <p>Filter by jurisdiction, practice area, industry, or language to find the right firm.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <h3>Request an Introduction</h3>
-        <p>Submit a single request. TerraLex coordinates the connection with vetted counsel.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <h3>Engage with Confidence</h3>
-        <p>Work with firms held to consistent quality standards, backed by network accountability.</p>
-      </div>
-    </div>
-  </div>
-</div>
+<section class="s4-case-studies">
 
-<!-- ============================================================
-     DIRECTORY — text LEFT, dots RIGHT (odd)
-============================================================ -->
-<div class="split-section odd" id="directory" data-shape="search">
-  <div class="split-text">
-    <div class="section-label">Directory</div>
-    <div class="section-title">Find counsel across every jurisdiction</div>
-    <div class="search-box">
-      <select>
-        <option>Jurisdiction</option>
-        <option>United States</option>
-        <option>United Kingdom</option>
-        <option>Germany</option>
-        <option>France</option>
-        <option>Brazil</option>
-        <option>Japan</option>
-        <option>Singapore</option>
-        <option>Australia</option>
-      </select>
-      <select>
-        <option>Practice Area</option>
-        <option>M&A</option>
-        <option>Capital Markets</option>
-        <option>Litigation</option>
-        <option>IP &amp; Technology</option>
-        <option>Employment</option>
-        <option>Antitrust</option>
-        <option>Tax</option>
-      </select>
-      <input type="text" placeholder="Keyword or firm name…">
-      <button>Search</button>
-    </div>
+  <!-- Header — normal flow, scrolls away before sticky zoom kicks in -->
+  <div class="s4-header" id="s4Header">
+    <p class="s4-label">Case Studies</p>
+    <h2 class="s4-heading">
+      <span class="s4-heading-bold">Global Collaboration</span><br>
+      <span class="s4-heading-light">in Action.</span>
+    </h2>
   </div>
-  <div class="split-dots"></div>
-</div>
 
-<!-- ============================================================
-     SUCCESS STORIES — dots LEFT, text RIGHT (even)
-============================================================ -->
-<div class="split-section even" id="stories" data-shape="shield">
-  <div class="split-dots"></div>
-  <div class="split-text">
-    <div class="section-label">Collaboration in Action</div>
-    <div class="section-title">Cross-border success stories</div>
-    <div class="stories-stack">
-      <div class="story-card">
-        <div class="story-tag">M&A · 6 Jurisdictions</div>
-        <h3>Multi-jurisdiction acquisition for a Fortune 500 technology company</h3>
-        <p>Coordinated due diligence across the US, UK, Germany, France, Japan, and Singapore in under 90 days.</p>
-        <a href="#" class="story-link">Read the story →</a>
-      </div>
-      <div class="story-card">
-        <div class="story-tag">Litigation · EU Cross-Border</div>
-        <h3>Pan-European IP enforcement for a luxury goods brand</h3>
-        <p>Synchronized proceedings in four EU jurisdictions, achieving injunctions within 30 days.</p>
-        <a href="#" class="story-link">Read the story →</a>
-      </div>
-    </div>
-  </div>
-</div>
+  <!-- ZoomParallax: 300vh container, sticky inner frame -->
+  <div class="s4-zoom-container" id="s4ZoomContainer">
+    <div class="s4-zoom-sticky" id="s4ZoomSticky">
 
-<!-- ============================================================
-     INSIGHTS — text LEFT, dots RIGHT (odd)
-============================================================ -->
-<div class="split-section odd" id="insights" data-shape="book">
-  <div class="split-text">
-    <div class="section-label">Insights & Guides</div>
-    <div class="section-title">Cross-border intelligence</div>
-    <div class="insights-list">
-      <div class="insight-row">
-        <div class="insight-date">Feb 2026</div>
-        <h4>EU AI Act Compliance Guide for US Multinationals</h4>
-        <p>Practical roadmap for companies operating across US and EU markets.</p>
-      </div>
-      <div class="insight-row">
-        <div class="insight-date">Jan 2026</div>
-        <h4>Global M&A Regulatory Trends</h4>
-        <p>Merger control developments across 40 jurisdictions.</p>
-      </div>
-      <div class="insight-row">
-        <div class="insight-date">Dec 2025</div>
-        <h4>Cross-Border Employment Handbook</h4>
-        <p>Hiring, termination, and compliance across 25 key markets.</p>
-      </div>
-      <div class="insight-row">
-        <div class="insight-date">Nov 2025</div>
-        <h4>International Arbitration Seat Comparison</h4>
-        <p>London, Singapore, Paris, and New York benchmarked.</p>
-      </div>
-    </div>
-  </div>
-  <div class="split-dots"></div>
-</div>
-
-<!-- ============================================================
-     EVENTS — dots LEFT, text RIGHT (even)
-============================================================ -->
-<div class="split-section even" id="events" data-shape="calendar">
-  <div class="split-dots"></div>
-  <div class="split-text">
-    <div class="section-label">Events</div>
-    <div class="section-title">Connect with the network</div>
-    <div class="events-list">
-      <div class="event-row">
-        <div class="event-date-block">
-          <div class="event-month">Mar</div>
-          <div class="event-day">12</div>
-        </div>
-        <div class="event-info">
-          <h4>Cross-Border M&A: Navigating Regulatory Complexity</h4>
-          <p>Webinar · 11:00 AM EST · 60 min</p>
+      <!--
+        Collage tiles — 7 full-viewport wrappers, scale applied to wrapper,
+        .s4-inner offset from viewport center via position:relative top/left
+        tile-0 = video (center portrait)
+        tile-1 = world map (top-left)
+        tile-2 = Tokyo night (left)
+        tile-3 = skyscrapers (right center, tall)
+        tile-4 = city aerial (top-right)
+        tile-5 = river city (right-bottom)
+        tile-6 = meeting room (bottom-center)
+      -->
+      <!-- tile-0: frame-sequence (replaces video scrubbing) -->
+      <div class="s4-tile s4-tile-0" id="s4T0">
+        <div class="s4-inner">
+          <img id="s4FrameImg"
+               src="Content/Section 4 - Global collaboration/video as frames/ezgif-frame-001.jpg"
+               alt="">
         </div>
       </div>
-      <div class="event-row">
-        <div class="event-date-block">
-          <div class="event-month">Apr</div>
-          <div class="event-day">05</div>
-        </div>
-        <div class="event-info">
-          <h4>TerraLex Annual Conference — London</h4>
-          <p>In Person · 3 Days · Members & Invited Guests</p>
-        </div>
+      <!-- tile-1: 35vw×30vh, offset top-left -->
+      <div class="s4-tile s4-tile-1" id="s4T1">
+        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/slide1-bg.jpg" alt=""></div>
       </div>
-      <div class="event-row">
-        <div class="event-date-block">
-          <div class="event-month">May</div>
-          <div class="event-day">20</div>
+      <!-- tile-2: 20vw×45vh, offset left -->
+      <div class="s4-tile s4-tile-2" id="s4T2">
+        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/city.jpg" alt=""></div>
+      </div>
+      <!-- tile-3: 25vw×25vh, offset right -->
+      <div class="s4-tile s4-tile-3" id="s4T3">
+        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/port.jpg" alt=""></div>
+      </div>
+      <!-- tile-4: 20vw×25vh, offset bottom-center-left -->
+      <div class="s4-tile s4-tile-4" id="s4T4">
+        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/slide2-bg.jpg" alt=""></div>
+      </div>
+      <!-- tile-5: 30vw×25vh, offset bottom-left -->
+      <div class="s4-tile s4-tile-5" id="s4T5">
+        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/slide3-bg.jpg" alt=""></div>
+      </div>
+      <!-- tile-6: 15vw×15vh, offset bottom-right -->
+      <div class="s4-tile s4-tile-6" id="s4T6">
+        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/airport.jpg" alt=""></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Phase 4: Cards carousel (not pinned, scrolls naturally) -->
+  <div class="s4-cards-section" id="s4Cards">
+    <div class="s4-cards-track-wrap">
+      <div class="s4-cards-track" id="s4Track">
+
+        <!-- Card 1 -->
+        <div class="s4-card">
+          <div class="s4-card-tag">
+            <span class="s4-tag-pill">IPO</span>
+            <span class="s4-geo-pill">Australia · USA · UK</span>
+          </div>
+          <div class="s4-card-title">$6K Additive IPO on the ASX</div>
+          <p class="s4-card-desc">Three TerraLex member firms across three jurisdictions coordinated to complete a landmark IPO listing, navigating complex cross-border regulatory requirements simultaneously.</p>
+          <a href="#" class="s4-card-link">
+            Read Story
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
-        <div class="event-info">
-          <h4>NextGen Lawyers: Building a Cross-Border Practice</h4>
-          <p>Virtual Roundtable · 1:00 PM CET · 45 min</p>
+
+        <!-- Card 2 -->
+        <div class="s4-card">
+          <div class="s4-card-tag">
+            <span class="s4-tag-pill">Infrastructure</span>
+            <span class="s4-geo-pill">Netherlands · Europe</span>
+          </div>
+          <div class="s4-card-title">Fastned EV Network Across 8 Jurisdictions</div>
+          <p class="s4-card-desc">TerraLex member firms across Europe supported Fastned's rapid expansion of its EV charging infrastructure network, coordinating permits, contracts and regulatory approvals in parallel.</p>
+          <a href="#" class="s4-card-link">
+            Read Story
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
+
+        <!-- Card 3 -->
+        <div class="s4-card">
+          <div class="s4-card-tag">
+            <span class="s4-tag-pill">M&amp;A</span>
+            <span class="s4-geo-pill">USA · India</span>
+          </div>
+          <div class="s4-card-title">US–India Acquisition in Record Time</div>
+          <p class="s4-card-desc">TerraLex member firms from the US and India completed a complex cross-border acquisition with strict confidentiality constraints, closing in under 60 days from mandate to completion.</p>
+          <a href="#" class="s4-card-link">
+            Read Story
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="s4-card">
+          <div class="s4-card-tag">
+            <span class="s4-tag-pill">Compliance</span>
+            <span class="s4-geo-pill">Switzerland · Global</span>
+          </div>
+          <div class="s4-card-title">Victorinox Global Compliance Overhaul</div>
+          <p class="s4-card-desc">The iconic Swiss brand engaged TerraLex to coordinate a full compliance review across 40+ markets simultaneously, ensuring consistent standards while respecting local legal nuances.</p>
+          <a href="#" class="s4-card-link">
+            Read Story
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- CTA card -->
+        <div class="s4-card s4-card-cta">
+          <div class="s4-cta-title">Request an Introduction</div>
+          <p class="s4-cta-sub">Connect directly with a TerraLex member firm that has the right expertise for your matter — anywhere in the world.</p>
+          <a href="#" class="s4-cta-btn">
+            Get in Touch
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
       </div>
     </div>
   </div>
-</div>
 
-<!-- ============================================================
-     CTA — full width
-============================================================ -->
-<div class="cta-banner" id="join" data-shape="globe">
-  <div class="section-label">Membership</div>
-  <h2>Join the network that top firms trust for cross-border counsel</h2>
-  <p class="cta-banner-sub">One vetted firm per jurisdiction. Invitation-only standards. A shared commitment to responsiveness and quality.</p>
-  <div class="hero-ctas">
-    <a href="#" class="btn btn-primary">Explore Membership</a>
-    <a href="#" class="btn">Schedule a Conversation</a>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-left">
-    <div class="footer-logo">TerraLex</div>
-    <div class="footer-disclaimer">TerraLex member firms are independent law firms. TerraLex is not a law firm and does not provide legal services.</div>
-  </div>
-  <div class="footer-cols">
-    <div class="footer-col">
-      <h5>Network</h5>
-      <a href="#">Find Counsel</a>
-      <a href="#">Practice Areas</a>
-      <a href="#">Cross-Border Guides</a>
-      <a href="#">Success Stories</a>
-    </div>
-    <div class="footer-col">
-      <h5>About</h5>
-      <a href="#">About TerraLex</a>
-      <a href="#">Leadership</a>
-      <a href="#">Standards</a>
-      <a href="#">Contact</a>
-    </div>
-    <div class="footer-col">
-      <h5>Members</h5>
-      <a href="#">Member Portal</a>
-      <a href="#">Join TerraLex</a>
-      <a href="#">Events</a>
-      <a href="#">Resources</a>
-    </div>
-  </div>
-  <div class="footer-bottom">© 2026 TerraLex. All rights reserved. &nbsp;·&nbsp; Privacy &nbsp;·&nbsp; Cookies &nbsp;·&nbsp; Terms</div>
-</footer>
+</section>
 
 <script>
-// ================================================================
-// TERRALEX MASTER DOT ENGINE
-// ================================================================
+const SLIDE_DURATION = 6000; // ms per slide
+const slides      = document.querySelectorAll('.slide');
+const tickerItems = document.querySelectorAll('.ticker-item');
+let current   = 0;
+let timer     = null;
+let startTime = null;
+let paused    = false;
 
-// ----------------------------------------------------------------
-// LAW FIRM DATA
-// ----------------------------------------------------------------
-const firms = [
-  { city: "New York",     firm: "Sullivan & Cromwell",  practice: "M&A · Capital Markets",   lat: 40.71, lon: -74.01 },
-  { city: "London",       firm: "Slaughter and May",    practice: "Corporate · Finance",      lat: 51.51, lon: -0.13  },
-  { city: "Frankfurt",    firm: "Hengeler Mueller",     practice: "Banking · Antitrust",      lat: 50.11, lon: 8.68   },
-  { city: "São Paulo",    firm: "Machado Meyer",        practice: "Infrastructure · Tax",     lat: -23.55,lon: -46.63 },
-  { city: "Tokyo",        firm: "Nishimura & Asahi",   practice: "IP · Corporate",           lat: 35.68, lon: 139.65 },
-  { city: "Singapore",    firm: "Rajah & Tann",         practice: "Arbitration · Trade",      lat: 1.35,  lon: 103.82 },
-  { city: "Sydney",       firm: "Clayton Utz",          practice: "Litigation · Energy",      lat: -33.87,lon: 151.21 },
-  { city: "Paris",        firm: "Bredin Prat",          practice: "Competition · M&A",        lat: 48.86, lon: 2.35   },
-  { city: "Dubai",        firm: "Al Tamimi & Co",       practice: "Construction · Banking",   lat: 25.20, lon: 55.27  },
-  { city: "Mexico City",  firm: "Creel García-Cuéllar", practice: "Energy · Real Estate",     lat: 19.43, lon: -99.13 },
-  { city: "Johannesburg", firm: "Webber Wentzel",       practice: "Mining · Finance",         lat: -26.20,lon: 28.05  },
-  { city: "Mumbai",       firm: "AZB & Partners",       practice: "Private Equity · M&A",     lat: 19.08, lon: 72.88  },
-  { city: "Toronto",      firm: "Stikeman Elliott",     practice: "Securities · Tax",         lat: 43.65, lon: -79.38 },
-  { city: "Madrid",       firm: "Uría Menéndez",        practice: "EU Law · Banking",         lat: 40.42, lon: -3.70  },
-  { city: "Hong Kong",    firm: "Deacons",              practice: "IP · Real Estate",         lat: 22.32, lon: 114.17 },
-  { city: "Berlin",       firm: "Gleiss Lutz",          practice: "Employment · Public",      lat: 52.52, lon: 13.41  },
-  { city: "Shanghai",     firm: "Fangda Partners",      practice: "Capital Markets · PE",     lat: 31.23, lon: 121.47 },
-  { city: "Buenos Aires", firm: "Marval O'Farrell",     practice: "Energy · Arbitration",     lat: -34.60,lon: -58.38 },
-  { city: "Lagos",        firm: "Templars",             practice: "Oil & Gas · Finance",      lat: 6.52,  lon: 3.38   },
-  { city: "Seoul",        firm: "Kim & Chang",          practice: "Antitrust · IP",           lat: 37.57, lon: 126.98 },
-];
+// Set CSS variable for progress bar transition duration
+document.documentElement.style.setProperty('--slide-duration', (SLIDE_DURATION / 1000) + 's');
 
-// ----------------------------------------------------------------
-// CANVAS
-// ----------------------------------------------------------------
-const canvas = document.getElementById('masterCanvas');
-const ctx    = canvas.getContext('2d');
-const dpr    = window.devicePixelRatio || 1;
-let W, H;
+// Slide 1 gets zoom+blur, slides 2&3 just zoom (their images are already sharp)
+const SLIDE_BLUR = [true, false, false];
 
-function resizeCanvas() {
-  W = window.innerWidth;
-  H = window.innerHeight;
-  canvas.width  = W * dpr;
-  canvas.height = H * dpr;
-  canvas.style.width  = W + 'px';
-  canvas.style.height = H + 'px';
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-}
-resizeCanvas();
+function goTo(index) {
+  const prev = current;
+  current = index;
 
-// ----------------------------------------------------------------
-// GLOBE MATH
-// ----------------------------------------------------------------
-const TILT = -0.42;
-const cosT = Math.cos(TILT), sinT = Math.sin(TILT);
-let GLOBE_R, globeCX, globeCY;
+  // — old slide out —
+  slides[prev].classList.remove('active');
+  tickerItems[prev].classList.remove('active');
+  const oldBar = tickerItems[prev].querySelector('.ticker-progress');
+  oldBar.style.transition = 'none';
+  oldBar.style.left = '-100%';
 
-function updateGlobeDims() {
-  GLOBE_R = Math.max(W, H) * 0.72;
-  globeCX = W / 2;
-  globeCY = H + GLOBE_R * 0.52;
-}
-updateGlobeDims();
+  // — new slide: snap bg to start state (no transition yet) —
+  const newBg = slides[current].querySelector('.slide-bg');
+  newBg.style.transition = 'none';
+  newBg.style.transform = 'scale(1.08)';
+  newBg.style.filter = SLIDE_BLUR[current] ? 'blur(14px)' : 'blur(0px)';
 
-function latLonTo3D(lat, lon, r) {
-  const phi   = (90 - lat) * Math.PI / 180;
-  const theta = (lon + 180) * Math.PI / 180;
-  return [
-    -r * Math.sin(phi) * Math.cos(theta),
-     r * Math.cos(phi),
-     r * Math.sin(phi) * Math.sin(theta)
-  ];
-}
+  // — activate slide (makes it visible) —
+  slides[current].classList.add('active');
 
-function globeProject(x, y, z, cosR, sinR) {
-  const rx = x * cosR + z * sinR;
-  const ry = y;
-  const rz = -x * sinR + z * cosR;
-  return [
-    globeCX + rx,
-    globeCY - (ry * cosT - rz * sinT),
-    ry * sinT + rz * cosT   // depth (z after tilt)
-  ];
-}
-
-// ----------------------------------------------------------------
-// LAND MASK
-// ----------------------------------------------------------------
-let landMaskCtx = null;
-const MASK_W = 720, MASK_H = 360;
-
-function buildMask(rings) {
-  const oc = document.createElement('canvas');
-  oc.width = MASK_W; oc.height = MASK_H;
-  const mc = oc.getContext('2d');
-  mc.fillStyle = '#000'; mc.fillRect(0, 0, MASK_W, MASK_H);
-  mc.fillStyle = '#fff';
-  for (const ring of rings) {
-    if (ring.length < 3) continue;
-    mc.beginPath();
-    for (let i = 0; i < ring.length; i++) {
-      const px = ((ring[i][0] + 180) / 360) * MASK_W;
-      const py = ((90 - ring[i][1]) / 180) * MASK_H;
-      i === 0 ? mc.moveTo(px, py) : mc.lineTo(px, py);
-    }
-    mc.closePath(); mc.fill();
-  }
-  landMaskCtx = mc;
-}
-
-function isLand(lat, lon) {
-  if (!landMaskCtx) return false;
-  const px = Math.max(0, Math.min(Math.floor(((lon + 180) / 360) * MASK_W), MASK_W - 1));
-  const py = Math.max(0, Math.min(Math.floor(((90 - lat) / 180) * MASK_H), MASK_H - 1));
-  return landMaskCtx.getImageData(px, py, 1, 1).data[0] > 128;
-}
-
-function topoRings(topo) {
-  const arcs  = topo.arcs;
-  const scale = topo.transform ? topo.transform.scale     : [1, 1];
-  const trans = topo.transform ? topo.transform.translate : [0, 0];
-  const dec   = arcs.map(arc => {
-    let x = 0, y = 0;
-    return arc.map(([dx, dy]) => { x += dx; y += dy; return [x*scale[0]+trans[0], y*scale[1]+trans[1]]; });
-  });
-  function stitch(ids) {
-    const pts = [];
-    for (const id of ids) {
-      const ap = id >= 0 ? dec[id].slice() : dec[~id].slice().reverse();
-      pts.push(...(pts.length === 0 ? ap : ap.slice(1)));
-    }
-    return pts;
-  }
-  const rings = [];
-  function extract(geo) {
-    if (!geo) return;
-    if      (geo.type === 'Polygon')            for (const r of geo.arcs)          rings.push(stitch(r));
-    else if (geo.type === 'MultiPolygon')        for (const p of geo.arcs) for (const r of p) rings.push(stitch(r));
-    else if (geo.type === 'GeometryCollection') for (const g of geo.geometries)   extract(g);
-  }
-  extract(topo.objects.land);
-  return rings;
-}
-
-// ----------------------------------------------------------------
-// UNIFIED PARTICLE POOL
-// Every dot on screen — globe OR morph — is ONE particle.
-// In globe mode: particle position = 3-D projection of its globe coord.
-// In morph mode: particle position lerps to its 2-D morph target.
-// This gives true continuity: the same dots travel from globe to shape.
-// ----------------------------------------------------------------
-
-// Globe dot data: stored as [x,y,z] 3-D coords + firm ref
-// gDots[i] = { p3: [x,y,z], firm: null|firmObj, isOcean: bool }
-let gDots = [];
-
-// Firm dot lookup by index into gDots
-const firmDotIdx = new Map(); // firm → index in gDots
-
-function precomputeGlobe() {
-  gDots = [];
-  firmDotIdx.clear();
-
-  // Build a set of firm lat/lon for matching during grid scan
-  // We'll snap each firm to the nearest grid point
-  const firmSnap = firms.map(f => ({ f, best: null, bestD: Infinity }));
-
-  const LS = 1.5;
-  for (let lat = -90; lat <= 90; lat += LS) {
-    const cl = Math.cos(lat * Math.PI / 180);
-    const ls = LS / Math.max(cl, 0.08);
-    for (let lon = -180; lon < 180; lon += ls) {
-      if (!isLand(lat, lon)) continue;
-      const idx = gDots.length;
-      gDots.push({ p3: latLonTo3D(lat, lon, GLOBE_R), firm: null, isOcean: false });
-      // Check if any firm is close to this grid point
-      for (const fs of firmSnap) {
-        const dlat = lat - fs.f.lat, dlon = lon - fs.f.lon;
-        const d = dlat*dlat + dlon*dlon;
-        if (d < fs.bestD) { fs.bestD = d; fs.best = idx; }
-      }
-    }
-  }
-
-  // Tag the closest grid dot to each firm
-  for (const fs of firmSnap) {
-    if (fs.best !== null) {
-      gDots[fs.best].firm = fs.f;
-      firmDotIdx.set(fs.f, fs.best);
-    }
-  }
-
-  // Ocean dots (sparse, appended after land)
-  const OS = 7.0;
-  for (let lat = -90; lat <= 90; lat += OS) {
-    const cl = Math.cos(lat * Math.PI / 180);
-    const ls = OS / Math.max(cl, 0.08);
-    for (let lon = -180; lon < 180; lon += ls) {
-      if (!isLand(lat, lon)) {
-        gDots.push({ p3: latLonTo3D(lat, lon, GLOBE_R), firm: null, isOcean: true });
-      }
-    }
-  }
-}
-
-// ----------------------------------------------------------------
-// PARTICLES — one per globe dot, reused for morph
-// ----------------------------------------------------------------
-// Allocated after precomputeGlobe() so length matches gDots.
-let particles = [];
-
-class Particle {
-  constructor(gIdx) {
-    this.gIdx  = gIdx;          // index into gDots (null for extra morph-only)
-    // Current 2-D position (used only in morph mode)
-    this.x  = (W||1200) * Math.random();
-    this.y  = (H||800)  * Math.random();
-    // Morph target
-    this.tx = this.x;
-    this.ty = this.y;
-    // Visual (morph mode)
-    this.size      = 1.0 + Math.random() * 0.6;
-    this.baseAlpha = 0.45 + Math.random() * 0.35;
-  }
-}
-
-function buildParticles() {
-  particles = gDots.map((_, i) => new Particle(i));
-}
-
-// ----------------------------------------------------------------
-// MODE TRANSITION
-// globeT: 1 = fully globe, 0 = fully morph
-// ----------------------------------------------------------------
-let globeT       = 1.0;
-let targetGlobeT = 1.0;
-let snapshotTaken = false;
-
-// When we start scrolling away from hero, snapshot each particle's
-// current globe screen position as its morph starting point.
-function takeSnapshot(cosR, sinR) {
-  const yMin = -20, yMax = H + 20;
-  for (let i = 0; i < particles.length; i++) {
-    const d = gDots[i];
-    const [sx, sy, tz] = globeProject(d.p3[0], d.p3[1], d.p3[2], cosR, sinR);
-    if (tz > 0 && sy >= yMin && sy <= yMax) {
-      particles[i].x = sx;
-      particles[i].y = sy;
+  // — after two frames the reset is painted; now animate —
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    const easeOut = 'cubic-bezier(0.22, 0.61, 0.36, 1)';
+    if (SLIDE_BLUR[current]) {
+      newBg.style.transition = `transform 1.6s ${easeOut}, filter 1.3s ${easeOut}`;
+      newBg.style.filter = 'blur(0px)';
     } else {
-      // Off-screen globe dot — park at bottom centre
-      particles[i].x = globeCX + (Math.random()-0.5) * GLOBE_R * 0.3;
-      particles[i].y = globeCY;
+      newBg.style.transition = `transform 1.6s ${easeOut}`;
     }
-  }
-}
-
-// ----------------------------------------------------------------
-// SHAPE GENERATORS (for the morph side)
-// All constrained to the RIGHT or LEFT half depending on section,
-// matching the "dots side" of the chessboard layout.
-// ----------------------------------------------------------------
-
-// Sections and their dot-side:
-// proof    (odd)  → dots on RIGHT  → x in [0.5W, W]
-// how      (even) → dots on LEFT   → x in [0, 0.5W]
-// directory(odd)  → dots on RIGHT
-// stories  (even) → dots on LEFT
-// insights (odd)  → dots on RIGHT
-// events   (even) → dots on LEFT
-
-function dotBounds(shape) {
-  // Returns { x0, x1, y0, y1 } for where dots should cluster
-  const odd  = { x0: W*0.5, x1: W,     y0: 0, y1: H };
-  const even = { x0: 0,     x1: W*0.5, y0: 0, y1: H };
-  const sides = { scatter: odd, network: even, search: odd, shield: even, book: odd, calendar: even };
-  return sides[shape] || odd;
-}
-
-function shapeScatter(n) {
-  const b = dotBounds('scatter');
-  return Array.from({ length: n }, () => ({
-    x: b.x0 + Math.random() * (b.x1 - b.x0),
-    y: H * 0.1 + Math.random() * H * 0.8
+    newBg.style.transform = 'scale(1.0)';
   }));
+
+  // — ticker progress bar —
+  tickerItems[current].classList.add('active');
+  const newBar = tickerItems[current].querySelector('.ticker-progress');
+  newBar.style.transition = 'none';
+  newBar.style.left = '-100%';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    newBar.style.transition = `left ${SLIDE_DURATION / 1000}s linear`;
+    newBar.style.left = '0%';
+  }));
+
+  startTime = performance.now();
+  clearTimeout(timer);
+  if (!paused) timer = setTimeout(next, SLIDE_DURATION);
 }
 
-function shapeNetwork(n) {
-  const b = dotBounds('network');
-  const W2 = b.x1 - b.x0;
-  // Node positions as fractions of the half-panel
-  const nodes = [
-    [0.5,0.35],[0.2,0.25],[0.8,0.25],[0.15,0.55],[0.85,0.55],
-    [0.3,0.7],[0.7,0.7],[0.1,0.4],[0.9,0.4],[0.5,0.62]
-  ];
-  const edges = [[0,1],[0,2],[0,9],[1,3],[1,7],[2,4],[2,8],[3,5],[4,6],[5,9],[6,9],[7,3],[8,4]];
-  const pts = [];
-  const nodeR  = Math.min(W2, H) * 0.04;
-  const perN   = Math.floor(n * 0.45 / nodes.length);
-  const perE   = Math.floor(n * 0.45 / edges.length);
-  for (const [nx,ny] of nodes) {
-    for (let i = 0; i < perN; i++) {
-      const a = Math.random()*Math.PI*2, r = Math.random()*nodeR;
-      pts.push({ x: b.x0 + nx*W2 + Math.cos(a)*r, y: ny*H + Math.sin(a)*r });
-    }
-  }
-  for (const [a,e] of edges) {
-    for (let i = 0; i < perE; i++) {
-      const t = Math.random(), j = (Math.random()-0.5)*4;
-      pts.push({
-        x: b.x0 + (nodes[a][0]*(1-t) + nodes[e][0]*t)*W2 + j,
-        y: (nodes[a][1]*(1-t) + nodes[e][1]*t)*H + j
+function next() {
+  goTo((current + 1) % slides.length);
+}
+
+// Click on ticker item to jump to that slide
+tickerItems.forEach((item, i) => {
+  item.addEventListener('click', () => goTo(i));
+});
+
+// Pause on hover over hero (optional nice touch)
+document.querySelector('.hero').addEventListener('mouseenter', () => {
+  paused = true;
+  clearTimeout(timer);
+});
+document.querySelector('.hero').addEventListener('mouseleave', () => {
+  paused = false;
+  const elapsed = performance.now() - startTime;
+  const remaining = Math.max(SLIDE_DURATION - elapsed, 300);
+  timer = setTimeout(next, remaining);
+});
+
+// Kick off
+goTo(0);
+
+// ── GSAP + Lenis smooth scroll ───────────────────────────────────
+gsap.registerPlugin(ScrollTrigger);
+
+// Lenis smooth scroll
+const lenis = new Lenis({
+  duration: 1.4,
+  easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  smoothWheel: true,
+  smoothTouch: false,
+});
+
+// Hook Lenis into GSAP ticker
+gsap.ticker.add(time => lenis.raf(time * 1000));
+gsap.ticker.lagSmoothing(0);
+
+// Sync ScrollTrigger with Lenis
+lenis.on('scroll', ScrollTrigger.update);
+
+// Nav: switch to scrolled state as soon as user scrolls
+const mainNav = document.getElementById('mainNav');
+lenis.on('scroll', ({ scroll }) => {
+  mainNav.classList.toggle('scrolled', scroll > 10);
+});
+
+// ── Section 3: Numbers ──────────────────────────────────────────
+
+// Header fade-up
+gsap.from('.s3-header', {
+  scrollTrigger: { trigger: '.s3-numbers', start: 'top 75%' },
+  opacity: 0,
+  y: 40,
+  duration: 0.9,
+  ease: 'power3.out'
+});
+
+// Cells stagger in
+gsap.to('.s3-cell', {
+  scrollTrigger: { trigger: '.s3-grid', start: 'top 80%' },
+  opacity: 1,
+  y: 0,
+  duration: 0.7,
+  ease: 'power3.out',
+  stagger: 0.08
+});
+
+// Counter animation
+ScrollTrigger.create({
+  trigger: '.s3-grid',
+  start: 'top 80%',
+  once: true,
+  onEnter: () => {
+    document.querySelectorAll('.s3-count').forEach(el => {
+      const target = +el.dataset.target;
+      const suffix = el.dataset.suffix || '';
+      const isK    = suffix.startsWith('k');
+      const displayTarget = isK ? target / 1000 : target;
+      const obj = { val: 0 };
+      gsap.to(obj, {
+        val: displayTarget,
+        duration: 2,
+        ease: 'power2.out',
+        onUpdate() {
+          el.textContent = Math.round(obj.val) + suffix;
+        },
+        onComplete() {
+          el.textContent = Math.round(displayTarget) + suffix;
+        }
       });
-    }
-  }
-  while (pts.length < n) pts.push({ x: b.x0 + Math.random()*W2, y: Math.random()*H });
-  return pts;
-}
-
-function shapeSearch(n) {
-  const b  = dotBounds('search');
-  const W2 = b.x1 - b.x0;
-  const cx = b.x0 + W2*0.5, cy = H*0.45, R = Math.min(W2,H)*0.22;
-  const pts = [];
-  const cN = Math.floor(n*0.55), hN = Math.floor(n*0.15), ha = Math.PI*0.75;
-  for (let i = 0; i < cN; i++) {
-    const a = Math.random()*Math.PI*2, r = R - 2 + (Math.random()-0.5)*14;
-    pts.push({ x: cx+Math.cos(a)*r, y: cy+Math.sin(a)*r });
-  }
-  const hsx = cx+Math.cos(ha)*R, hsy = cy+Math.sin(ha)*R, hl = R*0.65;
-  for (let i = 0; i < hN; i++) {
-    const t = Math.random(), j = (Math.random()-0.5)*7;
-    pts.push({ x: hsx+Math.cos(ha)*hl*t+j, y: hsy+Math.sin(ha)*hl*t+j });
-  }
-  while (pts.length < n) {
-    const a = Math.random()*Math.PI*2, r = Math.random()*R*0.8;
-    pts.push({ x: cx+Math.cos(a)*r, y: cy+Math.sin(a)*r });
-  }
-  return pts;
-}
-
-function shapeShield(n) {
-  const b  = dotBounds('shield');
-  const W2 = b.x1 - b.x0;
-  const cx = b.x0 + W2*0.5;
-  const topY = H*0.18, sw = Math.min(W2,H)*0.26, sh = sw*1.35;
-  const pts = [];
-  for (let i = 0; i < n; i++) {
-    const t = Math.random(), y = topY + t*sh;
-    const hw = sw*(1 - t*t*0.72);
-    if (Math.random() < 0.38) {
-      const s = Math.random()<0.5 ? -1:1;
-      pts.push({ x: cx+s*hw+(Math.random()-0.5)*7, y });
-    } else {
-      pts.push({ x: cx+(Math.random()-0.5)*2*hw, y });
-    }
-  }
-  return pts;
-}
-
-function shapeBook(n) {
-  const b  = dotBounds('book');
-  const W2 = b.x1 - b.x0;
-  const cx = b.x0 + W2*0.5, cy = H*0.45;
-  const bw = Math.min(W2,H)*0.3, bh = bw*0.7;
-  const pts = [];
-  for (let i = 0; i < Math.floor(n*0.95); i++) {
-    const side = Math.random()<0.5 ? -1:1;
-    const px = Math.random(), py = Math.random();
-    const curve = Math.sin(px*Math.PI)*bh*0.08;
-    const x = cx + side*(px*bw*0.46+8);
-    const y = cy - bh/2 + py*bh - curve;
-    const lineY = cy - bh/2 + Math.floor(py*12)/12*bh;
-    pts.push({ x, y: Math.random()<0.52 ? lineY+(Math.random()-0.5)*3 : y });
-  }
-  while (pts.length < n) pts.push({ x: cx+(Math.random()-0.5)*5, y: H*0.45 });
-  return pts;
-}
-
-function shapeCalendar(n) {
-  const b  = dotBounds('calendar');
-  const W2 = b.x1 - b.x0;
-  const cx = b.x0 + W2*0.5, cy = H*0.43;
-  const cw = Math.min(W2,H)*0.36, ch = cw*0.82;
-  const left = cx-cw/2, top = cy-ch/2;
-  const cols=7, rows=5, cellW=cw/cols, headerH=ch*0.18, cellH=(ch*0.78)/rows;
-  const pts = [];
-  for (let i = 0; i < n; i++) {
-    const r = Math.random();
-    if (r < 0.14) {
-      const s = Math.floor(Math.random()*4);
-      let x,y;
-      if (s===0)      { x=left+Math.random()*cw; y=top+(Math.random()-0.5)*3; }
-      else if (s===1) { x=left+Math.random()*cw; y=top+ch+(Math.random()-0.5)*3; }
-      else if (s===2) { x=left+(Math.random()-0.5)*3; y=top+Math.random()*ch; }
-      else            { x=left+cw+(Math.random()-0.5)*3; y=top+Math.random()*ch; }
-      pts.push({x,y});
-    } else if (r < 0.28) {
-      pts.push({ x: left+Math.random()*cw, y: top+Math.random()*headerH });
-    } else {
-      const col=Math.floor(Math.random()*cols), row=Math.floor(Math.random()*rows);
-      const ccx=left+(col+0.5)*cellW, ccy=top+headerH+(row+0.5)*cellH;
-      const rd=Math.min(cellW,cellH)*0.28, a=Math.random()*Math.PI*2, d=Math.random()*rd;
-      pts.push({ x:ccx+Math.cos(a)*d, y:ccy+Math.sin(a)*d });
-    }
-  }
-  return pts;
-}
-
-const shapeMap = { scatter: shapeScatter, network: shapeNetwork, search: shapeSearch, shield: shapeShield, book: shapeBook, calendar: shapeCalendar };
-
-let currentShape = 'globe';
-
-function setMorphTargets(name) {
-  const gen = shapeMap[name];
-  if (!gen) return;
-  const n    = particles.length;
-  const tgts = gen(n);
-  for (let i = 0; i < n; i++) {
-    particles[i].tx = tgts[i].x;
-    particles[i].ty = tgts[i].y;
-  }
-}
-
-// ----------------------------------------------------------------
-// SCROLL DETECTION
-// ----------------------------------------------------------------
-
-function detectSection() {
-  const heroEl   = document.getElementById('hero');
-  const heroRect = heroEl.getBoundingClientRect();
-  const heroVis  = Math.max(0, Math.min(1, heroRect.bottom / H));
-  targetGlobeT   = heroVis;
-
-  const interactEl = document.getElementById('globeInteract');
-  interactEl.style.pointerEvents = heroVis > 0.05 ? 'auto' : 'none';
-
-  // Find dominant non-hero section and its dots-pane element
-  const sections = document.querySelectorAll('.split-section[data-shape]');
-  let best = null, bestVis = -Infinity;
-  for (const s of sections) {
-    const r   = s.getBoundingClientRect();
-    const vis = Math.min(r.bottom, H) - Math.max(r.top, 0);
-    if (vis > bestVis) { bestVis = vis; best = s; }
-  }
-
-  if (best) {
-    const shape = best.dataset.shape;
-    if (shape !== currentShape && shape !== 'globe') {
-      currentShape = shape;
-      setMorphTargets(shape);
-    }
-  }
-}
-
-window.addEventListener('scroll', detectSection, { passive: true });
-window.addEventListener('scroll', () => {
-  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
-
-// ----------------------------------------------------------------
-// MOUSE / TOUCH
-// ----------------------------------------------------------------
-let rotation   = 0;
-const ROT_SPEED = 0.0004;
-let isDragging = false, dragStartX = 0, dragRot = 0;
-let mouseX = -9999, mouseY = -9999;
-let lineAnim    = 0;
-
-// Nearest visible globe dot for general hover
-let hoveredDot = null;   // { sx, sy, firm? }
-
-const interactEl = document.getElementById('globeInteract');
-
-// Track mouse globally so position is always current
-window.addEventListener('mousemove', e => {
-  mouseX = e.clientX; mouseY = e.clientY;
-  if (isDragging) rotation = dragRot + (e.clientX - dragStartX) * 0.002;
-});
-interactEl.addEventListener('mousedown', e => {
-  if (!hoveredDot) {
-    isDragging = true; dragStartX = e.clientX; dragRot = rotation;
+    });
   }
 });
-window.addEventListener('mouseup', () => { isDragging = false; });
-interactEl.addEventListener('touchmove', e => {
-  const t = e.touches[0]; mouseX = t.clientX; mouseY = t.clientY;
-  if (isDragging) rotation = dragRot + (t.clientX - dragStartX) * 0.002;
-}, { passive: true });
-interactEl.addEventListener('touchstart', e => {
-  const t = e.touches[0]; mouseX = t.clientX; mouseY = t.clientY;
-  isDragging = true; dragStartX = t.clientX; dragRot = rotation;
-}, { passive: true });
-window.addEventListener('touchend', () => { isDragging = false; }, { passive: true });
 
-// ----------------------------------------------------------------
-// FIRM 3-D POSITIONS — computed directly from lat/lon, not snapped
-// to grid. Stored separately so hover always works precisely.
-// ----------------------------------------------------------------
-let firmDots = []; // { f, p3 }  — one per firm
+// ── Section 4: Case Studies ──────────────────────────────────────
+(function initS4() {
+  const container = document.getElementById('s4ZoomContainer');
+  const track     = document.getElementById('s4Track');
 
-function buildFirmDots() {
-  firmDots = firms.map(f => ({ f, p3: latLonTo3D(f.lat, f.lon, GLOBE_R) }));
-}
+  // ── ZoomParallax ─────────────────────────────────────────────
+  // Scales: [video, worldmap, tokyo, skyscrapers, cityAerial, riverCity, meeting]
+  // Matching [4, 5, 6, 5, 6, 8, 9] from the Framer Motion reference
+  const tileEndScales = [4, 5, 6, 5, 6, 8, 9];
 
-// ----------------------------------------------------------------
-// RENDER LOOP
-// ----------------------------------------------------------------
-let frameTime = 0;
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: container,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 1.2,
+    }
+  });
 
-function draw(ts) {
-  frameTime = ts || 0;
-  const now = frameTime * 0.001; // seconds
+  // All tiles scale up (full scrub duration)
+  // Header is now above the container — it scrolls away naturally before pinning begins
+  tileEndScales.forEach(function(endScale, i) {
+    const tile = document.getElementById('s4T' + i);
+    if (!tile) return;
+    tl.to(tile, {
+      scale: endScale,
+      ease: 'none',
+      duration: 1,
+    }, 0);
+  });
 
-  globeT += (targetGlobeT - globeT) * 0.055;
+  // Phase B: frame-sequence scrub (replaces laggy video currentTime)
+  (function() {
+    var frameImg = document.getElementById('s4FrameImg');
+    if (!frameImg) return;
 
-  if (!snapshotTaken && globeT < 0.985 && gDots.length > 0) {
-    takeSnapshot(Math.cos(rotation), Math.sin(rotation));
-    snapshotTaken = true;
-  }
-  if (globeT > 0.995) snapshotTaken = false;
+    var TOTAL = 71;
+    var BASE  = 'Content/Section 4 - Global collaboration/video as frames/ezgif-frame-';
 
-  if (!isDragging) rotation -= ROT_SPEED;
-
-  ctx.clearRect(0, 0, W, H);
-
-  const cosR = Math.cos(rotation), sinR = Math.sin(rotation);
-  const yMin = -20, yMax = H + 20;
-  const dotBase = Math.max(0.7, GLOBE_R / 780);
-  const inGlobe = globeT > 0.05;
-
-  // ================================================================
-  // PASS 1 — land + ocean dots (unified globe↔morph)
-  // ================================================================
-  for (let i = 0; i < particles.length; i++) {
-    const p = particles[i];
-    const d = gDots[i];
-
-    const [gsx, gsy, gtz] = globeProject(d.p3[0], d.p3[1], d.p3[2], cosR, sinR);
-    const onFront = gtz > 0 && gsy >= yMin && gsy <= yMax;
-
-    // Always ease morph position
-    p.x += (p.tx - p.x) * 0.038;
-    p.y += (p.ty - p.y) * 0.038;
-
-    // Blend screen position
-    let px, py;
-    if (globeT >= 0.999) {
-      if (!onFront) continue;
-      px = gsx; py = gsy;
-    } else if (globeT <= 0.001) {
-      px = p.x; py = p.y;
-    } else {
-      const srcX = onFront ? gsx : globeCX + (i % 9 - 4) * 30;
-      const srcY = onFront ? gsy : globeCY + 30;
-      px = srcX * globeT + p.x * (1 - globeT);
-      py = srcY * globeT + p.y * (1 - globeT);
+    // Pre-load all frames into an array so swapping is instant
+    var frames = [];
+    for (var i = 1; i <= TOTAL; i++) {
+      var img = new Image();
+      img.src = BASE + (i < 10 ? '00' + i : i < 100 ? '0' + i : i) + '.jpg';
+      frames.push(img);
     }
 
-    // Ocean: pixel-rect, very faint, skip in morph
-    if (d.isOcean) {
-      const a = 0.07 * Math.min(globeT * 3, 1);
-      if (a < 0.01) continue;
-      ctx.fillStyle = `rgba(0,0,0,${a.toFixed(3)})`;
-      ctx.fillRect(px - 0.5, py - 0.5, 1, 1);
-      continue;
-    }
+    var currentFrame = 0;
 
-    // Land dot visual
-    const depth = onFront ? Math.max(0, gtz / GLOBE_R) : 0.5;
-    const gAlpha = 0.35 + 0.55 * depth;
-    const gSize  = dotBase * (0.55 + 0.45 * depth);
-    const mAlpha = p.baseAlpha;
-    const mSize  = p.size;
-
-    let alpha = gAlpha * globeT + mAlpha * (1 - globeT);
-    let size  = gSize  * globeT + mSize  * (1 - globeT);
-    alpha = Math.min(alpha, 1);
-
-    ctx.fillStyle = `rgba(0,0,0,${alpha.toFixed(3)})`;
-    ctx.beginPath();
-    ctx.arc(px, py, size, 0, 6.2832);
-    ctx.fill();
-  }
-
-  // ================================================================
-  // PASS 2 — firm dots drawn on top with pulse, independent of grid
-  // These are always computed from exact lat/lon 3-D coords.
-  // ================================================================
-  const svgEl     = document.getElementById('lines');
-  const tooltipEl = document.getElementById('tooltip');
-  svgEl.innerHTML = '';
-  svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
-
-  let activeFirm = null; // the firm currently hovered
-
-  if (inGlobe) {
-    let bestFirmDist = 40; // generous px radius — firm dots are small
-
-    for (let fi = 0; fi < firmDots.length; fi++) {
-      const { f, p3 } = firmDots[fi];
-      const [sx, sy, tz] = globeProject(p3[0], p3[1], p3[2], cosR, sinR);
-      if (tz < 0 || sy < yMin || sy > yMax) continue;
-
-      const depth = Math.max(0, tz / GLOBE_R);
-
-      // Pulse: slow, offset per firm
-      const pulse  = 0.5 + 0.5 * Math.sin(now * 1.6 + fi * 1.1);
-      const pSize  = dotBase * (1.2 + 0.9 * depth) * (1 + 0.6 * pulse) * globeT;
-      const pAlpha = Math.min((0.5 + 0.5 * depth) * (0.7 + 0.3 * pulse) * globeT, 1);
-
-      // Outer glow ring (always visible, grows on pulse)
-      const glowR = pSize * 3.5;
-      const grd   = ctx.createRadialGradient(sx, sy, 0, sx, sy, glowR);
-      grd.addColorStop(0, `rgba(0,0,0,${(0.14 * pulse * globeT).toFixed(3)})`);
-      grd.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = grd;
-      ctx.beginPath(); ctx.arc(sx, sy, glowR, 0, 6.2832); ctx.fill();
-
-      // Firm dot
-      ctx.fillStyle = `rgba(10,10,10,${pAlpha.toFixed(3)})`;
-      ctx.beginPath(); ctx.arc(sx, sy, pSize, 0, 6.2832); ctx.fill();
-
-      // Hover check
-      if (!isDragging) {
-        const dx = mouseX - sx, dy = mouseY - sy;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < bestFirmDist) {
-          bestFirmDist = dist;
-          activeFirm = { f, sx, sy };
+    ScrollTrigger.create({
+      trigger: container,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: true,
+      onUpdate: function(self) {
+        // Map full scroll progress → frames (0→TOTAL-1)
+        var idx = Math.round(self.progress * (TOTAL - 1));
+        idx = Math.max(0, Math.min(TOTAL - 1, idx));
+        if (idx !== currentFrame) {
+          currentFrame = idx;
+          frameImg.src = frames[idx].src;
         }
       }
-    }
+    });
+  })();
+
+  // ── Phase 4: horizontal card scroll ──────────────────────────
+  function buildCardScroll() {
+    const trackWidth = track.scrollWidth;
+    const viewW = window.innerWidth;
+    const travel = Math.max(trackWidth - viewW + 80, 0);
+
+    ScrollTrigger.create({
+      trigger: '#s4Cards',
+      start: 'top top',
+      end: '+=' + travel,
+      pin: true,
+      scrub: 1,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      animation: gsap.to(track, {
+        x: -travel,
+        ease: 'none',
+      }),
+    });
   }
 
-  // ================================================================
-  // PASS 3 — hover line + tooltip
-  // ================================================================
-  if (activeFirm) {
-    hoveredDot = activeFirm;
-    lineAnim   = Math.min(lineAnim + 0.07, 1);
-
-    const { sx, sy, f } = activeFirm;
-    const lineH = 80 * lineAnim;
-    const topY  = sy - lineH;
-
-    // Highlight dot (brighter, larger)
-    ctx.fillStyle = 'rgba(0,0,0,0.95)';
-    ctx.beginPath(); ctx.arc(sx, sy, dotBase * 2.2 * globeT + 2, 0, 6.2832); ctx.fill();
-
-    const ln = document.createElementNS('http://www.w3.org/2000/svg','line');
-    ln.setAttribute('x1', sx); ln.setAttribute('y1', sy);
-    ln.setAttribute('x2', sx); ln.setAttribute('y2', topY);
-    ln.setAttribute('stroke','rgba(17,17,17,0.55)');
-    ln.setAttribute('stroke-width','1');
-    svgEl.appendChild(ln);
-
-    const ck = document.createElementNS('http://www.w3.org/2000/svg','circle');
-    ck.setAttribute('cx', sx); ck.setAttribute('cy', topY);
-    ck.setAttribute('r', 2.5 * lineAnim); ck.setAttribute('fill','#111');
-    svgEl.appendChild(ck);
-
-    const ttX = sx + 16 > W - 190 ? sx - 190 : sx + 16;
-    tooltipEl.style.left = ttX + 'px';
-    tooltipEl.style.top  = (topY - 52) + 'px';
-    tooltipEl.classList.add('visible');
-    document.getElementById('tt-city').textContent     = f.city;
-    document.getElementById('tt-firm').textContent     = f.firm;
-    document.getElementById('tt-practice').textContent = f.practice;
-  } else {
-    hoveredDot = null;
-    lineAnim   = Math.max(lineAnim - 0.08, 0);
-    if (lineAnim < 0.01) tooltipEl.classList.remove('visible');
-  }
-
-  interactEl.style.cursor = activeFirm
-    ? 'pointer'
-    : (isDragging ? 'grabbing' : 'default');
-
-  requestAnimationFrame(draw);
-}
-
-// ----------------------------------------------------------------
-// RESIZE
-// ----------------------------------------------------------------
-window.addEventListener('resize', () => {
-  resizeCanvas();
-  updateGlobeDims();
-  if (landMaskCtx) {
-    precomputeGlobe();
-    buildParticles();
-    buildFirmDots();
-  }
-  if (currentShape !== 'globe') setMorphTargets(currentShape);
-});
-
-// ----------------------------------------------------------------
-// BOOT
-// ----------------------------------------------------------------
-fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
-  .then(r => r.json())
-  .then(topo => {
-    buildMask(topoRings(topo));
-    precomputeGlobe();
-    buildParticles();           // one particle per globe dot
-    buildFirmDots();            // exact lat/lon 3-D positions for firms
-    setMorphTargets('scatter'); // pre-warm morph targets (first section)
-    document.getElementById('loading').style.opacity = '0';
-    setTimeout(() => document.getElementById('loading').style.display = 'none', 600);
-    detectSection();
-    requestAnimationFrame(draw);
-  })
-  .catch(() => {
-    document.getElementById('loading').textContent = '';
-    detectSection();
-    requestAnimationFrame(draw);
-  });
+  requestAnimationFrame(buildCardScroll);
+})();
 </script>
+
 </body>
 </html>
