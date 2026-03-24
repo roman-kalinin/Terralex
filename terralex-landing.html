@@ -830,7 +830,34 @@ nav {
   overflow: hidden;
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 100vh;
 }
+
+.s4-cards-header {
+  padding: 80px 80px 40px;
+}
+.s4-cards-label {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin: 0 0 16px;
+}
+.s4-cards-heading {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: clamp(42px, 4.5vw, 68px);
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: #fff;
+  margin: 0;
+}
+.s4-cards-bold  { font-weight: 700; }
+.s4-cards-light { font-weight: 300; color: rgba(255,255,255,0.35); }
 
 .s4-cards-track-wrap {
   width: 100%;
@@ -840,8 +867,8 @@ nav {
 
 .s4-cards-track {
   display: flex;
-  gap: 28px;
-  padding: 80px 80px 40px;
+  gap: 36px;
+  padding: 0 80px 60px;
   will-change: transform;
   width: max-content;
 }
@@ -1831,7 +1858,7 @@ nav {
 /* ── Scroll-reveal: prevent flash before GSAP initialises ── */
 .s2-label, .s2-heading, .s2-sub, .s2-search,
 .s3-label, .s3-heading, .s3-cell,
-.s4-label, .s4-heading,
+.s4-label, .s4-heading, .s4-cards-label, .s4-cards-heading,
 .s5-hero-light, .s5-hero-bold,
 .s5-label, .s5-heading, .s5-sub,
 .s6-label, .s6-heading, .s6-sub, .s6-view-all, .s6-event,
@@ -2176,6 +2203,13 @@ nav {
 
   <!-- Phase 4: Cards carousel (not pinned, scrolls naturally) -->
   <div class="s4-cards-section" id="s4Cards">
+    <div class="s4-cards-header">
+      <p class="s4-cards-label">Case Studies</p>
+      <h2 class="s4-cards-heading">
+        <span class="s4-cards-bold">Global Collaboration</span><br>
+        <span class="s4-cards-light">in Action.</span>
+      </h2>
+    </div>
     <div class="s4-cards-track-wrap">
       <div class="s4-cards-track" id="s4Track">
 
@@ -2832,9 +2866,10 @@ ScrollTrigger.create({
 
     ScrollTrigger.create({
       trigger: '#s4Cards',
-      start: 'top top',
+      start: 'bottom bottom',
       end: '+=' + travel,
       pin: true,
+      pinSpacing: true,
       scrub: 1,
       anticipatePin: 1,
       invalidateOnRefresh: true,
@@ -2958,6 +2993,8 @@ ScrollTrigger.create({
   // ── S4 CASE STUDIES (header only — cards/zoom have their own pins) ──
   reveal('.s4-label',   { y: 30, duration: 0.8, trigger: '#s4Header' });
   reveal('.s4-heading', { y: 40, duration: 1,   trigger: '#s4Header', delay: 0.1 });
+  reveal('.s4-cards-label',   { y: 30, duration: 0.8, trigger: '.s4-cards-header' });
+  reveal('.s4-cards-heading', { y: 40, duration: 1,   trigger: '.s4-cards-header', delay: 0.1 });
 
   // ── S5 HERO BAND (pinned parallax text) ──────────────────
   gsap.from('.s5-hero-light', {
