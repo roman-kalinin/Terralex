@@ -77,8 +77,8 @@ body {
 }
 
 .slide-1 .slide-bg { background-image: url('Content/Section 1 - Hero, slider/Hero slide 1.png'); }
-.slide-2 .slide-bg { background-image: url('hero requested images/slide2-bg.jpg'); }
-.slide-3 .slide-bg { background-image: url('hero requested images/slide3-bg.jpg'); }
+.slide-2 .slide-bg { background-image: url('Content/Section 1 - Hero, slider/hero slide 2.png'); }
+.slide-3 .slide-bg { background-image: url('Content/Section 1 - Hero, slider/Hero slide 3.png'); }
 
 /* Dark gradient overlay per slide */
 .slide-overlay {
@@ -450,8 +450,7 @@ nav {
 /* Active ticker item */
 .ticker-item.active p { color: #fff; }
 .ticker-item.active .ticker-progress {
-  left: 0%;
-  transition: left var(--slide-duration, 6s) linear;
+  /* driven by JS rAF — no CSS transition */
 }
 
 /* ================================================================
@@ -1041,7 +1040,6 @@ nav {
     rgba(171,184,189,0.5) 100%
   );
   padding: 80px 54px 100px;
-  overflow: hidden;
 }
 
 /* Hero band (sits between S4 and S5, revealed from under S4) */
@@ -1086,14 +1084,28 @@ nav {
   line-height: 1.15;
 }
 
-/* Standards body layout */
-.s5-body {
-  display: flex;
-  gap: 60px;
-  align-items: flex-start;
+/* S5 scroll-pinned container */
+.s5-pin-wrap {
+  position: relative;
+  height: 300vh; /* scroll distance for the animation */
 }
-.s5-heading-col {
-  flex: 0 0 44%;
+.s5-pin-inner {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+/* Header — stays fixed at top */
+.s5-header {
+  text-align: center;
+  padding-top: 80px;
+  z-index: 5;
+  will-change: transform, opacity;
 }
 .s5-label {
   font-family: 'Source Sans 3', sans-serif;
@@ -1106,8 +1118,8 @@ nav {
 }
 .s5-heading {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: clamp(36px, 3.5vw, 56px);
-  line-height: 1.1;
+  font-size: clamp(36px, 4.5vw, 72px);
+  line-height: 1.05;
   letter-spacing: -1px;
   color: #0a0a0f;
   margin: 0 0 24px;
@@ -1116,39 +1128,78 @@ nav {
 .s5-h-bold  { font-weight: 600; color: #0a0a0f; }
 .s5-sub {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 1.6;
   color: #6b6b80;
-  margin: 0;
-  max-width: 480px;
+  margin: 0 auto;
+  max-width: 620px;
 }
 
-.s5-list-col {
-  flex: 1;
+/* Collaboration pill */
+.s5-collab-pill {
+  position: relative;
+  width: 420px;
+  height: 160px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #333;
+  margin-top: 60px;
+  z-index: 4;
+  flex-shrink: 0;
+}
+.s5-collab-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.31;
+  filter: blur(4px);
+}
+.s5-collab-text {
+  position: absolute;
+  inset: 0;
   display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-.s5-standard-item {
-  padding: 24px 0;
-  border-bottom: 1px solid rgba(10,10,15,0.08);
-}
-.s5-standard-item:first-child { border-top: 1px solid rgba(10,10,15,0.08); }
-.s5-item-title {
+  align-items: center;
+  justify-content: center;
   font-family: 'Source Sans 3', sans-serif;
-  font-size: 20px;
+  font-size: 48px;
   font-weight: 600;
-  color: #0a0a0f;
-  margin-bottom: 8px;
+  color: #fff;
+  letter-spacing: -1px;
 }
-.s5-item-desc {
+
+/* Criteria items — scattered around the pill */
+.s5-criteria-area {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.s5-criteria-item {
+  position: absolute;
+  white-space: nowrap;
   font-family: 'Source Sans 3', sans-serif;
-  font-size: 15px;
+  font-size: clamp(16px, 1.8vw, 24px);
   font-weight: 400;
-  line-height: 1.6;
-  color: #6b6b80;
-  margin: 0;
+  color: #0a0a0f;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: none;
+}
+.s5-criteria-item .s5-cr-bold {
+  font-weight: 600;
+}
+.s5-criteria-item .s5-cr-light {
+  color: rgba(10,10,15,0.25);
+}
+
+@media (max-width: 900px) {
+  .s5-collab-pill { width: 280px; height: 110px; }
+  .s5-collab-text { font-size: 32px; }
+  .s5-criteria-item { font-size: 13px; }
+  .s5-header { padding-top: 48px; }
 }
 
 /* ================================================================
@@ -1431,18 +1482,16 @@ nav {
   height: 70vh;
   min-height: 520px;
   overflow: hidden;
+  background: url('Content/All images/Home main screen 11.jpg') center/cover no-repeat fixed;
 }
 .s8-bg-image {
-  position: absolute;
-  inset: 0;
+  display: none; /* image is now a CSS fixed background on .s8-hero */
 }
 .s8-bg-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* no blur — sharp hero image */
+  display: none;
 }
-.s8-bg-overlay {
+.s8-hero::after {
+  content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom,
@@ -1450,6 +1499,10 @@ nav {
     rgba(0,0,0,0.2) 50%,
     rgba(0,0,0,0.55) 100%
   );
+  pointer-events: none;
+}
+.s8-bg-overlay {
+  display: none;
 }
 
 /* Heading — bottom-left anchored */
@@ -1780,7 +1833,7 @@ nav {
 .s3-label, .s3-heading, .s3-cell,
 .s4-label, .s4-heading,
 .s5-hero-light, .s5-hero-bold,
-.s5-label, .s5-heading, .s5-sub, .s5-standard-item,
+.s5-label, .s5-heading, .s5-sub,
 .s6-label, .s6-heading, .s6-sub, .s6-view-all, .s6-event,
 .s7-label-row, .s7-heading, .s7-desc, .s7-image,
 .s8-heading, .s8-guide-card,
@@ -2241,45 +2294,30 @@ nav {
      SECTION 5 — MEMBER STANDARDS
 ============================================================ -->
 <section class="s5-standards">
+  <div class="s5-pin-wrap" id="s5PinWrap">
+    <div class="s5-pin-inner" id="s5PinInner">
 
-  <!-- Standards body -->
-  <div class="s5-body">
-    <div class="s5-heading-col">
-      <p class="s5-label">Quality Assurance</p>
-      <h2 class="s5-heading">
-        <span class="s5-h-light">Every firm in TerraLex meets</span><br>
-        <span class="s5-h-bold">16 Member Standards</span>
-      </h2>
-      <p class="s5-sub">— the framework that guarantees you receive the same quality of counsel, anywhere in the world.</p>
-    </div>
-    <div class="s5-list-col">
-      <div class="s5-standard-item">
-        <p class="s5-item-title">16 Member Standards</p>
-        <p class="s5-item-desc">A comprehensive framework covering quality, responsiveness, conflict checks, and cross-border collaboration expectations.</p>
+      <!-- Header — slides up and fades as you scroll -->
+      <div class="s5-header" id="s5Header">
+        <p class="s5-label">Quality Assurance</p>
+        <h2 class="s5-heading">
+          <span class="s5-h-light">Every firm in TerraLex meets</span><br>
+          <span class="s5-h-bold">16 Member Standards</span>
+        </h2>
+        <p class="s5-sub">— the framework that guarantees you receive the same quality of counsel, anywhere in the world.</p>
       </div>
-      <div class="s5-standard-item">
-        <p class="s5-item-title">Invitation-Based Membership</p>
-        <p class="s5-item-desc">Firms are invited, not self-selected. Every member undergoes rigorous peer review before joining the network.</p>
+
+      <!-- Collaboration pill -->
+      <div class="s5-collab-pill" id="s5Pill">
+        <img src="Content/Section - Elite by design/collab-bg.jpg" alt="" class="s5-collab-bg">
+        <div class="s5-collab-text">Collaboration</div>
       </div>
-      <div class="s5-standard-item">
-        <p class="s5-item-title">One Firm Per Jurisdiction</p>
-        <p class="s5-item-desc">Where applicable, TerraLex maintains exclusivity — ensuring members recommend each other without conflict.</p>
-      </div>
-      <div class="s5-standard-item">
-        <p class="s5-item-title">Referral Expectations</p>
-        <p class="s5-item-desc">Members are expected to refer and receive referrals in good faith, maintaining the network's collaborative integrity.</p>
-      </div>
-      <div class="s5-standard-item">
-        <p class="s5-item-title">Leadership Development</p>
-        <p class="s5-item-desc">Managing Partner programs, leadership cohorts, and next-generation attorney initiatives strengthen the network continuously.</p>
-      </div>
-      <div class="s5-standard-item">
-        <p class="s5-item-title">Network Task Forces</p>
-        <p class="s5-item-desc">Specialised cross-border task forces tackle emerging areas of law, creating shared expertise across the membership.</p>
-      </div>
+
+      <!-- Criteria fly-out area -->
+      <div class="s5-criteria-area" id="s5Criteria"></div>
+
     </div>
   </div>
-
 </section>
 
 <!-- ============================================================
@@ -2395,7 +2433,7 @@ nav {
 
   <div class="s8-hero">
     <div class="s8-bg-image">
-      <img src="Content/Section - Cross border intelligence/BG image.png" alt="">
+      <img src="Content/All images/Home main screen 11.jpg" alt="">
       <div class="s8-bg-overlay"></div>
     </div>
     <h2 class="s8-heading">Cross-Border Intelligence. Simplified.</h2>
@@ -2541,90 +2579,76 @@ nav {
 </footer>
 
 <script>
-const SLIDE_DURATION = 6000; // ms per slide
-const slides      = document.querySelectorAll('.slide');
-const tickerItems = document.querySelectorAll('.ticker-item');
-let current   = 0;
-let timer     = null;
-let startTime = null;
-let paused    = false;
+{
+  const SLIDE_DURATION = 6000;
+  const slides    = document.querySelectorAll('.slide');
+  const tickers   = document.querySelectorAll('.ticker-item');
+  const bars      = Array.from(tickers).map(t => t.querySelector('.ticker-progress'));
+  const BLUR      = [true, false, false];
 
-// Set CSS variable for progress bar transition duration
-document.documentElement.style.setProperty('--slide-duration', (SLIDE_DURATION / 1000) + 's');
+  let current   = 0;
+  let startTime = 0;
+  let paused    = false;
+  let rafId     = null;
 
-// Slide 1 gets zoom+blur, slides 2&3 just zoom (their images are already sharp)
-const SLIDE_BLUR = [true, false, false];
+  // rAF loop — drives the progress bar and auto-advances
+  function tick() {
+    rafId = requestAnimationFrame(tick);
+    if (paused) return;
+    const elapsed = performance.now() - startTime;
+    const p = Math.min(elapsed / SLIDE_DURATION, 1);
+    // Move bar: left from -100% to 0%
+    bars[current].style.left = (-100 + p * 100) + '%';
+    // When done, advance
+    if (p >= 1) goTo((current + 1) % slides.length);
+  }
 
-function goTo(index) {
-  const prev = current;
-  current = index;
+  function goTo(index) {
+    const prev = current;
+    current = index;
 
-  // — old slide out —
-  slides[prev].classList.remove('active');
-  tickerItems[prev].classList.remove('active');
-  const oldBar = tickerItems[prev].querySelector('.ticker-progress');
-  oldBar.style.transition = 'none';
-  oldBar.style.left = '-100%';
+    // Reset all tickers
+    tickers.forEach((t, i) => {
+      t.classList.remove('active');
+      bars[i].style.left = '-100%';
+    });
 
-  // — new slide: snap bg to start state (no transition yet) —
-  const newBg = slides[current].querySelector('.slide-bg');
-  newBg.style.transition = 'none';
-  newBg.style.transform = 'scale(1.08)';
-  newBg.style.filter = SLIDE_BLUR[current] ? 'blur(14px)' : 'blur(0px)';
+    // Old slide out
+    slides[prev].classList.remove('active');
 
-  // — activate slide (makes it visible) —
-  slides[current].classList.add('active');
+    // New slide bg: snap to start state
+    const bg = slides[current].querySelector('.slide-bg');
+    bg.style.transition = 'none';
+    bg.style.transform = 'scale(1.08)';
+    bg.style.filter = BLUR[current] ? 'blur(14px)' : 'blur(0px)';
 
-  // — after two frames the reset is painted; now animate —
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    const easeOut = 'cubic-bezier(0.22, 0.61, 0.36, 1)';
-    if (SLIDE_BLUR[current]) {
-      newBg.style.transition = `transform 1.6s ${easeOut}, filter 1.3s ${easeOut}`;
-      newBg.style.filter = 'blur(0px)';
-    } else {
-      newBg.style.transition = `transform 1.6s ${easeOut}`;
-    }
-    newBg.style.transform = 'scale(1.0)';
-  }));
+    // Activate
+    slides[current].classList.add('active');
+    tickers[current].classList.add('active');
 
-  // — ticker progress bar —
-  tickerItems[current].classList.add('active');
-  const newBar = tickerItems[current].querySelector('.ticker-progress');
-  newBar.style.transition = 'none';
-  newBar.style.left = '-100%';
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    newBar.style.transition = `left ${SLIDE_DURATION / 1000}s linear`;
-    newBar.style.left = '0%';
-  }));
+    // Animate bg after paint
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const ease = 'cubic-bezier(0.22, 0.61, 0.36, 1)';
+      bg.style.transition = BLUR[current]
+        ? `transform 1.6s ${ease}, filter 1.3s ${ease}`
+        : `transform 1.6s ${ease}`;
+      bg.style.filter = 'blur(0px)';
+      bg.style.transform = 'scale(1.0)';
+    }));
 
-  startTime = performance.now();
-  clearTimeout(timer);
-  if (!paused) timer = setTimeout(next, SLIDE_DURATION);
+    // Reset timer
+    startTime = performance.now();
+  }
+
+  // Click to jump
+  tickers.forEach((t, i) => t.addEventListener('click', () => goTo(i)));
+
+  // No hover pause — slider runs continuously
+
+  // Kick off
+  goTo(0);
+  rafId = requestAnimationFrame(tick);
 }
-
-function next() {
-  goTo((current + 1) % slides.length);
-}
-
-// Click on ticker item to jump to that slide
-tickerItems.forEach((item, i) => {
-  item.addEventListener('click', () => goTo(i));
-});
-
-// Pause on hover over hero (optional nice touch)
-document.querySelector('.hero').addEventListener('mouseenter', () => {
-  paused = true;
-  clearTimeout(timer);
-});
-document.querySelector('.hero').addEventListener('mouseleave', () => {
-  paused = false;
-  const elapsed = performance.now() - startTime;
-  const remaining = Math.max(SLIDE_DURATION - elapsed, 300);
-  timer = setTimeout(next, remaining);
-});
-
-// Kick off
-goTo(0);
 
 // ── GSAP + Lenis smooth scroll ───────────────────────────────────
 gsap.registerPlugin(ScrollTrigger);
@@ -2946,13 +2970,10 @@ ScrollTrigger.create({
   });
 
   // ── S5 STANDARDS (body section below band) ───────────────
-  reveal('.s5-label',   { y: 30, duration: 0.8, trigger: '.s5-heading-col' });
-  reveal('.s5-heading', { y: 40, duration: 1,   trigger: '.s5-heading-col', delay: 0.1 });
-  reveal('.s5-sub',     { y: 30, duration: 0.8, trigger: '.s5-heading-col', delay: 0.2 });
-  gsap.from('.s5-standard-item', {
-    autoAlpha: 0, y: 50, duration: 0.8, ease: e3, stagger: 0.1,
-    scrollTrigger: { trigger: '.s5-list-col', start: 'top 85%', toggleActions: ta }
-  });
+  reveal('.s5-label',   { y: 30, duration: 0.8, trigger: '.s5-header' });
+  reveal('.s5-heading', { y: 40, duration: 1,   trigger: '.s5-header', delay: 0.1 });
+  reveal('.s5-sub',     { y: 30, duration: 0.8, trigger: '.s5-header', delay: 0.2 });
+  // Criteria fly-out — entrance handled by its own ScrollTrigger
 
   // ── S6 EVENTS ────────────────────────────────────────────
   reveal('.s6-label',   { y: 30, duration: 0.8, trigger: '.s6-header' });
@@ -2995,6 +3016,158 @@ ScrollTrigger.create({
   });
   reveal('.footer-bottom', { y: 20, duration: 0.6, trigger: '.footer-bottom' });
 
+})();
+</script>
+
+<!-- ============================================================
+     S5 — CRITERIA FLY-OUT
+============================================================ -->
+<script>
+(function() {
+  // ── Data ────────────────────────────────────────────────
+  var criteria = [
+    { bold: 'Market Standing', light: '' },
+    { bold: 'Law Capability', light: 'Strong Commercial ' },
+    { bold: 'Continuous Improvement & Innovation', light: 'Commitment to ' },
+    { bold: 'Responsiveness', light: '' },
+    { bold: 'Follow Up - Clients', light: ' and Other Members' },
+    { bold: 'International Focus', light: ' & Clients' },
+    { bold: 'Reciprocity', light: 'Capacity for ' },
+    { bold: 'Geographical Coverage', light: ' in Designated Jurisdiction' },
+    { bold: 'English Language', light: ' Capability and Website' },
+    { bold: 'Dues on Time', light: 'Payment of ' },
+    { bold: 'Transparent Billing', light: ' and Managing Expectations of Cost' },
+    { bold: 'Referral Tracking', light: ' - In and Out' },
+    { bold: 'Representatives', light: 'Quality Member ' },
+    { bold: 'Attendance at Meetings', light: '' },
+    { bold: 'Feedback', light: 'Committed to ' },
+    { bold: 'Engagement', light: ' with TerraLex' }
+  ];
+
+  var targets = [
+    { x: -30, y: -26 }, { x: 26, y: -30 }, { x: -36, y: -10 },
+    { x: -28, y: 18 },  { x: 33, y: -13 }, { x: 5, y: 30 },
+    { x: 17, y: -20 },  { x: 30, y: 22 },  { x: -26, y: 32 },
+    { x: -5, y: -28 },  { x: 19, y: 34 },  { x: 34, y: 11 },
+    { x: -34, y: 6 },   { x: 36, y: 0 },   { x: -19, y: -32 },
+    { x: -10, y: 26 }
+  ];
+
+  var drifts = [];
+  for (var d = 0; d < criteria.length; d++) {
+    var PI2 = Math.PI * 2;
+    drifts.push({
+      ax: 8 + Math.random() * 12, ay: 6 + Math.random() * 10,
+      sx: 0.4 + Math.random() * 0.5, sy: 0.3 + Math.random() * 0.4,
+      ox: Math.random() * PI2, oy: Math.random() * PI2,
+      as: 0.03 + Math.random() * 0.04, ss: 0.5 + Math.random() * 0.4,
+      os: Math.random() * PI2
+    });
+  }
+
+  // ── DOM refs (cached once) ──────────────────────────────
+  var innerEl  = document.getElementById('s5PinInner');
+  var headerEl = document.getElementById('s5Header');
+  var pillEl   = document.getElementById('s5Pill');
+  var areaEl   = document.getElementById('s5Criteria');
+  if (!areaEl || !innerEl || !pillEl) return;
+
+  // ── Create item elements ────────────────────────────────
+  var items = [];
+  for (var i = 0; i < criteria.length; i++) {
+    var el = document.createElement('div');
+    el.className = 's5-criteria-item';
+    var c = criteria[i];
+    if (c.light && c.light[0] !== ' ') {
+      el.innerHTML = '<span class="s5-cr-light">' + c.light + '</span><span class="s5-cr-bold">' + c.bold + '</span>';
+    } else if (c.light) {
+      el.innerHTML = '<span class="s5-cr-bold">' + c.bold + '</span><span class="s5-cr-light">' + c.light + '</span>';
+    } else {
+      el.innerHTML = '<span class="s5-cr-bold">' + c.bold + '</span>';
+    }
+    areaEl.appendChild(el);
+    items.push(el);
+  }
+
+  // ── Layout measurement ──────────────────────────────────
+  var lw = 0, lh = 0;
+
+  function measure() {
+    lw = innerEl.offsetWidth;
+    lh = innerEl.offsetHeight;
+    // Pill center relative to innerEl (the absolute-positioned area covers innerEl)
+    var ir = innerEl.getBoundingClientRect();
+    var pr = pillEl.getBoundingClientRect();
+    var px = (pr.left - ir.left) + pr.width * 0.5;
+    var py = (pr.top - ir.top) + pr.height * 0.5;
+    for (var j = 0; j < items.length; j++) {
+      items[j].style.left = (px - items[j].offsetWidth * 0.5) + 'px';
+      items[j].style.top  = (py - items[j].offsetHeight * 0.5) + 'px';
+    }
+  }
+  measure();
+  window.addEventListener('resize', measure);
+
+  // ── Animation loop ──────────────────────────────────────
+  var progress = 0;
+  var running = false;
+
+  function tick() {
+    if (!running) return;
+    requestAnimationFrame(tick);
+    var now = performance.now() * 0.001;
+
+    // Header: slide up + fade over 0–30% of scroll
+    if (headerEl) {
+      var hp = Math.min(1, progress / 0.3);
+      hp = 1 - (1 - hp) * (1 - hp); // ease-out quad
+      headerEl.style.transform = 'translateY(' + (-hp * 120) + 'px)';
+      headerEl.style.opacity = 1 - hp;
+    }
+
+    // Items: fly out over 25–100% of scroll
+    for (var i = 0; i < items.length; i++) {
+      var t = targets[i], dr = drifts[i];
+      var p = Math.max(0, (progress - 0.25) / 0.75);
+      var ip = Math.max(0, Math.min(1, (p - i * 0.02) / (1 - i * 0.02)));
+      ip = 1 - (1 - ip) * (1 - ip) * (1 - ip); // ease-out cubic
+
+      var dx = (t.x / 100) * lw * ip;
+      var dy = (t.y / 100) * lh * ip;
+
+      // Cloud-like drift
+      if (ip > 0.1) {
+        dx += Math.sin(now * dr.sx + dr.ox) * dr.ax * ip;
+        dy += Math.sin(now * dr.sy + dr.oy) * dr.ay * ip;
+      }
+
+      // Scale breathing
+      var scale = 0.3 + 0.7 * ip;
+      if (ip > 0.1) scale += Math.sin(now * dr.ss + dr.os) * dr.as * ip;
+
+      // Opacity tied to scale for depth
+      var alpha = ip * (0.5 + 0.5 * ((scale - 0.3) / 0.74));
+
+      items[i].style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px) scale(' + scale.toFixed(3) + ')';
+      items[i].style.opacity = alpha;
+    }
+  }
+
+  function start() { if (!running) { running = true; requestAnimationFrame(tick); } }
+  function stop()  { running = false; }
+
+  // ── ScrollTrigger ───────────────────────────────────────
+  if (typeof ScrollTrigger !== 'undefined') {
+    ScrollTrigger.create({
+      trigger: '#s5PinWrap',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: true,
+      onUpdate: function(self) { progress = self.progress; },
+      onEnter: start, onEnterBack: start,
+      onLeave: stop,  onLeaveBack: stop
+    });
+  }
 })();
 </script>
 
