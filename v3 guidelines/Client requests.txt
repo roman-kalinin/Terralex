@@ -1,5 +1,0 @@
-Blue color is main one.
-Main page should be carousel with animated transitions (zoom in + fade in, ease our heavily) images.
-White theme.
-Fancy animations.
-Gsap animation library should be used.
