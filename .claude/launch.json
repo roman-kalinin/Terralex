@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Terralex Dev Server",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["editor-server.js"],
+      "port": 8080
+    },
+    {
+      "name": "Terralex Static (read-only)",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", ".", "-l", "8080"],
+      "port": 8080
+    },
+    {
+      "name": "Terralex Preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8082"],
+      "port": 8082
+    }
+  ]
+}
