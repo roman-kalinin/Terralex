@@ -119,18 +119,15 @@ body {
   transition: background 0.3s, border-color 0.3s;
 }
 .site-header.scrolled .nav-topbar {
-  background: rgba(245,245,245,0.98);
+  background: rgba(245,245,245,0.9);
   border-bottom-color: rgba(0,0,0,0.06);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
 }
 .nav-topbar {
   overflow: hidden;
   max-height: 36px;
   transition: max-height 0.35s ease, opacity 0.3s ease, background 0.3s, border-color 0.3s;
   opacity: 1;
-}
-.site-header.topbar-hidden .nav-topbar {
-  max-height: 0;
-  opacity: 0;
 }
 .nav-topbar a {
   font-size: 12px;
@@ -163,8 +160,9 @@ nav {
   transition: background 0.3s ease, border-color 0.3s ease;
 }
 .site-header.scrolled nav {
-  background: rgba(255,255,255,0.97);
+  background: rgba(255,255,255,0.9);
   border-bottom-color: rgba(0,0,0,0.08);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
 }
 
 .nav-logo {
@@ -271,9 +269,6 @@ nav {
   transform: translateY(-8px);
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
   z-index: 199;
-}
-.site-header.topbar-hidden .nav-mega {
-  top: 60px;
 }
 .nav-dropdown.open .nav-mega {
   opacity: 1;
@@ -505,6 +500,16 @@ nav {
   position: absolute; inset: 0;
   cursor: default;
 }
+.globe-hint {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  padding: 6px 14px; border-radius: 20px;
+  background: rgba(10,31,51,.7); color: #fff;
+  font-size: 12px; font-family: 'DM Sans', sans-serif;
+  pointer-events: none; z-index: 4;
+  opacity: 0; transition: opacity .4s;
+  white-space: nowrap;
+}
+.globe-hint.show { opacity: 1; }
 .s2-label {
   font-family: 'DM Sans', sans-serif;
   font-size: 12px;
@@ -1059,14 +1064,15 @@ nav {
   position: relative;
   z-index: 2;
   background: #fff;
-  background-image: linear-gradient(90deg,
-    rgba(213,214,216,0.5) 0%,
-    rgba(243,241,239,0.5) 27.4%,
-    rgba(249,244,241,0.5) 51.9%,
-    rgba(232,232,232,0.5) 71.2%,
-    rgba(171,184,189,0.5) 100%
-  );
   padding: 80px 54px 100px;
+}
+.s5-map-bg {
+  position: absolute;
+  inset: 0;
+  background: url('Content/Section - Member standarts/BG-map.svg') center center / contain no-repeat;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Hero band (sits between S4 and S5, revealed from under S4) */
@@ -1173,15 +1179,16 @@ nav {
 
 /* Collaboration pill */
 .s5-collab-pill {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 420px;
   height: 160px;
   border-radius: 999px;
   overflow: hidden;
   background: #333;
-  margin-top: 60px;
   z-index: 4;
-  flex-shrink: 0;
 }
 .s5-collab-bg {
   position: absolute;
@@ -1205,6 +1212,29 @@ nav {
   letter-spacing: -1px;
 }
 
+/* Lines SVG layer */
+.s5-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}
+.s5-line {
+  fill: none;
+  stroke: rgba(10,10,15,0.10);
+  stroke-width: 1;
+}
+.s5-line-pulse {
+  fill: none;
+  stroke: rgba(10,10,15,0.25);
+  stroke-width: 1.5;
+  stroke-dasharray: 30 1000;
+  stroke-linecap: round;
+}
+
 /* Criteria items — scattered around the pill */
 .s5-criteria-area {
   position: absolute;
@@ -1216,24 +1246,29 @@ nav {
   position: absolute;
   white-space: nowrap;
   font-family: 'Source Sans 3', sans-serif;
-  font-size: clamp(16px, 1.8vw, 24px);
+  font-size: clamp(14px, 1.5vw, 20px);
   font-weight: 400;
   color: #0a0a0f;
   opacity: 0;
   will-change: transform, opacity;
   transition: none;
+  padding: 12px 24px;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(10,10,15,0.06);
+  border-radius: 8px;
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
 }
 .s5-criteria-item .s5-cr-bold {
   font-weight: 600;
 }
 .s5-criteria-item .s5-cr-light {
-  color: rgba(10,10,15,0.25);
+  color: rgba(10,10,15,0.45);
 }
 
 @media (max-width: 900px) {
   .s5-collab-pill { width: 280px; height: 110px; }
   .s5-collab-text { font-size: 32px; }
-  .s5-criteria-item { font-size: 13px; }
+  .s5-criteria-item { font-size: 11px; padding: 8px 16px; }
   .s5-header { padding-top: 48px; }
 }
 
@@ -2149,6 +2184,8 @@ nav {
   <div class="s2-globe-col">
     <canvas id="globeCanvas"></canvas>
     <div id="globeInteract"></div>
+    <div class="globe-hint" id="globeScrollHint">Ctrl + Scroll to zoom</div>
+    <div class="globe-hint" id="globeEscHint">Esc to zoom out</div>
     <div class="s2-globe-tooltip" id="globeTooltip">
       <div class="s2-tt-card">
         <img class="s2-tt-flag" id="ttFlag" src="" alt="">
@@ -2180,24 +2217,24 @@ nav {
       <p class="s3-stat-label">Member Firms</p>
     </div>
     <div class="s3-cell">
-      <div class="s3-number"><span class="s3-count" data-target="23000" data-suffix="k+">0</span></div>
-      <p class="s3-stat-label">Attorneys</p>
+      <div class="s3-number"><span class="s3-count" data-target="23000" data-comma>0</span></div>
+      <p class="s3-stat-label">Lawyers</p>
     </div>
     <div class="s3-cell">
-      <div class="s3-number"><span class="s3-count" data-target="120" data-suffix="+">0</span></div>
-      <p class="s3-stat-label">Countries</p>
-    </div>
-    <div class="s3-cell">
-      <div class="s3-number"><span class="s3-count" data-target="20" data-suffix="+">0</span></div>
-      <p class="s3-stat-label">Cross-Border Guides</p>
-    </div>
-    <div class="s3-cell">
-      <div class="s3-number"><span class="s3-count" data-target="50" data-suffix="+">0</span></div>
-      <p class="s3-stat-label">Annual Programs</p>
+      <div class="s3-number"><span class="s3-count" data-target="205">0</span></div>
+      <p class="s3-stat-label">Jurisdictions</p>
     </div>
     <div class="s3-cell">
       <div class="s3-number"><span class="s3-count" data-target="35">0</span></div>
-      <p class="s3-stat-label">Years of Excellence</p>
+      <p class="s3-stat-label">Years</p>
+    </div>
+    <div class="s3-cell">
+      <div class="s3-number"><span class="s3-count" data-target="132">0</span></div>
+      <p class="s3-stat-label">Countries</p>
+    </div>
+    <div class="s3-cell">
+      <div class="s3-number"><span class="s3-count" data-target="23">0</span></div>
+      <p class="s3-stat-label">Cross-Border Guides</p>
     </div>
   </div>
 
@@ -2396,6 +2433,7 @@ nav {
      SECTION 5 — MEMBER STANDARDS
 ============================================================ -->
 <section class="s5-standards">
+  <div class="s5-map-bg"></div>
   <div class="s5-pin-wrap" id="s5PinWrap">
     <div class="s5-pin-inner" id="s5PinInner">
 
@@ -2414,6 +2452,9 @@ nav {
         <img src="Content/Section - Elite by design/collab-bg.jpg" alt="" class="s5-collab-bg">
         <div class="s5-collab-text">Collaboration</div>
       </div>
+
+      <!-- Lines connecting criteria to pill -->
+      <svg class="s5-lines" id="s5Lines"></svg>
 
       <!-- Criteria fly-out area -->
       <div class="s5-criteria-area" id="s5Criteria"></div>
@@ -2791,12 +2832,6 @@ const siteHeader = document.getElementById('siteHeader');
 let lastScroll = 0;
 lenis.on('scroll', ({ scroll }) => {
   siteHeader.classList.toggle('scrolled', scroll > 10);
-  if (scroll > 10) {
-    siteHeader.classList.toggle('topbar-hidden', scroll > lastScroll);
-  } else {
-    siteHeader.classList.remove('topbar-hidden');
-  }
-  lastScroll = scroll;
 });
 
 // ── Expertise dropdown toggle ────────────────────────────────────
@@ -2828,19 +2863,18 @@ ScrollTrigger.create({
     document.querySelectorAll('.s3-count').forEach(el => {
       const target = +el.dataset.target;
       const suffix = el.dataset.suffix || '';
-      const isK    = suffix.startsWith('k');
-      const displayTarget = isK ? target / 1000 : target;
+      const useComma = el.hasAttribute('data-comma');
+      function fmt(n) {
+        var v = Math.round(n);
+        return useComma ? v.toLocaleString() : v + suffix;
+      }
       const obj = { val: 0 };
       gsap.to(obj, {
-        val: displayTarget,
+        val: target,
         duration: 2,
         ease: 'power2.out',
-        onUpdate() {
-          el.textContent = Math.round(obj.val) + suffix;
-        },
-        onComplete() {
-          el.textContent = Math.round(displayTarget) + suffix;
-        }
+        onUpdate() { el.textContent = fmt(obj.val); },
+        onComplete() { el.textContent = fmt(target); }
       });
     });
   }
@@ -3177,34 +3211,25 @@ ScrollTrigger.create({
 
   var targets = [
     { x: -30, y: -26 }, { x: 26, y: -30 }, { x: -36, y: -10 },
-    { x: -28, y: 18 },  { x: 33, y: -13 }, { x: 5, y: 30 },
-    { x: 17, y: -20 },  { x: 30, y: 22 },  { x: -26, y: 32 },
+    { x: -28, y: 18 },  { x: 33, y: -13 }, { x: -2, y: 33 },
+    { x: 8, y: -23 },  { x: 30, y: 22 },  { x: -26, y: 32 },
     { x: -5, y: -28 },  { x: 19, y: 34 },  { x: 34, y: 11 },
     { x: -34, y: 6 },   { x: 36, y: 0 },   { x: -19, y: -32 },
     { x: -10, y: 26 }
   ];
-
-  var drifts = [];
-  for (var d = 0; d < criteria.length; d++) {
-    var PI2 = Math.PI * 2;
-    drifts.push({
-      ax: 8 + Math.random() * 12, ay: 6 + Math.random() * 10,
-      sx: 0.4 + Math.random() * 0.5, sy: 0.3 + Math.random() * 0.4,
-      ox: Math.random() * PI2, oy: Math.random() * PI2,
-      as: 0.03 + Math.random() * 0.04, ss: 0.5 + Math.random() * 0.4,
-      os: Math.random() * PI2
-    });
-  }
 
   // ── DOM refs (cached once) ──────────────────────────────
   var innerEl  = document.getElementById('s5PinInner');
   var headerEl = document.getElementById('s5Header');
   var pillEl   = document.getElementById('s5Pill');
   var areaEl   = document.getElementById('s5Criteria');
+  var linesSvg = document.getElementById('s5Lines');
   if (!areaEl || !innerEl || !pillEl) return;
 
-  // ── Create item elements ────────────────────────────────
+  // ── Create item elements + SVG lines ────────────────────
+  var SVG_NS = 'http://www.w3.org/2000/svg';
   var items = [];
+  var lines = [];
   for (var i = 0; i < criteria.length; i++) {
     var el = document.createElement('div');
     el.className = 's5-criteria-item';
@@ -3218,6 +3243,16 @@ ScrollTrigger.create({
     }
     areaEl.appendChild(el);
     items.push(el);
+
+    var line = document.createElementNS(SVG_NS, 'line');
+    line.setAttribute('class', 's5-line');
+    linesSvg.appendChild(line);
+
+    var pulse = document.createElementNS(SVG_NS, 'line');
+    pulse.setAttribute('class', 's5-line-pulse');
+    linesSvg.appendChild(pulse);
+
+    lines.push({ base: line, pulse: pulse });
   }
 
   // ── Layout measurement ──────────────────────────────────
@@ -3243,58 +3278,102 @@ ScrollTrigger.create({
   var progress = 0;
   var running = false;
 
+  // Pill center coords (relative to innerEl)
+  var pillCX = 0, pillCY = 0;
+
   function tick() {
     if (!running) return;
     requestAnimationFrame(tick);
     var now = performance.now() * 0.001;
 
-    // Header: slide up + fade over 0–30% of scroll
+    // Pill center
+    var ir = innerEl.getBoundingClientRect();
+    var pr = pillEl.getBoundingClientRect();
+    pillCX = (pr.left - ir.left) + pr.width * 0.5;
+    pillCY = (pr.top - ir.top) + pr.height * 0.5;
+
+    // Header: slide up + fade over 15–45% of scroll
     if (headerEl) {
-      var hp = Math.min(1, progress / 0.3);
+      var hp = Math.max(0, Math.min(1, (progress - 0.15) / 0.3));
       hp = 1 - (1 - hp) * (1 - hp); // ease-out quad
       headerEl.style.transform = 'translateY(' + (-hp * 120) + 'px)';
       headerEl.style.opacity = 1 - hp;
     }
 
-    // Items: fly out over 25–100% of scroll
+    // Items: fly out over 35–100% of scroll (no drift — static once placed)
     for (var i = 0; i < items.length; i++) {
-      var t = targets[i], dr = drifts[i];
-      var p = Math.max(0, (progress - 0.25) / 0.75);
+      var t = targets[i];
+      var p = Math.max(0, (progress - 0.35) / 0.65);
       var ip = Math.max(0, Math.min(1, (p - i * 0.02) / (1 - i * 0.02)));
       ip = 1 - (1 - ip) * (1 - ip) * (1 - ip); // ease-out cubic
 
       var dx = (t.x / 100) * lw * ip;
       var dy = (t.y / 100) * lh * ip;
-
-      // Cloud-like drift
-      if (ip > 0.1) {
-        dx += Math.sin(now * dr.sx + dr.ox) * dr.ax * ip;
-        dy += Math.sin(now * dr.sy + dr.oy) * dr.ay * ip;
-      }
-
-      // Scale breathing
       var scale = 0.3 + 0.7 * ip;
-      if (ip > 0.1) scale += Math.sin(now * dr.ss + dr.os) * dr.as * ip;
-
-      // Opacity tied to scale for depth
-      var alpha = ip * (0.5 + 0.5 * ((scale - 0.3) / 0.74));
+      var alpha = ip;
 
       items[i].style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px) scale(' + scale.toFixed(3) + ')';
       items[i].style.opacity = alpha;
+
+      // SVG line from block edge to pill center
+      var ln = lines[i];
+      if (ip > 0.05) {
+        var elR = items[i].getBoundingClientRect();
+        var ecx = (elR.left - ir.left) + elR.width * 0.5;
+        var ecy = (elR.top - ir.top) + elR.height * 0.5;
+        // Find closest point on block edge toward pill
+        var adx = pillCX - ecx, ady = pillCY - ecy;
+        var halfW = elR.width * 0.5, halfH = elR.height * 0.5;
+        var sx = adx === 0 ? 0 : Math.min(Math.abs(halfW / adx), Math.abs(halfH / ady));
+        var edgeX = ecx + adx * sx;
+        var edgeY = ecy + ady * sx;
+        // Line length for dash animation
+        var lineDx = pillCX - edgeX, lineDy = pillCY - edgeY;
+        var lineLen = Math.sqrt(lineDx * lineDx + lineDy * lineDy);
+
+        // Base line (static, faint)
+        ln.base.setAttribute('x1', edgeX);
+        ln.base.setAttribute('y1', edgeY);
+        ln.base.setAttribute('x2', pillCX);
+        ln.base.setAttribute('y2', pillCY);
+        ln.base.setAttribute('stroke', 'rgba(10,10,15,' + (0.08 * ip).toFixed(3) + ')');
+
+        // Pulse line (moves toward center)
+        ln.pulse.setAttribute('x1', edgeX);
+        ln.pulse.setAttribute('y1', edgeY);
+        ln.pulse.setAttribute('x2', pillCX);
+        ln.pulse.setAttribute('y2', pillCY);
+        var dashLen = 30;
+        var cycle = (now * 0.4 + i * 0.3) % 1;
+        var offset = -cycle * (lineLen + dashLen);
+        ln.pulse.setAttribute('stroke-dasharray', dashLen + ' ' + (lineLen + dashLen));
+        ln.pulse.setAttribute('stroke-dashoffset', offset.toFixed(1));
+        ln.pulse.setAttribute('stroke', 'rgba(10,10,15,' + (0.2 * ip).toFixed(3) + ')');
+      } else {
+        ln.base.setAttribute('stroke', 'transparent');
+        ln.pulse.setAttribute('stroke', 'transparent');
+      }
     }
   }
 
   function start() { if (!running) { running = true; requestAnimationFrame(tick); } }
   function stop()  { running = false; }
 
-  // ── ScrollTrigger ───────────────────────────────────────
+  // ── ScrollTrigger for scroll progress (scrubbed) ───────
   if (typeof ScrollTrigger !== 'undefined') {
     ScrollTrigger.create({
       trigger: '#s5PinWrap',
       start: 'top top',
       end: 'bottom bottom',
       scrub: true,
-      onUpdate: function(self) { progress = self.progress; },
+      onUpdate: function(self) { progress = self.progress; }
+    });
+    // Separate trigger for animation start/stop — uses the section element
+    // so it only stops when the section is fully out of view
+    ScrollTrigger.create({
+      trigger: '.s5-standards',
+      start: 'top bottom',
+      end: 'bottom top',
       onEnter: start, onEnterBack: start,
       onLeave: stop,  onLeaveBack: stop
     });
@@ -3323,7 +3402,7 @@ ScrollTrigger.create({
   var AUTO_ROTATE     = 0.0003; // radians/frame auto-rotation speed
   var PITCH_LIMIT     = 1.2;   // max vertical tilt in radians
   var ZOOM_MIN        = 0.6;
-  var ZOOM_MAX        = 3.0;
+  var ZOOM_MAX        = 4.0;
   var ZOOM_DEFAULT    = 1.5;
   var ZOOM_STEP       = 0.25;  // per Ctrl+scroll click
   var DRAG_THRESHOLD  = 4;     // px before mousemove counts as drag
@@ -3335,7 +3414,10 @@ ScrollTrigger.create({
   var MASK_W = 720, MASK_H = 360; // land mask resolution
   var TWO_PI = Math.PI * 2;
   var FLAG_CDN = 'https://flagcdn.com/w40/';
-  var TOPO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json';
+  var BORDER_ZOOM_THRESHOLD = 1.3;  // zoom level where country outlines start appearing
+  var BORDER_FADE_RANGE     = 0.4;  // zoom range over which borders fade in (1.3 → 1.7)
+  var LABEL_ZOOM_THRESHOLD  = 2.0;  // zoom level where country name labels appear
+  var TOPO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
   var FIRMS_URL = 'firms.json';
 
   // ── Firm data (loaded async from firms.json) ────────────────
@@ -3482,6 +3564,38 @@ ScrollTrigger.create({
     return rings;
   }
 
+  /** Decode TopoJSON into per-country ring arrays for border drawing */
+  var countryPolygons = [];
+  function topoCountryRings(topo) {
+    var arcs = topo.arcs;
+    var scale = topo.transform ? topo.transform.scale : [1,1];
+    var trans = topo.transform ? topo.transform.translate : [0,0];
+    var dec = arcs.map(function(arc) {
+      var x = 0, y = 0;
+      return arc.map(function(d) { x += d[0]; y += d[1]; return [x*scale[0]+trans[0], y*scale[1]+trans[1]]; });
+    });
+    function stitch(ids) {
+      var pts = [];
+      for (var k = 0; k < ids.length; k++) {
+        var id = ids[k];
+        var ap = id >= 0 ? dec[id].slice() : dec[~id].slice().reverse();
+        if (pts.length === 0) pts.push.apply(pts, ap);
+        else pts.push.apply(pts, ap.slice(1));
+      }
+      return pts;
+    }
+    var countries = [];
+    var geos = topo.objects.countries.geometries;
+    for (var i = 0; i < geos.length; i++) {
+      var geo = geos[i];
+      var rings = [];
+      if (geo.type === 'Polygon') geo.arcs.forEach(function(r) { rings.push(stitch(r)); });
+      else if (geo.type === 'MultiPolygon') geo.arcs.forEach(function(p) { p.forEach(function(r) { rings.push(stitch(r)); }); });
+      if (rings.length) countries.push(rings);
+    }
+    return countries;
+  }
+
   // ── Globe dots (land + ocean) ───────────────────────────────
   var gDots = [];
   function precomputeGlobe() {
@@ -3591,6 +3705,50 @@ ScrollTrigger.create({
   var interactEl = document.getElementById('globeInteract');
   var tooltipEl = document.getElementById('globeTooltip');
   var ttFlag = document.getElementById('ttFlag');
+
+  // ── Globe hints ─────────────────────────────────────────────
+  var scrollHintEl = document.getElementById('globeScrollHint');
+  var escHintEl = document.getElementById('globeEscHint');
+  var scrollHintShown = false;
+  var escHintTimer = null;
+
+  interactEl.addEventListener('mouseenter', function() {
+    if (scrollHintShown) return;
+    scrollHintShown = true;
+    scrollHintEl.classList.add('show');
+    setTimeout(function() { scrollHintEl.classList.remove('show'); }, 3000);
+  });
+
+  function showEscHint() {
+    if (zoom <= ZOOM_DEFAULT + 0.15) { escHintEl.classList.remove('show'); return; }
+    escHintEl.classList.add('show');
+    clearTimeout(escHintTimer);
+    escHintTimer = setTimeout(function() { escHintEl.classList.remove('show'); }, 3000);
+  }
+
+  function updateZoomResetBtn() { showEscHint(); }
+
+  window.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && zoom > ZOOM_DEFAULT + 0.15) {
+      escHintEl.classList.remove('show');
+      var startRot = rotation, startPitch = pitch, startZoom = zoom;
+      var targetZoom = ZOOM_DEFAULT, targetPitch = 0.44, targetRot = rotation;
+      var startTime = null;
+      if (zoomAnim) cancelAnimationFrame(zoomAnim);
+      function escStep(ts) {
+        if (!startTime) startTime = ts;
+        var t = Math.min((ts - startTime) / CLICK_ZOOM_DURATION, 1);
+        var ease = t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+        zoom = startZoom + (targetZoom - startZoom) * ease;
+        pitch = startPitch + (targetPitch - startPitch) * ease;
+        rotation = startRot + (targetRot - startRot) * ease;
+        updateGlobeDims(); buildDotPositions(); buildFirmDots(); invalidateClusters();
+        if (t < 1) { zoomAnim = requestAnimationFrame(escStep); }
+        else { zoomAnim = null; }
+      }
+      zoomAnim = requestAnimationFrame(escStep);
+    }
+  });
   var ttFirm = document.getElementById('ttFirm');
   var ttLoc = document.getElementById('ttLoc');
 
@@ -3650,6 +3808,7 @@ ScrollTrigger.create({
     buildDotPositions();
     buildFirmDots();
     invalidateClusters();
+    updateZoomResetBtn();
   }, { passive: false });
 
   // ── Click on cluster → zoom in + rotate to center ───────────
@@ -3674,7 +3833,7 @@ ScrollTrigger.create({
       var targetPitch = Math.atan2(py, rz);
       targetPitch = Math.max(-PITCH_LIMIT, Math.min(PITCH_LIMIT, targetPitch));
 
-      var targetZoom = Math.min(zoom * 2.0, ZOOM_MAX);
+      var targetZoom = Math.min(zoom * 2.5, ZOOM_MAX);
       var startRot = rotation, startPitch = pitch, startZoom = zoom;
       var startTime = null;
 
@@ -3694,6 +3853,7 @@ ScrollTrigger.create({
         buildFirmDots();
         invalidateClusters();
 
+        updateZoomResetBtn();
         if (t < 1) {
           zoomAnim = requestAnimationFrame(animStep);
         } else {
@@ -3714,7 +3874,8 @@ ScrollTrigger.create({
     ctx.clearRect(0, 0, W, H);
     cosYaw = Math.cos(rotation); sinYaw = Math.sin(rotation);
 
-    var dotBase = Math.max(0.7, GLOBE_R / DOT_SIZE_DIVISOR);
+    var zoomShrink = 1.0 / Math.pow(zoom / ZOOM_DEFAULT, 0.6);
+    var dotBase = Math.max(0.5, (GLOBE_R / DOT_SIZE_DIVISOR) * zoomShrink);
 
     // ── Pass 1: Globe surface dots ──────────────────────
     for (var i = 0; i < dotPositions.length; i++) {
@@ -3732,10 +3893,35 @@ ScrollTrigger.create({
       if (depth <= 0) continue;
       if (screenX < -10 || screenX > W + 10 || screenY < -20 || screenY > H + 20) continue;
       var depthNorm = Math.max(0, Math.min(depth / GLOBE_R, 1));
-      var alpha = 0.25 + 0.55 * depthNorm;
+      var alphaScale = Math.max(0.4, 1.0 - (zoom - ZOOM_DEFAULT) * 0.25);
+      var alpha = (0.25 + 0.55 * depthNorm) * alphaScale;
       var size = dotBase * (0.55 + 0.45 * depthNorm);
       ctx.fillStyle = 'rgba(60,70,90,' + alpha.toFixed(3) + ')';
       ctx.beginPath(); ctx.arc(screenX, screenY, size, 0, TWO_PI); ctx.fill();
+    }
+
+    // ── Pass 1.5: Country border outlines (visible when zoomed) ──
+    if (zoom >= BORDER_ZOOM_THRESHOLD && countryPolygons.length) {
+      var borderAlpha = Math.min((zoom - BORDER_ZOOM_THRESHOLD) / BORDER_FADE_RANGE, 1);
+      ctx.strokeStyle = 'rgba(180,190,210,' + (borderAlpha * 0.5).toFixed(3) + ')';
+      ctx.lineWidth = 0.5 + 0.5 * borderAlpha;
+      for (var ci = 0; ci < countryPolygons.length; ci++) {
+        var rings = countryPolygons[ci];
+        for (var ri = 0; ri < rings.length; ri++) {
+          var ring = rings[ri];
+          ctx.beginPath();
+          var moved = false;
+          for (var vi = 0; vi < ring.length; vi++) {
+            var lon = ring[vi][0], lat = ring[vi][1];
+            var p3 = latLonTo3D(lat, lon, GLOBE_R);
+            var pr = globeProject(p3[0], p3[1], p3[2], cosYaw, sinYaw);
+            if (pr[2] <= 0) { moved = false; continue; }
+            if (!moved) { ctx.moveTo(pr[0], pr[1]); moved = true; }
+            else ctx.lineTo(pr[0], pr[1]);
+          }
+          ctx.stroke();
+        }
+      }
     }
 
     // ── Pass 2: Firm markers (clustered) ────────────────
@@ -3786,6 +3972,14 @@ ScrollTrigger.create({
         ctx.beginPath(); ctx.arc(sx, sy, firmGlow, 0, TWO_PI); ctx.fill();
         ctx.fillStyle = 'rgba(50,60,80,' + firmAlpha.toFixed(3) + ')';
         ctx.beginPath(); ctx.arc(sx, sy, firmSize, 0, TWO_PI); ctx.fill();
+        // Country label at high zoom
+        if (zoom >= LABEL_ZOOM_THRESHOLD) {
+          var labelAlpha = Math.min((zoom - LABEL_ZOOM_THRESHOLD) * 2, 0.7);
+          ctx.fillStyle = 'rgba(60,70,90,' + labelAlpha.toFixed(3) + ')';
+          ctx.font = '500 ' + Math.round(10 + zoom * 1.5) + 'px DM Sans, sans-serif';
+          ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+          ctx.fillText(cluster.members[0].country, sx + firmSize + 6, sy);
+        }
       }
 
       // Hover detection
@@ -3882,6 +4076,7 @@ ScrollTrigger.create({
       var topo = results[0];
       firms = validateFirms(results[1]);
       buildMask(topoRings(topo));
+      countryPolygons = topoCountryRings(topo);
       precomputeGlobe();
       buildDotPositions();
       buildFirmDots();
