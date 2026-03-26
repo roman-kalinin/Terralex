@@ -1224,15 +1224,14 @@ nav {
 }
 .s5-line {
   fill: none;
-  stroke: rgba(10,10,15,0.10);
+  stroke: rgba(10,10,15,0.14);
   stroke-width: 1;
 }
 .s5-line-pulse {
   fill: none;
-  stroke: rgba(10,10,15,0.25);
-  stroke-width: 1.5;
-  stroke-dasharray: 30 1000;
+  stroke-width: 2.5;
   stroke-linecap: round;
+  filter: url(#s5PulseGlow);
 }
 
 /* Criteria items — scattered around the pill */
@@ -2454,7 +2453,14 @@ nav {
       </div>
 
       <!-- Lines connecting criteria to pill -->
-      <svg class="s5-lines" id="s5Lines"></svg>
+      <svg class="s5-lines" id="s5Lines">
+        <defs>
+          <filter id="s5PulseGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+      </svg>
 
       <!-- Criteria fly-out area -->
       <div class="s5-criteria-area" id="s5Criteria"></div>
@@ -3248,11 +3254,28 @@ ScrollTrigger.create({
     line.setAttribute('class', 's5-line');
     linesSvg.appendChild(line);
 
+    // Comet gradient: tail (0%) = transparent, head (100%) = full blue
+    var grad = document.createElementNS(SVG_NS, 'linearGradient');
+    grad.setAttribute('id', 's5grad' + i);
+    grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+    var stop0 = document.createElementNS(SVG_NS, 'stop');
+    stop0.setAttribute('offset', '0%');
+    stop0.setAttribute('stop-color', '#4a9ede');
+    stop0.setAttribute('stop-opacity', '0');
+    var stop1 = document.createElementNS(SVG_NS, 'stop');
+    stop1.setAttribute('offset', '100%');
+    stop1.setAttribute('stop-color', '#4a9ede');
+    stop1.setAttribute('stop-opacity', '1');
+    grad.appendChild(stop0);
+    grad.appendChild(stop1);
+    linesSvg.querySelector('defs').appendChild(grad);
+
     var pulse = document.createElementNS(SVG_NS, 'line');
     pulse.setAttribute('class', 's5-line-pulse');
+    pulse.setAttribute('stroke', 'url(#s5grad' + i + ')');
     linesSvg.appendChild(pulse);
 
-    lines.push({ base: line, pulse: pulse });
+    lines.push({ base: line, pulse: pulse, grad: grad });
   }
 
   // ── Layout measurement ──────────────────────────────────
@@ -3304,7 +3327,10 @@ ScrollTrigger.create({
     for (var i = 0; i < items.length; i++) {
       var t = targets[i];
       var p = Math.max(0, (progress - 0.35) / 0.65);
-      var ip = Math.max(0, Math.min(1, (p - i * 0.02) / (1 - i * 0.02)));
+      var clockOrder = [9,6,1,4,13,11,7,10,5,15,8,3,12,2,0,14];
+      var seq = clockOrder.indexOf(i);
+      var stagger = seq * 0.055;
+      var ip = Math.max(0, Math.min(1, (p - stagger) / 0.25));
       ip = 1 - (1 - ip) * (1 - ip) * (1 - ip); // ease-out cubic
 
       var dx = (t.x / 100) * lw * ip;
@@ -3338,20 +3364,35 @@ ScrollTrigger.create({
         ln.base.setAttribute('y2', pillCY);
         ln.base.setAttribute('stroke', 'rgba(10,10,15,' + (0.08 * ip).toFixed(3) + ')');
 
-        // Pulse line (moves toward center)
-        ln.pulse.setAttribute('x1', edgeX);
-        ln.pulse.setAttribute('y1', edgeY);
-        ln.pulse.setAttribute('x2', pillCX);
-        ln.pulse.setAttribute('y2', pillCY);
-        var dashLen = 30;
-        var cycle = (now * 0.4 + i * 0.3) % 1;
-        var offset = -cycle * (lineLen + dashLen);
-        ln.pulse.setAttribute('stroke-dasharray', dashLen + ' ' + (lineLen + dashLen));
-        ln.pulse.setAttribute('stroke-dashoffset', offset.toFixed(1));
-        ln.pulse.setAttribute('stroke', 'rgba(10,10,15,' + (0.2 * ip).toFixed(3) + ')');
+        // Comet pulse — gradient segment moves from edge toward center
+        var rawCycle = (now * 0.28 + i * 0.3) % 1;
+        // Strong ease-out: fast launch, long deceleration toward center
+        var inv = 1 - rawCycle;
+        var easedCycle = 1 - inv * inv * inv * inv; // quartic ease-out
+        // Comet stretches at launch, compresses as it slows
+        var cometFrac = 0.18 + 0.14 * (1 - easedCycle); // longer tail when fast
+        var cometLen = lineLen * cometFrac;
+        var headT = easedCycle;
+        var tailT = Math.max(0, headT - cometLen / lineLen);
+        // Gradient coords: tail (transparent) → head (full blue)
+        var tailX = edgeX + (pillCX - edgeX) * tailT;
+        var tailY = edgeY + (pillCY - edgeY) * tailT;
+        var headX = edgeX + (pillCX - edgeX) * headT;
+        var headY = edgeY + (pillCY - edgeY) * headT;
+        ln.grad.setAttribute('x1', tailX);
+        ln.grad.setAttribute('y1', tailY);
+        ln.grad.setAttribute('x2', headX);
+        ln.grad.setAttribute('y2', headY);
+        // Draw only the comet segment
+        ln.pulse.setAttribute('x1', tailX);
+        ln.pulse.setAttribute('y1', tailY);
+        ln.pulse.setAttribute('x2', headX);
+        ln.pulse.setAttribute('y2', headY);
+        // Pulse visible as soon as item starts appearing, full strength once ip > 0.3
+        ln.pulse.style.opacity = Math.min(0.6, ip / 0.3 * 0.6);
       } else {
         ln.base.setAttribute('stroke', 'transparent');
-        ln.pulse.setAttribute('stroke', 'transparent');
+        ln.pulse.style.opacity = 0;
       }
     }
   }
@@ -3731,17 +3772,20 @@ ScrollTrigger.create({
   window.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && zoom > ZOOM_DEFAULT + 0.15) {
       escHintEl.classList.remove('show');
-      var startRot = rotation, startPitch = pitch, startZoom = zoom;
-      var targetZoom = ZOOM_DEFAULT, targetPitch = 0.44, targetRot = rotation;
+      var startPitch = pitch, startZoom = zoom;
+      var targetZoom = ZOOM_DEFAULT, targetPitch = 0.44;
+      var deltaPitchEsc = targetPitch - startPitch;
       var startTime = null;
+      var lastEaseEsc = 0;
       if (zoomAnim) cancelAnimationFrame(zoomAnim);
       function escStep(ts) {
         if (!startTime) startTime = ts;
         var t = Math.min((ts - startTime) / CLICK_ZOOM_DURATION, 1);
         var ease = t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+        var easeStep = ease - lastEaseEsc;
+        lastEaseEsc = ease;
         zoom = startZoom + (targetZoom - startZoom) * ease;
-        pitch = startPitch + (targetPitch - startPitch) * ease;
-        rotation = startRot + (targetRot - startRot) * ease;
+        pitch += deltaPitchEsc * easeStep;
         updateGlobeDims(); buildDotPositions(); buildFirmDots(); invalidateClusters();
         if (t < 1) { zoomAnim = requestAnimationFrame(escStep); }
         else { zoomAnim = null; }
@@ -3835,7 +3879,10 @@ ScrollTrigger.create({
 
       var targetZoom = Math.min(zoom * 2.5, ZOOM_MAX);
       var startRot = rotation, startPitch = pitch, startZoom = zoom;
+      var deltaRot = targetRot - startRot;
+      var deltaPitch = targetPitch - startPitch;
       var startTime = null;
+      var lastEase = 0;
 
       if (zoomAnim) cancelAnimationFrame(zoomAnim);
 
@@ -3845,9 +3892,12 @@ ScrollTrigger.create({
         // Cubic ease-in-out
         var ease = t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
 
+        // Apply incremental delta so auto-rotate isn't overwritten
+        var easeStep = ease - lastEase;
+        lastEase = ease;
         zoom = startZoom + (targetZoom - startZoom) * ease;
-        rotation = startRot + (targetRot - startRot) * ease;
-        pitch = startPitch + (targetPitch - startPitch) * ease;
+        rotation += deltaRot * easeStep;
+        pitch += deltaPitch * easeStep;
         updateGlobeDims();
         buildDotPositions();
         buildFirmDots();
