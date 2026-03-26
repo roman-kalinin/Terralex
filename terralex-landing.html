@@ -516,7 +516,7 @@ nav {
 
 .s2-heading {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: clamp(40px, 4vw, 68px);
+  font-size: 64px;
   line-height: 1.05;
   letter-spacing: -2px;
   color: #0a0a0f;
@@ -654,7 +654,7 @@ nav {
 }
 .s3-heading {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: clamp(48px, 5.2vw, 76px);
+  font-size: 64px;
   line-height: 1.05;
   letter-spacing: -2px;
   color: #0a0a0f;
@@ -745,23 +745,23 @@ nav {
   );
 }
 .s4-label {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 3px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(0,0,0,0.4);
-  margin-bottom: 10px;
+  color: rgba(10,10,15,0.4);
+  margin: 0 0 12px;
 }
 .s4-heading {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: clamp(48px, 5.2vw, 76px);
+  font-size: 64px;
   line-height: 1.05;
   letter-spacing: -2px;
-  color: #000;
+  color: #0a0a0f;
 }
-.s4-heading-light { font-weight: 300; color: rgba(0,0,0,0.4); }
-.s4-heading-bold  { font-weight: 700; }
+.s4-heading-light { font-weight: 300; color: rgba(10,10,15,0.4); }
+.s4-heading-bold  { font-weight: 700; color: #0a0a0f; }
 
 /* ── ZoomParallax tiles — 3-col mosaic grid, 36px uniform gaps ── */
 /*
@@ -850,7 +850,7 @@ nav {
 }
 .s4-cards-heading {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: clamp(42px, 4.5vw, 68px);
+  font-size: 64px;
   line-height: 1.05;
   letter-spacing: -2px;
   color: #fff;
@@ -1072,16 +1072,15 @@ nav {
 /* Hero band (sits between S4 and S5, revealed from under S4) */
 .s5-hero-band {
   position: relative;
-  height: 420px;
+  height: 85vh;
+  min-height: 600px;
   overflow: hidden;
   z-index: 1;
+  background: url('Content/Section - Elite by design/Collaboration image.png') center/cover no-repeat fixed;
+  clip: rect(0, auto, auto, 0);
 }
 .s5-hero-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  display: none; /* image is now a CSS fixed background */
 }
 .s5-hero-overlay {
   position: absolute;
@@ -1094,9 +1093,18 @@ nav {
   left: 54px;
   z-index: 1;
 }
+.s5-hero-tag {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 16px;
+}
 .s5-hero-light {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: clamp(36px, 4vw, 56px);
+  font-size: 64px;
   font-weight: 300;
   color: rgba(255,255,255,0.8);
   margin: 0;
@@ -1104,7 +1112,7 @@ nav {
 }
 .s5-hero-bold {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: clamp(36px, 4vw, 56px);
+  font-size: 64px;
   font-weight: 700;
   color: #fff;
   margin: 0;
@@ -1136,29 +1144,29 @@ nav {
 }
 .s5-label {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #6b6b80;
-  margin: 0 0 20px;
+  letter-spacing: 2px;
+  color: rgba(10,10,15,0.4);
+  margin: 0 0 12px;
 }
 .s5-heading {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: clamp(36px, 4.5vw, 72px);
+  font-size: 64px;
   line-height: 1.05;
-  letter-spacing: -1px;
+  letter-spacing: -2px;
   color: #0a0a0f;
-  margin: 0 0 24px;
+  margin: 0 0 20px;
 }
-.s5-h-light { font-weight: 300; color: rgba(10,10,15,0.64); }
-.s5-h-bold  { font-weight: 600; color: #0a0a0f; }
+.s5-h-light { font-weight: 300; color: rgba(10,10,15,0.4); }
+.s5-h-bold  { font-weight: 700; color: #0a0a0f; }
 .s5-sub {
   font-family: 'Source Sans 3', sans-serif;
   font-size: 20px;
   font-weight: 400;
   line-height: 1.6;
-  color: #6b6b80;
+  color: rgba(10,10,15,0.5);
   margin: 0 auto;
   max-width: 620px;
 }
@@ -1291,24 +1299,24 @@ nav {
   letter-spacing: 2px;
   text-transform: uppercase;
   color: rgba(10,10,15,0.4);
-  margin: 0 0 8px;
+  margin: 0 0 12px;
 }
 .s6-heading {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: clamp(36px, 3.2vw, 60px);
+  font-size: 64px;
   line-height: 1.05;
   letter-spacing: -2px;
-  margin: 0 0 12px;
+  margin: 0 0 20px;
 }
 .s6-h-light { font-weight: 300; color: rgba(10,10,15,0.4); display: block; }
 .s6-h-bold  { font-weight: 700; color: #0a0a0f; display: block; }
 .s6-sub {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: 13px;
-  line-height: 1.55;
+  font-size: 20px;
+  line-height: 1.6;
   color: rgba(10,10,15,0.5);
   margin: 0;
-  max-width: 300px;
+  max-width: 420px;
 }
 .s6-view-all {
   flex-shrink: 0;
@@ -1350,65 +1358,110 @@ nav {
 .s6-event {
   position: relative;
   overflow: hidden;
-  background: #141820;
+  background: #1a1a24;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  cursor: pointer;
 }
-.s6-event img {
+
+/* Background image layer */
+.s6-event-bg {
   position: absolute;
   inset: 0;
+  z-index: 0;
+}
+.s6-event-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  filter: blur(0px);
+  transform: scale(1.05);
+  transition: filter 0.4s ease;
 }
-.s6-event:hover img { transform: scale(1.04); }
-
-.s6-event-overlay {
+.s6-event:hover .s6-event-bg img {
+  filter: blur(10px);
+}
+.s6-event-bg::after {
+  content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top,
-    rgba(0,0,0,0.75) 0%,
-    rgba(0,0,0,0.25) 50%,
-    rgba(0,0,0,0.05) 100%
-  );
+  background: rgba(0,0,0,0.35);
+  transition: background 0.4s ease;
+}
+.s6-event:hover .s6-event-bg::after {
+  background: rgba(0,0,0,0.55);
 }
 
-/* Type label — absolute top-left */
-.s6-event-type {
-  position: absolute;
-  top: 12px;
-  left: 14px;
+/* Card content sits above bg */
+.s6-event-content {
+  position: relative;
+  z-index: 1;
+  padding: 32px;
+}
+
+/* Date label */
+.s6-event-date {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: 9px;
+  font-size: 10px;
+  font-weight: 400;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: rgba(255,255,255,0.5);
-  margin: 0;
-  z-index: 1;
+  margin: 0 0 12px;
 }
 
-/* Title + date — absolute bottom-left */
-.s6-event-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 14px 16px;
-  z-index: 1;
-}
 .s6-event-title {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: clamp(14px, 1.2vw, 22px);
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.3px;
   color: #fff;
-  margin: 0 0 4px;
-  line-height: 1.2;
+  margin: 0 0 12px;
+  max-width: 340px;
 }
-.s6-event-date {
+
+/* Reveal on hover: desc + read more */
+.s6-event-reveal {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: max-height 0.4s ease, opacity 0.35s ease, transform 0.35s ease;
+}
+.s6-event:hover .s6-event-reveal {
+  max-height: 200px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.s6-event-desc {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: clamp(10px, 0.7vw, 14px);
-  color: rgba(255,255,255,0.4);
-  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.8);
+  margin: 0 0 20px;
+  max-width: 360px;
 }
+
+.s6-event-link {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+}
+.s6-event-link:hover { opacity: 0.7; }
+.s6-event-link svg { transition: transform 0.2s; }
+.s6-event-link:hover svg { transform: translateX(4px); }
 
 /* ================================================================
    SECTION 7 — AI / myLexi
@@ -1450,26 +1503,26 @@ nav {
 }
 .s7-label {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 400;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: rgba(10,10,15,0.4);
 }
 .s7-heading {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: clamp(48px, 5.2vw, 76px);
+  font-size: 64px;
   line-height: 1.05;
   letter-spacing: -2px;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 }
 .s7-h-light { font-weight: 300; color: rgba(10,10,15,0.4); display: block; }
 .s7-h-bold  { font-weight: 700; color: #0a0a0f; display: block; }
 .s7-desc {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 400;
-  line-height: 1.7;
+  line-height: 1.6;
   color: rgba(10,10,15,0.5);
   max-width: 420px;
   margin: 0;
@@ -1491,7 +1544,7 @@ nav {
   height: auto;
   object-fit: contain;
   display: block;
-  transform: translateX(5%);
+  transform: translateX(-250px);
 }
 
 /* ================================================================
@@ -1533,19 +1586,32 @@ nav {
 }
 
 /* Heading — bottom-left anchored */
-.s8-heading {
+.s8-text {
   position: absolute;
   bottom: 200px;
   left: 54px;
   z-index: 1;
-  font-family: 'Source Sans 3', sans-serif;
-  font-size: clamp(36px, 3.6vw, 56px);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: rgba(255,255,255,0.9);
   max-width: 640px;
 }
+.s8-label {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin: 0 0 12px;
+}
+.s8-heading {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 64px;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: #fff;
+  margin: 0;
+}
+.s8-h-light { font-weight: 300; color: rgba(255,255,255,0.4); }
+.s8-h-bold  { font-weight: 700; color: #fff; }
 
 /* Card strip — overlaps hero bottom, 54px side margins, 12px gaps */
 .s8-guides-track {
@@ -1682,10 +1748,11 @@ nav {
 }
 .s9-bg-img {
   position: absolute;
-  inset: 0;
+  inset: -25% 0;
   width: 100%;
-  height: 100%;
+  height: 150%;
   object-fit: cover;
+  will-change: transform;
 }
 .s9-bg-overlay {
   position: absolute;
@@ -1712,7 +1779,7 @@ nav {
 }
 .s9-quote {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: clamp(36px, 4.5vw, 80px);
+  font-size: 64px;
   line-height: 1.15;
   letter-spacing: -1px;
   margin-bottom: 20px;
@@ -1859,11 +1926,11 @@ nav {
 .s2-label, .s2-heading, .s2-sub, .s2-search,
 .s3-label, .s3-heading, .s3-cell,
 .s4-label, .s4-heading, .s4-cards-label, .s4-cards-heading,
-.s5-hero-light, .s5-hero-bold,
+.s5-hero-tag, .s5-hero-light, .s5-hero-bold,
 .s5-label, .s5-heading, .s5-sub,
 .s6-label, .s6-heading, .s6-sub, .s6-view-all, .s6-event,
 .s7-label-row, .s7-heading, .s7-desc, .s7-image,
-.s8-heading, .s8-guide-card,
+.s8-label, .s8-heading, .s8-guide-card,
 .s9-eyebrow, .s9-quote, .s9-attribution, .s9-sub, .s9-btn,
 .footer-brand, .footer-nav-group, .footer-bottom {
   visibility: hidden;
@@ -2175,27 +2242,27 @@ nav {
       </div>
       <!-- tile-1: 35vw×30vh, offset top-left -->
       <div class="s4-tile s4-tile-1" id="s4T1">
-        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/Images to swap/Chicago.jpg" alt=""></div>
+        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/images around video/Chicago.jpg" alt=""></div>
       </div>
       <!-- tile-2: 20vw×45vh, offset left -->
       <div class="s4-tile s4-tile-2" id="s4T2">
-        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/Images to swap/Indonesia.jpg" alt=""></div>
+        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/images around video/Strategic Planning 1.jpg" alt=""></div>
       </div>
       <!-- tile-3: 25vw×25vh, offset right -->
       <div class="s4-tile s4-tile-3" id="s4T3">
-        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/Images to swap/Litigation.jpg" alt=""></div>
+        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/images around video/Philadelphia.jpg" alt=""></div>
       </div>
       <!-- tile-4: 20vw×25vh, offset bottom-center-left -->
       <div class="s4-tile s4-tile-4" id="s4T4">
-        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/Images to swap/NextGen.jpg" alt=""></div>
+        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/images around video/Business Development 1.jpg" alt=""></div>
       </div>
       <!-- tile-5: 30vw×25vh, offset bottom-left -->
       <div class="s4-tile s4-tile-5" id="s4T5">
-        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/Images to swap/Legal Project Management 2.jpg" alt=""></div>
+        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/images around video/Strategic Planning 2.jpg" alt=""></div>
       </div>
       <!-- tile-6: 15vw×15vh, offset bottom-right -->
       <div class="s4-tile s4-tile-6" id="s4T6">
-        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/Images to swap/Indonesia.jpg" alt=""></div>
+        <div class="s4-inner"><img src="Content/Section 4 - Global collaboration/images around video/Chicago.jpg" alt=""></div>
       </div>
 
     </div>
@@ -2215,15 +2282,15 @@ nav {
 
         <!-- Card 1: IPO -->
         <div class="s4-card">
-          <div class="s4-card-bg"><img src="Content/Section 4 - Global collaboration/city.jpg" alt=""></div>
+          <div class="s4-card-bg"><img src="Content/Section 4 - Global collaboration/Images to swap/Nicaragua.webp" alt=""></div>
           <div class="s4-card-content">
             <div class="s4-card-tag">
-              <span class="s4-tag-pill">IPO</span>
-              <span class="s4-geo-pill">Australia · USA · UK</span>
+              <span class="s4-tag-pill">New Member</span>
+              <span class="s4-geo-pill">Nicaragua</span>
             </div>
-            <div class="s4-card-title">6K Additive IPO on the ASX</div>
+            <div class="s4-card-title">TerraLex Welcomes BMR in Nicaragua</div>
             <div class="s4-card-reveal">
-              <p class="s4-card-desc">Multi-jurisdiction coordination across three continents to complete a landmark initial public offering on the Australian Securities Exchange.</p>
+              <p class="s4-card-desc">TerraLex announces that BMR has joined its global legal network as the newest member firm in Nicaragua.</p>
               <a href="#" class="s4-card-link">
                 Read story
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -2234,17 +2301,17 @@ nav {
           </div>
         </div>
 
-        <!-- Card 2: Infrastructure -->
+        <!-- Card 2: New Member — Monaco -->
         <div class="s4-card">
-          <div class="s4-card-bg"><img src="Content/Section 4 - Global collaboration/port.jpg" alt=""></div>
+          <div class="s4-card-bg"><img src="Content/Section 4 - Global collaboration/Images to swap/Monaco_1a4d9a91b6.webp" alt=""></div>
           <div class="s4-card-content">
             <div class="s4-card-tag">
-              <span class="s4-tag-pill">Infrastructure</span>
-              <span class="s4-geo-pill">Netherlands · Europe</span>
+              <span class="s4-tag-pill">New Member</span>
+              <span class="s4-geo-pill">Monaco</span>
             </div>
-            <div class="s4-card-title">Fastned EV Network Expansion</div>
+            <div class="s4-card-title">TerraLex Welcomes Delforge Law in Monaco</div>
             <div class="s4-card-reveal">
-              <p class="s4-card-desc">Legal coordination across 8 European jurisdictions enabling rapid deployment of fast-charging infrastructure for electric vehicles.</p>
+              <p class="s4-card-desc">DL Corporate &amp; Regulatory (Delforge Law), a leading business law firm based in Monaco, has joined the TerraLex global network.</p>
               <a href="#" class="s4-card-link">
                 Read story
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -2255,17 +2322,17 @@ nav {
           </div>
         </div>
 
-        <!-- Card 3: M&A -->
+        <!-- Card 3: NextGen -->
         <div class="s4-card">
-          <div class="s4-card-bg"><img src="Content/Section 4 - Global collaboration/city.jpg" alt=""></div>
+          <div class="s4-card-bg"><img src="Content/Section 4 - Global collaboration/Images to swap/NextGen.jpg" alt=""></div>
           <div class="s4-card-content">
             <div class="s4-card-tag">
-              <span class="s4-tag-pill">M&amp;A</span>
-              <span class="s4-geo-pill">USA · India</span>
+              <span class="s4-tag-pill">Leadership</span>
+              <span class="s4-geo-pill">Global</span>
             </div>
-            <div class="s4-card-title">US–India M&amp;A Acceleration</div>
+            <div class="s4-card-title">Inaugural NextGen Advisory Committee</div>
             <div class="s4-card-reveal">
-              <p class="s4-card-desc">Cross-border acquisition completed in record time through seamless TerraLex firm coordination, reducing timeline by 40%.</p>
+              <p class="s4-card-desc">TerraLex announces the formation of its first-ever NextGen Advisory Committee, comprising eight dynamic lawyers from member firms representing each of the continents.</p>
               <a href="#" class="s4-card-link">
                 Read story
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -2276,17 +2343,17 @@ nav {
           </div>
         </div>
 
-        <!-- Card 4: Compliance -->
+        <!-- Card 4: Data Protection -->
         <div class="s4-card">
-          <div class="s4-card-bg"><img src="Content/Section 4 - Global collaboration/port.jpg" alt=""></div>
+          <div class="s4-card-bg"><img src="Content/Section 4 - Global collaboration/Images to swap/Regulatory Investigations.jpg" alt=""></div>
           <div class="s4-card-content">
             <div class="s4-card-tag">
-              <span class="s4-tag-pill">Compliance</span>
-              <span class="s4-geo-pill">Switzerland · Global</span>
+              <span class="s4-tag-pill">Data Protection</span>
+              <span class="s4-geo-pill">EU · Global</span>
             </div>
-            <div class="s4-card-title">Victorinox Multi-Country Coordination</div>
+            <div class="s4-card-title">Global Trends in Privacy and Data Protection 2026</div>
             <div class="s4-card-reveal">
-              <p class="s4-card-desc">Unified legal strategy across 12 countries to manage global IP protection and regulatory compliance for an iconic Swiss brand.</p>
+              <p class="s4-card-desc">2026 sees the tenth anniversary of the EU's approval of GDPR. At the end of 2025, the European Commission published its proposals for reform as part of its Digital Omnibus Regulation Proposal.</p>
               <a href="#" class="s4-card-link">
                 Read story
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -2319,6 +2386,7 @@ nav {
   <img src="Content/Section - Elite by design/Collaboration image.png" alt="" class="s5-hero-img">
   <div class="s5-hero-overlay"></div>
   <div class="s5-hero-text">
+    <p class="s5-hero-tag">Quality Assurance</p>
     <p class="s5-hero-light">Elite by Design.</p>
     <p class="s5-hero-bold">Collaborative by Standard.</p>
   </div>
@@ -2384,52 +2452,62 @@ nav {
   <div class="s6-grid">
 
     <div class="s6-event">
-      <img src="Content/Section 4 - Global collaboration/slide1-bg.jpg" alt="">
-      <div class="s6-event-overlay"></div>
-      <p class="s6-event-type">Annual Meeting</p>
-      <div class="s6-event-info">
-        <p class="s6-event-title">Global Managing Partner Summit — Toronto</p>
-        <p class="s6-event-date">June 2025</p>
+      <div class="s6-event-bg"><img src="Content/Section - Where global leaders connect/Automotive 2.jpg" alt=""></div>
+      <div class="s6-event-content">
+        <p class="s6-event-date">03 25 2026</p>
+        <p class="s6-event-title">TerraLex Networking at IBA Automotive &amp; Mobility Conference</p>
+        <div class="s6-event-reveal">
+          <p class="s6-event-desc">As the European automotive and mobility community comes together in Munich for the 6th European Automotive and Mobility Services Conference, we'd love to see you at SKW Schwarz for an informal pre-drinks reception.</p>
+          <a href="#" class="s6-event-link">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
       </div>
     </div>
 
     <div class="s6-event">
-      <img src="Content/Section 4 - Global collaboration/airport.jpg" alt="">
-      <div class="s6-event-overlay"></div>
-      <p class="s6-event-type">Leadership</p>
-      <div class="s6-event-info">
-        <p class="s6-event-title">Next-Gen Attorney Program</p>
-        <p class="s6-event-date">September 2025</p>
+      <div class="s6-event-bg"><img src="Content/Section - Where global leaders connect/antitrust meeting.jpg" alt=""></div>
+      <div class="s6-event-content">
+        <p class="s6-event-date">03 25 2026</p>
+        <p class="s6-event-title">TerraLex Networking at 2026 Antitrust Spring Meeting</p>
+        <div class="s6-event-reveal">
+          <p class="s6-event-desc">Members often connect while traveling to conferences and industry events around the globe. If you or your colleagues plan to attend this event, please let us know.</p>
+          <a href="#" class="s6-event-link">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
       </div>
     </div>
 
     <div class="s6-event">
-      <img src="Content/Section 4 - Global collaboration/port.jpg" alt="">
-      <div class="s6-event-overlay"></div>
-      <p class="s6-event-type">Regional</p>
-      <div class="s6-event-info">
-        <p class="s6-event-title">Asia Pacific Meeting — Bangkok</p>
-        <p class="s6-event-date">October 2025</p>
+      <div class="s6-event-bg"><img src="Content/Section - Where global leaders connect/Shanghai.jpg" alt=""></div>
+      <div class="s6-event-content">
+        <p class="s6-event-date">03 26 2026</p>
+        <p class="s6-event-title">Asia-Pacific Regional Meeting in Shanghai</p>
+        <div class="s6-event-reveal">
+          <p class="s6-event-desc">Join TerraLex colleagues from across the Asia-Pacific region in Shanghai for two days of practical, forward-looking discussions focused on collaboration, business development, and strengthening cross-border connections.</p>
+          <a href="#" class="s6-event-link">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
       </div>
     </div>
 
     <div class="s6-event">
-      <img src="Content/Section 4 - Global collaboration/airport.jpg" alt="">
-      <div class="s6-event-overlay"></div>
-      <p class="s6-event-type">Workshop</p>
-      <div class="s6-event-info">
-        <p class="s6-event-title">Cross-Border M&amp;A Masterclass</p>
-        <p class="s6-event-date">November 2025</p>
+      <div class="s6-event-bg"><img src="Content/Section - Where global leaders connect/IAPP.jpg" alt=""></div>
+      <div class="s6-event-content">
+        <p class="s6-event-date">03 30 2026</p>
+        <p class="s6-event-title">TerraLex Networking at IAPP</p>
+        <div class="s6-event-reveal">
+          <p class="s6-event-desc">Members often connect while traveling to conferences and industry events around the globe. If you or your colleagues plan to attend this event, please let us know.</p>
+          <a href="#" class="s6-event-link">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
       </div>
     </div>
 
     <div class="s6-event">
-      <img src="Content/Section 4 - Global collaboration/city.jpg" alt="">
-      <div class="s6-event-overlay"></div>
-      <p class="s6-event-type">Forum</p>
-      <div class="s6-event-info">
-        <p class="s6-event-title">Global Compliance &amp; Regulatory Forum</p>
-        <p class="s6-event-date">February 2026</p>
+      <div class="s6-event-bg"><img src="Content/Section - Where global leaders connect/Epstein files.jpg" alt=""></div>
+      <div class="s6-event-content">
+        <p class="s6-event-date">04 09 2026</p>
+        <p class="s6-event-title">TerraLex Presents: Your Client Was Named in the Epstein Files: Now What?</p>
+        <div class="s6-event-reveal">
+          <p class="s6-event-desc">In today's environment, law firms and advisors may be called upon to support clients caught in major reputational crises — whether tied to high-profile investigations, leaked documents, or intense media scrutiny.</p>
+          <a href="#" class="s6-event-link">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
       </div>
     </div>
 
@@ -2470,7 +2548,13 @@ nav {
       <img src="Content/All images/Home main screen 11.jpg" alt="">
       <div class="s8-bg-overlay"></div>
     </div>
-    <h2 class="s8-heading">Cross-Border Intelligence. Simplified.</h2>
+    <div class="s8-text">
+      <p class="s8-label">Cross-Border Guides</p>
+      <h2 class="s8-heading">
+        <span class="s8-h-light">Cross-Border Intelligence.</span><br>
+        <span class="s8-h-bold">Simplified.</span>
+      </h2>
+    </div>
   </div>
 
   <div class="s8-guides-track">
@@ -2997,8 +3081,12 @@ ScrollTrigger.create({
   reveal('.s4-cards-heading', { y: 40, duration: 1,   trigger: '.s4-cards-header', delay: 0.1 });
 
   // ── S5 HERO BAND (pinned parallax text) ──────────────────
+  gsap.from('.s5-hero-tag', {
+    autoAlpha: 0, y: 20, duration: 0.8, ease: e3,
+    scrollTrigger: { trigger: '.s5-hero-text', start: 'top 85%', toggleActions: ta }
+  });
   gsap.from('.s5-hero-light', {
-    autoAlpha: 0, y: 40, duration: 1, ease: e3,
+    autoAlpha: 0, y: 40, duration: 1, ease: e3, delay: 0.1,
     scrollTrigger: { trigger: '.s5-hero-text', start: 'top 85%', toggleActions: ta }
   });
   gsap.from('.s5-hero-bold', {
@@ -3029,13 +3117,19 @@ ScrollTrigger.create({
   reveal('.s7-image',     { y: 50, duration: 1,   trigger: '.s7-ai',     delay: 0.25 });
 
   // ── S8 CROSS-BORDER GUIDES ───────────────────────────────
-  reveal('.s8-heading', { y: 40, duration: 1 });
+  reveal('.s8-label',   { y: 30, duration: 0.8, trigger: '.s8-text' });
+  reveal('.s8-heading', { y: 40, duration: 1, trigger: '.s8-text', delay: 0.1 });
   gsap.from('.s8-guide-card', {
     autoAlpha: 0, y: 50, duration: 0.8, ease: e3, stagger: 0.1,
     scrollTrigger: { trigger: '.s8-guides-track', start: 'top 85%', toggleActions: ta }
   });
 
   // ── S9 CTA ───────────────────────────────────────────────
+  gsap.to('.s9-bg-img', {
+    yPercent: 20,
+    ease: 'none',
+    scrollTrigger: { trigger: '.s9-cta', start: 'top bottom', end: 'bottom top', scrub: true }
+  });
   reveal('.s9-eyebrow', { y: 30, duration: 0.8, trigger: '.s9-inner' });
   reveal('.s9-quote',   { y: 40, duration: 1,   trigger: '.s9-inner', delay: 0.1 });
   reveal('.s9-attribution', { y: 20, duration: 0.6, trigger: '.s9-inner', delay: 0.2 });
@@ -3818,6 +3912,210 @@ ScrollTrigger.create({
 })();
 </script>
 
+
+<!-- ====  myLexi Chat Widget  ==== -->
+<style>
+/* --- Chat widget --- */
+.chat-widget { position: fixed; bottom: 28px; right: 28px; z-index: 9999; font-family: 'Source Sans 3', sans-serif; }
+
+/* --- Collapsed pill --- */
+.chat-pill {
+  display: flex; align-items: center; gap: 12px;
+  background: #fff; border: 1px solid #7cb7f0;
+  border-radius: 99px; padding: 18px 24px;
+  box-shadow: 0 4px 22px rgba(157,173,90,.3);
+  cursor: pointer; user-select: none;
+  transition: box-shadow .25s, transform .25s;
+}
+.chat-pill:hover { box-shadow: 0 6px 28px rgba(157,173,90,.45); transform: translateY(-2px); }
+.chat-pill__logo { width: 44px; height: 44px; flex-shrink: 0; }
+.chat-pill__text { display: flex; flex-direction: column; gap: 2px; }
+.chat-pill__title { font-weight: 700; font-size: 18px; color: #0a1f33; white-space: nowrap; line-height: 1.2; }
+.chat-pill__sub { font-size: 12px; color: rgba(10,31,51,.59); white-space: nowrap; line-height: 1.2; }
+
+/* --- Expanded panel --- */
+.chat-panel {
+  display: none; flex-direction: column;
+  width: 456px; height: 554px;
+  background: #fff; border: 1px solid #7cb7f0;
+  border-radius: 24px; overflow: hidden;
+  box-shadow: 0 4px 22px rgba(157,173,90,.3);
+  animation: chatSlideUp .35s ease;
+}
+.chat-panel.open { display: flex; }
+
+@keyframes chatSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.chat-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(10,31,51,.06);
+}
+.chat-header__left { display: flex; align-items: center; gap: 12px; }
+.chat-header__logo { width: 44px; height: 44px; flex-shrink: 0; }
+.chat-header__info { display: flex; flex-direction: column; gap: 2px; }
+.chat-header__name { font-weight: 700; font-size: 18px; color: #0a1f33; line-height: 1.2; }
+.chat-header__status {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: rgba(10,31,51,.59);
+}
+.chat-header__dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; flex-shrink: 0; }
+.chat-close {
+  width: 32px; height: 32px; border-radius: 16px;
+  background: rgba(10,31,51,.02); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.chat-close svg { width: 14px; height: 14px; }
+
+/* Body */
+.chat-body {
+  flex: 1; padding: 24px; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 20px;
+}
+.chat-msg { display: flex; align-items: flex-end; gap: 12px; }
+.chat-msg__avatar {
+  width: 32px; height: 32px; border-radius: 16px;
+  background: rgba(10,31,51,.06); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.chat-msg__avatar img { width: 18px; height: 18px; }
+.chat-bubble {
+  background: #f9fafb; padding: 16px; max-width: 300px;
+  border-radius: 4px 16px 16px 16px;
+  font-size: 14px; color: #0a1f33; line-height: 1.5;
+}
+.chat-bubble strong { font-weight: 700; }
+
+.chat-topics { padding-left: 44px; display: flex; flex-direction: column; gap: 8px; }
+.chat-topics__label { font-size: 12px; color: rgba(10,31,51,.59); }
+.chat-topics__pills { display: flex; flex-direction: column; gap: 8px; }
+.chat-topic {
+  padding: 6px 12px; border: 1px solid rgba(10,31,51,.08);
+  border-radius: 100px; font-size: 12px; color: #0a1f33;
+  background: none; cursor: pointer; white-space: nowrap;
+  transition: background .2s; align-self: flex-start;
+}
+.chat-topic:hover { background: rgba(10,31,51,.04); }
+
+/* Footer / input */
+.chat-footer {
+  padding: 24px; border-top: 1px solid rgba(10,31,51,.02);
+  display: flex; flex-direction: column; gap: 16px;
+}
+.chat-input-row {
+  display: flex; align-items: center; gap: 12px;
+  height: 56px; padding: 0 20px;
+  background: #fdfff7; border: 1px solid #7cb7f0;
+  border-radius: 28px;
+}
+.chat-input-row input {
+  flex: 1; border: none; outline: none; background: none;
+  font-family: inherit; font-size: 14px; color: #0a1f33;
+}
+.chat-input-row input::placeholder { color: rgba(10,31,51,.59); }
+.chat-send {
+  width: 36px; height: 36px; border-radius: 18px;
+  background: #0a1f33; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+}
+.chat-send:hover { background: #15304d; }
+.chat-send svg { width: 14px; height: 14px; }
+.chat-footer__bottom {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.chat-footer__betty { height: 20px; }
+.chat-footer__dot {
+  width: 3px; height: 3px; border-radius: 50%;
+  background: rgba(10,31,51,.35);
+}
+.chat-footer__terms {
+  font-size: 12px; color: rgba(10,31,51,.59);
+  text-decoration: none;
+}
+.chat-footer__terms:hover { text-decoration: underline; }
+</style>
+
+<div class="chat-widget" id="chatWidget">
+  <!-- Collapsed pill -->
+  <div class="chat-pill" id="chatPill" onclick="openChat()">
+    <img class="chat-pill__logo" src="Content/MyLexi Widget/My-lexi logo svg.svg" alt="">
+    <div class="chat-pill__text">
+      <span class="chat-pill__title">myLexi</span>
+      <span class="chat-pill__sub">AI Assistant</span>
+    </div>
+  </div>
+
+  <!-- Expanded panel -->
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div class="chat-header__left">
+        <img class="chat-header__logo" src="Content/MyLexi Widget/My-lexi logo svg.svg" alt="">
+        <div class="chat-header__info">
+          <div class="chat-header__name">Ask myLexi</div>
+          <div class="chat-header__status">
+            <span class="chat-header__dot"></span> Online &amp; Ready
+          </div>
+        </div>
+      </div>
+      <button class="chat-close" onclick="closeChat()" aria-label="Close chat">
+        <svg viewBox="0 0 14 14" fill="none" stroke="#0a1f33" stroke-width="1.6" stroke-linecap="round">
+          <line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="chat-body">
+      <div class="chat-msg">
+        <div class="chat-msg__avatar">
+          <img src="Content/MyLexi Widget/My-lexi logo svg.svg" alt="">
+        </div>
+        <div class="chat-bubble">
+          Hello! I'm <strong>myLexi</strong>. How can I help you today?
+        </div>
+      </div>
+      <div class="chat-topics">
+        <div class="chat-topics__label">Suggested topics:</div>
+        <div class="chat-topics__pills">
+          <button class="chat-topic">What kind of things can you help me with</button>
+          <button class="chat-topic">Cross-border guides</button>
+          <button class="chat-topic">Practice areas</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-footer">
+      <div class="chat-input-row">
+        <input type="text" placeholder="Type your question here...">
+        <button class="chat-send" aria-label="Send">
+          <svg viewBox="0 0 14 14" fill="none">
+            <path d="M1 13L13 7L1 1V5.5L9 7L1 8.5V13Z" fill="white"/>
+          </svg>
+        </button>
+      </div>
+      <div class="chat-footer__bottom">
+        <img class="chat-footer__betty" src="Content/MyLexi Widget/BTY-Betty_knowledge-assistant-horiz_RGB 1.svg" alt="Betty Knowledge Assistant">
+        <span class="chat-footer__dot"></span>
+        <a class="chat-footer__terms" href="#">Terms of use</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openChat() {
+  document.getElementById('chatPill').style.display = 'none';
+  document.getElementById('chatPanel').classList.add('open');
+}
+function closeChat() {
+  document.getElementById('chatPanel').classList.remove('open');
+  document.getElementById('chatPill').style.display = 'flex';
+}
+</script>
 
 </body>
 </html>
