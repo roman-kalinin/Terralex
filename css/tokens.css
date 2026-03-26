@@ -1,0 +1,86 @@
+/* tokens.css — Design tokens for Terralex
+   Single source of truth for colors, typography, spacing, effects */
+
+:root {
+  /* ── Colors ─────────────────────────────────────── */
+  --c-white: #fff;
+  --c-black: #000;
+  --c-dark: #0a0a0f;
+  --c-dark-alt: #171717;
+  --c-blue: #4d6586;
+  --c-blue-accent: #1a3faa;
+  --c-green: #8bb898;
+  --c-gray-body: #6b6b80;
+  --c-gray-num: #373737;
+  --c-gray-mid: #888;
+  --c-gray-dark: #555;
+  --c-gray-input: #1a1a1a;
+
+  /* White text scale (on dark backgrounds) */
+  --c-white-80: rgba(255,255,255,0.8);
+  --c-white-75: rgba(255,255,255,0.75);
+  --c-white-70: rgba(255,255,255,0.7);
+  --c-white-53: rgba(255,255,255,0.53);
+  --c-white-50: rgba(255,255,255,0.5);
+  --c-white-45: rgba(255,255,255,0.45);
+  --c-white-40: rgba(255,255,255,0.4);
+  --c-white-35: rgba(255,255,255,0.35);
+  --c-white-30: rgba(255,255,255,0.3);
+  --c-white-25: rgba(255,255,255,0.25);
+  --c-white-20: rgba(255,255,255,0.2);
+  --c-white-08: rgba(255,255,255,0.08);
+
+  /* Dark text scale (on light backgrounds) */
+  --c-dark-65: rgba(10,10,15,0.65);
+  --c-dark-50: rgba(10,10,15,0.5);
+  --c-dark-40: rgba(10,10,15,0.4);
+  --c-dark-35: rgba(10,10,15,0.35);
+  --c-dark-06: rgba(10,10,15,0.06);
+
+  /* Overlays */
+  --overlay-light: rgba(0,0,0,0.35);
+  --overlay-hover: rgba(0,0,0,0.55);
+  --overlay-heavy: rgba(0,0,0,0.68);
+
+  /* Backgrounds */
+  --bg-gradient: linear-gradient(90deg,
+    rgba(213,214,216,0.5) 0%,
+    rgba(243,241,239,0.5) 27.4%,
+    rgba(249,244,241,0.5) 51.9%,
+    rgba(232,232,232,0.5) 71.2%,
+    rgba(171,184,189,0.5) 100%
+  );
+
+  /* ── Typography ─────────────────────────────────── */
+  --font-body: 'Source Sans 3', sans-serif;
+  --font-ui: 'DM Sans', sans-serif;
+
+  /* ── Spacing (8pt grid) ─────────────────────────── */
+  --sp-4: 4px;
+  --sp-8: 8px;
+  --sp-12: 12px;
+  --sp-14: 14px;
+  --sp-16: 16px;
+  --sp-20: 20px;
+  --sp-24: 24px;
+  --sp-32: 32px;
+  --sp-48: 48px;
+  --sp-56: 56px;
+  --sp-80: 80px;
+
+  /* ── Blur ────────────────────────────────────────── */
+  --blur-sm: 4px;
+  --blur-md: 12px;
+  --blur-lg: 20px;
+
+  /* ── Transitions ────────────────────────────────── */
+  --ease-fast: 0.2s;
+  --ease-normal: 0.3s ease;
+  --ease-smooth: 0.4s ease;
+
+  /* ── Z-index scale ──────────────────────────────── */
+  --z-header: 200;
+  --z-mega: 199;
+  --z-tooltip: 20;
+  --z-chat: 9999;
+}

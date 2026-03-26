@@ -1,0 +1,226 @@
+/* base.css — Reset, body, shared typography & button components
+   These classes replace 40+ per-section duplicates */
+
+/* ── Reset ─────────────────────────────────────────── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { width: 100%; scroll-behavior: auto; }
+body { width: 100%; min-height: 100%; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--c-white);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--c-white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+
+/* ── HEADINGS ──────────────────────────────────────── */
+
+/* H-SECTION: 64px section titles (S2-S9) */
+.h-section {
+  font-family: var(--font-body);
+  font-size: 64px;
+  line-height: 1.05;
+  letter-spacing: -2px;
+}
+
+/* H-HERO: responsive hero headline */
+.h-hero {
+  font-family: var(--font-body);
+  font-size: clamp(48px, 5.6vw, 100px);
+  font-weight: 700;
+  line-height: 0.89;
+  letter-spacing: -1px;
+}
+
+/* H-DISPLAY: 64px display/quote text */
+.h-display {
+  font-family: var(--font-body);
+  font-size: 64px;
+  line-height: 1.15;
+  letter-spacing: -1px;
+}
+
+/* H-CARD: medium card titles */
+.h-card {
+  font-family: var(--font-body);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+.h-card--lg { font-size: 30px; }
+.h-card--md { font-size: 22px; letter-spacing: -0.3px; line-height: 1.15; }
+.h-card--sm { font-size: clamp(13px, 1vw, 16px); font-weight: 600; line-height: 1.3; letter-spacing: 0; }
+
+/* Weight modifiers */
+.--bold  { font-weight: 700; }
+.--light { font-weight: 300; }
+.--semi  { font-weight: 600; }
+.--regular { font-weight: 400; }
+
+/* Color modifiers (on light bg) */
+.--on-light       { color: var(--c-dark); }
+.--on-light.--light { color: var(--c-dark-40); }
+
+/* Color modifiers (on dark bg) */
+.--on-dark       { color: var(--c-white); }
+.--on-dark.--light { color: var(--c-white-40); }
+.--on-dark.--dim   { color: var(--c-white-50); }
+
+
+/* ── BODY TEXT ─────────────────────────────────────── */
+
+/* BODY-LG: 20px section descriptions */
+.body-lg {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+.body-lg.--on-light { color: var(--c-dark-50); }
+.body-lg.--on-dark  { color: var(--c-white-70); }
+
+/* BODY-MD: 16-18px regular copy */
+.body-md {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+.body-md.--on-light { color: var(--c-gray-body); }
+.body-md.--on-dark  { color: var(--c-white); }
+
+/* BODY-SM: 13px card descriptions */
+.body-sm {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.body-sm.--on-light { color: var(--c-dark-65); }
+.body-sm.--on-dark  { color: var(--c-white-80); }
+
+
+/* ── LABELS ────────────────────────────────────────── */
+
+/* LABEL: 10px uppercase section labels */
+.label {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.label.--on-light { color: var(--c-dark-40); }
+.label.--on-dark  { color: var(--c-white-50); }
+
+/* LABEL-LG: 12px uppercase (S2/S3 labels, stat labels) */
+.label-lg {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+.label-lg.--on-light { color: var(--c-gray-body); }
+.label-lg.--on-dark  { color: var(--c-white-40); }
+
+/* LABEL-STAT: 13px stat counter labels */
+.label-stat {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--c-gray-num);
+  text-align: center;
+  margin-top: 14px;
+}
+
+
+/* ── BUTTONS ───────────────────────────────────────── */
+
+/* Shared button base */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: opacity var(--ease-fast);
+  white-space: nowrap;
+}
+.btn:hover { opacity: 0.85; }
+
+/* BTN-PRIMARY: filled blue */
+.btn-primary {
+  background: var(--c-blue);
+  color: var(--c-white);
+  padding: 16px 32px;
+}
+
+/* BTN-WHITE: filled white (on dark bg) */
+.btn-white {
+  background: var(--c-white);
+  color: var(--c-blue-accent);
+  padding: 13px 32px;
+}
+
+/* BTN-OUTLINE: transparent + white border (on dark bg) */
+.btn-outline {
+  background: transparent;
+  color: var(--c-white-70);
+  border: 1px solid var(--c-white-20);
+  padding: 16px 32px;
+}
+
+/* BTN-GHOST: text-only with arrow */
+.btn-ghost {
+  background: transparent;
+  color: var(--c-white-80);
+  padding: 0;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  gap: 5px;
+}
+
+
+/* ── CARD LINK ─────────────────────────────────────── */
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--c-white);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity var(--ease-fast);
+}
+.card-link:hover { opacity: 0.7; }
+.card-link svg {
+  transition: transform var(--ease-fast);
+}
+.card-link:hover svg { transform: translateX(4px); }
+
+
+/* ── SECTION WRAPPER ───────────────────────────────── */
+.section-gradient {
+  background: var(--c-white);
+  background-image: var(--bg-gradient);
+}

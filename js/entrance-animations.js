@@ -1,0 +1,127 @@
+/* entrance-animations.js — All ScrollTrigger batch reveals */
+(function(){
+  gsap.registerPlugin(ScrollTrigger);
+
+  const ta = 'play none none none';          // toggleActions shorthand
+  const e3 = 'power3.out';                   // default ease
+
+  // Helper: standard from-below reveal
+  function reveal(target, opts = {}) {
+    const defaults = {
+      autoAlpha: 0,
+      y: 40,
+      duration: 1,
+      ease: e3,
+      scrollTrigger: {
+        trigger: opts.trigger || target,
+        start: 'top 85%',
+        toggleActions: ta
+      }
+    };
+    delete opts.trigger;
+    gsap.from(target, Object.assign(defaults, opts));
+  }
+
+  // ── S1 HERO ──────────────────────────────────────────────
+  // Only animate the first active slide's content (others appear via slider)
+  gsap.from('.slide-1 .hero-headline', {
+    autoAlpha: 0, y: 40, duration: 1.1, ease: e3, delay: 0.3
+  });
+  gsap.from('.slide-1 .hero-body', {
+    autoAlpha: 0, y: 30, duration: 0.9, ease: e3, delay: 0.55
+  });
+  gsap.from('.slide-1 .hero-ctas', {
+    autoAlpha: 0, y: 20, duration: 0.7, ease: e3, delay: 0.75
+  });
+  gsap.from('.hero-ticker', {
+    autoAlpha: 0, y: 20, duration: 0.6, ease: e3, delay: 0.9
+  });
+
+  // ── S2 DIRECTORY ─────────────────────────────────────────
+  reveal('.s2-label',   { y: 30, duration: 0.8, trigger: '.s2-text-col' });
+  reveal('.s2-heading', { y: 40, duration: 1,   trigger: '.s2-text-col', delay: 0.1 });
+  reveal('.s2-sub',     { y: 30, duration: 0.8, trigger: '.s2-text-col', delay: 0.2 });
+  reveal('.s2-search',  { y: 30, duration: 0.8, trigger: '.s2-text-col', delay: 0.35 });
+
+  // ── S3 NUMBERS ───────────────────────────────────────────
+  reveal('.s3-label',   { y: 30, duration: 0.8, trigger: '.s3-header' });
+  reveal('.s3-heading', { y: 40, duration: 1,   trigger: '.s3-header', delay: 0.1 });
+  gsap.from('.s3-cell', {
+    autoAlpha: 0, y: 50, duration: 0.8, ease: e3, stagger: 0.1,
+    scrollTrigger: { trigger: '.s3-grid', start: 'top 85%', toggleActions: ta }
+  });
+
+  // ── S4 CASE STUDIES (header only — cards/zoom have their own pins) ──
+  reveal('.s4-label',   { y: 30, duration: 0.8, trigger: '#s4Header' });
+  reveal('.s4-heading', { y: 40, duration: 1,   trigger: '#s4Header', delay: 0.1 });
+  reveal('.s4-cards-label',   { y: 30, duration: 0.8, trigger: '.s4-cards-header' });
+  reveal('.s4-cards-heading', { y: 40, duration: 1,   trigger: '.s4-cards-header', delay: 0.1 });
+
+  // ── S5 HERO BAND (pinned parallax text) ──────────────────
+  gsap.from('.s5-hero-tag', {
+    autoAlpha: 0, y: 20, duration: 0.8, ease: e3,
+    scrollTrigger: { trigger: '.s5-hero-text', start: 'top 85%', toggleActions: ta }
+  });
+  gsap.from('.s5-hero-light', {
+    autoAlpha: 0, y: 40, duration: 1, ease: e3, delay: 0.1,
+    scrollTrigger: { trigger: '.s5-hero-text', start: 'top 85%', toggleActions: ta }
+  });
+  gsap.from('.s5-hero-bold', {
+    autoAlpha: 0, y: 40, duration: 1, ease: e3, delay: 0.15,
+    scrollTrigger: { trigger: '.s5-hero-text', start: 'top 85%', toggleActions: ta }
+  });
+
+  // ── S5 STANDARDS (body section below band) ───────────────
+  reveal('.s5-label',   { y: 30, duration: 0.8, trigger: '.s5-header' });
+  reveal('.s5-heading', { y: 40, duration: 1,   trigger: '.s5-header', delay: 0.1 });
+  reveal('.s5-sub',     { y: 30, duration: 0.8, trigger: '.s5-header', delay: 0.2 });
+  // Criteria fly-out — entrance handled by its own ScrollTrigger
+
+  // ── S6 EVENTS ────────────────────────────────────────────
+  reveal('.s6-label',   { y: 30, duration: 0.8, trigger: '.s6-header' });
+  reveal('.s6-heading', { y: 40, duration: 1,   trigger: '.s6-header', delay: 0.1 });
+  reveal('.s6-sub',     { y: 30, duration: 0.8, trigger: '.s6-header', delay: 0.2 });
+  reveal('.s6-view-all',{ y: 20, duration: 0.6, trigger: '.s6-header', delay: 0.3 });
+  gsap.from('.s6-event', {
+    autoAlpha: 0, y: 50, duration: 0.8, ease: e3, stagger: 0.1,
+    scrollTrigger: { trigger: '.s6-grid', start: 'top 85%', toggleActions: ta }
+  });
+
+  // ── S7 AI ────────────────────────────────────────────────
+  reveal('.s7-label-row', { y: 30, duration: 0.8, trigger: '.s7-content' });
+  reveal('.s7-heading',   { y: 40, duration: 1,   trigger: '.s7-content', delay: 0.1 });
+  reveal('.s7-desc',      { y: 30, duration: 0.8, trigger: '.s7-content', delay: 0.2 });
+  reveal('.s7-image',     { y: 50, duration: 1,   trigger: '.s7-ai',     delay: 0.25 });
+
+  // ── S8 CROSS-BORDER GUIDES ───────────────────────────────
+  reveal('.s8-label',   { y: 30, duration: 0.8, trigger: '.s8-text' });
+  reveal('.s8-heading', { y: 40, duration: 1, trigger: '.s8-text', delay: 0.1 });
+  gsap.from('.s8-guide-card', {
+    autoAlpha: 0, y: 50, duration: 0.8, ease: e3, stagger: 0.1,
+    scrollTrigger: { trigger: '.s8-guides-track', start: 'top 85%', toggleActions: ta }
+  });
+
+  // ── S9 CTA ───────────────────────────────────────────────
+  gsap.to('.s9-bg-img', {
+    yPercent: 20,
+    ease: 'none',
+    scrollTrigger: { trigger: '.s9-cta', start: 'top bottom', end: 'bottom top', scrub: true }
+  });
+  reveal('.s9-eyebrow', { y: 30, duration: 0.8, trigger: '.s9-inner' });
+  reveal('.s9-quote',   { y: 40, duration: 1,   trigger: '.s9-inner', delay: 0.1 });
+  reveal('.s9-attribution', { y: 20, duration: 0.6, trigger: '.s9-inner', delay: 0.2 });
+  reveal('.s9-sub',     { y: 30, duration: 0.8, trigger: '.s9-inner', delay: 0.25 });
+  gsap.from('.s9-btn', {
+    autoAlpha: 0, y: 20, duration: 0.6, ease: e3, stagger: 0.08,
+    scrollTrigger: { trigger: '.s9-actions', start: 'top 90%', toggleActions: ta }
+  });
+
+  // ── FOOTER ───────────────────────────────────────────────
+  reveal('.footer-brand',  { y: 30, duration: 0.8, trigger: '.site-footer' });
+  gsap.from('.footer-nav-group', {
+    autoAlpha: 0, y: 30, duration: 0.8, ease: e3, stagger: 0.1,
+    scrollTrigger: { trigger: '.footer-inner', start: 'top 90%', toggleActions: ta }
+  });
+  reveal('.footer-bottom', { y: 20, duration: 0.6, trigger: '.footer-bottom' });
+
+})();
