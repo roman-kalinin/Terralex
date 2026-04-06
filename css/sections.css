@@ -440,9 +440,9 @@
 }
 .s3b-heading {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: 42px;
-  line-height: 1.1;
-  letter-spacing: -1px;
+  font-size: 64px;
+  line-height: 1.05;
+  letter-spacing: -2px;
   margin: 0;
 }
 .s3b-h-light { font-weight: 300; color: rgba(10,10,15,0.4); }
