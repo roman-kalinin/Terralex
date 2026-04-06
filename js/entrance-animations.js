@@ -43,6 +43,14 @@
   reveal('.s2-sub',     { y: 30, duration: 0.8, trigger: '.s2-text-col', delay: 0.2 });
   reveal('.s2-search',  { y: 30, duration: 0.8, trigger: '.s2-text-col', delay: 0.35 });
 
+  // ── S2 MAP REGIONS ─────────────────────────────────────
+  reveal('.s2-map-title', { y: 20, duration: 0.8, trigger: '.s2-globe-col' });
+  gsap.from('.s2-region', {
+    autoAlpha: 0, y: 40, scale: 0.6,
+    duration: 0.7, ease: e3, stagger: 0.1,
+    scrollTrigger: { trigger: '.s2-globe-col', start: 'top 75%', toggleActions: ta }
+  });
+
   // ── S3 NUMBERS ───────────────────────────────────────────
   reveal('.s3-label',   { y: 30, duration: 0.8, trigger: '.s3-header' });
   reveal('.s3-heading', { y: 40, duration: 1,   trigger: '.s3-header', delay: 0.1 });
@@ -50,6 +58,18 @@
     autoAlpha: 0, y: 50, duration: 0.8, ease: e3, stagger: 0.1,
     scrollTrigger: { trigger: '.s3-grid', start: 'top 85%', toggleActions: ta }
   });
+
+  // ── S3B NEWS & INSIGHTS ─────────────────────────────────
+  reveal('.s3b-heading', { y: 40, duration: 1, trigger: '.s3b-header' });
+
+  // Cards: staggered slide-up with slight scale
+  gsap.from('.s3b-card', {
+    autoAlpha: 0, y: 60, scale: 0.95,
+    duration: 0.7, ease: e3, stagger: 0.12,
+    scrollTrigger: { trigger: '.s3b-track', start: 'top 85%', toggleActions: ta }
+  });
+
+  reveal('.s3b-see-all', { y: 20, duration: 0.6, trigger: '.s3b-footer', delay: 0.1 });
 
   // ── S4 CASE STUDIES (header only — cards/zoom have their own pins) ──
   reveal('.s4-label',   { y: 30, duration: 0.8, trigger: '#s4Header' });
@@ -111,10 +131,7 @@
   reveal('.s9-quote',   { y: 40, duration: 1,   trigger: '.s9-inner', delay: 0.1 });
   reveal('.s9-attribution', { y: 20, duration: 0.6, trigger: '.s9-inner', delay: 0.2 });
   reveal('.s9-sub',     { y: 30, duration: 0.8, trigger: '.s9-inner', delay: 0.25 });
-  gsap.from('.s9-btn', {
-    autoAlpha: 0, y: 20, duration: 0.6, ease: e3, stagger: 0.08,
-    scrollTrigger: { trigger: '.s9-actions', start: 'top 90%', toggleActions: ta }
-  });
+  reveal('.s9-actions', { y: 20, duration: 0.6, trigger: '.s9-inner', delay: 0.3 });
 
   // ── FOOTER ───────────────────────────────────────────────
   reveal('.footer-brand',  { y: 30, duration: 0.8, trigger: '.site-footer' });
