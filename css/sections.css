@@ -1860,3 +1860,67 @@
 .footer-brand, .footer-nav-group, .footer-bottom {
   visibility: hidden;
 }
+
+/* ================================================================
+   SMALLER SCREENS — scale down typography & spacing
+   Laptops ~1440-1920px (designed at 2152px)
+================================================================ */
+@media (max-width: 1920px) {
+  .s2-heading,
+  .s3-heading,
+  .s3b-heading,
+  .s4-heading,
+  .s4-cards-heading,
+  .s5-heading,
+  .s6-heading,
+  .s7-heading,
+  .s8-heading,
+  .s9-quote { font-size: 52px; letter-spacing: -1.5px; }
+
+  .s5-hero-light,
+  .s5-hero-bold { font-size: 52px; }
+
+  .s2-sub,
+  .s6-sub,
+  .s7-desc { font-size: 15px; }
+
+  .s3-number { font-size: 56px; }
+
+  .s2-directory,
+  .s3-numbers,
+  .s3b-news,
+  .s5-standards,
+  .s6-events,
+  .s7-ai,
+  .s8-guides,
+  .s9-cta { padding-left: 40px; padding-right: 40px; }
+}
+
+@media (max-width: 1440px) {
+  .s2-heading,
+  .s3-heading,
+  .s3b-heading,
+  .s4-heading,
+  .s4-cards-heading,
+  .s5-heading,
+  .s6-heading,
+  .s7-heading,
+  .s8-heading,
+  .s9-quote { font-size: 42px; letter-spacing: -1px; }
+
+  .s5-hero-light,
+  .s5-hero-bold { font-size: 42px; }
+
+  .s3-number { font-size: 44px; }
+
+  .s2-directory,
+  .s3-numbers,
+  .s3b-news,
+  .s5-standards,
+  .s6-events,
+  .s7-ai,
+  .s8-guides,
+  .s9-cta { padding-left: 32px; padding-right: 32px; }
+
+  .s2-text-col { flex: 0 0 45%; }
+}
