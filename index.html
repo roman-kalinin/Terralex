@@ -921,6 +921,18 @@
 
 </footer>
 
+<script>
+// Auto-scale: designed at 2152px, scale down proportionally on smaller screens
+(function(){
+  var DESIGN_W = 2152;
+  function fit(){
+    var w = window.innerWidth;
+    document.body.style.zoom = w >= DESIGN_W ? 1 : w / DESIGN_W;
+  }
+  fit();
+  window.addEventListener('resize', fit);
+})();
+</script>
 <script src="js/scroll-setup.js"></script>
 <script src="js/hero-slider.js"></script>
 <script src="js/s3-counters.js"></script>
