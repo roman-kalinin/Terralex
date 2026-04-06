@@ -5,6 +5,24 @@
   const ta = 'play none none none';          // toggleActions shorthand
   const e3 = 'power3.out';                   // default ease
 
+  // ── Viewport-aware trigger start ───────────────────────
+  // Designed at 1083px viewport height. On smaller screens,
+  // push triggers closer to center so animations don't fire too early.
+  const DESIGN_VH = 1083;
+  function triggerStart(pct) {
+    // pct = intended percentage on design screen (e.g. 85)
+    // On smaller viewports, reduce the % so trigger fires later
+    var vh = window.innerHeight;
+    if (vh >= DESIGN_VH) return 'top ' + pct + '%';
+    // Scale: how many design-pixels from viewport top the trigger point was
+    var designPx = DESIGN_VH * (pct / 100);
+    // Same pixel distance as % of actual viewport
+    var scaled = Math.min(pct, (designPx / vh) * 100);
+    // Clamp so it doesn't go above 95% (would never fire)
+    scaled = Math.min(scaled, 95);
+    return 'top ' + Math.round(scaled) + '%';
+  }
+
   // Helper: standard from-below reveal
   function reveal(target, opts = {}) {
     const defaults = {
@@ -14,7 +32,7 @@
       ease: e3,
       scrollTrigger: {
         trigger: opts.trigger || target,
-        start: 'top 85%',
+        start: triggerStart(85),
         toggleActions: ta
       }
     };
@@ -48,7 +66,7 @@
   gsap.from('.s2-region', {
     autoAlpha: 0, y: 40, scale: 0.6,
     duration: 0.7, ease: e3, stagger: 0.1,
-    scrollTrigger: { trigger: '.s2-globe-col', start: 'top 75%', toggleActions: ta }
+    scrollTrigger: { trigger: '.s2-globe-col', start: triggerStart(75), toggleActions: ta }
   });
 
   // ── S3 NUMBERS ───────────────────────────────────────────
@@ -56,7 +74,7 @@
   reveal('.s3-heading', { y: 40, duration: 1,   trigger: '.s3-header', delay: 0.1 });
   gsap.from('.s3-cell', {
     autoAlpha: 0, y: 50, duration: 0.8, ease: e3, stagger: 0.1,
-    scrollTrigger: { trigger: '.s3-grid', start: 'top 85%', toggleActions: ta }
+    scrollTrigger: { trigger: '.s3-grid', start: triggerStart(85), toggleActions: ta }
   });
 
   // ── S3B NEWS & INSIGHTS ─────────────────────────────────
@@ -66,7 +84,7 @@
   gsap.from('.s3b-card', {
     autoAlpha: 0, y: 60, scale: 0.95,
     duration: 0.7, ease: e3, stagger: 0.12,
-    scrollTrigger: { trigger: '.s3b-track', start: 'top 85%', toggleActions: ta }
+    scrollTrigger: { trigger: '.s3b-track', start: triggerStart(85), toggleActions: ta }
   });
 
   reveal('.s3b-see-all', { y: 20, duration: 0.6, trigger: '.s3b-footer', delay: 0.1 });
@@ -80,15 +98,15 @@
   // ── S5 HERO BAND (pinned parallax text) ──────────────────
   gsap.from('.s5-hero-tag', {
     autoAlpha: 0, y: 20, duration: 0.8, ease: e3,
-    scrollTrigger: { trigger: '.s5-hero-text', start: 'top 85%', toggleActions: ta }
+    scrollTrigger: { trigger: '.s5-hero-text', start: triggerStart(85), toggleActions: ta }
   });
   gsap.from('.s5-hero-light', {
     autoAlpha: 0, y: 40, duration: 1, ease: e3, delay: 0.1,
-    scrollTrigger: { trigger: '.s5-hero-text', start: 'top 85%', toggleActions: ta }
+    scrollTrigger: { trigger: '.s5-hero-text', start: triggerStart(85), toggleActions: ta }
   });
   gsap.from('.s5-hero-bold', {
     autoAlpha: 0, y: 40, duration: 1, ease: e3, delay: 0.15,
-    scrollTrigger: { trigger: '.s5-hero-text', start: 'top 85%', toggleActions: ta }
+    scrollTrigger: { trigger: '.s5-hero-text', start: triggerStart(85), toggleActions: ta }
   });
 
   // ── S5 STANDARDS (body section below band) ───────────────
@@ -104,7 +122,7 @@
   reveal('.s6-view-all',{ y: 20, duration: 0.6, trigger: '.s6-header', delay: 0.3 });
   gsap.from('.s6-event', {
     autoAlpha: 0, y: 50, duration: 0.8, ease: e3, stagger: 0.1,
-    scrollTrigger: { trigger: '.s6-grid', start: 'top 85%', toggleActions: ta }
+    scrollTrigger: { trigger: '.s6-grid', start: triggerStart(85), toggleActions: ta }
   });
 
   // ── S7 AI ────────────────────────────────────────────────
@@ -118,7 +136,7 @@
   reveal('.s8-heading', { y: 40, duration: 1, trigger: '.s8-text', delay: 0.1 });
   gsap.from('.s8-guide-card', {
     autoAlpha: 0, y: 50, duration: 0.8, ease: e3, stagger: 0.1,
-    scrollTrigger: { trigger: '.s8-guides-track', start: 'top 85%', toggleActions: ta }
+    scrollTrigger: { trigger: '.s8-guides-track', start: triggerStart(85), toggleActions: ta }
   });
 
   // ── S9 CTA ───────────────────────────────────────────────
@@ -137,7 +155,7 @@
   reveal('.footer-brand',  { y: 30, duration: 0.8, trigger: '.site-footer' });
   gsap.from('.footer-nav-group', {
     autoAlpha: 0, y: 30, duration: 0.8, ease: e3, stagger: 0.1,
-    scrollTrigger: { trigger: '.footer-inner', start: 'top 90%', toggleActions: ta }
+    scrollTrigger: { trigger: '.footer-inner', start: triggerStart(90), toggleActions: ta }
   });
   reveal('.footer-bottom', { y: 20, duration: 0.6, trigger: '.footer-bottom' });
 
