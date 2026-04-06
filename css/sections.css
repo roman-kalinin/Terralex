@@ -1598,7 +1598,9 @@
 .s8-card-bg {
   position: absolute;
   inset: -230px 0 0 0;
-  background: var(--card-bg) center bottom / cover no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
   clip-path: inset(230px 0 0 0);
   opacity: 0;
   transition: opacity 0.35s ease;
