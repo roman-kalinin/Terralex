@@ -1,0 +1,285 @@
+/* firm-profile.css — Single firm profile page */
+
+/* ── PAGE WRAPPER (max-width) ─────────────────────── */
+.fp-wrap {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding-left: 56px;
+  padding-right: 56px;
+}
+
+/* ── BREADCRUMB ───────────────────────────────────── */
+.fp-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 112px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--c-gray-body);
+}
+.fp-breadcrumb a {
+  color: var(--c-gray-body);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.fp-breadcrumb a:hover { color: var(--c-dark); }
+.fp-breadcrumb span { color: var(--c-dark); }
+.fp-breadcrumb svg { color: var(--c-gray-body); flex-shrink: 0; }
+
+/* ── HERO BANNER ──────────────────────────────────── */
+.fp-hero {
+  padding: 48px 0 56px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.fp-hero-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.fp-flag {
+  width: 56px;
+  height: 42px;
+  border-radius: 6px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+.fp-firm-name {
+  font-family: var(--font-body);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  color: var(--c-dark);
+}
+
+.fp-jurisdiction {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--c-dark-50);
+  line-height: 1.5;
+}
+.fp-jurisdiction strong {
+  font-weight: 600;
+  color: var(--c-dark);
+}
+
+.fp-hero-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* ── MAIN LAYOUT ──────────────────────────────────── */
+.fp-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 56px;
+  padding: 56px 0 80px;
+  align-items: start;
+}
+
+/* ── LEFT COLUMN ──────────────────────────────────── */
+.fp-section {
+  margin-bottom: 40px;
+}
+.fp-section:last-child { margin-bottom: 0; }
+
+.fp-section-label {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  margin-bottom: 16px;
+}
+
+.fp-about-text {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--c-gray-body);
+}
+.fp-about-text p { margin: 0 0 16px; }
+.fp-about-text p:last-child { margin-bottom: 0; }
+
+/* Practice / Industry plain text lists */
+.fp-text-list {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--c-gray-body);
+}
+
+/* ── SIDEBAR — unified office card ────────────────── */
+.fp-sidebar {
+  position: sticky;
+  top: 112px;
+}
+
+.fp-office-card {
+  padding: 28px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.8);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.fp-office-card-title {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--c-dark);
+  margin-bottom: 16px;
+}
+
+/* Office selector */
+.fp-office-select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  background: #fff;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--c-dark);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%23999' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  margin-bottom: 24px;
+  transition: border-color 0.2s;
+}
+.fp-office-select:focus {
+  outline: none;
+  border-color: var(--c-blue);
+}
+
+/* Dividers inside the card */
+.fp-office-divider {
+  height: 1px;
+  background: rgba(0,0,0,0.06);
+  margin: 20px 0;
+}
+
+/* Sub-headings inside office card */
+.fp-office-sub {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--c-dark-40);
+  margin-bottom: 12px;
+}
+
+/* Contact rows */
+.fp-contact-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fp-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--c-gray-body);
+  line-height: 1.5;
+}
+.fp-contact-item svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--c-blue);
+}
+.fp-contact-item a {
+  color: var(--c-blue);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.fp-contact-item a:hover { opacity: 0.7; }
+
+/* Member rep inside office card */
+.fp-rep {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 10px;
+  background: rgba(77,101,134,0.04);
+  border: 1px solid rgba(77,101,134,0.08);
+  transition: background 0.2s;
+}
+.fp-rep:hover { background: rgba(77,101,134,0.08); }
+.fp-rep + .fp-rep { margin-top: 8px; }
+
+.fp-rep-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(77,101,134,0.15);
+  flex-shrink: 0;
+}
+.fp-rep-avatar--placeholder {
+  background: rgba(77,101,134,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-blue);
+}
+
+.fp-rep-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.fp-rep-name {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--c-blue);
+}
+
+.fp-rep-role {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--c-gray-body);
+}
+
+.fp-rep-contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+.fp-rep-contact a {
+  color: var(--c-blue);
+  font-size: 12px;
+  font-family: var(--font-ui);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.fp-rep-contact a:hover { opacity: 0.7; }
+.fp-rep-contact svg { color: var(--c-blue); }
+
+/* ── PAGE BG ──────────────────────────────────────── */
+.fp-page-bg {
+  background: #fff;
+  background-image: var(--bg-gradient);
+}

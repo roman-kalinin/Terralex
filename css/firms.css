@@ -1,0 +1,365 @@
+/* firms.css — Firms Directory page */
+
+/* ── HERO ─────────────────────────────────────────── */
+.firms-hero {
+  position: relative;
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  padding: 160px 56px 80px;
+  overflow: hidden;
+  background: #fff;
+  background-image: var(--bg-gradient);
+}
+
+.firms-hero-text {
+  flex: 0 0 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  z-index: 2;
+}
+
+.firms-hero-map {
+  position: absolute;
+  right: -5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 55%;
+  height: 90%;
+  opacity: 0.18;
+  pointer-events: none;
+}
+.firms-hero-map img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.firms-label {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--c-gray-body);
+}
+
+.firms-heading {
+  font-family: var(--font-body);
+  font-size: 64px;
+  line-height: 1.05;
+  letter-spacing: -2px;
+}
+.firms-heading-bold  { font-weight: 700; color: var(--c-dark); }
+.firms-heading-light { font-weight: 300; color: var(--c-dark-40); }
+
+.firms-sub {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--c-gray-body);
+  max-width: 480px;
+}
+
+/* ── SEARCH BAR ───────────────────────────────────── */
+.firms-search-bar {
+  display: flex;
+  align-items: stretch;
+  height: 51px;
+  margin-top: 8px;
+  max-width: 648px;
+}
+
+.firms-search-input {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 15px;
+  background: rgba(255,255,255,0.56);
+  border: 0.84px solid rgba(0,0,0,0.1);
+  border-right: none;
+  border-radius: 7px 0 0 7px;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--c-gray-body);
+}
+.firms-search-input input {
+  border: none;
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--c-dark);
+  outline: none;
+  width: 100%;
+}
+.firms-search-input input::placeholder {
+  color: var(--c-gray-body);
+}
+.firms-search-input svg {
+  flex-shrink: 0;
+  color: var(--c-gray-body);
+}
+
+.firms-search-type {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px 0 15px;
+  width: 130px;
+  background: rgba(255,255,255,0.56);
+  border: 0.84px solid rgba(0,0,0,0.1);
+  border-right: none;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--c-gray-body);
+  cursor: pointer;
+  user-select: none;
+}
+
+.firms-search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  background: var(--c-blue);
+  color: #fff;
+  border: none;
+  border-radius: 0 7px 7px 0;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.firms-search-btn:hover { opacity: 0.85; }
+
+/* ── FILTERS ──────────────────────────────────────── */
+.firms-filters {
+  background: #fff;
+  background-image: var(--bg-gradient);
+  padding: 0 56px 32px;
+}
+
+.firms-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.firms-filter-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 20px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--c-gray-body);
+  background: rgba(255,255,255,0.6);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  user-select: none;
+}
+.firms-filter-tag:hover {
+  border-color: rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.9);
+}
+.firms-filter-tag.active {
+  background: var(--c-blue);
+  color: #fff;
+  border-color: var(--c-blue);
+}
+.firms-filter-tag svg {
+  width: 10px;
+  height: 10px;
+}
+
+.firms-results-count {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--c-gray-body);
+  margin-left: auto;
+}
+
+/* ── GRID ─────────────────────────────────────────── */
+.firms-grid-section {
+  background: #fff;
+  background-image: var(--bg-gradient);
+  padding: 32px 56px 80px;
+}
+
+.firms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* ── FIRM CARD ────────────────────────────────────── */
+.firm-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 28px;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 12px;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+.firm-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  border-color: rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
+
+.firm-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.firm-card-flag {
+  width: 36px;
+  height: 27px;
+  border-radius: 4px;
+  object-fit: cover;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.firm-card-name {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--c-dark);
+  line-height: 1.3;
+}
+
+.firm-card-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--c-gray-body);
+}
+.firm-card-location svg {
+  flex-shrink: 0;
+  color: var(--c-blue);
+}
+
+.firm-card-practices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.firm-card-practice {
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: rgba(77,101,134,0.08);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--c-blue);
+  letter-spacing: 0.3px;
+}
+
+.firm-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  margin-top: auto;
+  transition: gap 0.2s;
+}
+.firm-card:hover .firm-card-link { gap: 10px; }
+
+/* ── PAGINATION ───────────────────────────────────── */
+.firms-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 48px 0 0;
+}
+
+.firms-page-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--c-gray-body);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.firms-page-btn:hover {
+  background: rgba(0,0,0,0.04);
+  border-color: rgba(0,0,0,0.15);
+}
+.firms-page-btn.active {
+  background: var(--c-blue);
+  color: #fff;
+  border-color: var(--c-blue);
+}
+.firms-page-btn.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+.firms-page-ellipsis {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--c-gray-body);
+  padding: 0 4px;
+}
+
+/* ── LETTER INDEX ─────────────────────────────────── */
+.firms-alpha-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 24px 56px;
+  background: #fff;
+  background-image: var(--bg-gradient);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.firms-alpha-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-gray-body);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.firms-alpha-btn:hover { background: rgba(0,0,0,0.04); }
+.firms-alpha-btn.active {
+  background: var(--c-blue);
+  color: #fff;
+}

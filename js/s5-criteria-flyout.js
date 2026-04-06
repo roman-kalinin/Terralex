@@ -35,6 +35,7 @@
   var pillEl   = document.getElementById('s5Pill');
   var areaEl   = document.getElementById('s5Criteria');
   var linesSvg = document.getElementById('s5Lines');
+  var mapBgEl  = document.querySelector('.s5-map-bg');
   if (!areaEl || !innerEl || !pillEl) return;
 
   // ── Create item elements + SVG lines ────────────────────
@@ -126,6 +127,13 @@
       hp = 1 - (1 - hp) * (1 - hp); // ease-out quad
       headerEl.style.transform = 'translateY(' + (-hp * 120) + 'px)';
       headerEl.style.opacity = 1 - hp;
+    }
+
+    // Map BG: fade in over 60–85% of scroll (after most criteria have flown out)
+    if (mapBgEl) {
+      var mp = Math.max(0, Math.min(1, (progress - 0.5) / 0.4));
+      var ep = 1 - (1 - mp) * (1 - mp); // ease-out quad
+      mapBgEl.style.opacity = (0.225 * ep).toFixed(3);
     }
 
     // Items: fly out over 35–100% of scroll (no drift — static once placed)

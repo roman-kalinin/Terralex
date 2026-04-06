@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>myLexi — AI Assistant — TerraLex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/mylexi.css">
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<header class="site-header scrolled">
+  <div class="nav-topbar">
+    <a href="#">Member Directory</a><span class="sep">|</span>
+    <a href="#">TLC Sign-On</a><span class="sep">|</span>
+    <a href="#">Ask myLexi</a><span class="sep">|</span>
+    <a href="#">Contact Us</a>
+  </div>
+  <nav id="mainNav">
+    <a href="index.html" class="nav-logo">
+      <img class="logo-hero" src="assets/logos/Logo white.svg" alt="TerraLex">
+      <img class="logo-scrolled" src="assets/logos/Logo default.svg" alt="TerraLex">
+    </a>
+    <div class="nav-links">
+      <a href="#">Cross-Border Guides</a>
+      <div class="nav-dropdown">
+        <a href="#" class="nav-dropdown-trigger">Expertise <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
+        <div class="nav-mega">
+          <div class="mega-col"><h4>Industry Sector Teams</h4><a href="#">Automotive</a><a href="#">Aviation</a><a href="#">Education Services</a><a href="#">ESG</a><a href="#">Food &amp; Beverage</a><a href="#">Hospitality</a><a href="#">Life Sciences</a><a href="#">Mining</a><a href="#">Retail</a><a href="#">Sports &amp; Entertainment</a><a href="#">Technology &amp; Digital Business</a></div>
+          <div class="mega-col"><h4>Regions</h4><a href="#">Africa &amp; the Middle East</a><a href="#">Asia-Pacific</a><a href="#">Europe</a><a href="#">Latin America &amp; the Caribbean</a><a href="#">North America</a></div>
+          <div class="mega-col"><h4>Practice Groups</h4><a href="#">Antitrust &amp; Competition</a><a href="#">Bankruptcy / Insolvency</a><a href="#">Construction &amp; Infrastructure</a><a href="#">Energy &amp; Environmental</a><a href="#">Finance &amp; Banking</a><a href="#">Global Trade &amp; Policy</a><a href="#">Immigration</a><a href="#">Insurance</a><a href="#">Intellectual Property, Licensing &amp; Technology</a><a href="#">International Litigation &amp; Arbitration</a><a href="#">Labor &amp; Employment</a><a href="#">Mergers &amp; Acquisitions</a><a href="#">Real Estate</a><a href="#">Regulatory, Investigations &amp; Compliance</a><a href="#">Tax &amp; Wealth Services</a></div>
+        </div>
+      </div>
+      <a href="#">Events Hub</a>
+      <a href="#">Global Insights</a>
+      <a href="#">Success Stories</a>
+      <a href="#">About TerraLex</a>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-search-btn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================================================
+     PAGE
+============================================================ -->
+<div class="mylexi-page">
+
+  <div class="mylexi-main">
+
+    <!-- Greeting -->
+    <div class="mylexi-greeting">
+      <img src="assets/logos/mylexi-logo.svg" alt="myLexi" class="mylexi-greeting-logo">
+      <span class="mylexi-greeting-text">Hi there</span>
+    </div>
+
+    <!-- Big question -->
+    <h1 class="mylexi-question">How can myLexi help you today?</h1>
+
+    <!-- Input box -->
+    <div class="mylexi-input-box">
+      <textarea rows="1" placeholder="Ask myLexi anything..."></textarea>
+      <div class="mylexi-input-actions">
+        <button class="mylexi-send" aria-label="Send">
+          <svg viewBox="0 0 14 14" fill="none">
+            <path d="M1 13L13 7L1 1V5.5L9 7L1 8.5V13Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Suggestion pills -->
+    <div class="mylexi-suggestions">
+      <button class="mylexi-pill">Find M&amp;A firms in Germany</button>
+      <button class="mylexi-pill">Summarise the AI regulation guide</button>
+      <button class="mylexi-pill">Draft an introduction letter</button>
+      <button class="mylexi-pill">Compare employment law across EU</button>
+      <button class="mylexi-pill">FDI rules for investing in Brazil</button>
+    </div>
+
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="mylexi-bottom">
+    <img src="assets/logos/betty-logo.svg" alt="Betty Knowledge Assistant" class="mylexi-betty-logo">
+    <span class="mylexi-bottom-sep"></span>
+    <a href="#">Terms of Use</a>
+  </div>
+
+</div>
+
+</body>
+</html>
