@@ -43,11 +43,11 @@
   mask-image: radial-gradient(ellipse 70% 70% at center, black 50%, transparent 100%);
 }
 
-/* View switcher */
+/* View switcher (positioned outside globe-col to avoid mask fade) */
 .s2-view-switch {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 24px;
+  right: 56px;
   z-index: 10;
   display: flex;
   gap: 2px;
