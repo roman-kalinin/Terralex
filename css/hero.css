@@ -113,6 +113,7 @@
   max-width: 980px;
 }
 .hero-headline .dim { color: rgba(255,255,255,0.5); }
+.hero-headline .ds-thin { color: rgba(255,255,255,0.8); }
 
 .hero-body {
   font-size: 18px;
