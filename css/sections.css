@@ -804,7 +804,7 @@
   text-transform: uppercase;
   color: #000;
   background: #fff;
-  border: 1px solid #1a3faa;
+  border: 1px solid #fff;
   padding: 4px 12px;
 }
 .s4-geo-pill {
@@ -1385,6 +1385,18 @@
 }
 
 /* Date label */
+.s6-event-date.is-upcoming {
+  align-self: flex-start;
+  color: #000;
+  background: #fff;
+  border: 1px solid #fff;
+  padding: 4px 12px;
+  font-weight: 400;
+}
+.s6-event-date.is-upcoming .s6-event-when,
+.s6-event-date.is-upcoming .s6-event-sep {
+  color: #000;
+}
 .s6-event-date {
   font-family: 'Source Sans 3', sans-serif;
   font-size: 10px;
@@ -1770,14 +1782,15 @@
   height: 150%;
   object-fit: cover;
   will-change: transform;
+  filter: brightness(0.9);
 }
 .s9-bg-overlay {
   position: absolute;
   inset: 0;
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-  mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0) 92%);
-  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0) 92%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.2) 75%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.2) 75%, rgba(0,0,0,0) 100%);
 }
 .s9-inner {
   position: relative;
@@ -1809,8 +1822,8 @@
   margin-bottom: 20px;
   display: block;
 }
-.s9-quote-light { color: rgba(255,255,255,0.53); font-weight: 400; }
-.s9-quote-bold  { color: #fff; font-weight: 600; }
+.s9-quote-light { color: #fff; font-weight: 700; }
+.s9-quote-bold  { color: #fff; font-weight: 700; }
 .s9-attribution {
   font-family: 'Source Sans 3', sans-serif;
   font-size: 26px;
