@@ -80,10 +80,10 @@
   // ── S3B NEWS & INSIGHTS ─────────────────────────────────
   reveal('.s3b-heading', { y: 40, duration: 1, trigger: '.s3b-header' });
 
-  // Cards: staggered slide-up with slight scale
+  // Cards: staggered slide in from the left
   gsap.from('.s3b-card', {
-    autoAlpha: 0, y: 60, scale: 0.95,
-    duration: 0.7, ease: e3, stagger: 0.12,
+    autoAlpha: 0, x: -80,
+    duration: 0.8, ease: e3, stagger: 0.12,
     scrollTrigger: { trigger: '.s3b-track', start: triggerStart(85), toggleActions: ta }
   });
 

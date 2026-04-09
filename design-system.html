@@ -7,1245 +7,631 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tokens.css">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/design-system.css">
 <style>
-/* ── DS page overrides ─────────────────────────────── */
-body.ds-page {
-  background: #f8f8f8 !important;
-  background-image: none !important;
-  color: #222 !important;
-  overflow-x: auto;
-  display: flex;
-  min-height: 100vh;
-}
-.ds-page a { cursor: pointer; }
+  /* ── Showcase page chrome (NOT part of the design system) ── */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: #f6f6f7;
+    color: #0a0a0f;
+    -webkit-font-smoothing: antialiased;
+  }
 
-/* ── Sidebar ───────────────────────────────────────── */
-.ds-sidebar {
-  position: fixed; top: 0; left: 0; bottom: 0;
-  width: 220px;
-  background: var(--c-dark);
-  padding: 32px 0;
-  overflow-y: auto;
-  z-index: 100;
-}
-.ds-sidebar h2 {
-  color: #fff;
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
-  padding: 0 24px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  margin-bottom: 16px;
-}
-.ds-sidebar a {
-  display: block;
-  padding: 7px 24px;
-  color: rgba(255,255,255,0.5);
-  font-family: var(--font-ui);
-  font-size: 13px;
-  font-weight: 400;
-  transition: color 0.15s;
-}
-.ds-sidebar a:hover { color: #fff; }
+  .docs-shell {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+  }
 
-/* ── Content ───────────────────────────────────────── */
-.ds-content {
-  margin-left: 220px;
-  padding: 48px 56px 80px;
-  flex: 1;
-  max-width: 1100px;
-}
-.ds-content > section {
-  margin-bottom: 64px;
-  padding-bottom: 48px;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-}
-.ds-content > section:last-child { border-bottom: none; }
+  /* Sidebar */
+  .docs-side {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    overflow-y: auto;
+    background: #0a0a0f;
+    color: #fff;
+    padding: 32px 0;
+  }
+  .docs-side__brand {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    padding: 0 28px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .docs-side__nav {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+  }
+  .docs-side__link {
+    display: block;
+    padding: 10px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: color .2s, background .2s, border-color .2s;
+  }
+  .docs-side__link:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.04);
+  }
 
-/* ── Section titles ────────────────────────────────── */
-.ds-title {
-  font-family: var(--font-body);
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--c-dark);
-  letter-spacing: -0.5px;
-  margin-bottom: 8px;
-}
-.ds-desc {
-  font-family: var(--font-ui);
-  font-size: 14px;
-  color: #888;
-  margin-bottom: 32px;
-}
+  /* Main */
+  .docs-main { padding: 56px 64px 120px; max-width: 1400px; }
 
-/* ── Specimen containers ───────────────────────────── */
-.ds-on-light {
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 8px;
-  padding: 32px;
-  margin-bottom: 16px;
-}
-.ds-on-dark {
-  background: var(--c-dark);
-  border-radius: 8px;
-  padding: 32px;
-  margin-bottom: 16px;
-}
+  .docs-section { margin-bottom: 96px; }
+  .docs-section__title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(10,10,15,0.45);
+    margin: 0 0 24px;
+  }
 
-/* ── Class labels ──────────────────────────────────── */
-.ds-class {
-  display: inline-block;
-  font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
-  font-size: 11px;
-  color: #fff;
-  background: var(--c-blue);
-  padding: 2px 8px;
-  border-radius: 3px;
-  margin-bottom: 8px;
-  margin-right: 4px;
-}
-.ds-note {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: #999;
-  margin-top: 8px;
-}
-.ds-spec {
-  font-family: 'SF Mono', 'Consolas', monospace;
-  font-size: 11px;
-  color: #666;
-  margin-top: 4px;
-}
+  .docs-block {
+    background: #fff;
+    border: 1px solid rgba(10,10,15,0.06);
+    padding: 40px;
+    margin-bottom: 16px;
+  }
+  .docs-block--dark {
+    background: #0a0a0f;
+    border-color: #0a0a0f;
+  }
 
-/* ── Color swatches ────────────────────────────────── */
-.ds-swatches {
-  display: flex; flex-wrap: wrap; gap: 12px;
-}
-.ds-swatch {
-  text-align: center;
-}
-.ds-swatch-box {
-  width: 64px; height: 64px;
-  border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.08);
-}
-.ds-swatch-label {
-  font-family: 'SF Mono', 'Consolas', monospace;
-  font-size: 10px;
-  color: #888;
-  margin-top: 6px;
-  max-width: 64px;
-  word-break: break-all;
-}
+  .docs-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 96px;
+    gap: 32px;
+    align-items: baseline;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(10,10,15,0.06);
+  }
+  .docs-row:last-child { border-bottom: none; }
+  .docs-row__label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(10,10,15,0.45);
+  }
+  /* Live computed-px readout */
+  .docs-row__px {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(10,10,15,0.55);
+    text-align: right;
+    white-space: nowrap;
+  }
+  .docs-row__px b {
+    color: #0a0a0f;
+    font-weight: 600;
+  }
 
-/* ── Opacity strip ─────────────────────────────────── */
-.ds-opacity-strip {
-  display: flex; gap: 8px; padding: 24px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-}
-.ds-opacity-strip.--dark { background: var(--c-dark); }
-.ds-opacity-strip.--light { background: #fff; border: 1px solid rgba(0,0,0,0.06); }
-.ds-opacity-swatch {
-  width: 48px; height: 48px;
-  border-radius: 6px;
-}
+  /* Spec table — shows target px at every breakpoint */
+  .docs-spec {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+  }
+  .docs-spec th, .docs-spec td {
+    text-align: right;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(10,10,15,0.06);
+  }
+  .docs-spec th:first-child, .docs-spec td:first-child {
+    text-align: left;
+    color: rgba(10,10,15,0.55);
+  }
+  .docs-spec th {
+    font-weight: 500;
+    color: rgba(10,10,15,0.45);
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+  .docs-spec td { color: #0a0a0f; }
+  .docs-spec tbody tr:hover { background: rgba(10,10,15,0.02); }
 
-/* ── Spacing bars ──────────────────────────────────── */
-.ds-space-bar {
-  display: flex; align-items: center; gap: 12px;
-  margin-bottom: 6px;
-}
-.ds-space-bar-fill {
-  height: 20px;
-  background: var(--c-blue);
-  border-radius: 3px;
-  opacity: 0.7;
-}
-.ds-space-bar-label {
-  font-family: 'SF Mono', 'Consolas', monospace;
-  font-size: 11px;
-  color: #888;
-  white-space: nowrap;
-}
+  .docs-cluster { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
 
-/* ── Z-index stack ─────────────────────────────────── */
-.ds-zstack {
-  display: flex; flex-direction: column; gap: 4px;
-}
-.ds-zlayer {
-  display: flex; align-items: center; gap: 12px;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-family: var(--font-ui);
-  font-size: 13px;
-}
-.ds-zlayer code {
-  font-family: 'SF Mono', 'Consolas', monospace;
-  font-size: 11px;
-  opacity: 0.7;
-}
+  /* Live breakpoint badge */
+  .docs-bp {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    background: #0a0a0f;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    z-index: 9999;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .docs-bp__dot {
+    width: 8px; height: 8px;
+    background: #8bb898;
+    border-radius: 50%;
+  }
+  .docs-bp__label::before { content: 'mobile'; }
+  @media (min-width: 641px)  { .docs-bp__label::before { content: 'tablet'; } }
+  @media (min-width: 1025px) { .docs-bp__label::before { content: 'laptop'; } }
+  @media (min-width: 1440px) { .docs-bp__label::before { content: 'desktop'; } }
+  @media (min-width: 1920px) { .docs-bp__label::before { content: 'large'; } }
 
-/* ── Tables ────────────────────────────────────────── */
-.ds-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: var(--font-ui);
-  font-size: 13px;
-  color: #444;
-}
-.ds-table th {
-  text-align: left;
-  font-weight: 500;
-  padding: 8px 12px;
-  border-bottom: 2px solid rgba(0,0,0,0.08);
-  color: #888;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-.ds-table td {
-  padding: 8px 12px;
-  border-bottom: 1px solid rgba(0,0,0,0.04);
-  vertical-align: top;
-}
-.ds-table code {
-  font-family: 'SF Mono', 'Consolas', monospace;
-  font-size: 11px;
-  background: rgba(0,0,0,0.04);
-  padding: 2px 6px;
-  border-radius: 3px;
-}
+  /* Color swatches */
+  .docs-swatch {
+    width: 100%;
+    height: 64px;
+    border: 1px solid rgba(10,10,15,0.08);
+  }
+  .docs-swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
+  }
+  .docs-swatch__label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: rgba(10,10,15,0.6);
+    margin-top: 8px;
+    display: block;
+  }
 
-/* ── Row / grid helpers ────────────────────────────── */
-.ds-row { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 24px; flex-wrap: wrap; }
-.ds-col { flex: 1; min-width: 0; }
-.ds-pair { display: flex; gap: 16px; margin-bottom: 16px; }
-.ds-pair > * { flex: 1; }
-.ds-mb { margin-bottom: 24px; }
-.ds-mt { margin-top: 16px; }
+  /* Spacing demo */
+  .docs-spacer {
+    background: #4d6586;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+  }
 
-/* ── Icon grid ─────────────────────────────────────── */
-.ds-icon-grid { display: flex; gap: 32px; flex-wrap: wrap; }
-.ds-icon-item {
-  text-align: center;
-  padding: 16px 24px;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 8px;
-}
-.ds-icon-item svg { margin: 0 auto 8px; display: block; }
-.ds-icon-item .ds-spec { margin-top: 4px; }
+  /* Header demo strip — hero-like background so transparent variant reads */
+  .docs-header-demo {
+    position: relative;
+    height: 260px;
+    overflow: hidden;
+    background: url('assets/images/hero/Hero slide 1.png') center/cover no-repeat, #1a2438;
+  }
+  .docs-header-demo--scrolled { background: #f6f6f7; }
+  .docs-header-demo .ds-header { position: absolute; }
 
-/* ── Card demo sizing ──────────────────────────────── */
-.ds-card-demo .s4-card { width: 360px; height: 340px; flex-shrink: 0; }
-.ds-card-demo .s8-guide-card { width: 280px; height: 340px; flex-shrink: 0; }
-.ds-card-demo { display: flex; gap: 24px; flex-wrap: wrap; }
+  /* Header content shown inside the demo */
+  .dh-brand {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .dh-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+  .dh-topbar-inner {
+    display: flex;
+    gap: 0;
+    align-items: center;
+  }
+  .dh-topbar-inner .ds-header-link {
+    font-size: 12px;
+    padding: 0 14px;
+  }
+  .dh-sep {
+    opacity: 0.25;
+    font-size: 12px;
+    user-select: none;
+  }
+  .dh-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .dh-icon {
+    width: 20px; height: 20px;
+    display: inline-block;
+  }
+  .dh-hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 24px;
+    cursor: pointer;
+  }
+  .dh-hamburger span {
+    display: block;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+  }
 
-/* ── Overlay demo ──────────────────────────────────── */
-.ds-overlay-demo {
-  width: 120px; height: 80px;
-  border-radius: 6px;
-  background-image: url('assets/images/case-studies/Monaco_1a4d9a91b6.webp');
-  background-size: cover;
-  position: relative;
-}
-.ds-overlay-demo::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 6px;
-}
-
-/* Hero CTA styles (inline since we don't load hero.css) */
-.ds-page .cta-primary {
-  display: flex; align-items: center; justify-content: center;
-  height: 49px; width: 245px;
-  background: rgb(77, 101, 134); color: #fff;
-  font-size: 13px; font-weight: 700; letter-spacing: 1.2px;
-  text-transform: uppercase; text-decoration: none;
-  transition: opacity 0.2s;
-}
-.ds-page .cta-primary:hover { opacity: 0.85; }
-.ds-page .cta-secondary {
-  display: flex; align-items: center; gap: 8px;
-  color: rgba(255,255,255,0.75);
-  font-size: 13px; font-weight: 400; letter-spacing: 0.5px;
-  text-decoration: none; transition: color 0.2s;
-}
-.ds-page .cta-secondary:hover { color: #fff; }
-
-/* ── Header mockups (inline, not from header.css) ── */
-.ds-header-mock {
-  position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 16px;
-}
-.ds-header-mock .hm-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0;
-  padding: 0 56px;
-  height: 36px;
-}
-.ds-header-mock .hm-topbar a {
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.3px;
-  text-decoration: none;
-  white-space: nowrap;
-  padding: 0 14px;
-}
-.ds-header-mock .hm-topbar .hm-sep {
-  font-size: 12px;
-  user-select: none;
-}
-.ds-header-mock .hm-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 56px;
-  height: 60px;
-}
-.ds-header-mock .hm-logo { height: 32px; width: auto; }
-.ds-header-mock .hm-links {
-  display: flex;
-  gap: 32px;
-  align-items: center;
-}
-.ds-header-mock .hm-links a {
-  font-size: 15px;
-  font-weight: 400;
-  letter-spacing: 0.3px;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.ds-header-mock .hm-links .hm-chevron {
-  transition: transform 0.25s;
-}
-.ds-header-mock .hm-actions {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-.ds-header-mock .hm-hamburger {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  width: 28px;
-}
-.ds-header-mock .hm-hamburger span {
-  display: block;
-  height: 2px;
-  width: 100%;
-  border-radius: 1px;
-}
-
-/* Default (hero) state */
-.ds-header-mock.--hero {
-  background: url('assets/images/hero/Hero slide 1.png') center/cover;
-}
-.ds-header-mock.--hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
-}
-.ds-header-mock.--hero > * { position: relative; z-index: 1; }
-.ds-header-mock.--hero .hm-topbar {
-  background: rgba(0,0,0,0.25);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-.ds-header-mock.--hero .hm-topbar a { color: rgba(255,255,255,0.8); }
-.ds-header-mock.--hero .hm-topbar .hm-sep { color: rgba(255,255,255,0.25); }
-.ds-header-mock.--hero .hm-links a { color: #fff; }
-.ds-header-mock.--hero .hm-actions svg { color: #fff; stroke: #fff; }
-.ds-header-mock.--hero .hm-hamburger span { background: #fff; }
-
-/* Scrolled state */
-.ds-header-mock.--scrolled .hm-topbar {
-  background: rgba(245,245,245,0.9);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-}
-.ds-header-mock.--scrolled .hm-topbar a { color: #555; }
-.ds-header-mock.--scrolled .hm-topbar .hm-sep { color: rgba(0,0,0,0.18); }
-.ds-header-mock.--scrolled .hm-nav {
-  background: rgba(255,255,255,0.9);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-.ds-header-mock.--scrolled .hm-links a { color: #171717; }
-.ds-header-mock.--scrolled .hm-actions svg { color: #171717; stroke: #171717; }
-.ds-header-mock.--scrolled .hm-hamburger span { background: #171717; }
-
-/* Mega dropdown expanded */
-.ds-header-mock .hm-mega {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 48px;
-  padding: 40px 56px 48px;
-}
-.ds-header-mock.--hero .hm-mega {
-  background: rgba(0,0,0,0.80);
-  backdrop-filter: blur(20px);
-}
-.ds-header-mock.--scrolled .hm-mega {
-  background: rgba(255,255,255,0.98);
-}
-.ds-header-mock .hm-mega-col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.ds-header-mock .hm-mega-col h4 {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.ds-header-mock.--hero .hm-mega-col h4 { color: #8bb898; }
-.ds-header-mock.--scrolled .hm-mega-col h4 { color: #4d6586; }
-.ds-header-mock .hm-mega-col a {
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.6;
-}
-.ds-header-mock.--hero .hm-mega-col a { color: #fff; }
-.ds-header-mock.--scrolled .hm-mega-col a { color: #222; }
+  @media (max-width: 900px) {
+    .docs-shell { grid-template-columns: 1fr; }
+    .docs-side  { position: static; height: auto; }
+    .docs-main  { padding: 32px 24px 80px; }
+  }
 </style>
 </head>
+<body>
 
-<body class="ds-page">
+<div class="docs-shell">
 
-<!-- ── SIDEBAR ─────────────────────────────────────── -->
-<nav class="ds-sidebar">
-  <h2>TerraLex DS</h2>
-  <a href="#overview">Overview</a>
-  <a href="#colors">Colors</a>
-  <a href="#typography">Typography</a>
-  <a href="#buttons">Buttons</a>
-  <a href="#header">Header</a>
-  <a href="#cards">Cards</a>
-  <a href="#interactions">Interactions</a>
-  <a href="#spacing">Spacing</a>
-  <a href="#zindex">Z-Index</a>
-  <a href="#animations">Animations</a>
-  <a href="#icons">Icons</a>
-</nav>
+  <!-- ─── Sidebar ─── -->
+  <aside class="docs-side">
+    <div class="docs-side__brand">TerraLex DS</div>
+    <nav class="docs-side__nav">
+      <a class="docs-side__link" href="#typography">Typography</a>
+      <a class="docs-side__link" href="#modifiers">Title modifiers</a>
+      <a class="docs-side__link" href="#buttons">Buttons</a>
+      <a class="docs-side__link" href="#headers">Headers</a>
+      <a class="docs-side__link" href="#sections">Section structure</a>
+      <a class="docs-side__link" href="#colors">Colors</a>
+      <a class="docs-side__link" href="#spacing">Spacing</a>
+    </nav>
+  </aside>
 
-<!-- ── CONTENT ─────────────────────────────────────── -->
-<main class="ds-content">
+  <!-- ─── Main ─── -->
+  <main class="docs-main">
 
+    <!-- ─── Typography ─── -->
+    <section class="docs-section" id="typography">
+      <p class="docs-section__title">Typography — fluid scale</p>
+      <p style="max-width:720px; color:rgba(10,10,15,0.6); font-size:14px; margin: -12px 0 24px;">
+        All sizes scale fluidly via <code>clamp()</code>. Resize your browser to see the live values
+        change between breakpoints (mobile ≤640 · tablet ≤1024 · laptop ≤1439 · desktop ≤1919 · large ≥1920).
+      </p>
 
-<!-- ============================================================
-     1. OVERVIEW
-============================================================ -->
-<section id="overview">
-  <h2 class="ds-title">Overview</h2>
-  <p class="ds-desc">TerraLex landing page component system. Desktop-only, no responsive breakpoints yet.</p>
+      <div class="docs-block">
 
-  <table class="ds-table">
-    <tr><th>File</th><th>Contents</th></tr>
-    <tr><td><code>css/tokens.css</code></td><td>Design tokens (colors, spacing, typography, z-index)</td></tr>
-    <tr><td><code>css/base.css</code></td><td>Shared component classes (headings, body, labels, buttons)</td></tr>
-    <tr><td><code>css/header.css</code></td><td>Site header, topbar, nav, mega dropdown</td></tr>
-    <tr><td><code>css/hero.css</code></td><td>Hero slides, content, ticker strip</td></tr>
-    <tr><td><code>css/sections.css</code></td><td>All section layout (S2-S9 + footer)</td></tr>
-    <tr><td><code>css/chat-widget.css</code></td><td>Chat panel, pill, overlay</td></tr>
-    <tr><td><code>js/scroll-setup.js</code></td><td>Lenis smooth scroll, GSAP register, nav scroll, dropdown</td></tr>
-    <tr><td><code>js/hero-slider.js</code></td><td>Slide auto-advance, progress bars</td></tr>
-    <tr><td><code>js/s3-counters.js</code></td><td>Number counter animation</td></tr>
-    <tr><td><code>js/s4-zoom-parallax.js</code></td><td>Zoom timeline, frame scrub, card scroll</td></tr>
-    <tr><td><code>js/entrance-animations.js</code></td><td>All ScrollTrigger batch reveals</td></tr>
-    <tr><td><code>js/s5-criteria-flyout.js</code></td><td>Criteria DOM, SVG lines, comet animation</td></tr>
-    <tr><td><code>js/globe-widget.js</code></td><td>Canvas 2D globe (729 lines, self-contained)</td></tr>
-    <tr><td><code>js/chat-widget.js</code></td><td>openChat / closeChat</td></tr>
-  </table>
-
-  <div class="ds-mt">
-    <p class="ds-spec">Fonts: Source Sans 3 (300, 400, 600, 700) &middot; DM Sans (400, 500)</p>
-    <p class="ds-spec">Dependencies: GSAP 3.12.5, ScrollTrigger, Lenis 1.1.14</p>
-  </div>
-</section>
-
-
-<!-- ============================================================
-     2. COLORS
-============================================================ -->
-<section id="colors">
-  <h2 class="ds-title">Colors</h2>
-  <p class="ds-desc">All color tokens from tokens.css</p>
-
-  <h3 style="font-size:14px;color:#888;margin-bottom:12px;font-family:var(--font-ui);">Primary Colors</h3>
-  <div class="ds-swatches ds-mb">
-    <div class="ds-swatch"><div class="ds-swatch-box" style="background:#fff"></div><div class="ds-swatch-label">--c-white<br>#fff</div></div>
-    <div class="ds-swatch"><div class="ds-swatch-box" style="background:#000"></div><div class="ds-swatch-label">--c-black<br>#000</div></div>
-    <div class="ds-swatch"><div class="ds-swatch-box" style="background:#0a0a0f"></div><div class="ds-swatch-label">--c-dark<br>#0a0a0f</div></div>
-    <div class="ds-swatch"><div class="ds-swatch-box" style="background:#171717"></div><div class="ds-swatch-label">--c-dark-alt<br>#171717</div></div>
-    <div class="ds-swatch"><div class="ds-swatch-box" style="background:#4d6586"></div><div class="ds-swatch-label">--c-blue<br>#4d6586</div></div>
-    <div class="ds-swatch"><div class="ds-swatch-box" style="background:#1a3faa"></div><div class="ds-swatch-label">--c-blue-accent<br>#1a3faa</div></div>
-    <div class="ds-swatch"><div class="ds-swatch-box" style="background:#8bb898"></div><div class="ds-swatch-label">--c-green<br>#8bb898</div></div>
-    <div class="ds-swatch"><div class="ds-swatch-box" style="background:#6b6b80"></div><div class="ds-swatch-label">--c-gray-body<br>#6b6b80</div></div>
-    <div class="ds-swatch"><div class="ds-swatch-box" style="background:#373737"></div><div class="ds-swatch-label">--c-gray-num<br>#373737</div></div>
-    <div class="ds-swatch"><div class="ds-swatch-box" style="background:#888"></div><div class="ds-swatch-label">--c-gray-mid<br>#888</div></div>
-    <div class="ds-swatch"><div class="ds-swatch-box" style="background:#555"></div><div class="ds-swatch-label">--c-gray-dark<br>#555</div></div>
-    <div class="ds-swatch"><div class="ds-swatch-box" style="background:#1a1a1a"></div><div class="ds-swatch-label">--c-gray-input<br>#1a1a1a</div></div>
-  </div>
-
-  <h3 style="font-size:14px;color:#888;margin-bottom:12px;font-family:var(--font-ui);">White Text Scale (on dark)</h3>
-  <div class="ds-opacity-strip --dark ds-mb">
-    <div><div class="ds-opacity-swatch" style="background:var(--c-white-80)"></div><div class="ds-swatch-label" style="color:var(--c-white-40)">80%</div></div>
-    <div><div class="ds-opacity-swatch" style="background:var(--c-white-75)"></div><div class="ds-swatch-label" style="color:var(--c-white-40)">75%</div></div>
-    <div><div class="ds-opacity-swatch" style="background:var(--c-white-70)"></div><div class="ds-swatch-label" style="color:var(--c-white-40)">70%</div></div>
-    <div><div class="ds-opacity-swatch" style="background:var(--c-white-53)"></div><div class="ds-swatch-label" style="color:var(--c-white-40)">53%</div></div>
-    <div><div class="ds-opacity-swatch" style="background:var(--c-white-50)"></div><div class="ds-swatch-label" style="color:var(--c-white-40)">50%</div></div>
-    <div><div class="ds-opacity-swatch" style="background:var(--c-white-45)"></div><div class="ds-swatch-label" style="color:var(--c-white-40)">45%</div></div>
-    <div><div class="ds-opacity-swatch" style="background:var(--c-white-40)"></div><div class="ds-swatch-label" style="color:var(--c-white-40)">40%</div></div>
-    <div><div class="ds-opacity-swatch" style="background:var(--c-white-35)"></div><div class="ds-swatch-label" style="color:var(--c-white-40)">35%</div></div>
-    <div><div class="ds-opacity-swatch" style="background:var(--c-white-30)"></div><div class="ds-swatch-label" style="color:var(--c-white-40)">30%</div></div>
-    <div><div class="ds-opacity-swatch" style="background:var(--c-white-25)"></div><div class="ds-swatch-label" style="color:var(--c-white-40)">25%</div></div>
-    <div><div class="ds-opacity-swatch" style="background:var(--c-white-20)"></div><div class="ds-swatch-label" style="color:var(--c-white-40)">20%</div></div>
-    <div><div class="ds-opacity-swatch" style="background:var(--c-white-08)"></div><div class="ds-swatch-label" style="color:var(--c-white-40)">8%</div></div>
-  </div>
-
-  <h3 style="font-size:14px;color:#888;margin-bottom:12px;font-family:var(--font-ui);">Dark Text Scale (on light)</h3>
-  <div class="ds-opacity-strip --light ds-mb">
-    <div><div class="ds-opacity-swatch" style="background:var(--c-dark-65)"></div><div class="ds-swatch-label">65%</div></div>
-    <div><div class="ds-opacity-swatch" style="background:var(--c-dark-50)"></div><div class="ds-swatch-label">50%</div></div>
-    <div><div class="ds-opacity-swatch" style="background:var(--c-dark-40)"></div><div class="ds-swatch-label">40%</div></div>
-    <div><div class="ds-opacity-swatch" style="background:var(--c-dark-35)"></div><div class="ds-swatch-label">35%</div></div>
-    <div><div class="ds-opacity-swatch" style="background:var(--c-dark-06)"></div><div class="ds-swatch-label">6%</div></div>
-  </div>
-
-  <h3 style="font-size:14px;color:#888;margin-bottom:12px;font-family:var(--font-ui);">Overlays (over image)</h3>
-  <div style="display:flex;gap:16px;" class="ds-mb">
-    <div>
-      <div class="ds-overlay-demo"><div style="position:absolute;inset:0;border-radius:6px;background:var(--overlay-light)"></div></div>
-      <div class="ds-swatch-label">--overlay-light<br>rgba(0,0,0,0.35)</div>
-    </div>
-    <div>
-      <div class="ds-overlay-demo"><div style="position:absolute;inset:0;border-radius:6px;background:var(--overlay-hover)"></div></div>
-      <div class="ds-swatch-label">--overlay-hover<br>rgba(0,0,0,0.55)</div>
-    </div>
-    <div>
-      <div class="ds-overlay-demo"><div style="position:absolute;inset:0;border-radius:6px;background:var(--overlay-heavy)"></div></div>
-      <div class="ds-swatch-label">--overlay-heavy<br>rgba(0,0,0,0.68)</div>
-    </div>
-  </div>
-
-  <h3 style="font-size:14px;color:#888;margin-bottom:12px;font-family:var(--font-ui);">Background Gradient</h3>
-  <div style="height:60px;border-radius:8px;background:var(--bg-gradient);border:1px solid rgba(0,0,0,0.06)"></div>
-  <div class="ds-spec">--bg-gradient &middot; Applied to body with background-attachment: fixed</div>
-</section>
-
-
-<!-- ============================================================
-     3. TYPOGRAPHY
-============================================================ -->
-<section id="typography">
-  <h2 class="ds-title">Typography</h2>
-  <p class="ds-desc">All type classes from base.css. Each shown on light and dark backgrounds.</p>
-
-  <!-- HEADINGS -->
-  <h3 style="font-size:14px;color:#888;margin-bottom:12px;font-family:var(--font-ui);">Headings</h3>
-
-  <div class="ds-pair">
-    <div class="ds-on-light">
-      <span class="ds-class">.h-hero .--on-light .--bold</span>
-      <div class="h-hero --on-light --bold">The Elite Global</div>
-      <div class="ds-spec">clamp(48px, 5.6vw, 100px) &middot; 700 &middot; LH 0.89 &middot; ls -1px &middot; Source Sans 3</div>
-    </div>
-    <div class="ds-on-dark">
-      <span class="ds-class">.h-hero .--on-dark .--bold</span>
-      <div class="h-hero --on-dark --bold">The Elite Global</div>
-    </div>
-  </div>
-
-  <div class="ds-pair">
-    <div class="ds-on-light">
-      <span class="ds-class">.h-section .--on-light .--bold</span>
-      <div class="h-section --on-light --bold">Section Heading</div>
-      <div class="ds-spec">64px &middot; 700 &middot; LH 1.05 &middot; ls -2px</div>
-    </div>
-    <div class="ds-on-dark">
-      <span class="ds-class">.h-section .--on-dark .--bold</span>
-      <div class="h-section --on-dark --bold">Section Heading</div>
-    </div>
-  </div>
-
-  <div class="ds-pair">
-    <div class="ds-on-light">
-      <span class="ds-class">.h-section .--on-light .--light</span>
-      <div class="h-section --on-light --light">Light Heading</div>
-      <div class="ds-spec">64px &middot; 300 &middot; color: --c-dark-40</div>
-    </div>
-    <div class="ds-on-dark">
-      <span class="ds-class">.h-section .--on-dark .--light</span>
-      <div class="h-section --on-dark --light">Light Heading</div>
-    </div>
-  </div>
-
-  <div class="ds-pair">
-    <div class="ds-on-light">
-      <span class="ds-class">.h-display .--on-light .--bold</span>
-      <div class="h-display --on-light --bold">Display Heading</div>
-      <div class="ds-spec">64px &middot; 700 &middot; LH 1.15 &middot; ls -1px</div>
-    </div>
-    <div class="ds-on-dark">
-      <span class="ds-class">.h-display .--on-dark .--light</span>
-      <div class="h-display --on-dark --light">Display Heading</div>
-    </div>
-  </div>
-
-  <div class="ds-pair">
-    <div class="ds-on-light">
-      <span class="ds-class">.h-card.h-card--lg</span>
-      <div class="h-card h-card--lg --on-light">Large Card Title</div>
-      <div class="ds-spec">30px &middot; 700 &middot; LH 1.1 &middot; ls -0.5px</div>
-    </div>
-    <div class="ds-on-light">
-      <span class="ds-class">.h-card.h-card--md</span>
-      <div class="h-card h-card--md --on-light">Medium Card Title</div>
-      <div class="ds-spec">22px &middot; 700 &middot; LH 1.15 &middot; ls -0.3px</div>
-    </div>
-  </div>
-
-  <div class="ds-on-dark" style="max-width:400px">
-    <span class="ds-class">.h-card.h-card--sm .--on-dark</span>
-    <div class="h-card h-card--sm --on-dark">Small Card Title on Dark Background</div>
-    <div class="ds-spec" style="color:var(--c-white-40)">clamp(13px, 1vw, 16px) &middot; 600 &middot; LH 1.3</div>
-  </div>
-
-  <!-- BODY TEXT -->
-  <h3 style="font-size:14px;color:#888;margin:32px 0 12px;font-family:var(--font-ui);">Body Text</h3>
-
-  <div class="ds-pair">
-    <div class="ds-on-light">
-      <span class="ds-class">.body-lg .--on-light</span>
-      <p class="body-lg --on-light">TerraLex is the elite global legal network committed to collaboration. With over 30 years of experience.</p>
-      <div class="ds-spec">20px &middot; 400 &middot; LH 1.6 &middot; Source Sans 3 &middot; color: --c-dark-50</div>
-    </div>
-    <div class="ds-on-dark">
-      <span class="ds-class">.body-lg .--on-dark</span>
-      <p class="body-lg --on-dark">TerraLex is the elite global legal network committed to collaboration. With over 30 years of experience.</p>
-    </div>
-  </div>
-
-  <div class="ds-pair">
-    <div class="ds-on-light">
-      <span class="ds-class">.body-md .--on-light</span>
-      <p class="body-md --on-light">DL Corporate & Regulatory (Delforge Law), a leading business law firm based in Monaco, has joined the TerraLex global network.</p>
-      <div class="ds-spec">16px &middot; 400 &middot; LH 1.7 &middot; DM Sans &middot; color: --c-gray-body</div>
-    </div>
-    <div class="ds-on-dark">
-      <span class="ds-class">.body-md .--on-dark</span>
-      <p class="body-md --on-dark">DL Corporate & Regulatory (Delforge Law), a leading business law firm based in Monaco, has joined the TerraLex global network.</p>
-    </div>
-  </div>
-
-  <div class="ds-pair">
-    <div class="ds-on-light">
-      <span class="ds-class">.body-sm .--on-light</span>
-      <p class="body-sm --on-light">AI regulation, liability frameworks, and compliance strategies across jurisdictions.</p>
-      <div class="ds-spec">13px &middot; 400 &middot; LH 1.5 &middot; Source Sans 3 &middot; color: --c-dark-65</div>
-    </div>
-    <div class="ds-on-dark">
-      <span class="ds-class">.body-sm .--on-dark</span>
-      <p class="body-sm --on-dark">AI regulation, liability frameworks, and compliance strategies across jurisdictions.</p>
-    </div>
-  </div>
-
-  <!-- LABELS -->
-  <h3 style="font-size:14px;color:#888;margin:32px 0 12px;font-family:var(--font-ui);">Labels</h3>
-
-  <div class="ds-pair">
-    <div class="ds-on-light">
-      <span class="ds-class">.label .--on-light</span>
-      <div class="label --on-light">Section Label</div>
-      <div class="ds-spec">10px &middot; 400 &middot; uppercase &middot; ls 2px &middot; Source Sans 3</div>
-    </div>
-    <div class="ds-on-dark">
-      <span class="ds-class">.label .--on-dark</span>
-      <div class="label --on-dark">Section Label</div>
-    </div>
-  </div>
-
-  <div class="ds-pair">
-    <div class="ds-on-light">
-      <span class="ds-class">.label-lg .--on-light</span>
-      <div class="label-lg --on-light">Large Label</div>
-      <div class="ds-spec">12px &middot; 400 &middot; uppercase &middot; ls 2.5px &middot; DM Sans</div>
-    </div>
-    <div class="ds-on-dark">
-      <span class="ds-class">.label-lg .--on-dark</span>
-      <div class="label-lg --on-dark">Large Label</div>
-    </div>
-  </div>
-
-  <div class="ds-on-light" style="max-width:200px;text-align:center">
-    <span class="ds-class">.label-stat</span>
-    <div style="font-size:48px;font-weight:700;color:var(--c-gray-num);letter-spacing:-2px;">160+</div>
-    <div class="label-stat">Member Firms</div>
-    <div class="ds-spec">13px &middot; uppercase &middot; ls 1.5px &middot; DM Sans &middot; color: --c-gray-num</div>
-  </div>
-
-  <!-- WEIGHT MODIFIERS -->
-  <h3 style="font-size:14px;color:#888;margin:32px 0 12px;font-family:var(--font-ui);">Weight Modifiers</h3>
-  <div class="ds-on-light">
-    <div style="display:flex;gap:32px;font-size:20px;font-family:var(--font-body);color:var(--c-dark);">
-      <div><span class="ds-class">.--light</span><br><span class="--light">Light 300</span></div>
-      <div><span class="ds-class">.--regular</span><br><span class="--regular">Regular 400</span></div>
-      <div><span class="ds-class">.--semi</span><br><span class="--semi">Semi 600</span></div>
-      <div><span class="ds-class">.--bold</span><br><span class="--bold">Bold 700</span></div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ============================================================
-     4. BUTTONS
-============================================================ -->
-<section id="buttons">
-  <h2 class="ds-title">Buttons</h2>
-  <p class="ds-desc">All button variants. Hover to see live states.</p>
-
-  <h3 style="font-size:14px;color:#888;margin-bottom:12px;font-family:var(--font-ui);">Design System Buttons (base.css)</h3>
-
-  <div class="ds-on-dark">
-    <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
-      <div>
-        <span class="ds-class">.btn.btn-primary</span><br><br>
-        <a href="#" class="btn btn-primary">Find Trusted Counsel</a>
-        <div class="ds-note" style="color:var(--c-white-40)">Hover: opacity 0.85</div>
-      </div>
-      <div>
-        <span class="ds-class">.btn.btn-outline</span><br><br>
-        <a href="#" class="btn btn-outline">Learn More</a>
-        <div class="ds-note" style="color:var(--c-white-40)">Hover: opacity 0.85</div>
-      </div>
-      <div>
-        <span class="ds-class">.btn.btn-ghost</span><br><br>
-        <a href="#" class="btn btn-ghost">View All <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <div class="ds-note" style="color:var(--c-white-40)">Hover: opacity 0.85</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ds-on-light">
-    <span class="ds-class">.btn.btn-white</span><br><br>
-    <a href="#" class="btn btn-white">Request Introduction</a>
-    <div class="ds-note">Hover: opacity 0.85 &middot; color: --c-blue-accent</div>
-  </div>
-
-  <h3 style="font-size:14px;color:#888;margin:24px 0 12px;font-family:var(--font-ui);">Hero CTAs (hero.css)</h3>
-
-  <div class="ds-on-dark">
-    <div style="display:flex;gap:24px;align-items:center;">
-      <div>
-        <span class="ds-class">.cta-primary</span><br><br>
-        <a href="#" class="cta-primary">Find Trusted Counsel</a>
-        <div class="ds-note" style="color:var(--c-white-40)">49px &times; 245px &middot; Hover: opacity 0.85</div>
-      </div>
-      <div>
-        <span class="ds-class">.cta-secondary</span><br><br>
-        <a href="#" class="cta-secondary">How TerraLex Works <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="rgba(255,255,255,0.75)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <div class="ds-note" style="color:var(--c-white-40)">Hover: color #fff</div>
-      </div>
-    </div>
-  </div>
-
-  <h3 style="font-size:14px;color:#888;margin:24px 0 12px;font-family:var(--font-ui);">Card Link</h3>
-
-  <div class="ds-on-dark" style="max-width:300px">
-    <span class="ds-class">.card-link</span><br><br>
-    <a href="#" class="card-link">Read story <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <div class="ds-note" style="color:var(--c-white-40)">Hover: opacity 0.7, arrow translateX(4px)</div>
-  </div>
-</section>
-
-
-<!-- ============================================================
-     HEADER
-============================================================ -->
-<section id="header">
-  <h2 class="ds-title">Header</h2>
-  <p class="ds-desc">Two-layer fixed header (topbar + nav). Three states: default, scrolled, mega dropdown expanded.</p>
-
-  <!-- STATE 1: Default (on hero) -->
-  <h3 style="font-size:14px;color:#888;margin-bottom:12px;font-family:var(--font-ui);">Default State (on hero)</h3>
-  <span class="ds-class">.site-header</span>
-  <div class="ds-header-mock --hero">
-    <div class="hm-topbar">
-      <a href="#">Member Directory</a><span class="hm-sep">|</span>
-      <a href="#">TLC Sign-On</a><span class="hm-sep">|</span>
-      <a href="#">Ask myLexi</a><span class="hm-sep">|</span>
-      <a href="#">Contact Us</a>
-    </div>
-    <div class="hm-nav">
-      <img class="hm-logo" src="assets/logos/Logo white.svg" alt="TerraLex">
-      <div class="hm-links">
-        <a href="#">Cross-Border Guides</a>
-        <a href="#">Expertise <svg class="hm-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
-        <a href="#">Events Hub</a>
-        <a href="#">Global Insights</a>
-        <a href="#">Success Stories</a>
-        <a href="#">About TerraLex</a>
-      </div>
-      <div class="hm-actions">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <div class="hm-hamburger"><span></span><span></span><span></span></div>
-      </div>
-    </div>
-  </div>
-  <div class="ds-spec ds-mb">position: fixed &middot; z-index: 200 &middot; Topbar: 36px, rgba(0,0,0,0.25) &middot; Nav: 60px, transparent &middot; Links: 15px, #fff &middot; Topbar links: 12px, rgba(255,255,255,0.8)</div>
-
-  <!-- STATE 2: Scrolled -->
-  <h3 style="font-size:14px;color:#888;margin-bottom:12px;font-family:var(--font-ui);">Scrolled State</h3>
-  <span class="ds-class">.site-header.scrolled</span>
-  <div class="ds-header-mock --scrolled">
-    <div class="hm-topbar">
-      <a href="#">Member Directory</a><span class="hm-sep">|</span>
-      <a href="#">TLC Sign-On</a><span class="hm-sep">|</span>
-      <a href="#">Ask myLexi</a><span class="hm-sep">|</span>
-      <a href="#">Contact Us</a>
-    </div>
-    <div class="hm-nav">
-      <img class="hm-logo" src="assets/logos/Logo default.svg" alt="TerraLex">
-      <div class="hm-links">
-        <a href="#">Cross-Border Guides</a>
-        <a href="#">Expertise <svg class="hm-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
-        <a href="#">Events Hub</a>
-        <a href="#">Global Insights</a>
-        <a href="#">Success Stories</a>
-        <a href="#">About TerraLex</a>
-      </div>
-      <div class="hm-actions">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <div class="hm-hamburger"><span></span><span></span><span></span></div>
-      </div>
-    </div>
-  </div>
-  <div class="ds-spec ds-mb">Topbar: rgba(245,245,245,0.9) + blur(12px) &middot; Nav: rgba(255,255,255,0.9) + blur(12px) &middot; Links: #171717 &middot; Logo swaps to dark variant &middot; Transition: 0.3s ease</div>
-
-  <!-- STATE 3: Mega dropdown (on hero) -->
-  <h3 style="font-size:14px;color:#888;margin-bottom:12px;font-family:var(--font-ui);">Mega Dropdown — Default (on hero)</h3>
-  <span class="ds-class">.nav-dropdown.open .nav-mega</span>
-  <div class="ds-header-mock --hero">
-    <div class="hm-topbar">
-      <a href="#">Member Directory</a><span class="hm-sep">|</span>
-      <a href="#">TLC Sign-On</a><span class="hm-sep">|</span>
-      <a href="#">Ask myLexi</a><span class="hm-sep">|</span>
-      <a href="#">Contact Us</a>
-    </div>
-    <div class="hm-nav">
-      <img class="hm-logo" src="assets/logos/Logo white.svg" alt="TerraLex">
-      <div class="hm-links">
-        <a href="#">Cross-Border Guides</a>
-        <a href="#" style="opacity:1;">Expertise <svg class="hm-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(180deg)"><polyline points="1 1 5 5 9 1"/></svg></a>
-        <a href="#">Events Hub</a>
-        <a href="#">Global Insights</a>
-        <a href="#">Success Stories</a>
-        <a href="#">About TerraLex</a>
-      </div>
-      <div class="hm-actions">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <div class="hm-hamburger"><span></span><span></span><span></span></div>
-      </div>
-    </div>
-    <div class="hm-mega">
-      <div class="hm-mega-col">
-        <h4>Industry Sector Teams</h4>
-        <a href="#">Automotive</a>
-        <a href="#">Aviation</a>
-        <a href="#">Education Services</a>
-        <a href="#">ESG</a>
-        <a href="#">Food &amp; Beverage</a>
-        <a href="#">Hospitality</a>
-        <a href="#">Life Sciences</a>
-        <a href="#">Mining</a>
-        <a href="#">Retail</a>
-        <a href="#">Sports &amp; Entertainment</a>
-        <a href="#">Technology &amp; Digital Business</a>
-      </div>
-      <div class="hm-mega-col">
-        <h4>Regions</h4>
-        <a href="#">Africa &amp; the Middle East</a>
-        <a href="#">Asia-Pacific</a>
-        <a href="#">Europe</a>
-        <a href="#">Latin America &amp; the Caribbean</a>
-        <a href="#">North America</a>
-      </div>
-      <div class="hm-mega-col">
-        <h4>Practice Groups</h4>
-        <a href="#">Antitrust &amp; Competition</a>
-        <a href="#">Bankruptcy / Insolvency</a>
-        <a href="#">Construction &amp; Infrastructure</a>
-        <a href="#">Energy &amp; Environmental</a>
-        <a href="#">Finance &amp; Banking</a>
-        <a href="#">Global Trade &amp; Policy</a>
-        <a href="#">Immigration</a>
-        <a href="#">Insurance</a>
-        <a href="#">Intellectual Property</a>
-        <a href="#">International Litigation</a>
-      </div>
-    </div>
-  </div>
-  <div class="ds-spec ds-mb">Panel: rgba(0,0,0,0.80) + blur(20px) &middot; 3-col grid, gap 48px, padding 40px 56px &middot; Category titles: 13px, #8bb898, uppercase &middot; Links: 15px, #fff &middot; Open: opacity 0&rarr;1, translateY(-8px)&rarr;0, 0.3s &middot; Chevron rotates 180&deg; (0.25s)</div>
-
-  <!-- STATE 4: Mega dropdown (scrolled) -->
-  <h3 style="font-size:14px;color:#888;margin-bottom:12px;font-family:var(--font-ui);">Mega Dropdown — Scrolled</h3>
-  <span class="ds-class">.site-header.scrolled .nav-dropdown.open .nav-mega</span>
-  <div class="ds-header-mock --scrolled">
-    <div class="hm-topbar">
-      <a href="#">Member Directory</a><span class="hm-sep">|</span>
-      <a href="#">TLC Sign-On</a><span class="hm-sep">|</span>
-      <a href="#">Ask myLexi</a><span class="hm-sep">|</span>
-      <a href="#">Contact Us</a>
-    </div>
-    <div class="hm-nav">
-      <img class="hm-logo" src="assets/logos/Logo default.svg" alt="TerraLex">
-      <div class="hm-links">
-        <a href="#">Cross-Border Guides</a>
-        <a href="#">Expertise <svg class="hm-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(180deg)"><polyline points="1 1 5 5 9 1"/></svg></a>
-        <a href="#">Events Hub</a>
-        <a href="#">Global Insights</a>
-        <a href="#">Success Stories</a>
-        <a href="#">About TerraLex</a>
-      </div>
-      <div class="hm-actions">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <div class="hm-hamburger"><span></span><span></span><span></span></div>
-      </div>
-    </div>
-    <div class="hm-mega">
-      <div class="hm-mega-col">
-        <h4>Industry Sector Teams</h4>
-        <a href="#">Automotive</a>
-        <a href="#">Aviation</a>
-        <a href="#">Education Services</a>
-        <a href="#">ESG</a>
-        <a href="#">Food &amp; Beverage</a>
-        <a href="#">Hospitality</a>
-        <a href="#">Life Sciences</a>
-        <a href="#">Mining</a>
-        <a href="#">Retail</a>
-        <a href="#">Sports &amp; Entertainment</a>
-        <a href="#">Technology &amp; Digital Business</a>
-      </div>
-      <div class="hm-mega-col">
-        <h4>Regions</h4>
-        <a href="#">Africa &amp; the Middle East</a>
-        <a href="#">Asia-Pacific</a>
-        <a href="#">Europe</a>
-        <a href="#">Latin America &amp; the Caribbean</a>
-        <a href="#">North America</a>
-      </div>
-      <div class="hm-mega-col">
-        <h4>Practice Groups</h4>
-        <a href="#">Antitrust &amp; Competition</a>
-        <a href="#">Bankruptcy / Insolvency</a>
-        <a href="#">Construction &amp; Infrastructure</a>
-        <a href="#">Energy &amp; Environmental</a>
-        <a href="#">Finance &amp; Banking</a>
-        <a href="#">Global Trade &amp; Policy</a>
-        <a href="#">Immigration</a>
-        <a href="#">Insurance</a>
-        <a href="#">Intellectual Property</a>
-        <a href="#">International Litigation</a>
-      </div>
-    </div>
-  </div>
-  <div class="ds-spec ds-mb">Scrolled panel: rgba(255,255,255,0.98) &middot; Category titles: #4d6586 &middot; Links: #222 &middot; Same animation as default</div>
-
-  <!-- Behavior summary -->
-  <h3 style="font-size:14px;color:#888;margin:24px 0 12px;font-family:var(--font-ui);">Behavior Summary</h3>
-  <table class="ds-table">
-    <tr><th>Trigger</th><th>What happens</th><th>Transition</th></tr>
-    <tr><td>Page scrolls past hero</td><td>JS adds <code>.scrolled</code> to <code>.site-header</code>: bg turns white+blur, text turns dark, logo swaps</td><td>0.3s ease</td></tr>
-    <tr><td>Topbar on scroll</td><td><code>max-height: 36px &rarr; 0</code>, <code>opacity: 1 &rarr; 0</code> (collapses)</td><td>0.35s ease</td></tr>
-    <tr><td>Click "Expertise"</td><td>JS toggles <code>.open</code> on <code>.nav-dropdown</code>: mega panel fades in, chevron rotates 180&deg;</td><td>Panel: 0.3s ease &middot; Chevron: 0.25s</td></tr>
-    <tr><td>Nav link hover</td><td><code>opacity: 0.7</code></td><td>0.2s</td></tr>
-    <tr><td>Topbar link hover</td><td><code>opacity: 0.7</code></td><td>0.2s</td></tr>
-  </table>
-</section>
-
-
-<!-- ============================================================
-     5. CARDS
-============================================================ -->
-<section id="cards">
-  <h2 class="ds-title">Cards</h2>
-  <p class="ds-desc">Live hover demos using real CSS from sections.css. Hover to see interactions.</p>
-
-  <h3 style="font-size:14px;color:#888;margin-bottom:12px;font-family:var(--font-ui);">S4 Case Study Card</h3>
-  <p class="ds-note ds-mb">Hover: image blurs 10px (0.4s), overlay darkens 0.35 &rarr; 0.55, hidden content slides up (max-height 0 &rarr; 200px, translateY 16 &rarr; 0)</p>
-
-  <div class="ds-card-demo ds-mb">
-    <div class="s4-card">
-      <div class="s4-card-bg"><img src="assets/images/case-studies/Monaco_1a4d9a91b6.webp" alt="Monaco"></div>
-      <div class="s4-card-content">
-        <div class="s4-card-tag">
-          <span class="s4-tag-pill">New Member</span>
-          <span class="s4-geo-pill">Monaco</span>
+        <div class="docs-row">
+          <span class="docs-row__label">Display</span>
+          <h1 class="ds-display" data-live>Hero Headline</h1>
+          <span class="docs-row__px"><b data-live-px></b> / current</span>
         </div>
-        <div class="s4-card-title">TerraLex Welcomes Delforge Law in Monaco</div>
-        <div class="s4-card-reveal">
-          <p class="s4-card-desc">DL Corporate & Regulatory (Delforge Law), a leading business law firm based in Monaco, has joined the TerraLex global network.</p>
-          <a href="#" class="s4-card-link">Read story <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+
+        <div class="docs-row">
+          <span class="docs-row__label">H1</span>
+          <h2 class="ds-h1" data-live>Section Title</h2>
+          <span class="docs-row__px"><b data-live-px></b> / current</span>
+        </div>
+
+        <div class="docs-row">
+          <span class="docs-row__label">H2</span>
+          <h3 class="ds-h2" data-live>Sub-section heading</h3>
+          <span class="docs-row__px"><b data-live-px></b> / current</span>
+        </div>
+
+        <div class="docs-row">
+          <span class="docs-row__label">H3</span>
+          <h4 class="ds-h3" data-live>Card title</h4>
+          <span class="docs-row__px"><b data-live-px></b> / current</span>
+        </div>
+
+        <div class="docs-row">
+          <span class="docs-row__label">Body large</span>
+          <p class="ds-body-lg" data-live>A larger paragraph used for section descriptions and lead-ins. It stays comfortable to read across all screen sizes.</p>
+          <span class="docs-row__px"><b data-live-px></b> / current</span>
+        </div>
+
+        <div class="docs-row">
+          <span class="docs-row__label">Body</span>
+          <p class="ds-body" data-live>Default running text. The single body style for paragraphs across the site, scaling fluidly from 14&nbsp;px to 18&nbsp;px.</p>
+          <span class="docs-row__px"><b data-live-px></b> / current</span>
+        </div>
+
+        <div class="docs-row">
+          <span class="docs-row__label">Body small</span>
+          <p class="ds-body-sm" data-live>Card descriptions, captions, and secondary text where space is tight.</p>
+          <span class="docs-row__px"><b data-live-px></b> / current</span>
+        </div>
+
+        <div class="docs-row">
+          <span class="docs-row__label">Eyebrow</span>
+          <p class="ds-eyebrow" data-live>Section Label</p>
+          <span class="docs-row__px"><b data-live-px></b> / current</span>
+        </div>
+
+      </div>
+
+      <!-- Handoff spec table — target px at each breakpoint -->
+      <p class="docs-section__title" style="margin-top:40px;">Handoff spec — target px per breakpoint</p>
+      <p style="max-width:720px; color:rgba(10,10,15,0.6); font-size:14px; margin: -12px 0 16px;">
+        The live values above scale continuously between these targets. Use these numbers when speccing designs in Figma.
+      </p>
+      <div class="docs-block">
+        <table class="docs-spec">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Mobile<br><small style="opacity:.5;">≤640</small></th>
+              <th>Tablet<br><small style="opacity:.5;">641–1024</small></th>
+              <th>Laptop<br><small style="opacity:.5;">1025–1439</small></th>
+              <th>Desktop<br><small style="opacity:.5;">1440–1919</small></th>
+              <th>Large<br><small style="opacity:.5;">≥1920</small></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Display</td><td>40</td><td>56</td><td>72</td><td>88</td><td>100</td></tr>
+            <tr><td>H1</td>     <td>36</td><td>44</td><td>52</td><td>64</td><td>72</td></tr>
+            <tr><td>H2</td>     <td>28</td><td>32</td><td>36</td><td>40</td><td>44</td></tr>
+            <tr><td>H3</td>     <td>20</td><td>22</td><td>24</td><td>28</td><td>32</td></tr>
+            <tr><td>Body large</td><td>16</td><td>17</td><td>18</td><td>20</td><td>22</td></tr>
+            <tr><td>Body</td>   <td>14</td><td>15</td><td>16</td><td>17</td><td>18</td></tr>
+            <tr><td>Body small</td><td>12</td><td>12</td><td>13</td><td>14</td><td>14</td></tr>
+            <tr><td>Eyebrow</td><td>13</td><td>14</td><td>14</td><td>15</td><td>15</td></tr>
+            <tr><td>Button label</td><td>12</td><td>12</td><td>13</td><td>13</td><td>14</td></tr>
+            <tr><td>Section pad-x</td><td>24</td><td>40</td><td>56</td><td>72</td><td>80</td></tr>
+            <tr><td>Section pad-y</td><td>56</td><td>80</td><td>96</td><td>112</td><td>120</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ─── Modifiers ─── -->
+    <section class="docs-section" id="modifiers">
+      <p class="docs-section__title">Title modifiers — split styling</p>
+      <p style="max-width:720px; color:rgba(10,10,15,0.6); font-size:14px; margin: -12px 0 24px;">
+        Wrap parts of any title in <code>&lt;span class="ds-thin"&gt;</code> for the gray, light half,
+        and <code>&lt;span class="ds-bold"&gt;</code> for the black, bold half. The modifiers work on
+        any heading size and on both light and dark backgrounds (add <code>.on-dark</code> to the parent).
+      </p>
+
+      <div class="docs-block">
+        <h2 class="ds-h1" style="margin-bottom: 24px;">
+          <span class="ds-thin">A quick glance at the </span><span class="ds-bold">depth and reach of TerraLex.</span>
+        </h2>
+        <h3 class="ds-h2">
+          <span class="ds-thin">News &amp; </span><span class="ds-bold">Insights</span>
+        </h3>
+      </div>
+
+      <div class="docs-block docs-block--dark on-dark">
+        <h2 class="ds-h1" style="margin-bottom: 24px;">
+          <span class="ds-thin">Defined by responsiveness. </span><span class="ds-bold">Committed to collaboration.</span>
+        </h2>
+        <p class="ds-body-lg" style="margin-top:16px;">Same modifiers, dark background. Just add <code>.on-dark</code> to a parent.</p>
+      </div>
+    </section>
+
+    <!-- ─── Buttons ─── -->
+    <section class="docs-section" id="buttons">
+      <p class="docs-section__title">Buttons — sharp rectangles</p>
+
+      <div class="docs-block">
+        <div class="docs-row">
+          <span class="docs-row__label">Primary</span>
+          <div class="docs-cluster">
+            <a class="ds-btn ds-btn-primary ds-btn-lg" href="#">Find Trusted Counsel</a>
+            <a class="ds-btn ds-btn-primary" href="#">Find Trusted Counsel</a>
+            <a class="ds-btn ds-btn-primary ds-btn-sm" href="#">Find Counsel</a>
+            <button class="ds-btn ds-btn-primary" disabled>Disabled</button>
+          </div>
+        </div>
+
+        <div class="docs-row">
+          <span class="docs-row__label">Secondary</span>
+          <div class="docs-cluster">
+            <a class="ds-btn ds-btn-secondary ds-btn-lg" href="#">Learn More</a>
+            <a class="ds-btn ds-btn-secondary" href="#">Learn More</a>
+            <a class="ds-btn ds-btn-secondary ds-btn-sm" href="#">Learn More</a>
+            <button class="ds-btn ds-btn-secondary" disabled>Disabled</button>
+          </div>
+        </div>
+
+        <div class="docs-row">
+          <span class="docs-row__label">Ghost</span>
+          <div class="docs-cluster">
+            <a class="ds-btn ds-btn-ghost" href="#">
+              How TerraLex Works
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="s4-card">
-      <div class="s4-card-bg"><img src="assets/images/case-studies/NextGen.jpg" alt="NextGen"></div>
-      <div class="s4-card-content">
-        <div class="s4-card-tag">
-          <span class="s4-tag-pill">Leadership</span>
-          <span class="s4-geo-pill">Global</span>
+      <div class="docs-block docs-block--dark on-dark">
+        <div class="docs-row" style="border-color: rgba(255,255,255,0.08);">
+          <span class="docs-row__label" style="color:rgba(255,255,255,0.45);">Outline</span>
+          <div class="docs-cluster">
+            <a class="ds-btn ds-btn-outline ds-btn-lg" href="#">About TerraLex</a>
+            <a class="ds-btn ds-btn-outline" href="#">About TerraLex</a>
+            <a class="ds-btn ds-btn-outline ds-btn-sm" href="#">About</a>
+          </div>
         </div>
-        <div class="s4-card-title">Inaugural NextGen Advisory Committee</div>
-        <div class="s4-card-reveal">
-          <p class="s4-card-desc">TerraLex announces the formation of its first-ever NextGen Advisory Committee, comprising eight dynamic lawyers.</p>
-          <a href="#" class="s4-card-link">Read story <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="docs-row" style="border: none;">
+          <span class="docs-row__label" style="color:rgba(255,255,255,0.45);">Ghost</span>
+          <div class="docs-cluster">
+            <a class="ds-btn ds-btn-ghost" href="#">
+              How TerraLex Works
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <h3 style="font-size:14px;color:#888;margin-bottom:12px;font-family:var(--font-ui);">S8 Guide Card</h3>
-  <p class="ds-note ds-mb">Hover: background image fades in (0.35s), text flips to white, preview link appears</p>
+    <!-- ─── Headers ─── -->
+    <section class="docs-section" id="headers">
+      <p class="docs-section__title">Header variants</p>
+      <p style="max-width:720px; color:rgba(10,10,15,0.6); font-size:14px; margin: -12px 0 24px;">
+        Two states only — transparent over the hero, and white after scroll.
+        Both share the same two-layer structure: utility topbar on top, main nav below.
+      </p>
 
-  <div class="ds-card-demo ds-mb">
-    <div class="s8-guide-card" style="--card-bg:url('/assets/images/guides/CBG to Artificial Intelligence.jpg')">
-      <div class="s8-card-bg"></div>
-      <span class="s8-guide-num">Guide 01</span>
-      <p class="s8-guide-title">Artificial Intelligence</p>
-      <p class="s8-guide-desc">AI regulation, liability frameworks, and compliance strategies across jurisdictions.</p>
-      <a href="#" class="s8-card-preview">Preview <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    </div>
+      <p class="docs-row__label" style="margin: 0 0 8px;">Default — transparent over hero</p>
+      <div class="docs-header-demo" style="margin-bottom: 32px;">
+        <header class="ds-header">
+          <div class="ds-header-topbar">
+            <div class="dh-topbar-inner">
+              <a class="ds-header-link" href="#">Member Directory</a><span class="ds-header-link dh-sep">|</span>
+              <a class="ds-header-link" href="#">TLC Sign-On</a><span class="ds-header-link dh-sep">|</span>
+              <a class="ds-header-link" href="#">Ask myLexi</a><span class="ds-header-link dh-sep">|</span>
+              <a class="ds-header-link" href="#">Contact Us</a>
+            </div>
+          </div>
+          <nav class="ds-header-nav">
+            <span class="ds-header-link dh-brand">TerraLex</span>
+            <div class="dh-links">
+              <a class="ds-header-link" href="#">Cross-Border Guides</a>
+              <a class="ds-header-link" href="#">Expertise</a>
+              <a class="ds-header-link" href="#">Events Hub</a>
+              <a class="ds-header-link" href="#">Global Insights</a>
+              <a class="ds-header-link" href="#">Success Stories</a>
+              <a class="ds-header-link" href="#">About</a>
+            </div>
+            <div class="dh-actions">
+              <svg class="dh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:currentColor;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span class="dh-hamburger ds-header-link"><span></span><span></span><span></span></span>
+            </div>
+          </nav>
+        </header>
+      </div>
 
-    <div class="s8-guide-card" style="--card-bg:url('/assets/images/guides/CBG to Mergers & Acquisitions.jpg')">
-      <div class="s8-card-bg"></div>
-      <span class="s8-guide-num">Guide 02</span>
-      <p class="s8-guide-title">Mergers & Acquisitions</p>
-      <p class="s8-guide-desc">Deal structuring, due diligence frameworks, and regulatory approvals for international acquisitions.</p>
-      <a href="#" class="s8-card-preview">Preview <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    </div>
-  </div>
-</section>
+      <p class="docs-row__label" style="margin: 0 0 8px;">Scrolled — white panel</p>
+      <div class="docs-header-demo docs-header-demo--scrolled">
+        <header class="ds-header is-scrolled">
+          <div class="ds-header-topbar">
+            <div class="dh-topbar-inner">
+              <a class="ds-header-link" href="#">Member Directory</a><span class="ds-header-link dh-sep">|</span>
+              <a class="ds-header-link" href="#">TLC Sign-On</a><span class="ds-header-link dh-sep">|</span>
+              <a class="ds-header-link" href="#">Ask myLexi</a><span class="ds-header-link dh-sep">|</span>
+              <a class="ds-header-link" href="#">Contact Us</a>
+            </div>
+          </div>
+          <nav class="ds-header-nav">
+            <span class="ds-header-link dh-brand">TerraLex</span>
+            <div class="dh-links">
+              <a class="ds-header-link" href="#">Cross-Border Guides</a>
+              <a class="ds-header-link" href="#">Expertise</a>
+              <a class="ds-header-link" href="#">Events Hub</a>
+              <a class="ds-header-link" href="#">Global Insights</a>
+              <a class="ds-header-link" href="#">Success Stories</a>
+              <a class="ds-header-link" href="#">About</a>
+            </div>
+            <div class="dh-actions">
+              <svg class="dh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:currentColor;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span class="dh-hamburger ds-header-link"><span></span><span></span><span></span></span>
+            </div>
+          </nav>
+        </header>
+      </div>
+    </section>
 
+    <!-- ─── Section structure ─── -->
+    <section class="docs-section" id="sections">
+      <p class="docs-section__title">Section structure — fluid padding</p>
+      <p style="max-width:720px; color:rgba(10,10,15,0.6); font-size:14px; margin: -12px 0 24px;">
+        Apply <code>.ds-section</code> for standard padding,
+        <code>.ds-section-tight</code> or <code>.ds-section-loose</code> to vary vertical rhythm.
+        Wrap content in <code>.ds-container</code> to cap width at 1680&nbsp;px.
+      </p>
 
-<!-- ============================================================
-     6. INTERACTIVE PATTERNS
-============================================================ -->
-<section id="interactions">
-  <h2 class="ds-title">Interactive Patterns</h2>
-  <p class="ds-desc">Behavior descriptions for JS-driven and CSS state-change interactions.</p>
+      <div class="ds-section" style="background:#fff; border:1px solid rgba(10,10,15,0.06);">
+        <div class="ds-container">
+          <p class="ds-eyebrow" style="margin-bottom:16px;">Section example</p>
+          <h2 class="ds-h1" style="max-width: 800px;">
+            <span class="ds-thin">Find the right firm. </span><span class="ds-bold">Contact the right lawyer.</span>
+          </h2>
+          <p class="ds-body-lg" style="margin-top:24px; max-width:640px;">
+            At TerraLex, we connect you with a dynamic network of leading law firms across the globe.
+          </p>
+          <div style="margin-top:32px; display:flex; gap:16px;">
+            <a class="ds-btn ds-btn-primary" href="#">Find Counsel</a>
+            <a class="ds-btn ds-btn-ghost" href="#">
+              How it works
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <h3 style="font-size:14px;color:#888;margin-bottom:12px;font-family:var(--font-ui);">Header Scroll States</h3>
-  <table class="ds-table ds-mb">
-    <tr><th>State</th><th>Background</th><th>Text</th><th>Logo</th></tr>
-    <tr>
-      <td><code>.site-header</code> (default)</td>
-      <td>Transparent</td>
-      <td>White (rgba 255,255,255,0.8)</td>
-      <td><code>.logo-hero</code> (white SVG)</td>
-    </tr>
-    <tr>
-      <td><code>.site-header.scrolled</code></td>
-      <td>rgba(245,245,245,0.9) + blur(12px)</td>
-      <td>Dark (#171717)</td>
-      <td><code>.logo-scrolled</code> (dark SVG)</td>
-    </tr>
-  </table>
-  <div class="ds-spec">Transition: background 0.3s ease, border-color 0.3s ease &middot; Topbar collapses on scroll (max-height: 0, opacity: 0)</div>
+    <!-- ─── Colors ─── -->
+    <section class="docs-section" id="colors">
+      <p class="docs-section__title">Colors</p>
+      <div class="docs-block">
+        <div class="docs-swatches">
+          <div><div class="docs-swatch" style="background:#0a0a0f;"></div><span class="docs-swatch__label">#0a0a0f · ink</span></div>
+          <div><div class="docs-swatch" style="background:#4d6586;"></div><span class="docs-swatch__label">#4d6586 · primary blue</span></div>
+          <div><div class="docs-swatch" style="background:#3f5572;"></div><span class="docs-swatch__label">#3f5572 · primary hover</span></div>
+          <div><div class="docs-swatch" style="background:#8bb898;"></div><span class="docs-swatch__label">#8bb898 · accent green</span></div>
+          <div><div class="docs-swatch" style="background:#f6f6f7;"></div><span class="docs-swatch__label">#f6f6f7 · surface</span></div>
+          <div><div class="docs-swatch" style="background:#ffffff;"></div><span class="docs-swatch__label">#ffffff · paper</span></div>
+        </div>
+      </div>
+    </section>
 
-  <h3 style="font-size:14px;color:#888;margin:24px 0 12px;font-family:var(--font-ui);">Mega Dropdown</h3>
-  <table class="ds-table ds-mb">
-    <tr><th>State</th><th>Chevron</th><th>Panel</th></tr>
-    <tr>
-      <td>Closed</td>
-      <td>rotate(0)</td>
-      <td>opacity: 0, visibility: hidden, translateY(-8px)</td>
-    </tr>
-    <tr>
-      <td><code>.nav-dropdown.open</code></td>
-      <td>rotate(180deg) 0.25s</td>
-      <td>opacity: 1, visibility: visible, translateY(0) 0.3s</td>
-    </tr>
-  </table>
+    <!-- ─── Spacing ─── -->
+    <section class="docs-section" id="spacing">
+      <p class="docs-section__title">Spacing — section padding scales</p>
+      <div class="docs-block">
+        <p class="ds-body" style="margin-bottom:16px;">
+          Section horizontal padding (<code>--ds-section-px</code>):
+        </p>
+        <div class="docs-spacer" style="width: var(--ds-section-px);">live value</div>
 
-  <h3 style="font-size:14px;color:#888;margin:24px 0 12px;font-family:var(--font-ui);">Chat Widget</h3>
-  <table class="ds-table ds-mb">
-    <tr><th>State</th><th>Visible</th><th>Animation</th></tr>
-    <tr>
-      <td>Pill (default)</td>
-      <td><code>.chat-pill</code></td>
-      <td>Hover: translateY(-2px), box-shadow increase (0.25s)</td>
-    </tr>
-    <tr>
-      <td>Panel open</td>
-      <td><code>.chat-panel.open</code></td>
-      <td><code>chatSlideUp</code> keyframe: translateY(16px) + opacity 0 &rarr; rest (0.35s)</td>
-    </tr>
-  </table>
+        <p class="ds-body" style="margin-top:32px; margin-bottom:16px;">
+          Section vertical padding (<code>--ds-section-py</code>):
+        </p>
+        <div class="docs-spacer" style="width: var(--ds-section-py);">live value</div>
+      </div>
+    </section>
 
-  <h3 style="font-size:14px;color:#888;margin:24px 0 12px;font-family:var(--font-ui);">Transition Tokens</h3>
-  <table class="ds-table">
-    <tr><th>Token</th><th>Value</th><th>Used By</th></tr>
-    <tr><td><code>--ease-fast</code></td><td>0.2s</td><td>Button hover, link hover, card-link arrow, nav links</td></tr>
-    <tr><td><code>--ease-normal</code></td><td>0.3s ease</td><td>Header scroll, mega dropdown, nav color changes</td></tr>
-    <tr><td><code>--ease-smooth</code></td><td>0.4s ease</td><td>Card image blur, overlay transitions, card reveals</td></tr>
-  </table>
-</section>
+  </main>
+</div>
 
+<!-- Live breakpoint indicator -->
+<div class="docs-bp">
+  <span class="docs-bp__dot"></span>
+  <span class="docs-bp__label"></span>
+</div>
 
-<!-- ============================================================
-     7. SPACING
-============================================================ -->
-<section id="spacing">
-  <h2 class="ds-title">Spacing</h2>
-  <p class="ds-desc">8pt grid system. All spacing tokens from tokens.css.</p>
+<script>
+  // Update live pixel readouts for every sample element
+  (function(){
+    const pairs = Array.from(document.querySelectorAll('[data-live]')).map(el => {
+      const row = el.closest('.docs-row');
+      const out = row ? row.querySelector('[data-live-px]') : null;
+      return { el, out };
+    }).filter(p => p.out);
 
-  <div class="ds-on-light">
-    <div class="ds-space-bar"><div class="ds-space-bar-fill" style="width:4px"></div><span class="ds-space-bar-label">--sp-4 &middot; 4px</span></div>
-    <div class="ds-space-bar"><div class="ds-space-bar-fill" style="width:8px"></div><span class="ds-space-bar-label">--sp-8 &middot; 8px</span></div>
-    <div class="ds-space-bar"><div class="ds-space-bar-fill" style="width:12px"></div><span class="ds-space-bar-label">--sp-12 &middot; 12px</span></div>
-    <div class="ds-space-bar"><div class="ds-space-bar-fill" style="width:14px"></div><span class="ds-space-bar-label">--sp-14 &middot; 14px</span></div>
-    <div class="ds-space-bar"><div class="ds-space-bar-fill" style="width:16px"></div><span class="ds-space-bar-label">--sp-16 &middot; 16px</span></div>
-    <div class="ds-space-bar"><div class="ds-space-bar-fill" style="width:20px"></div><span class="ds-space-bar-label">--sp-20 &middot; 20px</span></div>
-    <div class="ds-space-bar"><div class="ds-space-bar-fill" style="width:24px"></div><span class="ds-space-bar-label">--sp-24 &middot; 24px</span></div>
-    <div class="ds-space-bar"><div class="ds-space-bar-fill" style="width:32px"></div><span class="ds-space-bar-label">--sp-32 &middot; 32px</span></div>
-    <div class="ds-space-bar"><div class="ds-space-bar-fill" style="width:48px"></div><span class="ds-space-bar-label">--sp-48 &middot; 48px</span></div>
-    <div class="ds-space-bar"><div class="ds-space-bar-fill" style="width:56px"></div><span class="ds-space-bar-label">--sp-56 &middot; 56px</span></div>
-    <div class="ds-space-bar"><div class="ds-space-bar-fill" style="width:80px"></div><span class="ds-space-bar-label">--sp-80 &middot; 80px</span></div>
-  </div>
-</section>
+    function update() {
+      pairs.forEach(({el, out}) => {
+        const px = parseFloat(getComputedStyle(el).fontSize);
+        out.textContent = (Math.round(px * 10) / 10) + 'px';
+      });
+    }
+    update();
+    window.addEventListener('resize', update);
+  })();
+</script>
 
-
-<!-- ============================================================
-     8. Z-INDEX
-============================================================ -->
-<section id="zindex">
-  <h2 class="ds-title">Z-Index Stack</h2>
-  <p class="ds-desc">Layer order from highest to lowest.</p>
-
-  <div class="ds-zstack">
-    <div class="ds-zlayer" style="background:rgba(77,101,134,0.15);"><code>z-9999</code> Chat widget <code>--z-chat</code></div>
-    <div class="ds-zlayer" style="background:rgba(77,101,134,0.12);"><code>z-200</code> Site header <code>--z-header</code></div>
-    <div class="ds-zlayer" style="background:rgba(77,101,134,0.10);"><code>z-199</code> Mega dropdown <code>--z-mega</code></div>
-    <div class="ds-zlayer" style="background:rgba(77,101,134,0.08);"><code>z-50</code> Hero ticker</div>
-    <div class="ds-zlayer" style="background:rgba(77,101,134,0.06);"><code>z-20</code> Tooltip <code>--z-tooltip</code></div>
-    <div class="ds-zlayer" style="background:rgba(77,101,134,0.04);"><code>z-5</code> Slide content</div>
-    <div class="ds-zlayer" style="background:rgba(77,101,134,0.02);"><code>z-1</code> Default</div>
-  </div>
-</section>
-
-
-<!-- ============================================================
-     9. ANIMATIONS
-============================================================ -->
-<section id="animations">
-  <h2 class="ds-title">Animation Reference</h2>
-  <p class="ds-desc">GSAP ScrollTrigger patterns from entrance-animations.js</p>
-
-  <table class="ds-table">
-    <tr><th>Pattern</th><th>Config</th><th>Used By</th></tr>
-    <tr>
-      <td>Reveal from below</td>
-      <td><code>autoAlpha:0, y:40, duration:1, ease:power3.out</code></td>
-      <td>Section headings, labels, descriptions, buttons</td>
-    </tr>
-    <tr>
-      <td>Staggered reveal</td>
-      <td><code>+ stagger:0.1</code></td>
-      <td>S3 stat cells, S6 event cards, S8 guide cards, footer nav groups</td>
-    </tr>
-    <tr>
-      <td>Hero cascade</td>
-      <td><code>delay: 0.3 / 0.55 / 0.75 / 0.9</code></td>
-      <td>Headline, body, CTAs, ticker (sequential)</td>
-    </tr>
-    <tr>
-      <td>Parallax scrub</td>
-      <td><code>yPercent:20, ease:none, scrub:true</code></td>
-      <td>S9 CTA background image</td>
-    </tr>
-    <tr>
-      <td>S5 criteria fly-out</td>
-      <td>Custom IIFE: scroll-scrubbed radial expansion + comet SVG pulses</td>
-      <td>S5 standards section (s5-criteria-flyout.js)</td>
-    </tr>
-    <tr>
-      <td>S4 zoom timeline</td>
-      <td>ScrollTrigger pin + frame scrub (71 frames)</td>
-      <td>S4 case studies parallax (s4-zoom-parallax.js)</td>
-    </tr>
-  </table>
-
-  <div class="ds-mt">
-    <div class="ds-spec">Default ScrollTrigger: <code>start: 'top 85%'</code> &middot; <code>toggleActions: 'play none none none'</code></div>
-    <div class="ds-spec">Default ease: <code>power3.out</code> &middot; Smooth scroll: Lenis (lerp-based)</div>
-  </div>
-</section>
-
-
-<!-- ============================================================
-     10. ICONS
-============================================================ -->
-<section id="icons">
-  <h2 class="ds-title">Icons</h2>
-  <p class="ds-desc">All inline SVGs used across the site. No icon font or sprite.</p>
-
-  <div class="ds-icon-grid">
-    <div class="ds-icon-item">
-      <svg width="32" height="32" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div style="font-family:var(--font-ui);font-size:12px;color:#444;">Arrow Right</div>
-      <div class="ds-spec">16&times;16 &middot; CTAs, card links, ghost buttons</div>
-    </div>
-
-    <div class="ds-icon-item">
-      <svg width="20" height="12" viewBox="0 0 10 6" fill="none" stroke="#222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg>
-      <div style="font-family:var(--font-ui);font-size:12px;color:#444;">Chevron Down</div>
-      <div class="ds-spec">10&times;6 &middot; Dropdown trigger</div>
-    </div>
-
-    <div class="ds-icon-item">
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <div style="font-family:var(--font-ui);font-size:12px;color:#444;">Search</div>
-      <div class="ds-spec">20&times;20 &middot; Nav search button</div>
-    </div>
-
-    <div class="ds-icon-item">
-      <svg width="24" height="24" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="#222" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div style="font-family:var(--font-ui);font-size:12px;color:#444;">Select Chevron</div>
-      <div class="ds-spec">12&times;12 &middot; S2 search dropdowns</div>
-    </div>
-
-    <div class="ds-icon-item">
-      <svg width="28" height="28" viewBox="0 0 14 14" fill="none" stroke="#222" stroke-width="1.6" stroke-linecap="round"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
-      <div style="font-family:var(--font-ui);font-size:12px;color:#444;">Close / Plus</div>
-      <div class="ds-spec">14&times;14 &middot; Chat close (rotated 45&deg;)</div>
-    </div>
-
-    <div class="ds-icon-item">
-      <svg width="28" height="28" viewBox="0 0 14 14" fill="none"><path d="M1 13L13 1M13 1H4M13 1v9" stroke="#222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div style="font-family:var(--font-ui);font-size:12px;color:#444;">Send Arrow</div>
-      <div class="ds-spec">14&times;14 &middot; Chat send button</div>
-    </div>
-  </div>
-</section>
-
-
-</main>
 </body>
 </html>

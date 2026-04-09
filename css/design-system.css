@@ -1,0 +1,425 @@
+/* ============================================================
+   TerraLex Design System
+   Single source of truth for typography, buttons, spacing,
+   header variants, and section structure.
+
+   All sizes scale fluidly between breakpoints using clamp().
+   Breakpoints: mobile ≤640, tablet 641-1024, laptop 1025-1439,
+                desktop 1440-1919, large ≥1920
+============================================================ */
+
+:root {
+  /* ── Fluid scaling helper ────────────────────────────
+     We use clamp(min, fluid, max) where the fluid value is
+     interpolated against viewport width. The vw multiplier is
+     calibrated so the value hits the target at each breakpoint.
+     ─────────────────────────────────────────────────── */
+
+  /* ── TYPOGRAPHY SCALE ────────────────────────────────
+     Fluid via clamp(). Target pixel values per breakpoint
+     (for designers / Figma handoff):
+
+     Token       | Mobile(375) | Tablet(800) | Laptop(1280) | Desktop(1680) | Large(1920)
+     ------------|-------------|-------------|--------------|---------------|------------
+     display     |    40       |    64       |     88       |     100       |    100
+     h1          |    36       |    52       |     64       |      72       |     72
+     h2          |    28       |    36       |     42       |      44       |     44
+     h3          |    20       |    25       |     30       |      32       |     32
+     body-lg     |    16       |    19       |     21       |      22       |     22
+     body        |    14       |    16       |     17       |      18       |     18
+     body-sm     |    12       |    13       |     13.5     |      14       |     14
+     eyebrow     |    13       |    14.4     |     15       |      15       |     15
+     btn-label   |    12       |    13       |     13.6     |      14       |     14
+
+     Section px  |    24       |    48       |     62       |      76       |     80
+     Section py  |    56       |    88       |     110      |      123      |     120
+     ─────────────────────────────────────────────────── */
+
+  /* Display — hero headline only. 40 → 100 */
+  --ds-fs-display: clamp(2.5rem, 1.5rem + 5vw, 6.25rem);
+  --ds-lh-display: 0.92;
+  --ds-ls-display: -0.02em;
+
+  /* H1 — section titles. 36 → 72 */
+  --ds-fs-h1: clamp(2.25rem, 1.6rem + 3.2vw, 4.5rem);
+  --ds-lh-h1: 1.05;
+  --ds-ls-h1: -0.025em;
+
+  /* H2 — sub-section headings. 28 → 44 */
+  --ds-fs-h2: clamp(1.75rem, 1.4rem + 1.6vw, 2.75rem);
+  --ds-lh-h2: 1.1;
+  --ds-ls-h2: -0.015em;
+
+  /* H3 — card titles. 20 → 32 */
+  --ds-fs-h3: clamp(1.25rem, 1rem + 1.2vw, 2rem);
+  --ds-lh-h3: 1.2;
+  --ds-ls-h3: -0.01em;
+
+  /* Body large — section descriptions. 16 → 22 */
+  --ds-fs-body-lg: clamp(1rem, 0.875rem + 0.6vw, 1.375rem);
+  --ds-lh-body-lg: 1.6;
+
+  /* Body — regular copy. 14 → 18 */
+  --ds-fs-body: clamp(0.875rem, 0.79rem + 0.4vw, 1.125rem);
+  --ds-lh-body: 1.6;
+
+  /* Body small — card body, captions. 12 → 14 */
+  --ds-fs-body-sm: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
+  --ds-lh-body-sm: 1.5;
+
+  /* Eyebrow — uppercase section labels. 13 → 15 */
+  --ds-fs-eyebrow: clamp(0.8125rem, 0.77rem + 0.18vw, 0.9375rem);
+  --ds-lh-eyebrow: 1.4;
+  --ds-ls-eyebrow: 0.18em;
+
+  /* Button label. 12 → 14 */
+  --ds-fs-btn: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
+  --ds-ls-btn: 0.1em;
+
+  /* ── SECTION SPACING ─────────────────────────────────
+     Horizontal padding: 24 → 80
+     Vertical padding:   56 → 120
+     ─────────────────────────────────────────────────── */
+  --ds-section-px: clamp(1.5rem, 0.5rem + 3vw, 5rem);
+  --ds-section-py: clamp(3.5rem, 2rem + 4vw, 7.5rem);
+
+  /* ── BUTTONS ─────────────────────────────────────────
+     Primary brand color (sharp rectangle, no rounding) */
+  --ds-btn-primary-bg:        #4d6586;
+  --ds-btn-primary-bg-hover:  #3f5572;
+  --ds-btn-primary-bg-active: #344660;
+  --ds-btn-primary-fg:        #ffffff;
+
+  --ds-btn-secondary-bg:        #ffffff;
+  --ds-btn-secondary-bg-hover:  #f3f3f3;
+  --ds-btn-secondary-bg-active: #e6e6e6;
+  --ds-btn-secondary-fg:        #0a0a0f;
+  --ds-btn-secondary-border:    rgba(10,10,15,0.15);
+
+  --ds-btn-outline-fg:          rgba(255,255,255,0.85);
+  --ds-btn-outline-fg-hover:    #ffffff;
+  --ds-btn-outline-border:      rgba(255,255,255,0.35);
+
+  --ds-btn-h-lg: 56px;
+  --ds-btn-h-md: 48px;
+  --ds-btn-h-sm: 40px;
+  --ds-btn-px-lg: 36px;
+  --ds-btn-px-md: 28px;
+  --ds-btn-px-sm: 20px;
+
+  /* ── HEADER ────────────────────────────────────────── */
+  --ds-header-h: 60px;
+  --ds-header-topbar-h: 36px;
+
+  /* ── TRANSITION TOKENS ─────────────────────────────── */
+  --ds-ease-fast: 160ms cubic-bezier(.4,0,.2,1);
+  --ds-ease: 240ms cubic-bezier(.4,0,.2,1);
+  --ds-ease-slow: 380ms cubic-bezier(.4,0,.2,1);
+}
+
+/* ============================================================
+   TYPOGRAPHY COMPONENT CLASSES
+   Use these directly on <h1>/<h2>/<p> etc.
+   Apply modifier classes inside spans for the
+   "thin gray + bold" split-title pattern.
+============================================================ */
+
+.ds-display,
+.ds-h1,
+.ds-h2,
+.ds-h3 {
+  font-family: 'Source Sans 3', sans-serif;
+  margin: 0;
+  /* default — black, bold. Use .ds-thin span for gray half. */
+  color: #0a0a0f;
+  font-weight: 700;
+}
+
+.ds-display {
+  font-size: var(--ds-fs-display);
+  line-height: var(--ds-lh-display);
+  letter-spacing: var(--ds-ls-display);
+  text-transform: uppercase;
+}
+
+.ds-h1 {
+  font-size: var(--ds-fs-h1);
+  line-height: var(--ds-lh-h1);
+  letter-spacing: var(--ds-ls-h1);
+}
+
+.ds-h2 {
+  font-size: var(--ds-fs-h2);
+  line-height: var(--ds-lh-h2);
+  letter-spacing: var(--ds-ls-h2);
+}
+
+.ds-h3 {
+  font-size: var(--ds-fs-h3);
+  line-height: var(--ds-lh-h3);
+  letter-spacing: var(--ds-ls-h3);
+}
+
+.ds-body-lg {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: var(--ds-fs-body-lg);
+  line-height: var(--ds-lh-body-lg);
+  font-weight: 400;
+  color: rgba(10,10,15,0.65);
+  margin: 0;
+}
+
+.ds-body {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: var(--ds-fs-body);
+  line-height: var(--ds-lh-body);
+  font-weight: 400;
+  color: rgba(10,10,15,0.7);
+  margin: 0;
+}
+
+.ds-body-sm {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: var(--ds-fs-body-sm);
+  line-height: var(--ds-lh-body-sm);
+  font-weight: 400;
+  color: rgba(10,10,15,0.7);
+  margin: 0;
+}
+
+.ds-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: var(--ds-fs-eyebrow);
+  line-height: var(--ds-lh-eyebrow);
+  letter-spacing: var(--ds-ls-eyebrow);
+  text-transform: uppercase;
+  font-weight: 400;
+  color: rgba(10,10,15,0.5);
+  margin: 0;
+}
+
+/* ── Modifier classes (use on <span> inside any heading) ──
+   .ds-thin  → 300 weight, 40% color (the "gray half")
+   .ds-bold  → 700 weight, full color (the "bold half")
+   .ds-muted → 50% opacity of inherited color
+   These work on light AND dark backgrounds via .on-dark
+*/
+.ds-thin  { font-weight: 300; color: rgba(10,10,15,0.4); }
+.ds-bold  { font-weight: 700; color: #0a0a0f; }
+.ds-muted { opacity: 0.5; }
+
+/* When parent is on-dark, modifiers flip to white scale */
+.on-dark .ds-display,
+.on-dark .ds-h1,
+.on-dark .ds-h2,
+.on-dark .ds-h3,
+.on-dark.ds-display,
+.on-dark.ds-h1,
+.on-dark.ds-h2,
+.on-dark.ds-h3 { color: #ffffff; }
+
+.on-dark .ds-body-lg,
+.on-dark.ds-body-lg { color: rgba(255,255,255,0.75); }
+.on-dark .ds-body,
+.on-dark.ds-body    { color: rgba(255,255,255,0.8); }
+.on-dark .ds-body-sm,
+.on-dark.ds-body-sm { color: rgba(255,255,255,0.75); }
+.on-dark .ds-eyebrow,
+.on-dark.ds-eyebrow { color: rgba(255,255,255,0.55); }
+
+.on-dark .ds-thin   { font-weight: 300; color: rgba(255,255,255,0.4); }
+.on-dark .ds-bold   { font-weight: 700; color: #ffffff; }
+
+/* ============================================================
+   BUTTONS
+   All sharp rectangles, uppercase, DM Sans.
+   Default size = md. Add .ds-btn-lg / .ds-btn-sm to resize.
+============================================================ */
+
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-sizing: border-box;      /* height includes the 1px border so all variants match */
+
+  height: var(--ds-btn-h-md);
+  padding: 0 var(--ds-btn-px-md);
+
+  font-family: 'DM Sans', sans-serif;
+  font-size: var(--ds-fs-btn);
+  font-weight: 500;
+  letter-spacing: var(--ds-ls-btn);
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+
+  /* Every variant carries a 1px border so box-sizing math is identical.
+     Fill buttons use a transparent border that matches their background. */
+  border: 1px solid transparent;
+  border-radius: 0;            /* sharp rectangle, always */
+
+  cursor: pointer;
+  user-select: none;
+  transition: background var(--ds-ease-fast),
+              color var(--ds-ease-fast),
+              border-color var(--ds-ease-fast),
+              opacity var(--ds-ease-fast);
+}
+
+.ds-btn:focus-visible {
+  outline: 2px solid var(--ds-btn-primary-bg);
+  outline-offset: 2px;
+}
+
+.ds-btn[disabled],
+.ds-btn.is-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* size variants */
+.ds-btn-lg { height: var(--ds-btn-h-lg); padding: 0 var(--ds-btn-px-lg); }
+.ds-btn-sm { height: var(--ds-btn-h-sm); padding: 0 var(--ds-btn-px-sm); }
+
+/* Primary — filled blue rectangle (header / hero CTA) */
+.ds-btn-primary {
+  background: var(--ds-btn-primary-bg);
+  color: var(--ds-btn-primary-fg);
+  border-color: var(--ds-btn-primary-bg);
+}
+.ds-btn-primary:hover  { background: var(--ds-btn-primary-bg-hover);  border-color: var(--ds-btn-primary-bg-hover); }
+.ds-btn-primary:active { background: var(--ds-btn-primary-bg-active); border-color: var(--ds-btn-primary-bg-active); }
+
+/* Secondary — white fill, dark text, light border (sharp) */
+.ds-btn-secondary {
+  background: var(--ds-btn-secondary-bg);
+  color: var(--ds-btn-secondary-fg);
+  border-color: var(--ds-btn-secondary-border);
+}
+.ds-btn-secondary:hover  { background: var(--ds-btn-secondary-bg-hover); }
+.ds-btn-secondary:active { background: var(--ds-btn-secondary-bg-active); }
+
+/* Outline — transparent + border (use on dark backgrounds) */
+.ds-btn-outline {
+  background: transparent;
+  color: var(--ds-btn-outline-fg);
+  border-color: var(--ds-btn-outline-border);
+}
+.ds-btn-outline:hover {
+  color: var(--ds-btn-outline-fg-hover);
+  border-color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.06);
+}
+.ds-btn-outline:active { background: rgba(255,255,255,0.12); }
+
+/* Ghost — text + arrow, no chrome */
+.ds-btn-ghost {
+  background: transparent;
+  color: rgba(10,10,15,0.7);
+  padding: 0;
+  height: auto;
+  border: none;
+}
+.ds-btn-ghost:hover { color: #0a0a0f; }
+.on-dark .ds-btn-ghost,
+.on-dark.ds-btn-ghost { color: rgba(255,255,255,0.8); }
+.on-dark .ds-btn-ghost:hover,
+.on-dark.ds-btn-ghost:hover { color: #ffffff; }
+
+/* ============================================================
+   HEADER VARIANTS
+   Two states only — transparent over hero, white after scroll.
+
+   .ds-header              → default state (transparent)
+   .ds-header.is-scrolled  → white panel after scroll
+============================================================ */
+
+.ds-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  transition: background var(--ds-ease),
+              border-color var(--ds-ease),
+              backdrop-filter var(--ds-ease);
+}
+
+/* Default — transparent over hero, white nav text */
+.ds-header { background: transparent; }
+.ds-header .ds-header-topbar { background: rgba(0,0,0,0.25); }
+.ds-header .ds-header-nav    { background: transparent; }
+.ds-header .ds-header-link   { color: #ffffff; }
+
+/* Scrolled — white panel, dark nav text */
+.ds-header.is-scrolled {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.ds-header.is-scrolled .ds-header-topbar {
+  background: rgba(245,245,245,0.9);
+  border-bottom-color: rgba(0,0,0,0.06);
+}
+.ds-header.is-scrolled .ds-header-link { color: #171717; }
+
+/* Header building blocks */
+.ds-header-topbar {
+  height: var(--ds-header-topbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 var(--ds-section-px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  transition: background var(--ds-ease), border-color var(--ds-ease);
+}
+
+.ds-header-nav {
+  height: var(--ds-header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--ds-section-px);
+  transition: background var(--ds-ease);
+}
+
+.ds-header-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  transition: color var(--ds-ease), opacity var(--ds-ease-fast);
+}
+.ds-header-link:hover { opacity: 0.7; }
+
+/* ============================================================
+   SECTION STRUCTURE
+   .ds-section gives consistent fluid horizontal + vertical
+   padding. Add .ds-section-tight / .ds-section-loose to adjust.
+============================================================ */
+
+.ds-section {
+  position: relative;
+  width: 100%;
+  padding: var(--ds-section-py) var(--ds-section-px);
+}
+.ds-section-tight { padding-top: calc(var(--ds-section-py) * 0.6);
+                    padding-bottom: calc(var(--ds-section-py) * 0.6); }
+.ds-section-loose { padding-top: calc(var(--ds-section-py) * 1.4);
+                    padding-bottom: calc(var(--ds-section-py) * 1.4); }
+
+/* Optional dark variant — flips text colors via .on-dark */
+.ds-section-dark {
+  background: #0a0a0f;
+  color: #ffffff;
+}
+.ds-section-dark.ds-section,
+.ds-section-dark .ds-section { /* nothing extra; .on-dark handles text */ }
+
+/* Container — caps content width on huge screens */
+.ds-container {
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+}

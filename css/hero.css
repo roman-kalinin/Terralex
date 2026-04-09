@@ -13,6 +13,19 @@
   flex-direction: column;
 }
 
+/* Subtle top gradient — just enough to keep header menu legible over any slide */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 100%);
+}
+
 /* ----------------------------------------------------------------
    SLIDES — stacked, each absolutely fills the hero
 ---------------------------------------------------------------- */
@@ -47,15 +60,17 @@
 .slide-2 .slide-bg { background-image: url('../assets/images/hero/hero slide 2.png'); }
 .slide-3 .slide-bg { background-image: url('../assets/images/hero/Hero slide 3.png'); }
 
-/* Dark gradient overlay per slide */
+/* Progressive blur overlay anchored to the left side, where the text sits */
 .slide-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
+  background: linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 25%, rgba(0,0,0,0.08) 55%, rgba(0,0,0,0) 80%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 85%);
+  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 85%);
 }
-.slide-1 .slide-overlay { background: linear-gradient(152deg, rgba(0,0,0,0.54) 0%, rgba(0,0,0,0) 94%); }
-.slide-2 .slide-overlay { background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); }
-.slide-3 .slide-overlay { background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); }
 
 
 /* Slide fade transition */

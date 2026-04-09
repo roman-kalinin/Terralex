@@ -1,6 +1,6 @@
 /* hero-slider.js — Slide auto-advance, progress bars, ticker */
 {
-  const SLIDE_DURATION = 6000;
+  const SLIDE_DURATION = 12000;
   const slides    = document.querySelectorAll('.slide');
   const tickers   = document.querySelectorAll('.ticker-item');
   const bars      = Array.from(tickers).map(t => t.querySelector('.ticker-progress'));

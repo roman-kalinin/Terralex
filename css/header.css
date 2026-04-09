@@ -32,7 +32,7 @@
   opacity: 1;
 }
 .nav-topbar a {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   letter-spacing: 0.3px;
   color: rgba(255,255,255,0.8);
@@ -44,7 +44,7 @@
 .nav-topbar a:hover { opacity: 0.7; }
 .nav-topbar .sep {
   color: rgba(255,255,255,0.25);
-  font-size: 12px;
+  font-size: 14px;
   user-select: none;
 }
 .site-header.scrolled .nav-topbar a { color: #555; }
