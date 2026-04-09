@@ -182,6 +182,11 @@
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
+    // Lenis smooth scroll (set up in scroll-setup.js) doesn't always fire
+    // a window scroll event in sync — hook it directly when available.
+    if (window.lenis && typeof window.lenis.on === 'function') {
+      window.lenis.on('scroll', onScroll);
+    }
     update();
   })();
   reveal('.s9-eyebrow', { y: 30, duration: 0.8, trigger: '.s9-inner' });

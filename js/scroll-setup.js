@@ -9,6 +9,8 @@ const lenis = new Lenis({
   smoothWheel: true,
   smoothTouch: false,
 });
+// Expose for other scripts that need to subscribe to scroll updates.
+window.lenis = lenis;
 
 // Hook Lenis into GSAP ticker
 gsap.ticker.add(time => lenis.raf(time * 1000));
