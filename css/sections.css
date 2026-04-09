@@ -1118,6 +1118,12 @@
   font-weight: 600;
   color: #fff;
   letter-spacing: -1px;
+  will-change: opacity, transform, filter;
+}
+.s5-collab-text-alt {
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(12px);
 }
 
 /* Lines SVG layer */

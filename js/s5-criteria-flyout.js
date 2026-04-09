@@ -36,6 +36,8 @@
   var areaEl   = document.getElementById('s5Criteria');
   var linesSvg = document.getElementById('s5Lines');
   var mapBgEl  = document.querySelector('.s5-map-bg');
+  var collabTextEl    = document.getElementById('s5CollabText');
+  var standardsTextEl = document.getElementById('s5StandardsText');
   if (!areaEl || !innerEl || !pillEl) return;
 
   // ── Create item elements + SVG lines ────────────────────
@@ -134,6 +136,25 @@
       var mp = Math.max(0, Math.min(1, (progress - 0.5) / 0.4));
       var ep = 1 - (1 - mp) * (1 - mp); // ease-out quad
       mapBgEl.style.opacity = (0.225 * ep).toFixed(3);
+    }
+
+    // Pill text crossfade: "Collaboration" fades up + blurs out,
+    // "16 Standards" fades in from below + unblurs, between 40% and 75%
+    if (collabTextEl && standardsTextEl) {
+      var cp = Math.max(0, Math.min(1, (progress - 0.4) / 0.35));
+      cp = 1 - (1 - cp) * (1 - cp); // ease-out quad
+      // Collaboration: moves up, fades, blurs
+      var cYup   = -cp * 40;
+      var cBlur  = cp * 12;
+      collabTextEl.style.opacity = (1 - cp).toFixed(3);
+      collabTextEl.style.transform = 'translateY(' + cYup.toFixed(1) + 'px)';
+      collabTextEl.style.filter = 'blur(' + cBlur.toFixed(1) + 'px)';
+      // 16 Standards: rises from below, fades in, unblurs
+      var sYup   = (1 - cp) * 40;
+      var sBlur  = (1 - cp) * 12;
+      standardsTextEl.style.opacity = cp.toFixed(3);
+      standardsTextEl.style.transform = 'translateY(' + sYup.toFixed(1) + 'px)';
+      standardsTextEl.style.filter = 'blur(' + sBlur.toFixed(1) + 'px)';
     }
 
     // Items: fly out over 35–100% of scroll (no drift — static once placed)
