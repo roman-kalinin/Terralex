@@ -207,6 +207,7 @@
 .ds-thin  { font-weight: 300; color: rgba(10,10,15,0.4); }
 .ds-bold  { font-weight: 700; color: #0a0a0f; }
 .ds-muted { opacity: 0.5; }
+.ds-accent, .on-dark .ds-accent { color: var(--ds-btn-primary-bg); font-weight: 700; }
 
 /* When parent is on-dark, modifiers flip to white scale */
 .on-dark .ds-display,
