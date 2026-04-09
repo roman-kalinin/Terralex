@@ -147,33 +147,42 @@
   });
   // S9 container shrink: starts covering the full section (edge to edge,
   // top to bottom), shrinks to a centered ~1200px box with 120px top/bottom
-  // insets as the user scrolls in.
+  // insets as the user scrolls in. Plain scroll listener — easier to
+  // debug than ScrollTrigger scrub for this specific layout.
   (function setupS9Shrink(){
     var section = document.querySelector('.s9-cta');
     var rect    = document.querySelector('.s9-bg-overlay');
     if (!section || !rect) return;
-    var TARGET_W = 1200;
+    var TARGET_W  = 1200;
     var TARGET_TB = 120;
-    function sideInset() {
-      return Math.max(0, (section.offsetWidth - TARGET_W) / 2);
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var r = section.getBoundingClientRect();
+      var vh = window.innerHeight;
+      // start  : section top at 75% of viewport (r.top === vh*0.75) → progress 0
+      // end    : section top at 25% of viewport (r.top === vh*0.25) → progress 1
+      var startY = vh * 0.75;
+      var endY   = vh * 0.25;
+      var p = (startY - r.top) / (startY - endY);
+      if (p < 0) p = 0; else if (p > 1) p = 1;
+      var sw = section.offsetWidth;
+      var side = Math.max(0, (sw - TARGET_W) / 2);
+      var tb   = TARGET_TB * p;
+      var ls   = side * p;
+      rect.style.top    = tb + 'px';
+      rect.style.bottom = tb + 'px';
+      rect.style.left   = ls + 'px';
+      rect.style.right  = ls + 'px';
     }
-    gsap.fromTo(rect,
-      { top: 0, right: 0, bottom: 0, left: 0 },
-      {
-        top: TARGET_TB,
-        bottom: TARGET_TB,
-        left:  sideInset,
-        right: sideInset,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top bottom',
-          end:   'top 25%',
-          scrub: true,
-          invalidateOnRefresh: true
-        }
-      }
-    );
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
   })();
   reveal('.s9-eyebrow', { y: 30, duration: 0.8, trigger: '.s9-inner' });
   reveal('.s9-quote',   { y: 40, duration: 1,   trigger: '.s9-inner', delay: 0.1 });
