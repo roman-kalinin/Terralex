@@ -851,13 +851,14 @@
   justify-content: center;
   align-items: flex-start;
   padding: 48px;
+  gap: 32px;
 }
 .s4-cta-heading {
   font-family: 'Source Sans 3', sans-serif;
   font-size: 40px;
   line-height: 1.0;
   letter-spacing: -1.5px;
-  margin-bottom: 24px;
+  margin-bottom: 0;
 }
 .s4-cta-heading strong {
   font-weight: 700;
@@ -875,7 +876,7 @@
   color: rgba(255,255,255,0.7);
   line-height: 1.6;
   max-width: 274px;
-  margin-bottom: 40px;
+  margin-bottom: 0;
 }
 .s4-cta-btn {
   display: inline-flex;
