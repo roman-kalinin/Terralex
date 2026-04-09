@@ -145,6 +145,36 @@
     ease: 'none',
     scrollTrigger: { trigger: '.s9-cta', start: 'top bottom', end: 'bottom top', scrub: true }
   });
+  // S9 container shrink: starts covering the full section (edge to edge,
+  // top to bottom), shrinks to a centered ~1200px box with 120px top/bottom
+  // insets as the user scrolls in.
+  (function setupS9Shrink(){
+    var section = document.querySelector('.s9-cta');
+    var rect    = document.querySelector('.s9-bg-overlay');
+    if (!section || !rect) return;
+    var TARGET_W = 1200;
+    var TARGET_TB = 120;
+    function sideInset() {
+      return Math.max(0, (section.offsetWidth - TARGET_W) / 2);
+    }
+    gsap.fromTo(rect,
+      { top: 0, right: 0, bottom: 0, left: 0 },
+      {
+        top: TARGET_TB,
+        bottom: TARGET_TB,
+        left:  sideInset,
+        right: sideInset,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top bottom',
+          end:   'top 25%',
+          scrub: true,
+          invalidateOnRefresh: true
+        }
+      }
+    );
+  })();
   reveal('.s9-eyebrow', { y: 30, duration: 0.8, trigger: '.s9-inner' });
   reveal('.s9-quote',   { y: 40, duration: 1,   trigger: '.s9-inner', delay: 0.1 });
   reveal('.s9-attribution', { y: 20, duration: 0.6, trigger: '.s9-inner', delay: 0.2 });

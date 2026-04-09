@@ -395,7 +395,7 @@
   position: relative;
   flex: 1;
   min-width: 0;
-  height: 320px;
+  height: 460px;
   border-radius: 0;
   overflow: hidden;
   text-decoration: none;
@@ -423,10 +423,6 @@
   inset: 0;
   pointer-events: none;
   background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 25%, rgba(0,0,0,0.08) 55%, rgba(0,0,0,0) 80%);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 25%, rgba(0,0,0,0.3) 55%, rgba(0,0,0,0) 80%);
-  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 25%, rgba(0,0,0,0.3) 55%, rgba(0,0,0,0) 80%);
 }
 .s3b-card-overlay {
   position: relative;
@@ -444,13 +440,13 @@
 }
 .s3b-tag {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: 10px;
-  font-weight: 400;
+  font-size: 12px;
+  font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #000;
-  background: #fff;
-  border: 1px solid #fff;
+  color: #fff;
+  background: rgba(0,0,0,0.7);
+  border: 1px solid rgba(0,0,0,0.7);
   padding: 4px 12px;
 }
 .s3b-card-title {
@@ -760,22 +756,6 @@
     rgba(0,0,0,0.08) 55%,
     rgba(0,0,0,0) 80%
   );
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  mask-image: linear-gradient(
-    to top,
-    rgba(0,0,0,1) 0%,
-    rgba(0,0,0,0.8) 25%,
-    rgba(0,0,0,0.3) 55%,
-    rgba(0,0,0,0) 80%
-  );
-  -webkit-mask-image: linear-gradient(
-    to top,
-    rgba(0,0,0,1) 0%,
-    rgba(0,0,0,0.8) 25%,
-    rgba(0,0,0,0.3) 55%,
-    rgba(0,0,0,0) 80%
-  );
   transition: opacity 0.4s ease;
 }
 .s4-card:hover .s4-card-bg::after {
@@ -788,7 +768,7 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 20px;
 }
 
@@ -797,25 +777,16 @@
   align-items: center;
   gap: 8px;
 }
-.s4-tag-pill {
-  font-family: 'Source Sans 3', sans-serif;
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #000;
-  background: #fff;
-  border: 1px solid #fff;
-  padding: 4px 12px;
-}
+.s4-tag-pill,
 .s4-geo-pill {
   font-family: 'Source Sans 3', sans-serif;
-  font-size: 10px;
-  font-weight: 400;
+  font-size: 12px;
+  font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: #fff;
-  border: 1px solid #fff;
+  background: rgba(0,0,0,0.7);
+  border: 1px solid rgba(0,0,0,0.7);
   padding: 4px 12px;
 }
 
@@ -827,12 +798,10 @@
   letter-spacing: -0.5px;
   color: #fff;
   margin: 0;
-  max-width: 340px;
 }
 
 .s4-card-desc {
   margin: 0;
-  max-width: 380px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -955,13 +924,34 @@
   background: url('../assets/images/misc/Collaboration image.png') center/cover no-repeat fixed;
   clip: rect(0, auto, auto, 0);
 }
+/* Blurred duplicate of the bg image, masked so it only shows over the
+   bottom-left text area — actually replaces the sharp pixels there. */
 .s5-hero-img {
-  display: none; /* image is now a CSS fixed background */
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  filter: blur(24px);
+  transform: scale(1.08); /* hide blur edge bleed */
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 65% at 0% 100%,
+    #000 0%,
+    rgba(0,0,0,0.85) 30%,
+    rgba(0,0,0,0.4) 60%,
+    rgba(0,0,0,0) 85%
+  );
+  mask-image: radial-gradient(
+    ellipse 70% 65% at 0% 100%,
+    #000 0%,
+    rgba(0,0,0,0.85) 30%,
+    rgba(0,0,0,0.4) 60%,
+    rgba(0,0,0,0) 85%
+  );
 }
-/* Progressive blur focused on bottom-left where the text lives.
-   backdrop-filter + a radial mask so the blur fades from strong at the
-   bottom-left corner to none toward the top-right.
-   The background layer adds a subtle dark radial for text contrast. */
+/* Dark radial for text contrast (no backdrop-filter — the blurred
+   image layer above does the actual blurring). */
 .s5-hero-overlay {
   position: absolute;
   inset: 0;
@@ -971,22 +961,6 @@
     rgba(0,0,0,0.55) 0%,
     rgba(0,0,0,0.25) 45%,
     rgba(0,0,0,0) 80%
-  );
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  mask-image: radial-gradient(
-    ellipse 70% 65% at 0% 100%,
-    rgba(0,0,0,1) 0%,
-    rgba(0,0,0,0.85) 30%,
-    rgba(0,0,0,0.4) 60%,
-    rgba(0,0,0,0) 85%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 70% 65% at 0% 100%,
-    rgba(0,0,0,1) 0%,
-    rgba(0,0,0,0.85) 30%,
-    rgba(0,0,0,0.4) 60%,
-    rgba(0,0,0,0) 85%
   );
 }
 .s5-hero-text {
@@ -1352,22 +1326,6 @@
     rgba(0,0,0,0.08) 55%,
     rgba(0,0,0,0) 80%
   );
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  mask-image: linear-gradient(
-    to top,
-    rgba(0,0,0,1) 0%,
-    rgba(0,0,0,0.8) 25%,
-    rgba(0,0,0,0.3) 55%,
-    rgba(0,0,0,0) 80%
-  );
-  -webkit-mask-image: linear-gradient(
-    to top,
-    rgba(0,0,0,1) 0%,
-    rgba(0,0,0,0.8) 25%,
-    rgba(0,0,0,0.3) 55%,
-    rgba(0,0,0,0) 80%
-  );
   transition: opacity 0.4s ease;
 }
 .s6-event:hover .s6-event-bg::after {
@@ -1386,33 +1344,24 @@
 }
 
 /* Date label */
-.s6-event-date.is-upcoming {
-  align-self: flex-start;
-  color: #000;
-  background: #fff;
-  border: 1px solid #fff;
-  padding: 4px 12px;
-  font-weight: 400;
-}
-.s6-event-date.is-upcoming .s6-event-when,
-.s6-event-date.is-upcoming .s6-event-sep {
-  color: #000;
-}
 .s6-event-date {
+  align-self: flex-start;
   font-family: 'Source Sans 3', sans-serif;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: #fff;
-  background: transparent;
-  border: 1px solid #fff;
+  background: rgba(0,0,0,0.7);
+  border: 1px solid rgba(0,0,0,0.7);
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 12px;
+  padding: 4px 12px;
   margin: 0;
 }
+.s6-event-date .s6-event-when,
+.s6-event-date .s6-event-sep { color: #fff; }
 .s6-event-date .s6-event-dot {
   width: 7px;
   height: 7px;
@@ -1569,7 +1518,7 @@
   height: auto;
   object-fit: contain;
   display: block;
-  transform: translateX(-250px);
+  transform: translateX(-100px);
 }
 
 /* ================================================================
@@ -1770,11 +1719,10 @@
 .s9-cta {
   position: relative;
   overflow: hidden;
-  min-height: 720px;
+  min-height: 880px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 0;
 }
 .s9-bg-img {
   position: absolute;
@@ -1785,24 +1733,25 @@
   will-change: transform;
   filter: brightness(0.9);
 }
+/* Dark rectangle that animates from full-section coverage to a centered
+   ~1200px box. Driven by ScrollTrigger in entrance-animations.js.
+   This is a separate layer so the content layout isn't affected. */
 .s9-bg-overlay {
   position: absolute;
   inset: 0;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.2) 75%, rgba(0,0,0,0) 100%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.2) 75%, rgba(0,0,0,0) 100%);
+  background: rgba(0,0,0,0.7);
+  z-index: 1;
 }
 .s9-inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   gap: 28px;
   align-items: center;
   text-align: center;
-  padding: 100px 56px;
-  max-width: 1400px;
+  padding: 80px 56px;
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
 }
@@ -1823,7 +1772,7 @@
   margin-bottom: 20px;
   display: block;
 }
-.s9-quote-light { color: #fff; font-weight: 700; }
+.s9-quote-light { color: rgba(255,255,255,0.4); font-weight: 300; }
 .s9-quote-bold  { color: #fff; font-weight: 700; }
 .s9-attribution {
   font-family: 'Source Sans 3', sans-serif;
