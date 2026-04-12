@@ -140,55 +140,6 @@
   });
 
   // ── S9 CTA ───────────────────────────────────────────────
-  gsap.to('.s9-bg-img', {
-    yPercent: 20,
-    ease: 'none',
-    scrollTrigger: { trigger: '.s9-cta', start: 'top bottom', end: 'bottom top', scrub: true }
-  });
-  // S9 container shrink: starts covering the full section (edge to edge,
-  // top to bottom), shrinks to a centered ~1200px box with 120px top/bottom
-  // insets as the user scrolls in. Plain scroll listener — easier to
-  // debug than ScrollTrigger scrub for this specific layout.
-  (function setupS9Shrink(){
-    var section = document.querySelector('.s9-cta');
-    var rect    = document.querySelector('.s9-bg-overlay');
-    if (!section || !rect) return;
-    var TARGET_W  = 1200;
-    var TARGET_TB = 120;
-    var ticking = false;
-    function update() {
-      ticking = false;
-      var r = section.getBoundingClientRect();
-      var vh = window.innerHeight;
-      // start  : section top at 75% of viewport (r.top === vh*0.75) → progress 0
-      // end    : section top at 25% of viewport (r.top === vh*0.25) → progress 1
-      var startY = vh * 0.75;
-      var endY   = vh * 0.25;
-      var p = (startY - r.top) / (startY - endY);
-      if (p < 0) p = 0; else if (p > 1) p = 1;
-      var sw = section.offsetWidth;
-      var side = Math.max(0, (sw - TARGET_W) / 2);
-      var tb   = TARGET_TB * p;
-      var ls   = side * p;
-      rect.style.top    = tb + 'px';
-      rect.style.bottom = tb + 'px';
-      rect.style.left   = ls + 'px';
-      rect.style.right  = ls + 'px';
-    }
-    function onScroll() {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    // Lenis smooth scroll (set up in scroll-setup.js) doesn't always fire
-    // a window scroll event in sync — hook it directly when available.
-    if (window.lenis && typeof window.lenis.on === 'function') {
-      window.lenis.on('scroll', onScroll);
-    }
-    update();
-  })();
   reveal('.s9-eyebrow', { y: 30, duration: 0.8, trigger: '.s9-inner' });
   reveal('.s9-quote',   { y: 40, duration: 1,   trigger: '.s9-inner', delay: 0.1 });
   reveal('.s9-attribution', { y: 20, duration: 0.6, trigger: '.s9-inner', delay: 0.2 });

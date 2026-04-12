@@ -140,11 +140,8 @@
 [data-region="north-america"] .s2-ring circle   { stroke: #1e3a5f; }
 [data-region="north-america"] .s2-region-num     { color: #1e3a5f; }
 
-[data-region="central-america"] .s2-ring circle  { stroke: #4d7a9e; }
-[data-region="central-america"] .s2-region-num   { color: #4d7a9e; }
-
-[data-region="south-america"] .s2-ring circle    { stroke: #3a9e8f; }
-[data-region="south-america"] .s2-region-num     { color: #3a9e8f; }
+[data-region="latin-america"] .s2-ring circle    { stroke: #4d7a9e; }
+[data-region="latin-america"] .s2-region-num     { color: #4d7a9e; }
 
 [data-region="asia-pacific"] .s2-ring circle     { stroke: #2b6e5f; }
 [data-region="asia-pacific"] .s2-region-num      { color: #2b6e5f; }
@@ -1727,20 +1724,18 @@
 }
 .s9-bg-img {
   position: absolute;
-  inset: -25% 0;
+  inset: 0;
   width: 100%;
-  height: 150%;
+  height: 100%;
   object-fit: cover;
   will-change: transform;
   filter: brightness(0.9);
 }
-/* Dark rectangle that animates from full-section coverage to a centered
-   ~1200px box. Driven by ScrollTrigger in entrance-animations.js.
-   This is a separate layer so the content layout isn't affected. */
-.s9-bg-overlay {
+.s9-cta::after {
+  content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.15);
   z-index: 1;
 }
 .s9-inner {
@@ -1773,7 +1768,7 @@
   margin-bottom: 20px;
   display: block;
 }
-.s9-quote-light { color: rgba(255,255,255,0.4); font-weight: 300; }
+.s9-quote-light { color: #fff; font-weight: 700; }
 .s9-quote-bold  { color: #fff; font-weight: 700; }
 .s9-attribution {
   font-family: 'Source Sans 3', sans-serif;
@@ -1822,7 +1817,7 @@
    FOOTER
 ================================================================ */
 .site-footer {
-  background: #0a0a0f;
+  background: #4d6586;
   border-top: 1px solid rgba(255,255,255,0.05);
   padding: 60px 56px 0;
 }
@@ -1839,7 +1834,6 @@
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 1px;
-  text-transform: uppercase;
   color: #fff;
   margin-bottom: 16px;
 }
@@ -1862,7 +1856,7 @@
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: rgba(255,255,255,0.3);
-  margin-bottom: 20px;
+  margin-bottom: 32px;
 }
 .footer-nav-list {
   list-style: none;
