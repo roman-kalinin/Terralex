@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TerraLex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<!-- GSAP + plugins (ScrollSmoother is Club GSAP, use Lenis for smooth scroll) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/hero.css">
+<link rel="stylesheet" href="css/sections.css">
+</head>
+<body>
+
+<section class="hero">
+
+  <!-- ============================================================
+       SLIDE 1
+  ============================================================ -->
+  <div class="slide slide-1 active">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <h1 class="hero-headline">
+        <span class="dim">The elite global legal network</span> committed to collaboration
+      </h1>
+      <p class="hero-body">
+        TerraLex is the elite global legal network committed to collaboration.
+        <strong>With over 30 years of experience,</strong> TerraLex boasts a vast community of
+        <strong>over 23,000 attorneys</strong> from highly regarded independent law firms worldwide.
+        We are the strategic partner for multijurisdictional entities, offering innovative and
+        forward-thinking solutions beyond conventional legal assistance.
+      </p>
+      <div class="hero-ctas">
+        <a href="#" class="cta-primary">Find Trusted Counsel</a>
+        <a href="#" class="cta-secondary">
+          How TerraLex Works
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="rgba(255,255,255,0.75)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 2
+  ============================================================ -->
+  <div class="slide slide-2">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <h1 class="hero-headline">
+        <span class="dim">TerraLex Announces</span> Its Inaugural NextGen Advisory Committee
+      </h1>
+      <p class="hero-body">
+        December 4th, 2024. Miami Lakes, FL – TerraLex, an elite global legal network, is proud to announce
+        the formation of its first-ever NextGen Advisory Committee. Comprising eight dynamic lawyers from
+        member firms representing each of the continents.
+      </p>
+      <div class="hero-ctas">
+        <a href="#" class="cta-primary">Find Trusted Counsel</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 3
+  ============================================================ -->
+  <div class="slide slide-3">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <h1 class="hero-headline">
+        <span class="dim">TerraLex Members Assist in</span> $15-Million Investment in Swiss Fintech Company
+      </h1>
+      <p class="hero-body">
+        TerraLex member firms Wiggin and Dana (USA) and LALIVE (Switzerland–Geneva) have supported
+        US-based Point72 Ventures in a $15-million investment in Swiss fintech company.
+      </p>
+      <div class="hero-ctas">
+        <a href="#" class="cta-primary">Find Trusted Counsel</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HEADER — two-layer nav (Bain-style)
+  ============================================================ -->
+  <header class="site-header" id="siteHeader">
+    <!-- Top utility bar -->
+    <div class="nav-topbar">
+      <a href="#">Member Directory</a><span class="sep">|</span>
+      <a href="#">TLC Sign-On</a><span class="sep">|</span>
+      <a href="#">Ask myLexi</a><span class="sep">|</span>
+      <a href="#">Contact Us</a>
+    </div>
+    <!-- Main nav -->
+    <nav id="mainNav">
+      <a href="#" class="nav-logo">
+        <img class="logo-hero" src="assets/logos/Logo white.svg" alt="TerraLex">
+        <img class="logo-scrolled" src="assets/logos/Logo default.svg" alt="TerraLex">
+      </a>
+      <div class="nav-links">
+        <a href="#">Cross-Border Guides</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-dropdown-trigger">Expertise <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
+          <div class="nav-mega">
+            <div class="mega-col">
+              <h4>Industry Sector Teams</h4>
+              <a href="#">Automotive</a>
+              <a href="#">Aviation</a>
+              <a href="#">Education Services</a>
+              <a href="#">ESG</a>
+              <a href="#">Food &amp; Beverage</a>
+              <a href="#">Hospitality</a>
+              <a href="#">Life Sciences</a>
+              <a href="#">Mining</a>
+              <a href="#">Retail</a>
+              <a href="#">Sports &amp; Entertainment</a>
+              <a href="#">Technology &amp; Digital Business</a>
+            </div>
+            <div class="mega-col">
+              <h4>Regions</h4>
+              <a href="#">Africa &amp; the Middle East</a>
+              <a href="#">Asia-Pacific</a>
+              <a href="#">Europe</a>
+              <a href="#">Latin America &amp; the Caribbean</a>
+              <a href="#">North America</a>
+            </div>
+            <div class="mega-col">
+              <h4>Practice Groups</h4>
+              <a href="#">Antitrust &amp; Competition</a>
+              <a href="#">Bankruptcy / Insolvency</a>
+              <a href="#">Construction &amp; Infrastructure</a>
+              <a href="#">Energy &amp; Environmental</a>
+              <a href="#">Finance &amp; Banking</a>
+              <a href="#">Global Trade &amp; Policy</a>
+              <a href="#">Immigration</a>
+              <a href="#">Insurance</a>
+              <a href="#">Intellectual Property, Licensing &amp; Technology</a>
+              <a href="#">International Litigation &amp; Arbitration</a>
+              <a href="#">Labor &amp; Employment</a>
+              <a href="#">Mergers &amp; Acquisitions</a>
+              <a href="#">Real Estate</a>
+              <a href="#">Regulatory, Investigations &amp; Compliance</a>
+              <a href="#">Tax &amp; Wealth Services</a>
+            </div>
+          </div>
+        </div>
+        <a href="#">Events Hub</a>
+        <a href="#">Global Insights</a>
+        <a href="#">Success Stories</a>
+        <a href="#">About TerraLex</a>
+      </div>
+      <div class="nav-actions">
+        <button class="nav-search-btn" aria-label="Search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+        <button class="nav-hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ============================================================
+       TICKER STRIP (shared)
+  ============================================================ -->
+  <div class="hero-ticker">
+    <div class="ticker-item active" data-slide="0">
+      <div class="ticker-progress"></div>
+      <p>The elite global legal network committed to collaboration</p>
+    </div>
+    <div class="ticker-item" data-slide="1">
+      <div class="ticker-progress"></div>
+      <p>Fastned EV Network Expands Across 8 European Jurisdictions</p>
+    </div>
+    <div class="ticker-item" data-slide="2">
+      <div class="ticker-progress"></div>
+      <p>TerraLex Firms Complete US–India Acquisition in Record Time</p>
+    </div>
+  </div>
+
+</section>
+
+
+
+<!-- ============================================================
+     SECTION 2 — DIRECTORY (text left, interactive globe right)
+============================================================ -->
+<section class="s2-directory">
+
+  <!-- Text column -->
+  <div class="s2-text-col">
+    <p class="s2-label">Member Firm Directory</p>
+    <h2 class="s2-heading">
+      <span class="s2-heading-bold">Find the Right Firm.</span><br>
+      <span class="s2-heading-light">Contact the Right Lawyer.</span>
+    </h2>
+    <p class="s2-sub">At TerraLex, we connect you with a dynamic network of leading law firms across the globe.</p>
+    <div class="s2-search">
+      <div class="s2-search-input">
+        <svg class="s2-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Search firm...">
+      </div>
+      <div class="s2-dropdown">
+        <span>Firms</span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="#999" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <button class="s2-search-btn">Search</button>
+    </div>
+  </div>
+
+  <!-- View switcher (outside globe-col to avoid mask fade) -->
+  <div class="s2-view-switch">
+    <span class="s2-switch-dev">Visible only for dev</span>
+    <button class="s2-switch-btn active" data-view="map">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+      Map
+    </button>
+    <button class="s2-switch-btn" data-view="globe">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="4" ry="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+      Globe
+    </button>
+  </div>
+
+  <!-- Globe / Map column -->
+  <div class="s2-globe-col">
+
+    <!-- VIEW 1: Flat map -->
+    <div class="s2-view s2-view-map active" id="s2ViewMap">
+      <img src="assets/images/misc/BG-map.svg" alt="" class="s2-map-img">
+
+      <div class="s2-region" data-region="north-america" style="left:16%; top:30%">
+        <div class="s2-region-bubble">
+          <svg class="s2-ring" viewBox="0 0 80 80"><circle cx="40" cy="40" r="36" fill="none" stroke-width="3"/></svg>
+          <span class="s2-region-num">35</span>
+        </div>
+        <div class="s2-region-stem"></div>
+        <p class="s2-region-name">North<br>America</p>
+      </div>
+
+      <div class="s2-region" data-region="central-america" style="left:24%; top:50%">
+        <div class="s2-region-bubble">
+          <svg class="s2-ring" viewBox="0 0 80 80"><circle cx="40" cy="40" r="36" fill="none" stroke-width="3"/></svg>
+          <span class="s2-region-num">12</span>
+        </div>
+        <div class="s2-region-stem"></div>
+        <p class="s2-region-name">Central America<br>&amp; the Caribbean</p>
+      </div>
+
+      <div class="s2-region" data-region="south-america" style="left:30%; top:72%">
+        <div class="s2-region-bubble">
+          <svg class="s2-ring" viewBox="0 0 80 80"><circle cx="40" cy="40" r="36" fill="none" stroke-width="3"/></svg>
+          <span class="s2-region-num">10</span>
+        </div>
+        <div class="s2-region-stem"></div>
+        <p class="s2-region-name">South<br>America</p>
+      </div>
+
+      <div class="s2-region" data-region="europe" style="left:52%; top:22%">
+        <div class="s2-region-bubble">
+          <svg class="s2-ring" viewBox="0 0 80 80"><circle cx="40" cy="40" r="36" fill="none" stroke-width="3"/></svg>
+          <span class="s2-region-num">37</span>
+        </div>
+        <div class="s2-region-stem"></div>
+        <p class="s2-region-name">Europe</p>
+      </div>
+
+      <div class="s2-region" data-region="middle-east-africa" style="left:56%; top:54%">
+        <div class="s2-region-bubble">
+          <svg class="s2-ring" viewBox="0 0 80 80"><circle cx="40" cy="40" r="36" fill="none" stroke-width="3"/></svg>
+          <span class="s2-region-num">25</span>
+        </div>
+        <div class="s2-region-stem"></div>
+        <p class="s2-region-name">Middle East<br>&amp; Africa</p>
+      </div>
+
+      <div class="s2-region" data-region="asia-pacific" style="left:78%; top:36%">
+        <div class="s2-region-bubble">
+          <svg class="s2-ring" viewBox="0 0 80 80"><circle cx="40" cy="40" r="36" fill="none" stroke-width="3"/></svg>
+          <span class="s2-region-num">20</span>
+        </div>
+        <div class="s2-region-stem"></div>
+        <p class="s2-region-name">Asia Pacific</p>
+      </div>
+
+    </div>
+
+    <!-- VIEW 2: 3D Globe -->
+    <div class="s2-view s2-view-globe" id="s2ViewGlobe">
+      <canvas id="globeCanvas"></canvas>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ============================================================
+     SECTION 3 — NUMBERS
+============================================================ -->
+<section class="s3-numbers">
+
+  <div class="s3-header">
+    <p class="s3-label">TerraLex Fast Facts</p>
+    <h2 class="s3-heading">
+      <span class="s3-heading-light">A quick glance at the </span><span class="s3-heading-bold">depth and reach of TerraLex.</span>
+    </h2>
+  </div>
+
+  <div class="s3-grid">
+    <div class="s3-cell">
+      <div class="s3-number"><span class="s3-count" data-target="140">0</span></div>
+      <p class="s3-stat-label">Member Firms</p>
+    </div>
+    <div class="s3-cell">
+      <div class="s3-number"><span class="s3-count" data-target="23000" data-comma>0</span></div>
+      <p class="s3-stat-label">Lawyers</p>
+    </div>
+    <div class="s3-cell">
+      <div class="s3-number"><span class="s3-count" data-target="205">0</span></div>
+      <p class="s3-stat-label">Jurisdictions</p>
+    </div>
+    <div class="s3-cell">
+      <div class="s3-number"><span class="s3-count" data-target="35">0</span></div>
+      <p class="s3-stat-label">Years</p>
+    </div>
+    <div class="s3-cell">
+      <div class="s3-number"><span class="s3-count" data-target="132">0</span></div>
+      <p class="s3-stat-label">Countries</p>
+    </div>
+    <div class="s3-cell">
+      <div class="s3-number"><span class="s3-count" data-target="23">0</span></div>
+      <p class="s3-stat-label">Cross-Border Guides</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     SECTION 3B — NEWS & INSIGHTS
+============================================================ -->
+<section class="s3b-news">
+
+  <div class="s3b-header">
+    <h2 class="s3b-heading">
+      <span class="s3b-h-light">News &amp; </span><span class="s3b-h-bold">Insights</span>
+    </h2>
+  </div>
+
+  <div class="s3b-track">
+
+    <a href="#" class="s3b-card">
+      <div class="s3b-card-img"><img src="assets/images/case-studies/Nicaragua.webp" alt=""></div>
+      <div class="s3b-card-overlay">
+        <div class="s3b-card-tags">
+          <span class="s3b-tag">New Member</span>
+          <span class="s3b-tag">Nicaragua</span>
+        </div>
+        <p class="s3b-card-title">TerraLex Welcomes BMR in Nicaragua</p>
+      </div>
+    </a>
+
+    <a href="#" class="s3b-card">
+      <div class="s3b-card-img"><img src="assets/images/case-studies/Monaco_1a4d9a91b6.webp" alt=""></div>
+      <div class="s3b-card-overlay">
+        <div class="s3b-card-tags">
+          <span class="s3b-tag">New Member</span>
+          <span class="s3b-tag">Monaco</span>
+        </div>
+        <p class="s3b-card-title">TerraLex Welcomes Delforge Law in Monaco</p>
+      </div>
+    </a>
+
+    <a href="#" class="s3b-card">
+      <div class="s3b-card-img"><img src="assets/images/case-studies/NextGen.jpg" alt=""></div>
+      <div class="s3b-card-overlay">
+        <div class="s3b-card-tags">
+          <span class="s3b-tag">Leadership</span>
+        </div>
+        <p class="s3b-card-title">Inaugural NextGen Advisory Committee</p>
+      </div>
+    </a>
+
+    <a href="#" class="s3b-card">
+      <div class="s3b-card-img"><img src="assets/images/case-studies/Regulatory Investigations.jpg" alt=""></div>
+      <div class="s3b-card-overlay">
+        <div class="s3b-card-tags">
+          <span class="s3b-tag">Data Protection</span>
+          <span class="s3b-tag">EU &middot; Global</span>
+        </div>
+        <p class="s3b-card-title">Global Trends in Privacy and Data Protection 2026</p>
+      </div>
+    </a>
+
+    <a href="#" class="s3b-card s3b-card-cta">
+      <p class="s3b-cta-light">See all</p>
+      <p class="s3b-cta-bold">Case studies</p>
+      <p class="s3b-cta-count">20+ Case studies</p>
+    </a>
+
+  </div>
+
+  <div class="s3b-footer">
+    <a href="#" class="s3b-see-all">See all news &rarr;</a>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     SECTION 4 — CASE STUDIES
+============================================================ -->
+<section class="s4-case-studies">
+
+  <!-- Header — normal flow, scrolls away before sticky zoom kicks in -->
+  <div class="s4-header" id="s4Header">
+    <p class="s4-label">Success Stories</p>
+    <h2 class="s4-heading">
+      <span class="s4-heading-bold">Collaboration</span><br>
+      <span class="s4-heading-light">Success Stories.</span>
+    </h2>
+  </div>
+
+  <!-- ZoomParallax: 300vh container, sticky inner frame -->
+  <div class="s4-zoom-container" id="s4ZoomContainer">
+    <div class="s4-zoom-sticky" id="s4ZoomSticky">
+
+      <!--
+        Collage tiles — 7 full-viewport wrappers, scale applied to wrapper,
+        .s4-inner offset from viewport center via position:relative top/left
+        tile-0 = video (center portrait)
+        tile-1 = world map (top-left)
+        tile-2 = Tokyo night (left)
+        tile-3 = skyscrapers (right center, tall)
+        tile-4 = city aerial (top-right)
+        tile-5 = river city (right-bottom)
+        tile-6 = meeting room (bottom-center)
+      -->
+      <!-- tile-0: frame-sequence (replaces video scrubbing) -->
+      <div class="s4-tile s4-tile-0" id="s4T0">
+        <div class="s4-inner">
+          <img id="s4FrameImg"
+               src="assets/images/frames/ezgif-frame-001.jpg"
+               alt="">
+        </div>
+      </div>
+      <!-- tile-1: 35vw×30vh, offset top-left -->
+      <div class="s4-tile s4-tile-1" id="s4T1">
+        <div class="s4-inner"><img src="assets/images/case-studies/collage/Chicago.jpg" alt=""></div>
+      </div>
+      <!-- tile-2: 20vw×45vh, offset left -->
+      <div class="s4-tile s4-tile-2" id="s4T2">
+        <div class="s4-inner"><img src="assets/images/case-studies/collage/Strategic Planning 1.jpg" alt=""></div>
+      </div>
+      <!-- tile-3: 25vw×25vh, offset right -->
+      <div class="s4-tile s4-tile-3" id="s4T3">
+        <div class="s4-inner"><img src="assets/images/case-studies/collage/Philadelphia.jpg" alt=""></div>
+      </div>
+      <!-- tile-4: 20vw×25vh, offset bottom-center-left -->
+      <div class="s4-tile s4-tile-4" id="s4T4">
+        <div class="s4-inner"><img src="assets/images/case-studies/collage/Business Development 1.jpg" alt=""></div>
+      </div>
+      <!-- tile-5: 30vw×25vh, offset bottom-left -->
+      <div class="s4-tile s4-tile-5" id="s4T5">
+        <div class="s4-inner"><img src="assets/images/case-studies/collage/Strategic Planning 2.jpg" alt=""></div>
+      </div>
+      <!-- tile-6: 15vw×15vh, offset bottom-right -->
+      <div class="s4-tile s4-tile-6" id="s4T6">
+        <div class="s4-inner"><img src="assets/images/case-studies/collage/Chicago.jpg" alt=""></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Phase 4: Cards carousel (not pinned, scrolls naturally) -->
+  <div class="s4-cards-section" id="s4Cards">
+    <div class="s4-cards-header">
+      <p class="s4-cards-label">Success Stories</p>
+      <h2 class="s4-cards-heading">
+        <span class="s4-cards-bold">Collaboration</span><br>
+        <span class="s4-cards-light">Success Stories.</span>
+      </h2>
+    </div>
+    <div class="s4-cards-track-wrap">
+      <div class="s4-cards-track" id="s4Track">
+
+        <!-- Card 1: Telekom Srbija -->
+        <div class="s4-card">
+          <div class="s4-card-bg"><img src="assets/images/case-studies/Nicaragua.webp" alt=""></div>
+          <div class="s4-card-content">
+            <div class="s4-card-tag">
+              <span class="s4-tag-pill">Telecom</span>
+              <span class="s4-geo-pill">Serbia</span>
+            </div>
+            <div class="s4-card-title">Geci&#263; Law Advises Telekom Srbija on Landmark &euro;1.5 Billion Telecom Transaction</div>
+            <div class="s4-card-reveal">
+              <p class="s4-card-desc">TerraLex congratulates its Serbian member firm, Geci&#263; | Law, who served as lead legal advisor to Telekom Srbija Group in one of the largest telecom transactions in Western Balkans history, a &euro;1.5 billion deal that strengthened Telekom Srbija's market position and expanded its digital media...</p>
+              <a href="#" class="s4-card-link">
+                Read story
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: The Nature Conservancy -->
+        <div class="s4-card">
+          <div class="s4-card-bg"><img src="assets/images/case-studies/Monaco_1a4d9a91b6.webp" alt=""></div>
+          <div class="s4-card-content">
+            <div class="s4-card-tag">
+              <span class="s4-tag-pill">Environmental</span>
+              <span class="s4-geo-pill">Global</span>
+            </div>
+            <div class="s4-card-title">TerraLex Success Story for The Nature Conservancy: A Global Collaboration for Environmental Impact</div>
+            <div class="s4-card-reveal">
+              <p class="s4-card-desc">At the heart of the TerraLex global legal network is the power of collaboration &mdash; and nowhere is this more evident than in TerraLex's ongoing partnership with The Nature Conservancy (TNC), a leading global environmental nonprofit. With a presence in more than 70 countries, The...</p>
+              <a href="#" class="s4-card-link">
+                Read story
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Swiss Fintech -->
+        <div class="s4-card">
+          <div class="s4-card-bg"><img src="assets/images/case-studies/NextGen.jpg" alt=""></div>
+          <div class="s4-card-content">
+            <div class="s4-card-tag">
+              <span class="s4-tag-pill">Fintech</span>
+              <span class="s4-geo-pill">USA &middot; Switzerland</span>
+            </div>
+            <div class="s4-card-title">TerraLex Members Assist in $15-Million Investment in Swiss Fintech Company</div>
+            <div class="s4-card-reveal">
+              <p class="s4-card-desc">TerraLex member firms Wiggin and Dana (USA-Connecticut, Washington, DC and New York City, NY) and LALIVE (Switzerland-Geneva) have supported US-based Point72 Ventures, a global venture capital fund based in New York City, NY and Menlo Park, California in relation to their USD $15-million investment into...</p>
+              <a href="#" class="s4-card-link">
+                Read story
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Cibes Elevators -->
+        <div class="s4-card">
+          <div class="s4-card-bg"><img src="assets/images/case-studies/Regulatory Investigations.jpg" alt=""></div>
+          <div class="s4-card-content">
+            <div class="s4-card-tag">
+              <span class="s4-tag-pill">M&amp;A</span>
+              <span class="s4-geo-pill">Sweden &middot; UK</span>
+            </div>
+            <div class="s4-card-title">Lindahl and RPC Advise Cibes in the Acquisition of Titan Elevators Ltd.</div>
+            <div class="s4-card-reveal">
+              <p class="s4-card-desc">TerraLex's Swedish member Lindahl (M&aring;rten Steen and associate Disa Almqvist) and UK-England members RPC (Tim Anderson and fellow partner Chris Brierley) have advised Lindahl's client Cibes Lift Group in the acquisition of the British company Titan Elevators. Cibes Lift Group is one of the world's...</p>
+              <a href="#" class="s4-card-link">
+                Read story
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA card -->
+        <div class="s4-card s4-card-cta">
+          <div class="s4-cta-heading">
+            <strong>Access more</strong>
+            <span>Success Stories.</span>
+          </div>
+          <p class="s4-cta-sub">Learn how member firms from across the globe work together to deliver business solutions.</p>
+          <a href="#" class="s4-cta-btn">Success Stories</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</section>
+
+<!-- Hero band — pinned by GSAP at z-index 1, S4 at z-index 2 scrolls over it -->
+<div class="s5-hero-band" id="s5HeroBand">
+  <img src="assets/images/misc/Collaboration image.png" alt="" class="s5-hero-img">
+  <div class="s5-hero-overlay"></div>
+  <div class="s5-hero-text">
+    <p class="s5-hero-tag">Seamless Cross-Border Support</p>
+    <p class="s5-hero-light">Defined by Responsiveness.</p>
+    <p class="s5-hero-bold">Committed to Collaboration.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECTION 5 — MEMBER STANDARDS
+============================================================ -->
+<section class="s5-standards">
+  <div class="s5-pin-wrap" id="s5PinWrap">
+    <div class="s5-pin-inner" id="s5PinInner">
+      <div class="s5-map-bg"></div>
+
+      <!-- Header — slides up and fades as you scroll -->
+      <div class="s5-header" id="s5Header">
+        <p class="s5-label">Excellence Begins with Collaboration</p>
+        <h2 class="s5-heading">
+          <span class="s5-h-light">The TerraLex Member Firm Standards</span><br>
+          <span class="s5-h-bold">define the qualities that distinguish our firms.</span>
+        </h2>
+        <p class="s5-sub">The goal is to achieve consistent, client-centered results worldwide.</p>
+      </div>
+
+      <!-- Collaboration pill -->
+      <div class="s5-collab-pill" id="s5Pill">
+        <img src="assets/images/misc/collab-bg.jpg" alt="" class="s5-collab-bg">
+        <div class="s5-collab-text">Collaboration</div>
+      </div>
+
+      <!-- Lines connecting criteria to pill -->
+      <svg class="s5-lines" id="s5Lines">
+        <defs>
+          <filter id="s5PulseGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+      </svg>
+
+      <!-- Criteria fly-out area -->
+      <div class="s5-criteria-area" id="s5Criteria"></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6 — WHERE GLOBAL LEGAL LEADERS CONNECT
+============================================================ -->
+<section class="s6-events">
+
+  <!-- World map bg was removed (file no longer exists) -->
+  <div class="s6-map-bg"></div>
+
+  <div class="s6-header">
+    <div class="s6-header-left">
+      <p class="s6-label">A Global Forum for Legal Collaboration</p>
+      <h2 class="s6-heading">
+        <span class="s6-h-light">Events &amp;</span>
+        <span class="s6-h-bold">Webinars</span>
+      </h2>
+      <p class="s6-sub">Explore the TerraLex Events &amp; Webinars on key legal topics relevant to the global legal community.</p>
+    </div>
+  </div>
+
+  <!--
+    Grid: 3 cols × 2 rows, 2px gap
+    Row 1: 3 equal cards
+    Row 2: card 4 (1 col) + card 5 (spans 2 cols)
+  -->
+  <div class="s6-grid">
+
+    <div class="s6-event">
+      <div class="s6-event-bg"><img src="assets/images/events/Automotive 2.jpg" alt=""></div>
+      <div class="s6-event-content">
+        <p class="s6-event-date">03 25 2026</p>
+        <p class="s6-event-title">TerraLex Networking at IBA Automotive &amp; Mobility Conference</p>
+        <div class="s6-event-reveal">
+          <p class="s6-event-desc">As the European automotive and mobility community comes together in Munich for the 6th European Automotive and Mobility Services Conference, we'd love to see you at SKW Schwarz for an informal pre-drinks reception.</p>
+          <a href="#" class="s6-event-link">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="s6-event">
+      <div class="s6-event-bg"><img src="assets/images/events/antitrust meeting.jpg" alt=""></div>
+      <div class="s6-event-content">
+        <p class="s6-event-date">03 25 2026</p>
+        <p class="s6-event-title">TerraLex Networking at 2026 Antitrust Spring Meeting</p>
+        <div class="s6-event-reveal">
+          <p class="s6-event-desc">Members often connect while traveling to conferences and industry events around the globe. If you or your colleagues plan to attend this event, please let us know.</p>
+          <a href="#" class="s6-event-link">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="s6-event">
+      <div class="s6-event-bg"><img src="assets/images/events/Shanghai.jpg" alt=""></div>
+      <div class="s6-event-content">
+        <p class="s6-event-date">03 26 2026</p>
+        <p class="s6-event-title">Asia-Pacific Regional Meeting in Shanghai</p>
+        <div class="s6-event-reveal">
+          <p class="s6-event-desc">Join TerraLex colleagues from across the Asia-Pacific region in Shanghai for two days of practical, forward-looking discussions focused on collaboration, business development, and strengthening cross-border connections.</p>
+          <a href="#" class="s6-event-link">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="s6-event">
+      <div class="s6-event-bg"><img src="assets/images/events/IAPP.jpg" alt=""></div>
+      <div class="s6-event-content">
+        <p class="s6-event-date">03 30 2026</p>
+        <p class="s6-event-title">TerraLex Networking at IAPP</p>
+        <div class="s6-event-reveal">
+          <p class="s6-event-desc">Members often connect while traveling to conferences and industry events around the globe. If you or your colleagues plan to attend this event, please let us know.</p>
+          <a href="#" class="s6-event-link">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="s6-event">
+      <div class="s6-event-bg"><img src="assets/images/events/Epstein files.jpg" alt=""></div>
+      <div class="s6-event-content">
+        <p class="s6-event-date">04 09 2026</p>
+        <p class="s6-event-title">TerraLex Presents: Your Client Was Named in the Epstein Files: Now What?</p>
+        <div class="s6-event-reveal">
+          <p class="s6-event-desc">In today's environment, law firms and advisors may be called upon to support clients caught in major reputational crises — whether tied to high-profile investigations, leaked documents, or intense media scrutiny.</p>
+          <a href="#" class="s6-event-link">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="s6-view-all-wrap">
+    <a href="#" class="s6-view-all">View All Events</a>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     SECTION 7 — AI / myLexi
+============================================================ -->
+<section class="s7-ai">
+
+  <div class="s7-content">
+    <div class="s7-label-row">
+      <span class="s7-icon-dot"></span>
+      <span class="s7-label">AI-Powered Assistant</span>
+    </div>
+    <h2 class="s7-heading">
+      <span class="s7-h-light">Immediate Access to Network Knowledge</span>
+      <span class="s7-h-bold">Through myLexi.</span>
+    </h2>
+    <p class="s7-desc">myLexi is an AI-powered intelligent assistant designed to provide instant, 24/7 support to TerraLex member firms and their lawyers in 100+ languages.</p>
+  </div>
+
+  <div class="s7-image">
+    <img src="assets/images/misc/AI preview picture.png" alt="AI assistant preview">
+  </div>
+
+</section>
+
+<!-- ============================================================
+     SECTION 8 — CROSS-BORDER GUIDES
+============================================================ -->
+<section class="s8-guides">
+
+  <div class="s8-hero">
+    <div class="s8-bg-image">
+      <img src="assets/images/misc/Home main screen 11.jpg" alt="">
+      <div class="s8-bg-overlay"></div>
+    </div>
+    <div class="s8-text">
+      <p class="s8-label">Cross-Border Intelligence</p>
+      <h2 class="s8-heading">
+        <span class="s8-h-light">Cross-Border Guides</span><br>
+        <span class="s8-h-bold">Compare Regulation Across Jurisdictions</span>
+      </h2>
+    </div>
+  </div>
+
+  <div class="s8-guides-track">
+
+      <div class="s8-guide-card">
+        <div class="s8-card-bg" style="background-image:url('assets/images/guides/CBG-to-Artificial-Intelligence.jpg')"></div>
+        <span class="s8-guide-num">Guide 01</span>
+        <p class="s8-guide-title">Artificial Intelligence</p>
+        <p class="s8-guide-desc">AI regulation, liability frameworks, and compliance strategies across jurisdictions.</p>
+        <a href="#" class="s8-card-preview">Preview <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+
+      <div class="s8-guide-card">
+        <div class="s8-card-bg" style="background-image:url('assets/images/guides/CBG-to-Mergers-and-Acquisitions.jpg')"></div>
+        <span class="s8-guide-num">Guide 02</span>
+        <p class="s8-guide-title">Mergers &amp; Acquisitions</p>
+        <p class="s8-guide-desc">Deal structuring, due diligence frameworks, and regulatory approvals for international acquisitions.</p>
+        <a href="#" class="s8-card-preview">Preview <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+
+      <div class="s8-guide-card">
+        <div class="s8-card-bg" style="background-image:url('assets/images/guides/CBG-to-Foreign-Direct-Investment.jpg')"></div>
+        <span class="s8-guide-num">Guide 03</span>
+        <p class="s8-guide-title">Foreign Direct Investment</p>
+        <p class="s8-guide-desc">Market entry requirements, incentive structures, and regulatory frameworks for cross-border investment.</p>
+        <a href="#" class="s8-card-preview">Preview <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+
+      <div class="s8-guide-card">
+        <div class="s8-card-bg" style="background-image:url('assets/images/guides/CBG-to-Real-Estate.jpg')"></div>
+        <span class="s8-guide-num">Guide 04</span>
+        <p class="s8-guide-title">Real Estate</p>
+        <p class="s8-guide-desc">Ownership structures, foreign investment restrictions, and transfer taxation in key markets.</p>
+        <a href="#" class="s8-card-preview">Preview <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+
+      <div class="s8-guide-card">
+        <div class="s8-card-bg" style="background-image:url('assets/images/guides/CBG-to-Crypto-Assets.jpg')"></div>
+        <span class="s8-guide-num">Guide 05</span>
+        <p class="s8-guide-title">Crypto Assets</p>
+        <p class="s8-guide-desc">Digital asset regulation, licensing requirements, and cross-border compliance for crypto operations.</p>
+        <a href="#" class="s8-card-preview">Preview <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+
+      <div class="s8-guide-card">
+        <div class="s8-card-bg" style="background-image:url('assets/images/guides/CBG-to-Labor-and-Employment.jpg')"></div>
+        <span class="s8-guide-num">Guide 06</span>
+        <p class="s8-guide-title">Labor &amp; Employment</p>
+        <p class="s8-guide-desc">Hiring, termination, non-compete, and benefits regulations compared across 40+ countries.</p>
+        <a href="#" class="s8-card-preview">Preview <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+
+      <div class="s8-guide-card s8-guide-cta">
+        <span class="s8-guide-num">11+ Guides</span>
+        <p class="s8-guide-title">Browse the Full Library</p>
+        <p class="s8-guide-desc">Including Business Investment in Africa, Business Investment in LatAm, Food &amp; Beverage, Hospitality, NIS2 Directive, Patent, and more.</p>
+        <a href="#" class="s8-guide-link">View All <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+
+    </div>
+
+</section>
+
+<!-- ============================================================
+     SECTION 9 — CTA / QUOTE
+============================================================ -->
+<section class="s9-cta">
+
+  <img src="assets/images/misc/slide1-bg.jpg" alt="" class="s9-bg-img">
+  <div class="s9-bg-overlay"></div>
+
+  <div class="s9-inner">
+    <p class="s9-eyebrow">Ready to Connect</p>
+    <blockquote class="s9-quote">
+      <span class="s9-quote-light">Coming together is a beginning. Keeping together is progress.</span>
+      <span class="s9-quote-bold"> Working together is success...</span>
+    </blockquote>
+    <p class="s9-attribution">— Henry Ford</p>
+    <p class="s9-sub">Connect with leading law firms in more than 200 jurisdictions in any area of law.</p>
+    <div class="s9-actions">
+      <a href="#" class="s9-btn s9-btn-primary">Find a Member Firm</a>
+      <a href="#" class="s9-btn s9-btn-outline">About TerraLex</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="site-footer">
+
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-logo">TerraLex</p>
+      <p class="footer-tagline">The elite global legal network. 140 member firms. 120+ countries. One standard of excellence.</p>
+    </div>
+
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading">Network</p>
+      <ul class="footer-nav-list">
+        <li><a href="#">Find Counsel</a></li>
+        <li><a href="#">Member Directory</a></li>
+        <li><a href="#">Why TerraLex</a></li>
+        <li><a href="#">Global Collaboration</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading">Knowledge</p>
+      <ul class="footer-nav-list">
+        <li><a href="#">Cross-Border Guides</a></li>
+        <li><a href="#">myLexi AI</a></li>
+        <li><a href="#">Insights</a></li>
+        <li><a href="#">Events</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading">Membership</p>
+      <ul class="footer-nav-list">
+        <li><a href="#">Why Join</a></li>
+        <li><a href="#">Standards &amp; Expectations</a></li>
+        <li><a href="#">Application Process</a></li>
+        <li><a href="#">About TerraLex</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 TerraLex. All rights reserved.</p>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+
+</footer>
+
+<script src="js/scroll-setup.js"></script>
+<script src="js/hero-slider.js"></script>
+<script src="js/s3-counters.js"></script>
+<script src="js/s4-zoom-parallax.js"></script>
+
+<script src="js/entrance-animations.js"></script>
+<script src="js/s5-criteria-flyout.js"></script>
+<script src="js/globe-simple.js"></script>
+
+
+<!-- ====  myLexi Chat Widget  ==== -->
+<link rel="stylesheet" href="css/chat-widget.css">
+
+<div class="chat-widget" id="chatWidget">
+  <!-- Collapsed pill -->
+  <div class="chat-pill" id="chatPill" onclick="openChat()">
+    <img class="chat-pill__logo" src="assets/logos/mylexi-logo.svg" alt="">
+    <div class="chat-pill__text">
+      <span class="chat-pill__title">myLexi</span>
+      <span class="chat-pill__sub">AI Assistant</span>
+    </div>
+  </div>
+
+  <!-- Expanded panel -->
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div class="chat-header__left">
+        <img class="chat-header__logo" src="assets/logos/mylexi-logo.svg" alt="">
+        <div class="chat-header__info">
+          <div class="chat-header__name">Ask myLexi</div>
+          <div class="chat-header__status">
+            <span class="chat-header__dot"></span> Online &amp; Ready
+          </div>
+        </div>
+      </div>
+      <button class="chat-close" onclick="closeChat()" aria-label="Close chat">
+        <svg viewBox="0 0 14 14" fill="none" stroke="#0a1f33" stroke-width="1.6" stroke-linecap="round">
+          <line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="chat-body">
+      <div class="chat-msg">
+        <div class="chat-msg__avatar">
+          <img src="assets/logos/mylexi-logo.svg" alt="">
+        </div>
+        <div class="chat-bubble">
+          Hello! I'm <strong>myLexi</strong>. How can I help you today?
+        </div>
+      </div>
+      <div class="chat-topics">
+        <div class="chat-topics__label">Suggested topics:</div>
+        <div class="chat-topics__pills">
+          <button class="chat-topic">What kind of things can you help me with</button>
+          <button class="chat-topic">Cross-border guides</button>
+          <button class="chat-topic">Practice areas</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-footer">
+      <div class="chat-input-row">
+        <input type="text" placeholder="Type your question here...">
+        <button class="chat-send" aria-label="Send">
+          <svg viewBox="0 0 14 14" fill="none">
+            <path d="M1 13L13 7L1 1V5.5L9 7L1 8.5V13Z" fill="white"/>
+          </svg>
+        </button>
+      </div>
+      <div class="chat-footer__bottom">
+        <img class="chat-footer__betty" src="assets/logos/betty-logo.svg" alt="Betty Knowledge Assistant">
+        <span class="chat-footer__dot"></span>
+        <a class="chat-footer__terms" href="#">Terms of use</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/chat-widget.js"></script>
+
+<!-- Dev-only: Design System link (remove before production) -->
+<a href="design-system.html" style="position:fixed;bottom:20px;left:20px;z-index:9998;width:36px;height:36px;border-radius:18px;background:var(--c-blue);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-size:11px;font-weight:700;text-decoration:none;opacity:0.6;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">DS</a>
+
+</body>
+</html>
