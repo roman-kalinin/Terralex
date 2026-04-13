@@ -289,7 +289,7 @@
   position: relative;
   width: 100%;
   padding: 160px 56px 140px;
-  background: transparent url('../assets/images/misc/behind-numbers.png') center calc(50% + 200px) / contain no-repeat;
+  background: transparent url('../assets/images/misc/behind-numbers.png') center calc(50% + 150px) / contain no-repeat;
 }
 
 .s3-header {
