@@ -4,7 +4,7 @@
   const slides    = document.querySelectorAll('.slide');
   const tickers   = document.querySelectorAll('.ticker-item');
   const bars      = Array.from(tickers).map(t => t.querySelector('.ticker-progress'));
-  const BLUR      = [true, false, false];
+  const BLUR      = [false, false, false];
 
   let current   = 0;
   let startTime = 0;
