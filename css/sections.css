@@ -296,7 +296,7 @@
   position: absolute;
   inset: 0;
   background: url('../assets/images/misc/behind-numbers.png') center calc(50% + 180px) / 100% auto no-repeat;
-  opacity: 0.72;
+  opacity: 0.62;
   mix-blend-mode: multiply;
   pointer-events: none;
   z-index: 0;
@@ -360,10 +360,10 @@
 .s3-suffix {
   /* inline next to number */
 }
-.s3-stat-label {
+.s3-numbers .s3-stat-label {
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: #373737;
