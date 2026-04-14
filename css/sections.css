@@ -288,20 +288,24 @@
 .s3-numbers {
   position: relative;
   width: 100%;
-  padding: 260px 56px 340px;
+  padding: 160px 56px 260px;
   background: transparent;
 }
 .s3-numbers::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: url('../assets/images/misc/behind-numbers.png') center calc(50% + 160px) / 100% auto no-repeat;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(calc(-50% + 160px));
+  aspect-ratio: 1150 / 560;
+  background: url('../assets/images/misc/behind-numbers.png') center / 100% 100% no-repeat;
   opacity: 0.62;
   mix-blend-mode: multiply;
   pointer-events: none;
   z-index: 0;
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
-          mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 22%, rgba(0,0,0,1) 78%, rgba(0,0,0,0) 100%);
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 22%, rgba(0,0,0,1) 78%, rgba(0,0,0,0) 100%);
 }
 
 .s3-header {
@@ -377,7 +381,7 @@
 .s3b-news {
   position: relative;
   width: 100%;
-  padding: 80px 56px 64px;
+  padding: 200px 56px 64px;
   background: transparent;
 }
 .s3b-header {
