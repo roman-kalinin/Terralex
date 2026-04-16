@@ -78,53 +78,93 @@ nav#mainNav       { padding-left: var(--ds-section-px); padding-right: var(--ds-
 
 
 /* ================================================================
-   1024px — TABLET LANDSCAPE / SMALL LAPTOP
+   NAV DRAWER — adaptive grid, works at ALL widths
+   (toggled via .nav-mobile-open)
 ================================================================ */
+.site-header.nav-mobile-open .nav-links {
+  display: grid;
+  grid-template-columns: 1fr;                 /* mobile default */
+  align-content: start;
+  align-items: start;
+  position: fixed;
+  top: 60px;
+  left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.95);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  padding: 40px var(--ds-section-px);
+  gap: 24px 48px;
+  z-index: 199;
+  overflow-y: auto;
+}
+.site-header.nav-mobile-open .nav-links a { color: #fff; font-size: 18px; }
+
+/* Expertise dropdown becomes a grid parent spanning the full row */
+.site-header.nav-mobile-open .nav-dropdown {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+.site-header.nav-mobile-open .nav-mega {
+  position: static;
+  display: grid;
+  grid-template-columns: 1fr;                 /* mobile: single col */
+  gap: 32px;
+  max-height: none;
+  background: transparent;
+  padding: 16px 0;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  backdrop-filter: none;
+}
+.site-header.nav-mobile-open .mega-col a { color: rgba(255,255,255,0.7); }
+.site-header.nav-mobile-open .mega-col h4 { color: #8bb898; }
+
+/* Tablet portrait+ — 2 columns for top-level links, 2 for mega menu */
+@media (min-width: 600px) {
+  .site-header.nav-mobile-open .nav-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .site-header.nav-mobile-open .nav-mega {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Desktop — top-level links column on the left, mega menu 3-col on the right */
+@media (min-width: 1024px) {
+  .site-header.nav-mobile-open .nav-links {
+    grid-template-columns: minmax(220px, 1fr) minmax(0, 3fr);
+    gap: 32px 64px;
+    padding: 64px var(--ds-section-px);
+  }
+  /* Top-level links stack in the first column; Expertise spans to use right column for its mega */
+  .site-header.nav-mobile-open .nav-dropdown {
+    grid-column: 2;
+    grid-row: 1 / span 10;                    /* occupy the whole right column */
+  }
+  .site-header.nav-mobile-open .nav-mega {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 0;
+  }
+  .site-header.nav-mobile-open .nav-dropdown-trigger {
+    display: none;                            /* no need for the trigger inside the drawer */
+  }
+}
+
+/* Hamburger X state */
+.site-header.nav-mobile-open .nav-hamburger span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.site-header.nav-mobile-open .nav-hamburger span:nth-child(2) {
+  opacity: 0;
+}
+.site-header.nav-mobile-open .nav-hamburger span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
 @media (max-width: 1024px) {
   /* ── Header: collapse to mobile nav ── */
   .nav-topbar          { max-height: 0; padding-top: 0; padding-bottom: 0; overflow: hidden; opacity: 0; }
   .nav-links           { display: none; }
-
-  /* Mobile nav overlay (toggled via .nav-mobile-open on header) */
-  .site-header.nav-mobile-open .nav-links {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 60px;
-    left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.95);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    padding: 40px var(--ds-section-px);
-    gap: 24px;
-    z-index: 199;
-    overflow-y: auto;
-  }
-  .site-header.nav-mobile-open .nav-links a { color: #fff; font-size: 18px; }
-  .site-header.nav-mobile-open .nav-mega {
-    position: static;
-    grid-template-columns: 1fr;
-    gap: 32px;
-    max-height: none;
-    background: transparent;
-    padding: 16px 0;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    backdrop-filter: none;
-  }
-  .site-header.nav-mobile-open .mega-col a { color: rgba(255,255,255,0.7); }
-  .site-header.nav-mobile-open .mega-col h4 { color: #8bb898; }
-
-  /* Hamburger X state */
-  .site-header.nav-mobile-open .nav-hamburger span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-  .site-header.nav-mobile-open .nav-hamburger span:nth-child(2) {
-    opacity: 0;
-  }
-  .site-header.nav-mobile-open .nav-hamburger span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-  }
 
   /* ── S3B News: horizontal scroll ── */
   .s3b-track {
