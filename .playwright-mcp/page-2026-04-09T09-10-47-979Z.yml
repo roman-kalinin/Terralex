@@ -1,0 +1,133 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic:
+      - generic:
+        - heading "TerraLex Announces Its Inaugural NextGen Advisory Committee" [level=1]
+        - paragraph: December 4th, 2024. Miami Lakes, FL – TerraLex, an elite global legal network, is proud to announce the formation of its first-ever NextGen Advisory Committee. Comprising eight dynamic lawyers from member firms representing each of the continents.
+        - generic:
+          - link "Find Trusted Counsel":
+            - /url: "#"
+    - generic:
+      - generic:
+        - heading "TerraLex Members Assist in $15-Million Investment in Swiss Fintech Company" [level=1]
+        - paragraph: TerraLex member firms Wiggin and Dana (USA) and LALIVE (Switzerland–Geneva) have supported US-based Point72 Ventures in a $15-million investment in Swiss fintech company.
+        - generic:
+          - link "Find Trusted Counsel":
+            - /url: "#"
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - link "Member Directory" [ref=e9] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=e10]: "|"
+        - link "TLC Sign-On" [ref=e11] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=e12]: "|"
+        - link "Ask myLexi" [ref=e13] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=e14]: "|"
+        - link "Contact Us" [ref=e15] [cursor=pointer]:
+          - /url: "#"
+      - navigation [ref=e16]:
+        - link "TerraLex" [ref=e17] [cursor=pointer]:
+          - /url: "#"
+          - img "TerraLex" [ref=e18]
+        - generic [ref=e19]:
+          - link "Cross-Border Guides" [ref=e20] [cursor=pointer]:
+            - /url: "#"
+          - link "Expertise" [ref=e22] [cursor=pointer]:
+            - /url: "#"
+            - text: Expertise
+            - img [ref=e23]
+          - link "Events Hub" [ref=e25] [cursor=pointer]:
+            - /url: "#"
+          - link "Global Insights" [ref=e26] [cursor=pointer]:
+            - /url: "#"
+          - link "Success Stories" [ref=e27] [cursor=pointer]:
+            - /url: "#"
+          - link "About TerraLex" [ref=e28] [cursor=pointer]:
+            - /url: "#"
+        - generic [ref=e29]:
+          - button "Search" [ref=e30] [cursor=pointer]:
+            - img [ref=e31]
+          - button "Menu" [ref=e34] [cursor=pointer]
+  - link "See all news →" [ref=e49] [cursor=pointer]:
+    - /url: "#"
+  - generic [ref=e70]:
+    - generic [ref=e73]:
+      - generic [ref=e74]:
+        - generic [ref=e75]: Telecom
+        - generic [ref=e76]: Serbia
+      - generic [ref=e77]: Gecić Law Advises Telekom Srbija on Landmark €1.5 Billion Telecom Transaction
+      - generic:
+        - paragraph: TerraLex congratulates its Serbian member firm, Gecić | Law, who served as lead legal advisor to Telekom Srbija Group in one of the largest telecom transactions in Western Balkans history, a €1.5 billion deal that strengthened Telekom Srbija's market position and expanded its digital media...
+        - link "Read story" [ref=e78] [cursor=pointer]:
+          - /url: "#"
+          - text: Read story
+          - img [ref=e79]
+    - generic [ref=e83]:
+      - generic [ref=e84]:
+        - generic [ref=e85]: Environmental
+        - generic [ref=e86]: Global
+      - generic [ref=e87]: "TerraLex Success Story for The Nature Conservancy: A Global Collaboration for Environmental Impact"
+      - generic:
+        - paragraph: At the heart of the TerraLex global legal network is the power of collaboration — and nowhere is this more evident than in TerraLex's ongoing partnership with The Nature Conservancy (TNC), a leading global environmental nonprofit. With a presence in more than 70 countries, The...
+        - link "Read story" [ref=e88] [cursor=pointer]:
+          - /url: "#"
+          - text: Read story
+          - img [ref=e89]
+    - generic [ref=e93]:
+      - generic [ref=e94]:
+        - generic [ref=e95]: Fintech
+        - generic [ref=e96]: USA · Switzerland
+      - generic [ref=e97]: TerraLex Members Assist in $15-Million Investment in Swiss Fintech Company
+      - generic:
+        - paragraph: TerraLex member firms Wiggin and Dana (USA-Connecticut, Washington, DC and New York City, NY) and LALIVE (Switzerland-Geneva) have supported US-based Point72 Ventures, a global venture capital fund based in New York City, NY and Menlo Park, California in relation to their USD $15-million investment into...
+        - link "Read story" [ref=e98] [cursor=pointer]:
+          - /url: "#"
+          - text: Read story
+          - img [ref=e99]
+    - generic [ref=e103]:
+      - generic [ref=e104]:
+        - generic [ref=e105]: M&A
+        - generic [ref=e106]: Sweden · UK
+      - generic [ref=e107]: Lindahl and RPC Advise Cibes in the Acquisition of Titan Elevators Ltd.
+      - generic:
+        - paragraph: TerraLex's Swedish member Lindahl (Mårten Steen and associate Disa Almqvist) and UK-England members RPC (Tim Anderson and fellow partner Chris Brierley) have advised Lindahl's client Cibes Lift Group in the acquisition of the British company Titan Elevators. Cibes Lift Group is one of the world's...
+        - link "Read story" [ref=e108] [cursor=pointer]:
+          - /url: "#"
+          - text: Read story
+          - img [ref=e109]
+    - generic [ref=e111]:
+      - generic [ref=e112]:
+        - strong [ref=e113]: Access more
+        - generic [ref=e114]: Success Stories.
+      - paragraph [ref=e115]: Learn how member firms from across the globe work together to deliver business solutions.
+      - link "Success Stories" [ref=e116] [cursor=pointer]:
+        - /url: "#"
+  - heading [level=2] [ref=e119]
+  - generic [ref=e122]:
+    - generic [ref=e125]: Collaboration
+    - img
+    - generic:
+      - generic: Market Standing
+      - generic: Strong Commercial Law Capability
+      - generic: Commitment to Continuous Improvement & Innovation
+      - generic: Responsiveness
+      - generic: Follow Up - Clients and Other Members
+      - generic: International Focus & Clients
+      - generic: Capacity for Reciprocity
+      - generic: Geographical Coverage in Designated Jurisdiction
+      - generic: English Language Capability and Website
+      - generic: Payment of Dues on Time
+      - generic: Transparent Billing and Managing Expectations of Cost
+      - generic: Referral Tracking - In and Out
+      - generic: Quality Member Representatives
+      - generic: Attendance at Meetings
+      - generic: Committed to Feedback
+      - generic: Engagement with TerraLex
+  - contentinfo [ref=e140]
+  - generic [ref=e144] [cursor=pointer]:
+    - generic [ref=e145]: myLexi
+    - generic [ref=e146]: AI Assistant
+  - link "DS" [ref=e147] [cursor=pointer]:
+    - /url: design-system.html

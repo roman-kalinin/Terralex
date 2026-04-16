@@ -1,0 +1,17 @@
+[     103ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/assets/images/events/section-bg.png:0
+[     254ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/hero/Hero%20slide%201.png:0
+[     254ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/hero/hero%20slide%202.png:0
+[     254ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/hero/Hero%20slide%203.png:0
+[     254ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/misc/Collaboration%20image.png:0
+[     254ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/misc/BG-map.svg:0
+[     254ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/misc/Home%20main%20screen%2011.jpg:0
+[     254ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Artificial%20Intelligence.jpg:0
+[     254ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Foreign%20Direct%20Investment.jpg:0
+[     254ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Mergers%20&%20Acquisitions.jpg:0
+[     254ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Real%20Estate.jpg:0
+[     254ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Crypto%20Assets.jpg:0
+[     254ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Labor%20and%20Employment.jpg:0
+[     284ms] Unexpected token '<'
+[     284ms] Unexpected token '<'
+[     284ms] Unexpected token '<'
+[     334ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/favicon.ico:0

@@ -21,12 +21,22 @@
   ];
 
   var targets = [
-    { x: -30, y: -26 }, { x: 26, y: -30 }, { x: -36, y: -10 },
-    { x: -28, y: 18 },  { x: 33, y: -13 }, { x: -2, y: 33 },
-    { x: 8, y: -23 },  { x: 30, y: 22 },  { x: -26, y: 32 },
-    { x: -5, y: -28 },  { x: 19, y: 34 },  { x: 34, y: 11 },
-    { x: -34, y: 6 },   { x: 36, y: 0 },   { x: -19, y: -32 },
-    { x: -10, y: 26 }
+    { x: -22, y: -20 },  /* 0  Market Standing — top-left */
+    { x: -7,  y: -24 },  /* 1  Strong Commercial Law Capability — top-center-left */
+    { x: 10,  y: -24 },  /* 2  Commitment to Continuous Improvement — top-center-right */
+    { x: 24,  y: -20 },  /* 3  Responsiveness — top-right */
+    { x: 33,  y: -12 },  /* 4  Follow Up - Clients — right-upper */
+    { x: 36,  y: -1 },   /* 5  International Focus — right */
+    { x: 34,  y: 10 },   /* 6  Capacity for Reciprocity — right-lower */
+    { x: 32,  y: 21 },   /* 7  Geographical Coverage — bottom-right-outer */
+    { x: 22,  y: 28 },   /* 8  English Language — bottom-right */
+    { x: 9,   y: 28 },   /* 9  Payment of Dues — bottom-center-right */
+    { x: -7,  y: 28 },   /* 10 Transparent Billing — bottom-center-left */
+    { x: -20, y: 26 },   /* 11 Referral Tracking — bottom-left */
+    { x: -30, y: 19 },   /* 12 Quality Member Representatives — left-lower */
+    { x: -35, y: 8 },    /* 13 Attendance at Meetings — left */
+    { x: -35, y: -3 },   /* 14 Committed to Feedback — left */
+    { x: -32, y: -12 }   /* 15 Engagement with TerraLex — left-upper */
   ];
 
   // ── DOM refs (cached once) ──────────────────────────────

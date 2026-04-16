@@ -1,0 +1,10 @@
+[      27ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/assets/images/events/section-bg.png:0
+[      71ms] Unexpected token '<'
+[      71ms] Unexpected token '<'
+[      71ms] Unexpected token '<'
+[      35ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Artificial%20Intelligence.jpg:0
+[      40ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Mergers%20&%20Acquisitions.jpg:0
+[      42ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Foreign%20Direct%20Investment.jpg:0
+[      42ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Real%20Estate.jpg:0
+[      50ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Crypto%20Assets.jpg:0
+[      50ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Labor%20and%20Employment.jpg:0

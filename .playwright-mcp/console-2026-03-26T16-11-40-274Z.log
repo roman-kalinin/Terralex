@@ -1,0 +1,5 @@
+[     212ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Mergers%20&%20Acquisitions.jpg:0
+[     213ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Artificial%20Intelligence.jpg:0
+[     262ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/favicon.ico:0
+[    6619ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Mergers%20&%20Acquisitions.jpg:0
+[    6620ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8080/css/assets/images/guides/CBG%20to%20Artificial%20Intelligence.jpg:0
