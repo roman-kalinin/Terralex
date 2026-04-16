@@ -26,6 +26,15 @@ lenis.on('scroll', ({ scroll }) => {
   siteHeader.classList.toggle('scrolled', scroll > 10);
 });
 
+// ── Mobile nav hamburger toggle ──────────────────────────────────
+const hamburger = document.querySelector('.nav-hamburger');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    const isOpen = siteHeader.classList.toggle('nav-mobile-open');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+}
+
 // ── Expertise dropdown toggle ────────────────────────────────────
 const navDropdown = document.querySelector('.nav-dropdown');
 const dropdownTrigger = document.querySelector('.nav-dropdown-trigger');

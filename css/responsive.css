@@ -1,0 +1,307 @@
+/* ============================================================
+   RESPONSIVE.CSS — Adaptive breakpoints & fluid overrides
+   Loaded after design-system.css.
+   Breakpoints: 1024px (tablet), 768px (tablet portrait), 480px (mobile)
+============================================================ */
+
+/* Note: avoid overflow-x:hidden on html/body — it breaks sticky positioning */
+
+/* ================================================================
+   PHASE 1 — FLUID FIXES (no breakpoints)
+   Replace hardcoded px values with design-system tokens & clamp()
+================================================================ */
+
+/* ── Header & Nav ── */
+.nav-topbar       { padding-left: var(--ds-section-px); padding-right: var(--ds-section-px); }
+nav#mainNav       { padding-left: var(--ds-section-px); padding-right: var(--ds-section-px); }
+.nav-mega         { padding-left: var(--ds-section-px); padding-right: var(--ds-section-px); }
+
+/* ── Hero ── */
+.slide-content    { padding: var(--ds-section-px) var(--ds-section-px) 0; }
+.hero-body        { font-size: var(--ds-fs-body-lg); }
+.cta-primary      { width: auto; padding: 0 32px; min-width: 200px; }
+
+/* ── S3 Numbers ── */
+.s3-numbers       { padding: clamp(80px, 5vw + 40px, 160px) var(--ds-section-px) clamp(120px, 8vw + 40px, 260px); }
+.s3-header        { margin-bottom: clamp(48px, 3vw + 24px, 110px); }
+.s3-heading       { font-size: var(--ds-fs-h1); letter-spacing: var(--ds-ls-h1); }
+.s3-cell          { padding: clamp(20px, 2vw + 8px, 48px); }
+
+/* ── S3B News ── */
+.s3b-news         { padding: clamp(80px, 6vw + 40px, 200px) var(--ds-section-px) var(--ds-section-px); }
+.s3b-heading      { font-size: var(--ds-fs-h1); letter-spacing: var(--ds-ls-h1); }
+
+/* ── S2 Directory ── */
+.s2-directory     { padding: var(--ds-section-py) var(--ds-section-px); }
+
+/* ── S4 Case Studies ── */
+.s4-header        { padding: clamp(48px, 4vw, 100px) 0 clamp(36px, 3vw, 72px); }
+.s4-heading       { font-size: var(--ds-fs-h1); letter-spacing: var(--ds-ls-h1); }
+
+/* ── S5 Hero Band + Standards ── */
+.s5-heading       { font-size: var(--ds-fs-h1); letter-spacing: var(--ds-ls-h1); }
+.s5-sub           { font-size: var(--ds-fs-body-lg); }
+.s5-collab-pill   { width: clamp(220px, 28vw, 420px); height: clamp(90px, 10vw, 160px); }
+.s5-collab-text   { font-size: clamp(24px, 3.2vw, 48px); }
+
+/* S5 hero band text */
+.s5-hero-text     { left: var(--ds-section-px); bottom: var(--ds-section-px); }
+.s5-hero-light,
+.s5-hero-bold     { font-size: var(--ds-fs-h1); }
+
+/* ── S6 Events ── */
+.s6-header        { padding: var(--ds-section-py) var(--ds-section-px) clamp(32px, 3vw, 64px) var(--ds-section-px); }
+.s6-heading       { font-size: var(--ds-fs-h1); letter-spacing: var(--ds-ls-h1); }
+.s6-sub           { font-size: var(--ds-fs-body-lg); }
+.s6-grid          { padding-left: var(--ds-section-px); padding-right: var(--ds-section-px); }
+.s6-view-all-wrap { padding: 32px var(--ds-section-px) var(--ds-section-px); }
+
+/* ── S7 myLexi AI ── */
+.s7-content       { padding: var(--ds-section-py) var(--ds-section-px); }
+.s7-heading       { font-size: var(--ds-fs-h1); letter-spacing: var(--ds-ls-h1); }
+.s7-desc          { font-size: var(--ds-fs-body-lg); }
+
+/* ── S8 Cross-Border Guides ── */
+.s8-text          { bottom: clamp(80px, 10vw, 200px); left: var(--ds-section-px); }
+.s8-heading       { font-size: var(--ds-fs-h1); letter-spacing: var(--ds-ls-h1); }
+.s8-guides-track  { margin: clamp(-100px, -8vw, -160px) var(--ds-section-px) 0; }
+
+/* ── S9 CTA / Quote ── */
+.s9-cta           { min-height: clamp(500px, 55vh, 880px); }
+.s9-inner         { padding: var(--ds-section-py) var(--ds-section-px); }
+.s9-quote         { font-size: var(--ds-fs-h1); letter-spacing: var(--ds-ls-h1); }
+.s9-attribution   { font-size: clamp(18px, 1.5vw + 6px, 26px); }
+
+/* ── Footer ── */
+.site-footer      { padding: var(--ds-section-py) var(--ds-section-px) 0; }
+.footer-inner     { gap: clamp(24px, 3vw, 60px); }
+
+
+/* ================================================================
+   1024px — TABLET LANDSCAPE / SMALL LAPTOP
+================================================================ */
+@media (max-width: 1024px) {
+  /* ── Header: collapse to mobile nav ── */
+  .nav-topbar          { max-height: 0; padding-top: 0; padding-bottom: 0; overflow: hidden; opacity: 0; }
+  .nav-links           { display: none; }
+
+  /* Mobile nav overlay (toggled via .nav-mobile-open on header) */
+  .site-header.nav-mobile-open .nav-links {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 60px;
+    left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    padding: 40px var(--ds-section-px);
+    gap: 24px;
+    z-index: 199;
+    overflow-y: auto;
+  }
+  .site-header.nav-mobile-open .nav-links a { color: #fff; font-size: 18px; }
+  .site-header.nav-mobile-open .nav-mega {
+    position: static;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    max-height: none;
+    background: transparent;
+    padding: 16px 0;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    backdrop-filter: none;
+  }
+  .site-header.nav-mobile-open .mega-col a { color: rgba(255,255,255,0.7); }
+  .site-header.nav-mobile-open .mega-col h4 { color: #8bb898; }
+
+  /* Hamburger X state */
+  .site-header.nav-mobile-open .nav-hamburger span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .site-header.nav-mobile-open .nav-hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+  .site-header.nav-mobile-open .nav-hamburger span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  /* ── S3B News: horizontal scroll ── */
+  .s3b-track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+  }
+  .s3b-track::-webkit-scrollbar { display: none; }
+  .s3b-card {
+    flex: none;
+    width: 340px;
+    scroll-snap-align: start;
+  }
+
+  /* ── S6 Events: 2-col grid ── */
+  .s6-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 38vh 38vh 38vh;
+  }
+  .s6-event:nth-child(5) { grid-column: span 1; }
+
+  /* ── S7 AI: scale down chat preview ── */
+  .s7-chat-preview  { width: 360px; transform: translateX(-20px); }
+
+  /* ── S8 Guides: horizontal scroll ── */
+  .s8-guides-track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .s8-guide-card {
+    flex: none;
+    width: 280px;
+    min-height: 280px;
+    scroll-snap-align: start;
+  }
+
+  /* ── Footer: wrap ── */
+  .footer-inner     { flex-wrap: wrap; }
+  .footer-brand     { flex: 0 0 100%; margin-bottom: 24px; }
+  .footer-nav-group { flex: 1; min-width: 140px; }
+
+  /* ── iOS: disable fixed background ── */
+  .s8-hero { background-attachment: scroll; }
+}
+
+
+/* ================================================================
+   768px — TABLET PORTRAIT
+================================================================ */
+@media (max-width: 768px) {
+  /* ── Hero ── */
+  .hero             { min-height: 520px; }
+  .hero-ticker      { height: 44px; }
+  .ticker-item      { padding: 0 16px; height: 44px; }
+  .ticker-item p    { font-size: 13px; }
+
+  /* ── S2 Directory: stack — globe above text ── */
+  .s2-directory     { flex-direction: column; gap: 32px; }
+  .s2-text-col      { flex: none; width: 100%; text-align: center; align-items: center; }
+  .s2-globe-col     { flex: none; width: 100%; height: 50vh; min-height: 300px; }
+  .s2-region-bubble { width: 56px; height: 56px; }
+  .s2-region-num    { width: 44px; height: 44px; font-size: 18px; }
+  .s2-search        { flex-wrap: wrap; height: auto; }
+  .s2-dropdown      { width: 100%; border-radius: 7px; border-right: 1px solid rgba(0,0,0,0.1); }
+  .s2-search-btn    { width: 100%; border-radius: 7px; margin-top: 8px; height: 48px; }
+
+  /* ── S4 & S5: reduce scroll distance ── */
+  .s4-zoom-container { height: 300vh; }
+  .s5-pin-wrap       { height: 250vh; }
+
+  /* ── S3 Numbers: 2-col ── */
+  .s3-grid          { grid-template-columns: repeat(2, 1fr); }
+
+  /* ── S3B News: stack ── */
+  .s3b-track        { flex-direction: column; overflow: visible; scroll-snap-type: none; }
+  .s3b-card         { width: 100%; height: auto; min-height: 280px; flex: none; }
+
+  /* ── S5 Standards ── */
+  .s5-criteria-item { max-width: 140px; padding: 10px 14px; }
+  .s5-header        { padding-top: 48px; }
+
+  /* ── S6 Events: 1-col ── */
+  .s6-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .s6-event         { min-height: 300px; }
+  .s6-map-bg        { display: none; }
+  /* Touch-friendly: reveal always visible */
+  .s6-event-reveal  {
+    max-height: 260px;
+    opacity: 1;
+    margin-top: 0;
+    transform: translateY(0);
+  }
+
+  /* ── S7 AI: keep side-by-side, just scale ── */
+  .s7-content       { flex: 0 0 50%; }
+  .s7-chat-preview  { width: 100%; max-width: 340px; transform: none; }
+  .s7-image img     { width: 100%; transform: none; }
+
+  /* ── S8 Guides ── */
+  .s8-hero          { height: 55vh; min-height: 440px; }
+  .s8-text          { bottom: clamp(60px, 8vw, 120px); }
+  .s8-guide-card    { width: 260px; min-height: 260px; }
+
+  /* ── Footer: full stack ── */
+  .footer-inner     { flex-direction: column; gap: 32px; }
+  .footer-brand     { flex: none; }
+  .footer-nav-group { flex: none; width: 100%; }
+  .footer-bottom    { flex-direction: column; gap: 16px; align-items: flex-start; }
+
+  /* ── Chat widget ── */
+  .chat-panel {
+    width: calc(100vw - 32px);
+    height: calc(100vh - 120px);
+    border-radius: 16px;
+  }
+
+  /* ── Touch-friendly: S8 card hover states always visible ── */
+  .s8-card-preview  { opacity: 1; }
+}
+
+
+/* ================================================================
+   480px — MOBILE
+================================================================ */
+@media (max-width: 480px) {
+  /* ── Hero ── */
+  .hero-ctas        { flex-direction: column; align-items: stretch; gap: 12px; }
+  .cta-primary      { width: 100%; }
+
+  /* ── S3 Numbers: 1-col ── */
+  .s3-grid          { grid-template-columns: 1fr; }
+
+  /* ── S4 & S5: shorter scroll on mobile ── */
+  .s4-zoom-container { height: 250vh; }
+  .s5-pin-wrap       { height: 200vh; }
+
+  /* ── S4 Cards: full-width ── */
+  .s4-card          { width: calc(100vw - 48px); }
+
+  /* ── S5 Standards: tighter criteria ── */
+  .s5-criteria-item { max-width: 120px; font-size: 10px; padding: 8px 12px; }
+
+  /* ── S6 Events ── */
+  .s6-event         { min-height: 260px; }
+  .s6-event-content { padding: 24px; }
+
+  /* ── S7 AI chat: scale, don't stack ── */
+  .s7-chat-preview  { max-width: 280px; }
+  .s7-chat-body     { max-height: 260px; }
+
+  /* ── S8 Guides: vertical stack ── */
+  .s8-guides-track  { flex-direction: column; overflow: visible; scroll-snap-type: none; }
+  .s8-guide-card    { width: 100%; min-height: auto; flex: none; }
+  .s8-hero          { height: 45vh; min-height: 360px; }
+
+  /* ── S9 CTA ── */
+  .s9-actions       { flex-direction: column; width: 100%; }
+  .s9-btn           { width: 100%; text-align: center; }
+
+  /* ── Footer ── */
+  .footer-legal     { flex-direction: column; gap: 12px; }
+
+  /* ── Chat widget: fullscreen ── */
+  .chat-widget      { right: 16px; bottom: 16px; }
+  .chat-panel {
+    width: 100vw;
+    height: calc(100vh - 80px);
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    border-radius: 16px 16px 0 0;
+  }
+  .chat-pill        { padding: 14px 18px; }
+  .chat-pill__logo  { width: 36px; height: 36px; }
+}
