@@ -273,6 +273,10 @@ nav#mainNav       { padding-left: var(--ds-section-px); padding-right: var(--ds-
   .s8-text          { bottom: clamp(60px, 8vw, 120px); }
   .s8-guide-card    { width: 260px; min-height: 260px; }
 
+  /* ── S9 CTA: stack text over video ── */
+  .s9-cta           { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .s9-media         { min-height: 40vh; }
+
   /* ── Footer: full stack ── */
   .footer-inner     { flex-direction: column; gap: 32px; }
   .footer-brand     { flex: none; }

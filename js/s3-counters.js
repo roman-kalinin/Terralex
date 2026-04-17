@@ -13,7 +13,7 @@ ScrollTrigger.create({
       const useComma = el.hasAttribute('data-comma');
       function fmt(n) {
         var v = Math.round(n);
-        return useComma ? v.toLocaleString() : v + suffix;
+        return (useComma ? v.toLocaleString() : String(v)) + suffix;
       }
       const obj = { val: 0 };
       gsap.to(obj, {
