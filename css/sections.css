@@ -275,24 +275,24 @@
 .s3-numbers {
   position: relative;
   width: 100%;
-  padding: 160px 56px 260px;
+  padding: 160px 56px 420px;
   background: transparent;
+  overflow: hidden;
 }
 .s3-numbers::before {
   content: '';
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
-  transform: translateY(calc(-50% + 160px));
+  top: 260px;
   aspect-ratio: 1150 / 560;
   background: url('../assets/images/misc/behind-numbers.png') center / 100% 100% no-repeat;
   opacity: 0.62;
   mix-blend-mode: multiply;
   pointer-events: none;
   z-index: 0;
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 22%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%);
-          mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 22%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 18%, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 96%);
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 18%, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 96%);
 }
 
 .s3-header {
@@ -1931,12 +1931,10 @@
   flex: 0 0 240px;
 }
 .footer-logo {
-  font-family: 'Source Sans 3', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: #fff;
-  margin-bottom: 16px;
+  display: block;
+  width: auto;
+  height: 48px;
+  margin-bottom: 20px;
 }
 .footer-tagline {
   font-family: 'Source Sans 3', sans-serif;
@@ -1944,7 +1942,7 @@
   font-weight: 400;
   line-height: 1.6;
   color: rgba(255,255,255,0.35);
-  max-width: 210px;
+  max-width: 260px;
   margin: 0;
 }
 .footer-nav-group {
