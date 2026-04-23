@@ -411,8 +411,16 @@
   object-fit: cover;
   transition: transform 0.5s ease;
 }
+.s3b-card-img--shift-right img {
+  transform: scale(1.18);
+  transform-origin: right center;
+}
 .s3b-card:hover .s3b-card-img img {
   transform: scale(1.05);
+}
+.s3b-card:hover .s3b-card-img--shift-right img {
+  transform: scale(1.23);
+  transform-origin: right center;
 }
 .s3b-card-img::after {
   content: '';

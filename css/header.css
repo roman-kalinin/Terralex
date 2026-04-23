@@ -141,7 +141,7 @@ nav {
 
 /* — Expertise mega dropdown — */
 .nav-dropdown {
-  position: relative;
+  position: static;
 }
 .nav-dropdown-trigger {
   display: flex;
@@ -156,9 +156,9 @@ nav {
   transform: rotate(180deg);
 }
 .nav-mega {
-  position: fixed;
+  position: absolute;
   left: 0; right: 0;
-  top: 96px; /* topbar 36 + nav 60 */
+  top: 100%; /* flush with header bottom */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 48px;
