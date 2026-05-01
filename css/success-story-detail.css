@@ -1,0 +1,689 @@
+/* ============================================================
+   success-story-detail.css — Templated case-study detail page
+   All rules scoped under .success-story-page
+============================================================ */
+
+/* Solid white scrolled header (kit instruction) */
+.success-story-page .site-header.has-solid-bg nav {
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.success-story-page .site-header.has-solid-bg .nav-topbar {
+  background: rgba(245, 245, 245, 0.95);
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+/* ── Page base ────────────────────────────────────── */
+.success-story-page {
+  background: #fff;
+  background-image: var(--bg-gradient);
+  color: var(--c-dark);
+}
+.success-story-page main { display: block; }
+
+.success-story-page .ssd-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 56px;
+}
+
+/* ── Breadcrumb ───────────────────────────────────── */
+.success-story-page .ssd-breadcrumb-bar {
+  padding-top: 112px;
+  padding-bottom: 12px;
+}
+.success-story-page .ssd-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+.success-story-page .ssd-breadcrumb a {
+  color: var(--c-gray-body);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.success-story-page .ssd-breadcrumb a:hover { color: var(--c-dark); }
+.success-story-page .ssd-breadcrumb [aria-current="page"] {
+  color: var(--c-dark);
+  font-weight: 500;
+}
+.success-story-page .ssd-bc-sep {
+  display: flex;
+  color: var(--c-dark-35);
+}
+
+/* ── Editorial hero ───────────────────────────────── */
+.success-story-page .ssd-hero {
+  padding: 24px 0 0;
+}
+.success-story-page .ssd-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 22px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+}
+.success-story-page .ssd-hero-eyebrow .ssd-eyebrow-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-blue);
+}
+.success-story-page .ssd-hero-eyebrow .ssd-eyebrow-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  background: rgba(73, 100, 136, 0.1);
+  color: var(--c-blue);
+  letter-spacing: 1.6px;
+  font-size: 11px;
+  border-radius: 2px;
+}
+
+.success-story-page .ssd-hero-title {
+  font-family: var(--font-body);
+  font-size: clamp(40px, 4vw + 1rem, 68px);
+  line-height: 1.05;
+  letter-spacing: -1.2px;
+  color: var(--c-dark);
+  margin: 0 0 28px;
+  max-width: 22ch;
+}
+.success-story-page .ssd-hero-title .ds-thin { color: rgba(10, 10, 15, 0.42); font-weight: 300; }
+.success-story-page .ssd-hero-title .ds-bold { color: var(--c-dark); font-weight: 700; }
+
+.success-story-page .ssd-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  margin: 0 0 28px;
+}
+.success-story-page .ssd-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  color: var(--c-dark);
+  background: #fff;
+  border: 1px solid rgba(10, 10, 15, 0.12);
+  border-radius: 999px;
+}
+.success-story-page .ssd-chip-region { color: var(--c-blue); border-color: rgba(73, 100, 136, 0.28); }
+.success-story-page .ssd-chip-practice { color: var(--c-dark); }
+.success-story-page .ssd-chip-industry { color: var(--c-gray-body); }
+.success-story-page .ssd-chip-date {
+  background: transparent;
+  border: none;
+  color: var(--c-gray-body);
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  font-size: 11px;
+  padding: 6px 4px;
+}
+
+.success-story-page .ssd-deal-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 22px 0 28px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  margin-bottom: 40px;
+}
+.success-story-page .ssd-deal-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-right: 24px;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+.success-story-page .ssd-deal-stat:last-child { border-right: none; }
+.success-story-page .ssd-deal-stat-num {
+  font-family: var(--font-body);
+  font-size: clamp(22px, 1.6vw + 0.5rem, 30px);
+  font-weight: 700;
+  color: var(--c-dark);
+  letter-spacing: -0.4px;
+  line-height: 1.1;
+}
+.success-story-page .ssd-deal-stat-lbl {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--c-gray-body);
+}
+
+/* Cover image */
+.success-story-page .ssd-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(73, 100, 136, 0.08);
+  margin-bottom: 64px;
+}
+.success-story-page .ssd-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.success-story-page .ssd-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.25) 100%);
+  pointer-events: none;
+}
+
+/* ── Body / prose ─────────────────────────────────── */
+.success-story-page .ssd-body {
+  padding-bottom: 64px;
+}
+.success-story-page .ssd-prose {
+  max-width: 70ch;
+  margin: 0 auto;
+}
+.success-story-page .ssd-prose .ssd-lead {
+  font-family: var(--font-body);
+  font-size: 22px;
+  line-height: 1.55;
+  color: var(--c-dark);
+  font-weight: 400;
+  letter-spacing: -0.2px;
+  margin: 0 0 28px;
+}
+.success-story-page .ssd-prose p {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.75;
+  color: rgba(10, 10, 15, 0.78);
+  margin: 0 0 22px;
+}
+.success-story-page .ssd-prose h2 {
+  font-family: var(--font-body);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.6px;
+  color: var(--c-dark);
+  margin: 56px 0 18px;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.success-story-page .ssd-prose h2 .ssd-h2-num {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--c-blue);
+  flex-shrink: 0;
+  align-self: center;
+}
+.success-story-page .ssd-prose ul {
+  margin: 8px 0 22px;
+  padding-left: 22px;
+}
+.success-story-page .ssd-prose ul li {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.7;
+  color: rgba(10, 10, 15, 0.78);
+  margin-bottom: 8px;
+}
+
+/* Pull quote */
+.success-story-page .ssd-pullquote {
+  margin: 48px 0;
+  padding: 0 0 0 28px;
+  border-left: 3px solid var(--c-blue);
+  font-family: var(--font-body);
+  font-size: 26px;
+  line-height: 1.35;
+  font-weight: 400;
+  color: var(--c-dark);
+  letter-spacing: -0.4px;
+  font-style: italic;
+}
+.success-story-page .ssd-pullquote cite {
+  display: block;
+  margin-top: 16px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+}
+
+/* Inline figure */
+.success-story-page .ssd-figure { margin: 48px 0; }
+.success-story-page .ssd-figure img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.success-story-page .ssd-figure figcaption {
+  margin-top: 12px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--c-gray-body);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* ── Firms involved ───────────────────────────────── */
+.success-story-page .ssd-firms {
+  padding: 64px 0 80px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+.success-story-page .ssd-firms-head { margin-bottom: 28px; }
+.success-story-page .ssd-firms-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  margin: 0 0 10px;
+}
+.success-story-page .ssd-firms-title {
+  font-family: var(--font-body);
+  font-size: clamp(28px, 2.5vw + 1rem, 40px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.6px;
+  color: var(--c-dark);
+  margin: 0;
+}
+.success-story-page .ssd-firms-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.success-story-page .ssd-firm-card {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 22px 24px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+}
+.success-story-page .ssd-firm-card:hover {
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
+  border-color: rgba(73, 100, 136, 0.25);
+  transform: translateY(-2px);
+}
+.success-story-page .ssd-firm-monogram {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(155deg, rgba(73, 100, 136, 0.18), rgba(73, 100, 136, 0.05));
+  border: 1px solid rgba(73, 100, 136, 0.2);
+  color: var(--c-blue);
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+.success-story-page .ssd-firm-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+.success-story-page .ssd-firm-name {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--c-dark);
+  margin: 0;
+}
+.success-story-page .ssd-firm-loc {
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  color: var(--c-gray-body);
+  letter-spacing: 0.2px;
+  margin: 0;
+}
+.success-story-page .ssd-firm-role {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-style: italic;
+  color: var(--c-blue);
+  margin: 6px 0 0;
+}
+
+/* ── Regional director card ───────────────────────── */
+.success-story-page .ssd-director {
+  padding: 0 0 80px;
+}
+.success-story-page .ssd-director-card {
+  display: grid;
+  grid-template-columns: 200px 1fr auto;
+  gap: 32px;
+  align-items: center;
+  padding: 32px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+}
+.success-story-page .ssd-director-photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(73, 100, 136, 0.08);
+  flex-shrink: 0;
+}
+.success-story-page .ssd-director-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.success-story-page .ssd-director-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.success-story-page .ssd-director-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  margin: 0;
+}
+.success-story-page .ssd-director-name {
+  font-family: var(--font-body);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--c-dark);
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+.success-story-page .ssd-director-role {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--c-gray-body);
+  margin: 0;
+}
+.success-story-page .ssd-director-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 8px;
+}
+.success-story-page .ssd-director-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--c-blue);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.success-story-page .ssd-director-actions a:hover { opacity: 0.7; }
+.success-story-page .ssd-director-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 22px;
+  background: var(--c-blue);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.success-story-page .ssd-director-cta:hover { background: #3f5572; }
+
+/* ── Related stories ──────────────────────────────── */
+.success-story-page .ssd-related {
+  padding: 80px 0 96px;
+  background: rgba(255, 255, 255, 0.55);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+.success-story-page .ssd-related-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.success-story-page .ssd-related-title {
+  font-family: var(--font-body);
+  font-size: clamp(36px, 3vw + 1rem, 56px);
+  line-height: 1.05;
+  letter-spacing: -1.2px;
+  margin: 0;
+}
+.success-story-page .ssd-related-title .ds-thin { color: rgba(10, 10, 15, 0.4); font-weight: 300; }
+.success-story-page .ssd-related-title .ds-bold { color: var(--c-dark); font-weight: 700; }
+.success-story-page .ssd-related-link {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.success-story-page .ssd-related-link:hover { opacity: 0.7; }
+.success-story-page .ssd-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.success-story-page .ssd-related-card {
+  display: block;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #1a1a24;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 6px;
+  transition: transform 0.35s ease;
+}
+.success-story-page .ssd-related-card:hover { transform: translateY(-4px); }
+.success-story-page .ssd-related-bg { position: absolute; inset: 0; z-index: 0; }
+.success-story-page .ssd-related-bg img {
+  width: 100%; height: 100%; object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 0.6s ease;
+}
+.success-story-page .ssd-related-card:hover .ssd-related-bg img { transform: scale(1.1); }
+.success-story-page .ssd-related-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.78) 0%,
+    rgba(0,0,0,0.45) 35%,
+    rgba(0,0,0,0.1) 65%,
+    rgba(0,0,0,0) 90%);
+}
+.success-story-page .ssd-related-content {
+  position: relative; z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px;
+  gap: 12px;
+}
+.success-story-page .ssd-related-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.success-story-page .ssd-related-card-title {
+  font-family: var(--font-body);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+  color: #fff;
+  margin: 0;
+}
+.success-story-page .ssd-related-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  margin-top: 4px;
+}
+
+/* ── CTA strip ────────────────────────────────────── */
+.success-story-page .ssd-cta {
+  background: linear-gradient(120deg, #3f5572 0%, var(--c-blue) 100%);
+  padding: 64px 0;
+  color: #fff;
+}
+.success-story-page .ssd-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.success-story-page .ssd-cta-title {
+  font-family: var(--font-body);
+  font-size: clamp(28px, 2vw + 1rem, 38px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.8px;
+  color: #fff;
+  margin: 0 0 8px;
+}
+.success-story-page .ssd-cta-sub {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0;
+  max-width: 56ch;
+}
+.success-story-page .ssd-cta-actions {
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.success-story-page .ssd-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 26px;
+  border-radius: 4px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.success-story-page .ssd-btn-white { background: #fff; color: var(--c-dark); }
+.success-story-page .ssd-btn-white:hover { background: rgba(255, 255, 255, 0.9); }
+.success-story-page .ssd-btn-outline {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.92);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.success-story-page .ssd-btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+}
+
+/* ── Responsive ───────────────────────────────────── */
+@media (max-width: 1024px) {
+  .success-story-page .ssd-container { padding: 0 32px; }
+  .success-story-page .ssd-firms-grid { grid-template-columns: 1fr; }
+  .success-story-page .ssd-related-grid { grid-template-columns: repeat(2, 1fr); }
+  .success-story-page .ssd-director-card {
+    grid-template-columns: 160px 1fr;
+    gap: 24px;
+  }
+  .success-story-page .ssd-director-photo { width: 160px; height: 160px; }
+  .success-story-page .ssd-director-cta {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 768px) {
+  .success-story-page .ssd-container { padding: 0 24px; }
+  .success-story-page .ssd-breadcrumb-bar { padding-top: 96px; }
+  .success-story-page .ssd-cover { aspect-ratio: 16 / 9; margin-bottom: 40px; }
+  .success-story-page .ssd-deal-row { gap: 16px; padding: 16px 0 22px; margin-bottom: 32px; }
+  .success-story-page .ssd-deal-stat { padding-right: 16px; }
+  .success-story-page .ssd-prose .ssd-lead { font-size: 19px; }
+  .success-story-page .ssd-prose p,
+  .success-story-page .ssd-prose ul li { font-size: 17px; }
+  .success-story-page .ssd-prose h2 { font-size: 26px; margin-top: 40px; }
+  .success-story-page .ssd-pullquote { font-size: 21px; margin: 36px 0; }
+  .success-story-page .ssd-firms,
+  .success-story-page .ssd-related { padding: 56px 0; }
+  .success-story-page .ssd-cta { padding: 48px 0; }
+  .success-story-page .ssd-cta-inner { flex-direction: column; align-items: flex-start; }
+  .success-story-page .ssd-related-grid { gap: 14px; }
+  .success-story-page .ssd-director-card {
+    grid-template-columns: 1fr;
+    text-align: left;
+    padding: 24px;
+  }
+  .success-story-page .ssd-director-photo {
+    width: 120px; height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .success-story-page .ssd-container { padding: 0 20px; }
+  .success-story-page .ssd-related-grid { grid-template-columns: 1fr; }
+  .success-story-page .ssd-related-card { aspect-ratio: 4 / 4.4; }
+  .success-story-page .ssd-cta-actions .ssd-btn { flex: 1; }
+  .success-story-page .ssd-firm-card { padding: 18px; gap: 14px; }
+  .success-story-page .ssd-firm-monogram { width: 48px; height: 48px; font-size: 16px; }
+}

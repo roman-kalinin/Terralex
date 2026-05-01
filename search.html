@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TerraLex — Search</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/design-system.css">
+
+<!-- Page-specific stylesheet -->
+<link rel="stylesheet" href="css/search.css">
+</head>
+<body class="search-page">
+
+<!-- ============================================================
+     HEADER (verbatim from kit)
+============================================================ -->
+<header class="site-header scrolled has-solid-bg" id="siteHeader">
+  <div class="nav-topbar">
+    <a href="firms.html">Member Directory</a><span class="sep">|</span>
+    <a href="sign-in.html">TLC Sign-On</a><span class="sep">|</span>
+    <a href="mylexi.html">Ask myLexi</a><span class="sep">|</span>
+    <a href="contact-us.html">Contact Us</a>
+  </div>
+  <nav id="mainNav">
+    <a href="index.html" class="nav-logo">
+      <img class="logo-hero" src="assets/logos/Logo white.svg" alt="TerraLex">
+      <img class="logo-scrolled" src="assets/logos/Logo default.svg" alt="TerraLex">
+    </a>
+    <div class="nav-links">
+      <a href="insights-cross-border-guides.html">Cross-Border Guides</a>
+      <div class="nav-dropdown">
+        <a href="practice-groups-industry-sector-teams.html" class="nav-dropdown-trigger">Expertise <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
+        <div class="nav-mega">
+          <div class="mega-col">
+            <h4>Practice Groups</h4>
+            <a href="practice-group-detail.html">Antitrust &amp; Competition</a>
+            <a href="practice-group-detail.html">Bankruptcy / Insolvency</a>
+            <a href="practice-group-detail.html">Construction &amp; Infrastructure</a>
+            <a href="practice-group-detail.html">Energy &amp; Environmental</a>
+            <a href="practice-group-detail.html">Finance &amp; Banking</a>
+            <a href="practice-group-detail.html">Global Trade &amp; Policy</a>
+            <a href="practice-group-detail.html">Immigration</a>
+            <a href="practice-group-detail.html">Insurance</a>
+            <a href="practice-group-detail.html">Intellectual Property, Licensing &amp; Technology</a>
+            <a href="practice-group-detail.html">International Litigation &amp; Arbitration</a>
+            <a href="practice-group-detail.html">Labor &amp; Employment</a>
+            <a href="practice-group-detail.html">Mergers &amp; Acquisitions</a>
+            <a href="practice-group-detail.html">Real Estate</a>
+            <a href="practice-group-detail.html">Regulatory, Investigations &amp; Compliance</a>
+            <a href="practice-group-detail.html">Tax &amp; Wealth Services</a>
+          </div>
+          <div class="mega-col">
+            <h4>Industry Sector Teams</h4>
+            <a href="industry-sector-team-detail.html">Automotive</a>
+            <a href="industry-sector-team-detail.html">Aviation</a>
+            <a href="industry-sector-team-detail.html">Education Services</a>
+            <a href="industry-sector-team-detail.html">ESG</a>
+            <a href="industry-sector-team-detail.html">Food &amp; Beverage</a>
+            <a href="industry-sector-team-detail.html">Hospitality</a>
+            <a href="industry-sector-team-detail.html">Life Sciences</a>
+            <a href="industry-sector-team-detail.html">Mining</a>
+            <a href="industry-sector-team-detail.html">Retail</a>
+            <a href="industry-sector-team-detail.html">Sports &amp; Entertainment</a>
+            <a href="industry-sector-team-detail.html">Technology &amp; Digital Business</a>
+          </div>
+          <div class="mega-col">
+            <h4>Regions</h4>
+            <a href="firms.html">Africa &amp; the Middle East</a>
+            <a href="firms.html">Asia-Pacific</a>
+            <a href="firms.html">Europe</a>
+            <a href="firms.html">Latin America &amp; the Caribbean</a>
+            <a href="firms.html">North America</a>
+          </div>
+        </div>
+      </div>
+      <a href="events.html">Events Hub</a>
+      <a href="news.html">Global Insights</a>
+      <a href="success-stories.html">Success Stories</a>
+      <a href="about.html">About TerraLex</a>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-search-btn" aria-label="Search" onclick="location.href='search.html'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+      <button class="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================================================
+     SEARCH HERO — query band: echoes ?q= and refines
+============================================================ -->
+<section class="search-hero">
+  <div class="search-hero-inner ds-container">
+    <nav class="search-crumbs ds-body-sm" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="search-crumb-sep" aria-hidden="true">›</span>
+      <span aria-current="page">Search</span>
+    </nav>
+
+    <p class="ds-eyebrow search-hero-eyebrow">Search TerraLex</p>
+    <h1 class="ds-h1 search-hero-title">
+      <span class="ds-thin">Results for</span> <span class="ds-bold" id="searchEcho">your query</span>
+    </h1>
+    <p class="ds-body-lg search-hero-sub" id="searchHeroSub">
+      Search across 141 member firms, 23,000+ professionals, cross-border guides and global insights.
+    </p>
+
+    <form class="search-bar" action="search.html" method="get" role="search" id="searchForm">
+      <span class="search-bar-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </span>
+      <input
+        class="search-bar-input"
+        type="search"
+        name="q"
+        id="searchInput"
+        placeholder="Search firms, professionals, guides, news…"
+        aria-label="Search TerraLex"
+        autocomplete="off">
+      <button class="ds-btn ds-btn-primary search-bar-btn" type="submit">Search</button>
+    </form>
+
+    <div class="search-suggested" aria-label="Popular searches">
+      <span class="search-suggested-label">Popular:</span>
+      <a href="search.html?q=antitrust" class="search-suggested-chip">Antitrust</a>
+      <a href="search.html?q=arbitration" class="search-suggested-chip">Arbitration</a>
+      <a href="search.html?q=ESG" class="search-suggested-chip">ESG</a>
+      <a href="search.html?q=mergers" class="search-suggested-chip">Mergers &amp; Acquisitions</a>
+      <a href="search.html?q=tax" class="search-suggested-chip">Tax</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TAB STRIP — sticky filter row with counts (per brief)
+============================================================ -->
+<section class="search-tabbar" aria-label="Filter results by type">
+  <div class="search-tabbar-inner ds-container">
+    <div class="search-tabs" role="tablist" aria-label="Result categories">
+      <button class="search-tab is-active" role="tab" aria-selected="true" data-tab="all" type="button">
+        All <span class="search-tab-count">21</span>
+      </button>
+      <button class="search-tab" role="tab" aria-selected="false" data-tab="firms" type="button">
+        Firms <span class="search-tab-count">5</span>
+      </button>
+      <button class="search-tab" role="tab" aria-selected="false" data-tab="professionals" type="button">
+        Professionals <span class="search-tab-count">5</span>
+      </button>
+      <button class="search-tab" role="tab" aria-selected="false" data-tab="guides" type="button">
+        Guides <span class="search-tab-count">4</span>
+      </button>
+      <button class="search-tab" role="tab" aria-selected="false" data-tab="news" type="button">
+        News <span class="search-tab-count">4</span>
+      </button>
+      <button class="search-tab" role="tab" aria-selected="false" data-tab="videos" type="button">
+        Videos <span class="search-tab-count">3</span>
+      </button>
+    </div>
+    <p class="search-result-count" aria-live="polite" id="searchResultCount">
+      <strong>21</strong> results
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     CATEGORY GATEWAYS — mirror of the live /search page
+     Each category = a quick gateway with description + count + browse link
+============================================================ -->
+<section class="search-gateways" aria-label="Browse by category">
+  <div class="ds-container">
+    <header class="search-section-head">
+      <p class="ds-eyebrow search-section-eyebrow">Browse by category</p>
+      <h2 class="ds-h3 search-section-title">
+        <span class="ds-thin">Pick a starting point.</span> <span class="ds-bold">Or refine above.</span>
+      </h2>
+    </header>
+
+    <ul class="search-gateway-list" role="list">
+      <li>
+        <a class="search-gateway" href="firms.html">
+          <span class="search-gateway-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01"/>
+            </svg>
+          </span>
+          <div class="search-gateway-body">
+            <h3 class="search-gateway-title">Firms</h3>
+            <p class="search-gateway-desc">141 member firms across 207 jurisdictions.</p>
+          </div>
+          <span class="search-gateway-count">141</span>
+          <span class="search-gateway-arrow" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="search-gateway" href="firms.html">
+          <span class="search-gateway-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </span>
+          <div class="search-gateway-body">
+            <h3 class="search-gateway-title">Professionals</h3>
+            <p class="search-gateway-desc">23,000+ attorneys searchable by jurisdiction and practice.</p>
+          </div>
+          <span class="search-gateway-count">23,000+</span>
+          <span class="search-gateway-arrow" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="search-gateway" href="news.html">
+          <span class="search-gateway-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/>
+            </svg>
+          </span>
+          <div class="search-gateway-body">
+            <h3 class="search-gateway-title">Publications</h3>
+            <p class="search-gateway-desc">Member alerts, briefings and editorial features.</p>
+          </div>
+          <span class="search-gateway-count">320+</span>
+          <span class="search-gateway-arrow" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="search-gateway" href="news.html">
+          <span class="search-gateway-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+            </svg>
+          </span>
+          <div class="search-gateway-body">
+            <h3 class="search-gateway-title">Videos</h3>
+            <p class="search-gateway-desc">Conference recordings, panels and member spotlights.</p>
+          </div>
+          <span class="search-gateway-count">48</span>
+          <span class="search-gateway-arrow" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="search-gateway" href="insights-cross-border-guides.html">
+          <span class="search-gateway-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </span>
+          <div class="search-gateway-body">
+            <h3 class="search-gateway-title">Insights &amp; Cross-Border Guides</h3>
+            <p class="search-gateway-desc">Practice-by-jurisdiction guides authored by member firms.</p>
+          </div>
+          <span class="search-gateway-count">85</span>
+          <span class="search-gateway-arrow" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================
+     RESULTS — populated demo set, grouped by type
+============================================================ -->
+<section class="search-results" aria-label="Search results">
+  <div class="ds-container search-results-inner">
+
+    <p class="search-demo-note ds-body-sm">
+      <span aria-hidden="true">ⓘ</span>
+      Demo results — actual search powered by site search.
+    </p>
+
+    <!-- ── Firms group ──────────────────────────────────── -->
+    <div class="search-group" data-group="firms">
+      <header class="search-group-head">
+        <h2 class="ds-h3 search-group-title">
+          <span class="ds-thin">Firms</span>
+          <span class="search-group-count">5</span>
+        </h2>
+        <a href="firms.html" class="search-group-more">See all firms
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </header>
+
+      <ul class="search-result-list" role="list">
+        <li>
+          <a class="search-result" href="firm.html?slug=arendt-medernach-luxembourg">
+            <span class="search-result-badge search-badge-firm">Firm</span>
+            <div class="search-result-body">
+              <div class="search-result-meta">
+                <span class="search-flag" aria-hidden="true">🇱🇺</span>
+                <span class="search-meta-text">Luxembourg City · Luxembourg</span>
+              </div>
+              <h3 class="search-result-title">Arendt &amp; Medernach</h3>
+              <p class="search-result-excerpt">Independent member firm with a leading practice in investment funds, banking and tax across Europe.</p>
+              <ul class="search-result-tags">
+                <li>Investment Funds</li><li>Banking</li><li>Tax</li>
+              </ul>
+            </div>
+            <span class="search-result-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="search-result" href="firm.html?slug=al-ansari">
+            <span class="search-result-badge search-badge-firm">Firm</span>
+            <div class="search-result-body">
+              <div class="search-result-meta">
+                <span class="search-flag" aria-hidden="true">🇶🇦</span>
+                <span class="search-meta-text">Doha · Qatar</span>
+              </div>
+              <h3 class="search-result-title">Al-Ansari &amp; Associates</h3>
+              <p class="search-result-excerpt">Full-service Qatari practice with strong energy, arbitration and construction credentials in the Gulf.</p>
+              <ul class="search-result-tags">
+                <li>Energy</li><li>Arbitration</li><li>Construction</li>
+              </ul>
+            </div>
+            <span class="search-result-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="search-result" href="firm.html?slug=abreu-advogados-portugal">
+            <span class="search-result-badge search-badge-firm">Firm</span>
+            <div class="search-result-body">
+              <div class="search-result-meta">
+                <span class="search-flag" aria-hidden="true">🇵🇹</span>
+                <span class="search-meta-text">Lisbon · Portugal</span>
+              </div>
+              <h3 class="search-result-title">Abreu Advogados</h3>
+              <p class="search-result-excerpt">A leading Iberian-Lusophone law firm advising on corporate, litigation and tax across PALOP markets.</p>
+              <ul class="search-result-tags">
+                <li>Corporate</li><li>Litigation</li><li>Tax</li>
+              </ul>
+            </div>
+            <span class="search-result-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="search-result" href="firm.html?slug=5a-law-firm">
+            <span class="search-result-badge search-badge-firm">Firm</span>
+            <div class="search-result-body">
+              <div class="search-result-meta">
+                <span class="search-flag" aria-hidden="true">🇲🇾</span>
+                <span class="search-meta-text">Kuala Lumpur · Malaysia</span>
+              </div>
+              <h3 class="search-result-title">5A Law Firm LLP</h3>
+              <p class="search-result-excerpt">Boutique Malaysian counsel with deep M&amp;A, banking and real-estate experience across ASEAN.</p>
+              <ul class="search-result-tags">
+                <li>M&amp;A</li><li>Banking &amp; Finance</li><li>Real Estate</li>
+              </ul>
+            </div>
+            <span class="search-result-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── Professionals group ──────────────────────────── -->
+    <div class="search-group" data-group="professionals">
+      <header class="search-group-head">
+        <h2 class="ds-h3 search-group-title">
+          <span class="ds-thin">Professionals</span>
+          <span class="search-group-count">5</span>
+        </h2>
+        <a href="firms.html" class="search-group-more">See all professionals
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </header>
+
+      <ul class="search-result-list" role="list">
+        <li>
+          <a class="search-result" href="firm.html?slug=al-ansari#people">
+            <span class="search-result-badge search-badge-pro">Professional</span>
+            <div class="search-result-body">
+              <div class="search-result-pro-row">
+                <span class="search-avatar" aria-hidden="true">YA</span>
+                <div>
+                  <h3 class="search-result-title">Yousuf Al-Ansari</h3>
+                  <p class="search-result-meta-line">Managing Partner · Al-Ansari &amp; Associates · 🇶🇦 Doha, Qatar</p>
+                </div>
+              </div>
+              <p class="search-result-excerpt">Energy, arbitration and infrastructure counsel with three decades of cross-border GCC mandates.</p>
+            </div>
+            <span class="search-result-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="search-result" href="firm.html?slug=arendt-medernach-luxembourg#people">
+            <span class="search-result-badge search-badge-pro">Professional</span>
+            <div class="search-result-body">
+              <div class="search-result-pro-row">
+                <span class="search-avatar" aria-hidden="true">EH</span>
+                <div>
+                  <h3 class="search-result-title">Elise Hennard</h3>
+                  <p class="search-result-meta-line">Partner, Investment Funds · Arendt &amp; Medernach · 🇱🇺 Luxembourg</p>
+                </div>
+              </div>
+              <p class="search-result-excerpt">Advises sponsors on UCITS and AIFM-regulated structures, with a focus on real-asset and credit funds.</p>
+            </div>
+            <span class="search-result-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="search-result" href="firm.html?slug=abreu-advogados-portugal#people">
+            <span class="search-result-badge search-badge-pro">Professional</span>
+            <div class="search-result-body">
+              <div class="search-result-pro-row">
+                <span class="search-avatar" aria-hidden="true">RC</span>
+                <div>
+                  <h3 class="search-result-title">Ricardo Costa</h3>
+                  <p class="search-result-meta-line">Senior Counsel, Tax · Abreu Advogados · 🇵🇹 Lisbon, Portugal</p>
+                </div>
+              </div>
+              <p class="search-result-excerpt">Cross-border tax, transfer pricing and structuring for multinationals operating in PALOP jurisdictions.</p>
+            </div>
+            <span class="search-result-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── Guides group ─────────────────────────────────── -->
+    <div class="search-group" data-group="guides">
+      <header class="search-group-head">
+        <h2 class="ds-h3 search-group-title">
+          <span class="ds-thin">Cross-Border Guides</span>
+          <span class="search-group-count">4</span>
+        </h2>
+        <a href="insights-cross-border-guides.html" class="search-group-more">See all guides
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </header>
+
+      <ul class="search-result-list" role="list">
+        <li>
+          <a class="search-result" href="guide-detail.html">
+            <span class="search-result-badge search-badge-guide">Guide</span>
+            <div class="search-result-body">
+              <p class="search-result-eyebrow ds-eyebrow">Antitrust &amp; Competition · 🇪🇺 European Union</p>
+              <h3 class="search-result-title">EU Merger Control — A Cross-Border Filing Guide</h3>
+              <p class="search-result-excerpt">Practical thresholds, timelines and substantive analysis for inbound deals notified to the European Commission.</p>
+              <p class="search-result-byline ds-body-sm">Updated April 2026 · 28 jurisdictions covered</p>
+            </div>
+            <span class="search-result-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="search-result" href="guide-detail.html">
+            <span class="search-result-badge search-badge-guide">Guide</span>
+            <div class="search-result-body">
+              <p class="search-result-eyebrow ds-eyebrow">Labor &amp; Employment · Global</p>
+              <h3 class="search-result-title">Hiring Across Borders — Employment-Law Quickstarts</h3>
+              <p class="search-result-excerpt">Country-by-country snapshots of employment contracts, termination protections and contractor classification.</p>
+              <p class="search-result-byline ds-body-sm">Updated March 2026 · 41 jurisdictions covered</p>
+            </div>
+            <span class="search-result-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="search-result" href="guide-detail.html">
+            <span class="search-result-badge search-badge-guide">Guide</span>
+            <div class="search-result-body">
+              <p class="search-result-eyebrow ds-eyebrow">Tax &amp; Wealth · Latin America</p>
+              <h3 class="search-result-title">Doing Business in Brazil — Tax &amp; Structuring Primer</h3>
+              <p class="search-result-excerpt">Inbound investment, transfer pricing, indirect taxes and the 2026 reform — what foreign investors need to know.</p>
+              <p class="search-result-byline ds-body-sm">Updated February 2026 · Brazil chapter</p>
+            </div>
+            <span class="search-result-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── News group ───────────────────────────────────── -->
+    <div class="search-group" data-group="news">
+      <header class="search-group-head">
+        <h2 class="ds-h3 search-group-title">
+          <span class="ds-thin">News &amp; Insights</span>
+          <span class="search-group-count">4</span>
+        </h2>
+        <a href="news.html" class="search-group-more">See all news
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </header>
+
+      <ul class="search-result-list" role="list">
+        <li>
+          <a class="search-result" href="news-article.html">
+            <span class="search-result-badge search-badge-news">News</span>
+            <div class="search-result-body">
+              <p class="search-result-meta-line ds-body-sm">April 22, 2026 · TerraLex Network</p>
+              <h3 class="search-result-title">TerraLex Welcomes Wrobel &amp; Co. as Newest Member in Belize</h3>
+              <p class="search-result-excerpt">Caribbean coverage strengthens as the Belize-based commercial-litigation boutique joins the network.</p>
+              <ul class="search-result-tags">
+                <li>Network</li><li>Belize</li>
+              </ul>
+            </div>
+            <span class="search-result-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="search-result" href="news-article.html">
+            <span class="search-result-badge search-badge-news">News</span>
+            <div class="search-result-body">
+              <p class="search-result-meta-line ds-body-sm">April 12, 2026 · Brussels Bureau</p>
+              <h3 class="search-result-title">EU Update — Legal Insights from Europe's Capital</h3>
+              <p class="search-result-excerpt">Member firms in Brussels recap the spring competition agenda and the AI Act's first enforcement notices.</p>
+              <ul class="search-result-tags">
+                <li>EU</li><li>Antitrust</li><li>AI</li>
+              </ul>
+            </div>
+            <span class="search-result-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="search-result" href="news-article.html">
+            <span class="search-result-badge search-badge-news">News</span>
+            <div class="search-result-body">
+              <p class="search-result-meta-line ds-body-sm">March 28, 2026 · TerraLex Editorial</p>
+              <h3 class="search-result-title">Collaborative Law in Practice — A Feature on Cross-Border Teams</h3>
+              <p class="search-result-excerpt">How the network's joint task forces deliver multi-jurisdictional advice in compressed deal timelines.</p>
+              <ul class="search-result-tags">
+                <li>Feature</li><li>Network</li>
+              </ul>
+            </div>
+            <span class="search-result-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── Pagination ───────────────────────────────────── -->
+    <nav class="search-pagination" aria-label="Search results pages">
+      <button class="search-page-btn" type="button" aria-label="Previous page" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="search-page-btn is-active" type="button" aria-current="page">1</button>
+      <button class="search-page-btn" type="button">2</button>
+      <button class="search-page-btn" type="button">3</button>
+      <span class="search-page-ellipsis" aria-hidden="true">…</span>
+      <button class="search-page-btn" type="button" aria-label="Next page">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </nav>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA — Ask myLexi rescue path
+============================================================ -->
+<section class="s9-cta search-cta">
+  <img src="assets/images/misc/collab-bg.jpg" alt="" class="s9-bg-img">
+  <div class="s9-inner">
+    <p class="s9-eyebrow ds-eyebrow on-dark">Didn't find it?</p>
+    <blockquote class="s9-quote ds-h1 on-dark">
+      <span class="s9-quote-light ds-thin">Let our AI assistant search</span>
+      <span class="s9-quote-bold ds-bold"> across every member firm.</span>
+    </blockquote>
+    <p class="s9-sub ds-body-lg on-dark">myLexi searches firm bios, professional profiles, guides and matter histories — in seconds.</p>
+    <div class="s9-actions">
+      <a href="mylexi.html" class="s9-btn s9-btn-primary ds-btn ds-btn-primary ds-btn-lg">Ask myLexi</a>
+      <a href="contact-us.html" class="s9-btn s9-btn-outline ds-btn ds-btn-outline ds-btn-lg">Contact a TerraLex Advisor</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER (verbatim from kit)
+============================================================ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img class="footer-logo" src="assets/logos/Logo white.svg" alt="TerraLex">
+      <p class="footer-tagline ds-body-sm on-dark">The elite global legal network committed to collaboration. 141 member firms in 207 jurisdictions and 134 countries.</p>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Network</p>
+      <ul class="footer-nav-list">
+        <li><a href="about.html">About TerraLex</a></li>
+        <li><a href="firms.html">Member Directory</a></li>
+        <li><a href="practice-groups-industry-sector-teams.html">Practice Groups &amp; Industry Sector Teams</a></li>
+        <li><a href="https://www.linkedin.com/company/terralex/">Follow us on LinkedIn</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Knowledge</p>
+      <ul class="footer-nav-list">
+        <li><a href="insights-cross-border-guides.html">Cross-Border Guides</a></li>
+        <li><a href="mylexi.html">myLexi AI-Powered Assistant</a></li>
+        <li><a href="news.html">Insights</a></li>
+        <li><a href="events.html">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Contact</p>
+      <ul class="footer-nav-list">
+        <li><a href="sign-in.html">TLC Sign-On (Members Only)</a></li>
+        <li><a href="contact-us.html">Contact Us</a></li>
+        <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 TerraLex. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+/* Lightweight client-only behaviour:
+   1) Echo ?q= into the H1 + pre-fill the search input
+   2) Tab filter — show/hide groups
+*/
+(function () {
+  // ── 1) Query echo ──────────────────────────────
+  var params = new URLSearchParams(window.location.search);
+  var q = (params.get('q') || '').trim();
+  var echo = document.getElementById('searchEcho');
+  var input = document.getElementById('searchInput');
+  var sub = document.getElementById('searchHeroSub');
+
+  if (q) {
+    echo.textContent = '"' + q + '"';
+    input.value = q;
+    if (sub) {
+      sub.textContent = 'Showing matches across firms, professionals, guides and news.';
+    }
+  } else {
+    echo.textContent = 'everything on TerraLex';
+  }
+
+  // ── 2) Tab filter ──────────────────────────────
+  var tabs = document.querySelectorAll('.search-tab');
+  var groups = document.querySelectorAll('.search-group');
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () {
+      tabs.forEach(function (x) {
+        x.classList.remove('is-active');
+        x.setAttribute('aria-selected', 'false');
+      });
+      t.classList.add('is-active');
+      t.setAttribute('aria-selected', 'true');
+
+      var which = t.getAttribute('data-tab');
+      groups.forEach(function (g) {
+        if (which === 'all') {
+          g.style.display = '';
+        } else {
+          g.style.display = (g.getAttribute('data-group') === which) ? '' : 'none';
+        }
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

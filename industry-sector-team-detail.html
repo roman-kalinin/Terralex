@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TerraLex — Life Sciences Industry Sector Team</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/design-system.css">
+
+<link rel="stylesheet" href="css/industry-sector-team-detail.css">
+</head>
+<body class="group-detail-page">
+
+<!-- ============================================================
+     HEADER (verbatim from kit)
+============================================================ -->
+<header class="site-header scrolled has-solid-bg" id="siteHeader">
+  <div class="nav-topbar">
+    <a href="#">Member Directory</a><span class="sep">|</span>
+    <a href="sign-in.html">TLC Sign-On</a><span class="sep">|</span>
+    <a href="mylexi.html">Ask myLexi</a><span class="sep">|</span>
+    <a href="contact-us.html">Contact Us</a>
+  </div>
+  <nav id="mainNav">
+    <a href="index.html" class="nav-logo">
+      <img class="logo-hero" src="assets/logos/Logo white.svg" alt="TerraLex">
+      <img class="logo-scrolled" src="assets/logos/Logo default.svg" alt="TerraLex">
+    </a>
+    <div class="nav-links">
+      <a href="insights-cross-border-guides.html">Cross-Border Guides</a>
+      <div class="nav-dropdown">
+        <a href="practice-groups-industry-sector-teams.html" class="nav-dropdown-trigger">Expertise <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
+        <div class="nav-mega">
+          <div class="mega-col">
+            <h4>Practice Groups</h4>
+            <a href="practice-group-detail.html">Antitrust &amp; Competition</a>
+            <a href="practice-group-detail.html">Bankruptcy / Insolvency</a>
+            <a href="practice-group-detail.html">Construction &amp; Infrastructure</a>
+            <a href="practice-group-detail.html">Energy &amp; Environmental</a>
+            <a href="practice-group-detail.html">Finance &amp; Banking</a>
+            <a href="practice-group-detail.html">Global Trade &amp; Policy</a>
+            <a href="practice-group-detail.html">Immigration</a>
+            <a href="practice-group-detail.html">Insurance</a>
+            <a href="practice-group-detail.html">Intellectual Property, Licensing &amp; Technology</a>
+            <a href="practice-group-detail.html">International Litigation &amp; Arbitration</a>
+            <a href="practice-group-detail.html">Labor &amp; Employment</a>
+            <a href="practice-group-detail.html">Mergers &amp; Acquisitions</a>
+            <a href="practice-group-detail.html">Real Estate</a>
+            <a href="practice-group-detail.html">Regulatory, Investigations &amp; Compliance</a>
+            <a href="practice-group-detail.html">Tax &amp; Wealth Services</a>
+          </div>
+          <div class="mega-col">
+            <h4>Industry Sector Teams</h4>
+            <a href="industry-sector-team-detail.html">Automotive</a>
+            <a href="industry-sector-team-detail.html">Aviation</a>
+            <a href="industry-sector-team-detail.html">Education Services</a>
+            <a href="industry-sector-team-detail.html">ESG</a>
+            <a href="industry-sector-team-detail.html">Food &amp; Beverage</a>
+            <a href="industry-sector-team-detail.html">Hospitality</a>
+            <a href="industry-sector-team-detail.html" class="is-active">Life Sciences</a>
+            <a href="industry-sector-team-detail.html">Mining</a>
+            <a href="industry-sector-team-detail.html">Retail</a>
+            <a href="industry-sector-team-detail.html">Sports &amp; Entertainment</a>
+            <a href="industry-sector-team-detail.html">Technology &amp; Digital Business</a>
+          </div>
+          <div class="mega-col">
+            <h4>Regions</h4>
+            <a href="firms.html">Africa &amp; the Middle East</a>
+            <a href="firms.html">Asia-Pacific</a>
+            <a href="firms.html">Europe</a>
+            <a href="firms.html">Latin America &amp; the Caribbean</a>
+            <a href="firms.html">North America</a>
+          </div>
+        </div>
+      </div>
+      <a href="events.html">Events Hub</a>
+      <a href="news.html">Global Insights</a>
+      <a href="success-stories.html">Success Stories</a>
+      <a href="about.html">About TerraLex</a>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-search-btn" aria-label="Search" onclick="location.href='search.html'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+      <button class="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============================================================
+     BREADCRUMB
+============================================================ -->
+<nav class="gd-breadcrumb-bar" aria-label="Breadcrumb">
+  <div class="gd-container">
+    <ol class="gd-breadcrumb">
+      <li><a href="index.html">Home</a></li>
+      <li class="gd-bc-sep" aria-hidden="true">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 1 7 5 3 9"/></svg>
+      </li>
+      <li><a href="practice-groups-industry-sector-teams.html">Practice Groups &amp; Industry Sector Teams</a></li>
+      <li class="gd-bc-sep" aria-hidden="true">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 1 7 5 3 9"/></svg>
+      </li>
+      <li><a href="practice-groups-industry-sector-teams.html#industry-sector-teams">Industry Sector Teams</a></li>
+      <li class="gd-bc-sep" aria-hidden="true">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 1 7 5 3 9"/></svg>
+      </li>
+      <li aria-current="page"><span>Life Sciences</span></li>
+    </ol>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO — IST kicker, name, blurb, CTAs, decorative mark
+============================================================ -->
+<section class="gd-hero">
+  <div class="gd-container gd-hero-grid">
+    <div class="gd-hero-text">
+      <p class="gd-eyebrow">Industry Sector Team</p>
+      <h1 class="gd-group-name">Life Sciences</h1>
+      <p class="gd-hero-lede">
+        Cross-border counsel for biotech, pharma, medical devices and digital health — from clinical trials and IP strategy to M&amp;A, regulatory clearance and commercialization across global markets.
+      </p>
+      <div class="gd-hero-actions">
+        <a href="contact-us.html" class="gd-btn gd-btn-primary">Request an introduction</a>
+        <a href="#group-leaders" class="gd-btn gd-btn-ghost">
+          Email group leaders
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </div>
+    <aside class="gd-hero-mark" aria-hidden="true">
+      <div class="gd-mark-card">
+        <svg viewBox="0 0 64 64" width="92" height="92" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 8v12c0 6 -10 10 -10 22a14 14 0 0 0 14 14h12a14 14 0 0 0 14 -14c0 -12 -10 -16 -10 -22V8"/>
+          <line x1="18" y1="8" x2="46" y2="8"/>
+          <circle cx="24" cy="40" r="2"/>
+          <circle cx="34" cy="46" r="2"/>
+          <circle cx="40" cy="36" r="2"/>
+        </svg>
+        <span class="gd-mark-label">Life Sciences</span>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================
+     QUICK FACTS — Member firms · Jurisdictions · Group leaders · Lawyers
+============================================================ -->
+<section class="gd-facts">
+  <div class="gd-container">
+    <ul class="gd-facts-grid">
+      <li class="gd-fact">
+        <span class="gd-fact-label">Member firms</span>
+        <span class="gd-fact-value">42</span>
+        <span class="gd-fact-meta">Engaged in this team</span>
+      </li>
+      <li class="gd-fact">
+        <span class="gd-fact-label">Jurisdictions</span>
+        <span class="gd-fact-value">38</span>
+        <span class="gd-fact-meta">Across five continents</span>
+      </li>
+      <li class="gd-fact">
+        <span class="gd-fact-label">Group leaders</span>
+        <span class="gd-fact-value">3</span>
+        <span class="gd-fact-meta">Senior partners</span>
+      </li>
+      <li class="gd-fact">
+        <span class="gd-fact-label">Specialist lawyers</span>
+        <span class="gd-fact-value">180+</span>
+        <span class="gd-fact-meta">Life sciences focused</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================
+     OVERVIEW — prose left, pull-quote callout right
+============================================================ -->
+<section class="gd-overview">
+  <div class="gd-container gd-two-col">
+    <div class="gd-prose">
+      <p class="gd-eyebrow">Overview</p>
+      <h2 class="gd-section-title">A global team for an industry without borders</h2>
+      <p>The life sciences industry is at the forefront of technological and regulatory evolution, driven by rapid advancements in biotechnology, pharmaceuticals, and medical device development. TerraLex's Life Sciences team provides comprehensive strategic legal advice on a diverse client base, including universities, governmental institutions, and companies at the cutting edge of the sciences.</p>
+      <p>Our global team addresses the unique challenges and opportunities of this dynamic sector — from first-in-human clinical trials and IP prosecution to commercial launch, post-market regulatory matters, distribution, and cross-border M&amp;A.</p>
+      <p>Whether you are a multinational pharmaceutical company, an emerging biotech, a medical device manufacturer, or a digital health innovator, our specialists deliver coordinated counsel that reflects the latest developments and challenges in the sector.</p>
+    </div>
+
+    <aside class="gd-callout">
+      <p class="gd-callout-eyebrow">At a glance</p>
+      <blockquote class="gd-callout-quote">
+        “One coordinated team across 38 jurisdictions — so a single regulatory or transactional matter never has to be re-briefed in every market.”
+      </blockquote>
+      <ul class="gd-callout-list">
+        <li><span>Regulatory</span> FDA, EMA, PMDA, NMPA &amp; major emerging-market agencies</li>
+        <li><span>IP</span> Patent prosecution &amp; enforcement in 38+ jurisdictions</li>
+        <li><span>Transactions</span> Licensing, joint ventures, acquisitions, IPOs</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================
+     KEY SERVICES & EXPERTISE — 2x2 icon-title-description grid
+============================================================ -->
+<section class="gd-services">
+  <div class="gd-container">
+    <header class="gd-section-head">
+      <p class="gd-eyebrow">Key Services &amp; Expertise</p>
+      <h2 class="gd-section-title">Where the team adds value</h2>
+      <p class="gd-section-sub">Four overlapping focus areas where TerraLex Life Sciences specialists frequently advise across borders.</p>
+    </header>
+
+    <div class="gd-services-grid">
+      <article class="gd-service">
+        <div class="gd-service-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 2h6v3l-3 4-3-4z"/><path d="M5 22h14a2 2 0 0 0 2-2v-1a8 8 0 0 0-8-8h-2a8 8 0 0 0-8 8v1a2 2 0 0 0 2 2z"/>
+          </svg>
+        </div>
+        <h3 class="gd-service-title">Regulatory Compliance &amp; Clinical Trials</h3>
+        <p class="gd-service-desc">Guiding clients through the complex regulatory environments related to clinical testing, approval, pricing, and commercialization of pharmaceutical products and medical devices in every market we cover.</p>
+        <a class="gd-service-link" href="insights-cross-border-guides.html">View cross-border guide
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </article>
+
+      <article class="gd-service">
+        <div class="gd-service-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="9" cy="14" r="2"/><path d="M11 14l3 3"/>
+          </svg>
+        </div>
+        <h3 class="gd-service-title">Intellectual Property Prosecution &amp; Enforcement</h3>
+        <p class="gd-service-desc">Our experts handle the prosecution and enforcement of patents, trademarks, manufacturing exclusivity, and licensing — and navigate other intricate IP matters that demand high technical expertise and deep industry knowledge.</p>
+        <a class="gd-service-link" href="practice-group-detail.html">Related practice group
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </article>
+
+      <article class="gd-service">
+        <div class="gd-service-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18"/><polyline points="7 14 11 10 15 13 21 7"/>
+          </svg>
+        </div>
+        <h3 class="gd-service-title">Strategic Business Transactions</h3>
+        <p class="gd-service-desc">With a profound understanding of the life sciences landscape, we facilitate critical transactions such as equity financings, licensing, distribution, co-promotion, and mergers and acquisitions tailored to advance research, development, and commercialization goals.</p>
+        <a class="gd-service-link" href="practice-group-detail.html">Related practice group
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </article>
+
+      <article class="gd-service">
+        <div class="gd-service-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21h6"/><path d="M12 3a7 7 0 0 0-4 12.7V18h8v-2.3A7 7 0 0 0 12 3z"/>
+          </svg>
+        </div>
+        <h3 class="gd-service-title">Innovation &amp; Emerging Technologies</h3>
+        <p class="gd-service-desc">Addressing current trends, we provide strategic advice on integrating emerging technologies such as AI in drug discovery and development, personalized medicine, and advanced genomics — ensuring our clients stay ahead of innovation.</p>
+        <a class="gd-service-link" href="insights-cross-border-guides.html">View cross-border guide
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     GROUP LEADERS — elevated profile cards
+============================================================ -->
+<section class="gd-leaders" id="group-leaders">
+  <div class="gd-container">
+    <header class="gd-section-head">
+      <p class="gd-eyebrow">Group Leaders</p>
+      <h2 class="gd-section-title">Reach the team</h2>
+      <p class="gd-section-sub">Direct contact details for the partners who chair the Life Sciences Industry Sector Team.</p>
+    </header>
+
+    <div class="gd-leaders-grid">
+      <article class="gd-leader-card">
+        <div class="gd-leader-photo">
+          <img src="https://i.pravatar.cc/240?img=49" alt="Dalia Tamasauskaite">
+          <span class="gd-leader-tag">Chair</span>
+        </div>
+        <div class="gd-leader-body">
+          <h3 class="gd-leader-name">Dalia Tamasauskaite</h3>
+          <p class="gd-leader-role">Partner</p>
+          <p class="gd-leader-firm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Vilnius, Lithuania
+          </p>
+          <ul class="gd-leader-tags">
+            <li>Regulatory</li>
+            <li>Clinical Trials</li>
+            <li>EU</li>
+          </ul>
+          <div class="gd-leader-actions">
+            <a href="mailto:dalia@example-firm.com" aria-label="Email Dalia Tamasauskaite">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </a>
+            <a href="tel:+37052281849" aria-label="Call Dalia Tamasauskaite">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Call
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.45zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="gd-leader-card">
+        <div class="gd-leader-photo">
+          <img src="https://i.pravatar.cc/240?img=15" alt="Grant Strachan">
+          <span class="gd-leader-tag">Vice Chair</span>
+        </div>
+        <div class="gd-leader-body">
+          <h3 class="gd-leader-name">Grant Strachan</h3>
+          <p class="gd-leader-role">Partner</p>
+          <p class="gd-leader-firm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Edinburgh, United Kingdom
+          </p>
+          <ul class="gd-leader-tags">
+            <li>IP</li>
+            <li>Licensing</li>
+            <li>Biotech</li>
+          </ul>
+          <div class="gd-leader-actions">
+            <a href="mailto:grant@example-firm.com" aria-label="Email Grant Strachan">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </a>
+            <a href="tel:+441312223200" aria-label="Call Grant Strachan">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Call
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.45zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="gd-leader-card">
+        <div class="gd-leader-photo">
+          <img src="https://i.pravatar.cc/240?img=53" alt="Daniel Cardona">
+          <span class="gd-leader-tag">Vice Chair</span>
+        </div>
+        <div class="gd-leader-body">
+          <h3 class="gd-leader-name">Daniel Cardona</h3>
+          <p class="gd-leader-role">Partner</p>
+          <p class="gd-leader-firm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Bogotá, Colombia
+          </p>
+          <ul class="gd-leader-tags">
+            <li>M&amp;A</li>
+            <li>Licensing</li>
+            <li>LATAM</li>
+          </ul>
+          <div class="gd-leader-actions">
+            <a href="mailto:daniel@example-firm.com" aria-label="Email Daniel Cardona">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </a>
+            <a href="tel:+5712183200" aria-label="Call Daniel Cardona">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Call
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.45zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MEMBER FIRMS BY REGION — central new section
+============================================================ -->
+<section class="gd-firms" id="member-firms">
+  <div class="gd-container">
+    <header class="gd-section-head">
+      <p class="gd-eyebrow">Member Firms</p>
+      <h2 class="gd-section-title">Participating firms by region</h2>
+      <p class="gd-section-sub">42 TerraLex member firms have a dedicated Life Sciences practice. Filter by region or browse by firm.</p>
+    </header>
+
+    <div class="gd-region-tabs" role="tablist" aria-label="Filter member firms by region">
+      <button class="gd-region-tab is-active" type="button" data-region="all" aria-selected="true">All</button>
+      <button class="gd-region-tab" type="button" data-region="europe" aria-selected="false">Europe</button>
+      <button class="gd-region-tab" type="button" data-region="americas" aria-selected="false">Americas</button>
+      <button class="gd-region-tab" type="button" data-region="apac" aria-selected="false">Asia-Pacific</button>
+      <button class="gd-region-tab" type="button" data-region="mea" aria-selected="false">Middle East &amp; Africa</button>
+    </div>
+
+    <div class="gd-region-block" data-region="europe">
+      <h3 class="gd-region-title">Europe</h3>
+      <div class="gd-firm-grid">
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/lt.png" alt="Lithuania">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Sorainen</span>
+            <span class="gd-firm-city">Vilnius, Lithuania</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/gb.png" alt="United Kingdom">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Burness Paull</span>
+            <span class="gd-firm-city">Edinburgh, UK</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/de.png" alt="Germany">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">GSK Stockmann</span>
+            <span class="gd-firm-city">Frankfurt, Germany</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/fr.png" alt="France">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Lefèvre Pelletier</span>
+            <span class="gd-firm-city">Paris, France</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/it.png" alt="Italy">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Pavia e Ansaldo</span>
+            <span class="gd-firm-city">Milan, Italy</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/es.png" alt="Spain">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Andersen Iberia</span>
+            <span class="gd-firm-city">Madrid, Spain</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/ch.png" alt="Switzerland">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Schellenberg Wittmer</span>
+            <span class="gd-firm-city">Zurich, Switzerland</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/nl.png" alt="Netherlands">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Loyens &amp; Loeff</span>
+            <span class="gd-firm-city">Amsterdam, Netherlands</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="gd-region-block" data-region="americas">
+      <h3 class="gd-region-title">Americas</h3>
+      <div class="gd-firm-grid">
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/us.png" alt="United States">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Cooley LLP</span>
+            <span class="gd-firm-city">Boston, USA</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/us.png" alt="United States">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Foley Hoag</span>
+            <span class="gd-firm-city">Washington DC, USA</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/ca.png" alt="Canada">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Bennett Jones</span>
+            <span class="gd-firm-city">Toronto, Canada</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/co.png" alt="Colombia">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Cardona Abogados</span>
+            <span class="gd-firm-city">Bogotá, Colombia</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/br.png" alt="Brazil">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Demarest Advogados</span>
+            <span class="gd-firm-city">São Paulo, Brazil</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/mx.png" alt="Mexico">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Basham Ringe y Correa</span>
+            <span class="gd-firm-city">Mexico City, Mexico</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="gd-region-block" data-region="apac">
+      <h3 class="gd-region-title">Asia-Pacific</h3>
+      <div class="gd-firm-grid">
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/jp.png" alt="Japan">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Atsumi &amp; Sakai</span>
+            <span class="gd-firm-city">Tokyo, Japan</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/cn.png" alt="China">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Boss &amp; Young</span>
+            <span class="gd-firm-city">Shanghai, China</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/sg.png" alt="Singapore">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Drew &amp; Napier</span>
+            <span class="gd-firm-city">Singapore</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/au.png" alt="Australia">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Clayton Utz</span>
+            <span class="gd-firm-city">Sydney, Australia</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/in.png" alt="India">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Lakshmikumaran &amp; Sridharan</span>
+            <span class="gd-firm-city">New Delhi, India</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/kr.png" alt="South Korea">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Yulchon LLC</span>
+            <span class="gd-firm-city">Seoul, South Korea</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="gd-region-block" data-region="mea">
+      <h3 class="gd-region-title">Middle East &amp; Africa</h3>
+      <div class="gd-firm-grid">
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/ae.png" alt="United Arab Emirates">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Al Tamimi &amp; Company</span>
+            <span class="gd-firm-city">Dubai, UAE</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/qa.png" alt="Qatar">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Al-Ansari &amp; Associates</span>
+            <span class="gd-firm-city">Doha, Qatar</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/za.png" alt="South Africa">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Bowmans</span>
+            <span class="gd-firm-city">Johannesburg, South Africa</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="gd-firm-card" href="firm.html">
+          <img class="gd-firm-flag" src="https://flagcdn.com/w80/ke.png" alt="Kenya">
+          <div class="gd-firm-info">
+            <span class="gd-firm-name">Anjarwalla &amp; Khanna</span>
+            <span class="gd-firm-city">Nairobi, Kenya</span>
+          </div>
+          <span class="gd-firm-link" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     COVERAGE MAP — small frozen world map with markers
+============================================================ -->
+<section class="gd-coverage">
+  <div class="gd-container">
+    <header class="gd-section-head">
+      <p class="gd-eyebrow">Coverage</p>
+      <h2 class="gd-section-title">Where we operate</h2>
+      <p class="gd-section-sub">Life Sciences capability across 38 jurisdictions on five continents.</p>
+    </header>
+
+    <div class="gd-map">
+      <img src="assets/images/misc/BG-map.svg" alt="World map showing Life Sciences team coverage">
+      <span class="gd-map-pin" style="left:48%; top:42%;" aria-hidden="true"></span>
+      <span class="gd-map-pin" style="left:50%; top:38%;" aria-hidden="true"></span>
+      <span class="gd-map-pin" style="left:52%; top:46%;" aria-hidden="true"></span>
+      <span class="gd-map-pin" style="left:56%; top:40%;" aria-hidden="true"></span>
+      <span class="gd-map-pin" style="left:24%; top:44%;" aria-hidden="true"></span>
+      <span class="gd-map-pin" style="left:28%; top:40%;" aria-hidden="true"></span>
+      <span class="gd-map-pin" style="left:32%; top:74%;" aria-hidden="true"></span>
+      <span class="gd-map-pin" style="left:30%; top:62%;" aria-hidden="true"></span>
+      <span class="gd-map-pin" style="left:78%; top:46%;" aria-hidden="true"></span>
+      <span class="gd-map-pin" style="left:82%; top:50%;" aria-hidden="true"></span>
+      <span class="gd-map-pin" style="left:86%; top:78%;" aria-hidden="true"></span>
+      <span class="gd-map-pin" style="left:72%; top:54%;" aria-hidden="true"></span>
+      <span class="gd-map-pin" style="left:60%; top:54%;" aria-hidden="true"></span>
+      <span class="gd-map-pin" style="left:56%; top:74%;" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     RELATED INDUSTRY SECTOR TEAMS — three-card horizontal rail
+============================================================ -->
+<section class="gd-related">
+  <div class="gd-container">
+    <header class="gd-section-head gd-section-head--row">
+      <div>
+        <p class="gd-eyebrow">Related Teams</p>
+        <h2 class="gd-section-title">Other Industry Sector Teams</h2>
+      </div>
+      <a class="gd-section-link" href="practice-groups-industry-sector-teams.html">
+        View all Industry Sector Teams
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </header>
+
+    <div class="gd-related-grid">
+      <a class="gd-related-card" href="industry-sector-team-detail.html">
+        <p class="gd-related-eyebrow">Industry Sector Team</p>
+        <h3 class="gd-related-name">Technology &amp; Digital Business</h3>
+        <p class="gd-related-desc">Software, platforms, AI and data — counsel for the digital economy across regulated and non-regulated markets.</p>
+        <ul class="gd-related-tags">
+          <li>AI</li>
+          <li>Data</li>
+          <li>Platforms</li>
+        </ul>
+        <span class="gd-related-link">Visit team
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+
+      <a class="gd-related-card" href="industry-sector-team-detail.html">
+        <p class="gd-related-eyebrow">Industry Sector Team</p>
+        <h3 class="gd-related-name">ESG</h3>
+        <p class="gd-related-desc">Sustainability disclosure, climate-related risk, governance and ethical-supply-chain matters across jurisdictions.</p>
+        <ul class="gd-related-tags">
+          <li>Sustainability</li>
+          <li>Disclosure</li>
+          <li>Governance</li>
+        </ul>
+        <span class="gd-related-link">Visit team
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+
+      <a class="gd-related-card" href="industry-sector-team-detail.html">
+        <p class="gd-related-eyebrow">Industry Sector Team</p>
+        <h3 class="gd-related-name">Food &amp; Beverage</h3>
+        <p class="gd-related-desc">Product safety, labelling, distribution and cross-border M&amp;A for global food and beverage businesses.</p>
+        <ul class="gd-related-tags">
+          <li>Safety</li>
+          <li>Labelling</li>
+          <li>Supply</li>
+        </ul>
+        <span class="gd-related-link">Visit team
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CLOSING CTA BAND
+============================================================ -->
+<section class="gd-cta-band">
+  <div class="gd-container gd-cta-inner">
+    <div class="gd-cta-text">
+      <h2 class="gd-cta-title">Need life sciences counsel across borders?</h2>
+      <p class="gd-cta-sub">TerraLex will route your matter to a specialist partner in the right jurisdictions within one business day.</p>
+    </div>
+    <div class="gd-cta-actions">
+      <a href="contact-us.html" class="gd-btn gd-btn-white">Request an introduction</a>
+      <a href="practice-groups-industry-sector-teams.html" class="gd-btn gd-btn-outline">Browse all Industry Sector Teams</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER (verbatim from kit)
+============================================================ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img class="footer-logo" src="assets/logos/Logo white.svg" alt="TerraLex">
+      <p class="footer-tagline ds-body-sm on-dark">The elite global legal network committed to collaboration. 141 member firms in 207 jurisdictions and 134 countries.</p>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Network</p>
+      <ul class="footer-nav-list">
+        <li><a href="about.html">About TerraLex</a></li>
+        <li><a href="firms.html">Member Directory</a></li>
+        <li><a href="practice-groups-industry-sector-teams.html">Practice Groups &amp; Industry Sector Teams</a></li>
+        <li><a href="https://www.linkedin.com/company/terralex/">Follow us on LinkedIn</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Knowledge</p>
+      <ul class="footer-nav-list">
+        <li><a href="insights-cross-border-guides.html">Cross-Border Guides</a></li>
+        <li><a href="mylexi.html">myLexi AI-Powered Assistant</a></li>
+        <li><a href="news.html">Insights</a></li>
+        <li><a href="events.html">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Contact</p>
+      <ul class="footer-nav-list">
+        <li><a href="sign-in.html">TLC Sign-On (Members Only)</a></li>
+        <li><a href="contact-us.html">Contact Us</a></li>
+        <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 TerraLex. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ============================================================
+     REGION TABS — light filtering
+============================================================ -->
+<script>
+(function(){
+  var tabs = document.querySelectorAll('.gd-region-tab');
+  var blocks = document.querySelectorAll('.gd-region-block');
+  function activate(region){
+    tabs.forEach(function(t){
+      var on = t.getAttribute('data-region') === region;
+      t.classList.toggle('is-active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    blocks.forEach(function(b){
+      var match = region === 'all' || b.getAttribute('data-region') === region;
+      b.style.display = match ? '' : 'none';
+    });
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){ activate(t.getAttribute('data-region')); });
+  });
+})();
+</script>
+
+</body>
+</html>

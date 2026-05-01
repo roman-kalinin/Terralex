@@ -1,285 +1,796 @@
-/* firm-profile.css — Single firm profile page */
+/* ============================================================
+   firm-profile.css — Single firm profile page
+   Scoped under .firm-profile-page
+============================================================ */
 
-/* ── PAGE WRAPPER (max-width) ─────────────────────── */
-.fp-wrap {
-  max-width: 1140px;
-  margin: 0 auto;
-  padding-left: 56px;
-  padding-right: 56px;
+/* Solid white scrolled header (kit instruction) */
+.site-header.has-solid-bg nav {
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.site-header.has-solid-bg .nav-topbar {
+  background: rgba(245,245,245,0.95);
+  border-bottom-color: rgba(0,0,0,0.06);
 }
 
-/* ── BREADCRUMB ───────────────────────────────────── */
-.fp-breadcrumb {
+/* ── Page base ────────────────────────────────────── */
+.firm-profile-page {
+  background: #fff;
+  background-image: var(--bg-gradient);
+  color: var(--c-dark);
+}
+.firm-profile-page main { display: block; }
+
+.firm-profile-page .fp-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 56px;
+}
+
+.firm-profile-page .fp-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  margin: 0 0 16px;
+}
+
+.firm-profile-page .fp-section-title {
+  font-family: var(--font-body);
+  font-size: clamp(32px, 2.2vw + 1rem, 44px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: var(--c-dark);
+  margin: 0 0 16px;
+}
+.firm-profile-page .fp-section-sub {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--c-gray-body);
+  max-width: 60ch;
+  margin: 0;
+}
+
+.firm-profile-page .fp-section-head {
+  margin-bottom: 40px;
+  max-width: 720px;
+}
+.firm-profile-page .fp-section-head--row {
   display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  max-width: none;
+}
+
+.firm-profile-page .fp-section-link {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding-top: 112px;
   font-family: var(--font-ui);
   font-size: 13px;
-  color: var(--c-gray-body);
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  text-decoration: none;
+  flex-shrink: 0;
 }
-.fp-breadcrumb a {
+.firm-profile-page .fp-section-link:hover { opacity: 0.7; }
+
+/* ── Buttons ──────────────────────────────────────── */
+.firm-profile-page .fp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 26px;
+  border-radius: 4px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.firm-profile-page .fp-btn-primary {
+  background: var(--c-blue);
+  color: #fff;
+}
+.firm-profile-page .fp-btn-primary:hover { background: #3f5572; }
+
+.firm-profile-page .fp-btn-ghost {
+  background: transparent;
+  color: var(--c-blue);
+  border-color: rgba(73,100,136,0.3);
+}
+.firm-profile-page .fp-btn-ghost:hover {
+  background: rgba(73,100,136,0.06);
+  border-color: var(--c-blue);
+}
+
+.firm-profile-page .fp-btn-white {
+  background: #fff;
+  color: var(--c-dark);
+}
+.firm-profile-page .fp-btn-white:hover { background: rgba(255,255,255,0.9); }
+
+.firm-profile-page .fp-btn-outline {
+  background: transparent;
+  color: rgba(255,255,255,0.92);
+  border-color: rgba(255,255,255,0.35);
+}
+.firm-profile-page .fp-btn-outline:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: #fff;
+}
+
+/* ── Breadcrumb ───────────────────────────────────── */
+.firm-profile-page .fp-breadcrumb-bar {
+  padding-top: 112px;
+  padding-bottom: 8px;
+}
+.firm-profile-page .fp-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-ui);
+  font-size: 13px;
+}
+.firm-profile-page .fp-breadcrumb a {
   color: var(--c-gray-body);
   text-decoration: none;
   transition: color 0.2s;
 }
-.fp-breadcrumb a:hover { color: var(--c-dark); }
-.fp-breadcrumb span { color: var(--c-dark); }
-.fp-breadcrumb svg { color: var(--c-gray-body); flex-shrink: 0; }
+.firm-profile-page .fp-breadcrumb a:hover { color: var(--c-dark); }
+.firm-profile-page .fp-breadcrumb [aria-current="page"] span {
+  color: var(--c-dark);
+  font-weight: 500;
+}
+.firm-profile-page .fp-bc-sep {
+  display: flex;
+  color: var(--c-dark-35);
+}
 
-/* ── HERO BANNER ──────────────────────────────────── */
-.fp-hero {
-  padding: 48px 0 56px;
+/* ── Hero ─────────────────────────────────────────── */
+.firm-profile-page .fp-hero {
+  padding: 32px 0 56px;
   border-bottom: 1px solid rgba(0,0,0,0.06);
 }
-
-.fp-hero-top {
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
-  margin-bottom: 20px;
+.firm-profile-page .fp-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 56px;
+  align-items: center;
 }
+.firm-profile-page .fp-hero-text { max-width: 720px; }
 
-.fp-flag {
-  width: 56px;
-  height: 42px;
-  border-radius: 6px;
-  object-fit: cover;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  flex-shrink: 0;
-}
-
-.fp-firm-name {
+.firm-profile-page .fp-firm-name {
   font-family: var(--font-body);
-  font-size: 48px;
+  font-size: clamp(40px, 4vw + 1rem, 72px);
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -1.5px;
+  line-height: 1;
+  letter-spacing: -2px;
   color: var(--c-dark);
+  margin: 0 0 16px;
 }
 
-.fp-jurisdiction {
+.firm-profile-page .fp-jurisdiction {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   font-family: var(--font-body);
   font-size: 18px;
   font-weight: 400;
-  color: var(--c-dark-50);
+  color: var(--c-gray-body);
   line-height: 1.5;
+  margin: 0 0 20px;
 }
-.fp-jurisdiction strong {
+.firm-profile-page .fp-jurisdiction strong {
   font-weight: 600;
   color: var(--c-dark);
 }
+.firm-profile-page .fp-flag {
+  width: 36px;
+  height: 27px;
+  border-radius: 3px;
+  object-fit: cover;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  flex-shrink: 0;
+}
 
-.fp-hero-actions {
+.firm-profile-page .fp-hero-lede {
+  font-family: var(--font-body);
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--c-gray-body);
+  max-width: 56ch;
+  margin: 0 0 28px;
+}
+
+.firm-profile-page .fp-hero-actions {
   display: flex;
   gap: 12px;
-  margin-top: 24px;
+  flex-wrap: wrap;
 }
 
-/* ── MAIN LAYOUT ──────────────────────────────────── */
-.fp-layout {
+/* Hero logo lockup card (placeholder for firm logo) */
+.firm-profile-page .fp-hero-lockup { flex-shrink: 0; }
+.firm-profile-page .fp-logo-card {
+  width: 220px;
+  height: 220px;
+  border-radius: 18px;
+  background: linear-gradient(155deg, #fff 0%, rgba(73,100,136,0.06) 100%);
+  border: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 12px 40px rgba(73,100,136,0.08);
+}
+.firm-profile-page .fp-logo-mark {
+  font-family: var(--font-body);
+  font-size: 92px;
+  font-weight: 700;
+  letter-spacing: -3px;
+  color: var(--c-blue);
+  line-height: 1;
+}
+.firm-profile-page .fp-logo-wordmark {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--c-gray-body);
+}
+
+/* ── Quick Facts strip ────────────────────────────── */
+.firm-profile-page .fp-facts {
+  padding: 48px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.firm-profile-page .fp-facts-grid {
   display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 56px;
-  padding: 56px 0 80px;
-  align-items: start;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-
-/* ── LEFT COLUMN ──────────────────────────────────── */
-.fp-section {
-  margin-bottom: 40px;
+.firm-profile-page .fp-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 32px;
+  border-left: 1px solid rgba(0,0,0,0.08);
 }
-.fp-section:last-child { margin-bottom: 0; }
-
-.fp-section-label {
+.firm-profile-page .fp-fact:first-child { padding-left: 0; border-left: none; }
+.firm-profile-page .fp-fact-label {
   font-family: var(--font-ui);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 2.5px;
+  letter-spacing: 2.4px;
   text-transform: uppercase;
-  color: var(--c-blue);
-  margin-bottom: 16px;
+  color: var(--c-gray-body);
+}
+.firm-profile-page .fp-fact-value {
+  font-family: var(--font-body);
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  color: var(--c-dark);
+  line-height: 1.05;
+}
+.firm-profile-page .fp-fact-meta {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--c-gray-body);
+  line-height: 1.4;
 }
 
-.fp-about-text {
+/* ── Overview (two-column) ────────────────────────── */
+.firm-profile-page .fp-overview { padding: 80px 0; }
+.firm-profile-page .fp-two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 64px;
+  align-items: start;
+}
+.firm-profile-page .fp-prose p {
   font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 17px;
   line-height: 1.75;
   color: var(--c-gray-body);
+  margin: 0 0 18px;
+  max-width: 60ch;
 }
-.fp-about-text p { margin: 0 0 16px; }
-.fp-about-text p:last-child { margin-bottom: 0; }
+.firm-profile-page .fp-prose p:last-child { margin-bottom: 0; }
 
-/* Practice / Industry plain text lists */
-.fp-text-list {
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.8;
-  color: var(--c-gray-body);
-}
-
-/* ── SIDEBAR — unified office card ────────────────── */
-.fp-sidebar {
+.firm-profile-page .fp-callout {
   position: sticky;
-  top: 112px;
+  top: 120px;
+  padding: 32px;
+  background: linear-gradient(160deg, rgba(73,100,136,0.06) 0%, rgba(73,100,136,0.02) 100%);
+  border: 1px solid rgba(73,100,136,0.12);
+  border-radius: 14px;
 }
-
-.fp-office-card {
-  padding: 28px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.8);
-  border: 1px solid rgba(0,0,0,0.06);
+.firm-profile-page .fp-callout-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  margin: 0 0 16px;
 }
-
-.fp-office-card-title {
+.firm-profile-page .fp-callout-quote {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--c-dark);
+  letter-spacing: -0.3px;
+  margin: 0 0 24px;
+  padding: 0;
+  border: none;
+}
+.firm-profile-page .fp-callout-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.firm-profile-page .fp-callout-list li {
   font-family: var(--font-body);
   font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  color: var(--c-gray-body);
+  line-height: 1.5;
+  padding-left: 14px;
+  border-left: 2px solid var(--c-blue);
+}
+.firm-profile-page .fp-callout-list li span {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
   color: var(--c-dark);
-  margin-bottom: 16px;
+  margin-bottom: 2px;
 }
 
-/* Office selector */
-.fp-office-select {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid rgba(0,0,0,0.12);
-  border-radius: 8px;
+/* ── Key Contacts / Attorney cards ────────────────── */
+.firm-profile-page .fp-contacts {
+  padding: 80px 0;
+  background: rgba(255,255,255,0.5);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.firm-profile-page .fp-people-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.firm-profile-page .fp-person-card {
   background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+}
+.firm-profile-page .fp-person-card:hover {
+  box-shadow: 0 14px 40px rgba(0,0,0,0.08);
+  border-color: rgba(73,100,136,0.2);
+  transform: translateY(-3px);
+}
+.firm-profile-page .fp-person-card--featured {
+  border-color: rgba(73,100,136,0.18);
+  box-shadow: 0 4px 18px rgba(73,100,136,0.06);
+}
+.firm-profile-page .fp-person-photo {
+  position: relative;
+  aspect-ratio: 1;
+  background: rgba(73,100,136,0.08);
+  overflow: hidden;
+}
+.firm-profile-page .fp-person-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.firm-profile-page .fp-person-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  background: var(--c-blue);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  border-radius: 999px;
+}
+.firm-profile-page .fp-person-body {
+  padding: 20px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.firm-profile-page .fp-person-name {
+  font-family: var(--font-body);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--c-dark);
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+.firm-profile-page .fp-person-role {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--c-gray-body);
+  line-height: 1.45;
+  margin: 0;
+}
+.firm-profile-page .fp-person-tags {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.firm-profile-page .fp-person-tags li {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(73,100,136,0.08);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--c-blue);
+  letter-spacing: 0.3px;
+}
+.firm-profile-page .fp-person-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.firm-profile-page .fp-person-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--c-blue);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.firm-profile-page .fp-person-actions a:hover { opacity: 0.7; }
+
+/* ── Offices ──────────────────────────────────────── */
+.firm-profile-page .fp-offices { padding: 80px 0; }
+.firm-profile-page .fp-offices-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+.firm-profile-page .fp-map {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: rgba(73,100,136,0.05);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.firm-profile-page .fp-map img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.55;
+  filter: saturate(0.7);
+}
+.firm-profile-page .fp-map-pin {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--c-blue);
+  box-shadow: 0 0 0 6px rgba(73,100,136,0.18), 0 0 0 14px rgba(73,100,136,0.08);
+  transform: translate(-50%, -50%);
+}
+.firm-profile-page .fp-office {
+  padding: 32px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 14px;
+}
+.firm-profile-page .fp-office-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  margin: 0 0 8px;
+}
+.firm-profile-page .fp-office-name {
+  font-family: var(--font-body);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--c-dark);
+  letter-spacing: -0.5px;
+  margin: 0 0 20px;
+}
+.firm-profile-page .fp-office-info {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.firm-profile-page .fp-office-info li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--c-gray-body);
+}
+.firm-profile-page .fp-office-info li svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--c-blue);
+}
+.firm-profile-page .fp-office-info li a {
+  color: var(--c-blue);
+  text-decoration: none;
+}
+.firm-profile-page .fp-office-info li a:hover { opacity: 0.7; }
+.firm-profile-page .fp-office-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  text-decoration: none;
+}
+.firm-profile-page .fp-office-link:hover { opacity: 0.7; }
+
+/* ── Practice areas chip grid ─────────────────────── */
+.firm-profile-page .fp-practice {
+  padding: 80px 0;
+  background: rgba(255,255,255,0.5);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.firm-profile-page .fp-chips {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.firm-profile-page .fp-chips a {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 20px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 999px;
   font-family: var(--font-ui);
   font-size: 14px;
   color: var(--c-dark);
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%23999' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  margin-bottom: 24px;
-  transition: border-color 0.2s;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
-.fp-office-select:focus {
-  outline: none;
+.firm-profile-page .fp-chips a:hover {
+  background: var(--c-blue);
+  color: #fff;
   border-color: var(--c-blue);
 }
 
-/* Dividers inside the card */
-.fp-office-divider {
-  height: 1px;
-  background: rgba(0,0,0,0.06);
-  margin: 20px 0;
+/* ── Related firms ────────────────────────────────── */
+.firm-profile-page .fp-related { padding: 80px 0; }
+.firm-profile-page .fp-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
-
-/* Sub-headings inside office card */
-.fp-office-sub {
+.firm-profile-page .fp-related-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 28px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+}
+.firm-profile-page .fp-related-card:hover {
+  box-shadow: 0 12px 36px rgba(0,0,0,0.07);
+  border-color: rgba(73,100,136,0.2);
+  transform: translateY(-2px);
+}
+.firm-profile-page .fp-related-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.firm-profile-page .fp-related-flag {
+  width: 32px;
+  height: 24px;
+  border-radius: 3px;
+  object-fit: cover;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.firm-profile-page .fp-related-name {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--c-dark);
+}
+.firm-profile-page .fp-related-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--c-gray-body);
+  margin: 0;
+}
+.firm-profile-page .fp-related-location svg { color: var(--c-blue); flex-shrink: 0; }
+.firm-profile-page .fp-related-tags {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.firm-profile-page .fp-related-tags li {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(73,100,136,0.08);
   font-family: var(--font-ui);
   font-size: 11px;
+  color: var(--c-blue);
+  letter-spacing: 0.3px;
+}
+.firm-profile-page .fp-related-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  font-family: var(--font-ui);
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 2px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: var(--c-dark-40);
-  margin-bottom: 12px;
+  color: var(--c-blue);
+  transition: gap 0.2s;
 }
+.firm-profile-page .fp-related-card:hover .fp-related-link { gap: 10px; }
 
-/* Contact rows */
-.fp-contact-row {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* ── Closing CTA band ─────────────────────────────── */
+.firm-profile-page .fp-cta-band {
+  background: linear-gradient(120deg, #3f5572 0%, var(--c-blue) 100%);
+  padding: 64px 0;
+  color: #fff;
 }
-
-.fp-contact-item {
+.firm-profile-page .fp-cta-inner {
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.firm-profile-page .fp-cta-title {
   font-family: var(--font-body);
-  font-size: 14px;
-  color: var(--c-gray-body);
-  line-height: 1.5;
+  font-size: clamp(28px, 2vw + 1rem, 38px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.8px;
+  color: #fff;
+  margin: 0 0 8px;
 }
-.fp-contact-item svg {
-  flex-shrink: 0;
-  margin-top: 2px;
-  color: var(--c-blue);
-}
-.fp-contact-item a {
-  color: var(--c-blue);
-  text-decoration: none;
-  transition: opacity 0.2s;
-}
-.fp-contact-item a:hover { opacity: 0.7; }
-
-/* Member rep inside office card */
-.fp-rep {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px;
-  border-radius: 10px;
-  background: rgba(77,101,134,0.04);
-  border: 1px solid rgba(77,101,134,0.08);
-  transition: background 0.2s;
-}
-.fp-rep:hover { background: rgba(77,101,134,0.08); }
-.fp-rep + .fp-rep { margin-top: 8px; }
-
-.fp-rep-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(77,101,134,0.15);
-  flex-shrink: 0;
-}
-.fp-rep-avatar--placeholder {
-  background: rgba(77,101,134,0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--c-blue);
-}
-
-.fp-rep-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-.fp-rep-name {
+.firm-profile-page .fp-cta-sub {
   font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--c-blue);
+  font-size: 16px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.78);
+  margin: 0;
+  max-width: 56ch;
 }
-
-.fp-rep-role {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: var(--c-gray-body);
-}
-
-.fp-rep-contact {
+.firm-profile-page .fp-cta-actions {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 2px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
-.fp-rep-contact a {
-  color: var(--c-blue);
-  font-size: 12px;
-  font-family: var(--font-ui);
-  text-decoration: none;
-  transition: opacity 0.2s;
-}
-.fp-rep-contact a:hover { opacity: 0.7; }
-.fp-rep-contact svg { color: var(--c-blue); }
 
-/* ── PAGE BG ──────────────────────────────────────── */
-.fp-page-bg {
-  background: #fff;
-  background-image: var(--bg-gradient);
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 1024px) {
+  .firm-profile-page .fp-container { padding: 0 32px; }
+  .firm-profile-page .fp-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .firm-profile-page .fp-logo-card { width: 180px; height: 180px; }
+  .firm-profile-page .fp-logo-mark { font-size: 72px; }
+  .firm-profile-page .fp-facts-grid { grid-template-columns: repeat(2, 1fr); gap: 32px 24px; }
+  .firm-profile-page .fp-fact {
+    padding: 0;
+    border-left: none;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    padding-top: 20px;
+  }
+  .firm-profile-page .fp-two-col {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .firm-profile-page .fp-callout { position: static; }
+  .firm-profile-page .fp-people-grid { grid-template-columns: repeat(2, 1fr); }
+  .firm-profile-page .fp-offices-grid { grid-template-columns: 1fr; }
+  .firm-profile-page .fp-related-grid { grid-template-columns: repeat(2, 1fr); }
+  .firm-profile-page .fp-section-head--row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .firm-profile-page .fp-container { padding: 0 24px; }
+  .firm-profile-page .fp-breadcrumb-bar { padding-top: 96px; }
+  .firm-profile-page .fp-hero { padding: 24px 0 48px; }
+  .firm-profile-page .fp-overview,
+  .firm-profile-page .fp-contacts,
+  .firm-profile-page .fp-offices,
+  .firm-profile-page .fp-practice,
+  .firm-profile-page .fp-related { padding: 56px 0; }
+  .firm-profile-page .fp-facts { padding: 32px 0; }
+  .firm-profile-page .fp-fact-value { font-size: 36px; }
+  .firm-profile-page .fp-related-grid { grid-template-columns: 1fr; }
+  .firm-profile-page .fp-cta-inner { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .firm-profile-page .fp-container { padding: 0 20px; }
+  .firm-profile-page .fp-hero-actions .fp-btn { flex: 1; }
+  .firm-profile-page .fp-people-grid { grid-template-columns: 1fr; }
+  .firm-profile-page .fp-facts-grid { grid-template-columns: 1fr; }
+  .firm-profile-page .fp-logo-card { width: 140px; height: 140px; }
+  .firm-profile-page .fp-logo-mark { font-size: 56px; }
 }

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TerraLex — News &amp; Insights</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/design-system.css">
+
+<!-- Page-specific stylesheet -->
+<link rel="stylesheet" href="css/news.css">
+</head>
+<body class="news-page">
+
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<header class="site-header scrolled has-solid-bg" id="siteHeader">
+  <div class="nav-topbar">
+    <a href="firms.html">Member Directory</a><span class="sep">|</span>
+    <a href="sign-in.html">TLC Sign-On</a><span class="sep">|</span>
+    <a href="mylexi.html">Ask myLexi</a><span class="sep">|</span>
+    <a href="contact-us.html">Contact Us</a>
+  </div>
+  <nav id="mainNav">
+    <a href="index.html" class="nav-logo">
+      <img class="logo-hero" src="assets/logos/Logo white.svg" alt="TerraLex">
+      <img class="logo-scrolled" src="assets/logos/Logo default.svg" alt="TerraLex">
+    </a>
+    <div class="nav-links">
+      <a href="insights-cross-border-guides.html">Cross-Border Guides</a>
+      <div class="nav-dropdown">
+        <a href="practice-groups-industry-sector-teams.html" class="nav-dropdown-trigger">Expertise <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
+        <div class="nav-mega">
+          <div class="mega-col">
+            <h4>Practice Groups</h4>
+            <a href="practice-group-detail.html">Antitrust &amp; Competition</a>
+            <a href="practice-group-detail.html">Bankruptcy / Insolvency</a>
+            <a href="practice-group-detail.html">Construction &amp; Infrastructure</a>
+            <a href="practice-group-detail.html">Energy &amp; Environmental</a>
+            <a href="practice-group-detail.html">Finance &amp; Banking</a>
+            <a href="practice-group-detail.html">Global Trade &amp; Policy</a>
+            <a href="practice-group-detail.html">Immigration</a>
+            <a href="practice-group-detail.html">Insurance</a>
+            <a href="practice-group-detail.html">Intellectual Property, Licensing &amp; Technology</a>
+            <a href="practice-group-detail.html">International Litigation &amp; Arbitration</a>
+            <a href="practice-group-detail.html">Labor &amp; Employment</a>
+            <a href="practice-group-detail.html">Mergers &amp; Acquisitions</a>
+            <a href="practice-group-detail.html">Real Estate</a>
+            <a href="practice-group-detail.html">Regulatory, Investigations &amp; Compliance</a>
+            <a href="practice-group-detail.html">Tax &amp; Wealth Services</a>
+          </div>
+          <div class="mega-col">
+            <h4>Industry Sector Teams</h4>
+            <a href="industry-sector-team-detail.html">Automotive</a>
+            <a href="industry-sector-team-detail.html">Aviation</a>
+            <a href="industry-sector-team-detail.html">Education Services</a>
+            <a href="industry-sector-team-detail.html">ESG</a>
+            <a href="industry-sector-team-detail.html">Food &amp; Beverage</a>
+            <a href="industry-sector-team-detail.html">Hospitality</a>
+            <a href="industry-sector-team-detail.html">Life Sciences</a>
+            <a href="industry-sector-team-detail.html">Mining</a>
+            <a href="industry-sector-team-detail.html">Retail</a>
+            <a href="industry-sector-team-detail.html">Sports &amp; Entertainment</a>
+            <a href="industry-sector-team-detail.html">Technology &amp; Digital Business</a>
+          </div>
+          <div class="mega-col">
+            <h4>Regions</h4>
+            <a href="firms.html">Africa &amp; the Middle East</a>
+            <a href="firms.html">Asia-Pacific</a>
+            <a href="firms.html">Europe</a>
+            <a href="firms.html">Latin America &amp; the Caribbean</a>
+            <a href="firms.html">North America</a>
+          </div>
+        </div>
+      </div>
+      <a href="events.html">Events Hub</a>
+      <a href="news.html" class="is-active">Global Insights</a>
+      <a href="success-stories.html">Success Stories</a>
+      <a href="about.html">About TerraLex</a>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-search-btn" aria-label="Search" onclick="location.href='search.html'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+      <button class="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================================================
+     HERO — slim newsroom banner
+============================================================ -->
+<section class="news-hero">
+  <div class="news-hero-inner ds-container">
+    <p class="ds-eyebrow news-hero-eyebrow">Newsroom</p>
+    <h1 class="ds-h1 news-hero-title">
+      <span class="ds-thin">News &amp;</span> <span class="ds-bold ds-accent">Insights</span>
+    </h1>
+    <p class="ds-body-lg news-hero-sub">
+      Updates, member announcements, and legal insight from across the TerraLex network — 141 member firms in 134 countries, reporting from the front lines of cross-border practice.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FEATURED STORY
+============================================================ -->
+<section class="news-featured">
+  <div class="news-featured-inner ds-container">
+    <a href="news-article.html" class="news-featured-card">
+      <div class="news-featured-img">
+        <img src="assets/images/news/terralex-alb.jpg" alt="">
+      </div>
+      <div class="news-featured-body">
+        <p class="ds-eyebrow news-featured-eyebrow">Featured · Insight</p>
+        <h2 class="ds-h2 news-featured-title">
+          The Rise of Collaborative Law: How One Global Legal Network Is Redefining Cross-Border Practice
+        </h2>
+        <p class="news-featured-excerpt ds-body-lg">
+          Inside TerraLex's model for matching multi-jurisdictional matters with the right counsel — and why it's quietly reshaping how international clients get represented across 207 jurisdictions.
+        </p>
+        <div class="news-featured-meta">
+          <span class="news-meta-date">April 22, 2026</span>
+          <span class="news-meta-sep" aria-hidden="true">·</span>
+          <span class="news-meta-readtime">8 min read</span>
+        </div>
+        <span class="ds-btn ds-btn-primary news-featured-cta">Read story</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ============================================================
+     CATEGORY FILTER ROW
+============================================================ -->
+<section class="news-filterbar" aria-label="Filter articles by category">
+  <div class="news-filterbar-inner ds-container">
+    <div class="news-chips" role="tablist">
+      <button type="button" class="news-chip is-active" data-category="all" role="tab" aria-selected="true">All</button>
+      <button type="button" class="news-chip" data-category="insight" role="tab" aria-selected="false">Insight</button>
+      <button type="button" class="news-chip" data-category="eu-update" role="tab" aria-selected="false">EU Update</button>
+      <button type="button" class="news-chip" data-category="new-member" role="tab" aria-selected="false">New Member</button>
+      <button type="button" class="news-chip" data-category="events" role="tab" aria-selected="false">Events</button>
+      <button type="button" class="news-chip" data-category="regions" role="tab" aria-selected="false">Regions</button>
+    </div>
+    <p class="news-result-count" aria-live="polite"><strong id="newsCount">12</strong> articles</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     ARTICLE CARD GRID
+============================================================ -->
+<section class="news-grid-section">
+  <div class="news-grid-inner ds-container">
+    <ul class="news-grid" id="newsGrid">
+
+      <!-- 1 -->
+      <li class="news-card-item" data-category="eu-update">
+        <a href="news-article.html" class="news-card">
+          <div class="news-card-img"><img src="assets/images/news/eu-update.jpg" alt=""></div>
+          <div class="news-card-body">
+            <div class="news-card-tags">
+              <span class="news-tag">EU Update</span>
+              <span class="news-tag">Brussels</span>
+            </div>
+            <h3 class="ds-h3 news-card-title">EU Update — Legal Insights from Europe's Capital</h3>
+            <p class="news-card-excerpt">Brussels-based members unpack the latest from the European Parliament, Commission and Court of Justice — what's moving, what's stalled, and what cross-border counsel need to track this quarter.</p>
+            <div class="news-card-meta">
+              <span class="news-meta-date">April 18, 2026</span>
+              <span class="news-meta-sep" aria-hidden="true">·</span>
+              <span class="news-meta-readtime">6 min read</span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <!-- 2 -->
+      <li class="news-card-item" data-category="new-member">
+        <a href="news-article.html" class="news-card">
+          <div class="news-card-img"><img src="assets/images/news/Belize_e6983e6d67.webp" alt=""></div>
+          <div class="news-card-body">
+            <div class="news-card-tags">
+              <span class="news-tag">New Member</span>
+              <span class="news-tag">Belize</span>
+            </div>
+            <h3 class="ds-h3 news-card-title">TerraLex Expands Central America Presence with Wrobel &amp; Co. LLP in Belize</h3>
+            <p class="news-card-excerpt">A new flag on the network map: Belize-based Wrobel &amp; Co. joins TerraLex, deepening member coverage across Central America and the Caribbean basin.</p>
+            <div class="news-card-meta">
+              <span class="news-meta-date">April 11, 2026</span>
+              <span class="news-meta-sep" aria-hidden="true">·</span>
+              <span class="news-meta-readtime">3 min read</span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <!-- 3 -->
+      <li class="news-card-item" data-category="new-member">
+        <a href="news-article.html" class="news-card">
+          <div class="news-card-img"><img src="assets/images/news/Qatar_a951779a17.webp" alt=""></div>
+          <div class="news-card-body">
+            <div class="news-card-tags">
+              <span class="news-tag">New Member</span>
+              <span class="news-tag">Qatar</span>
+            </div>
+            <h3 class="ds-h3 news-card-title">TerraLex Strengthens Middle East Capabilities with Al-Ansari &amp; Associates in Qatar</h3>
+            <p class="news-card-excerpt">Doha's Al-Ansari &amp; Associates joins the network, bringing deep on-the-ground expertise in Gulf regulation, energy, and infrastructure work.</p>
+            <div class="news-card-meta">
+              <span class="news-meta-date">April 4, 2026</span>
+              <span class="news-meta-sep" aria-hidden="true">·</span>
+              <span class="news-meta-readtime">4 min read</span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <!-- 4 -->
+      <li class="news-card-item" data-category="insight">
+        <a href="news-article.html" class="news-card">
+          <div class="news-card-img"><img src="assets/images/news/EU_Update_49b60f62a3.webp" alt=""></div>
+          <div class="news-card-body">
+            <div class="news-card-tags">
+              <span class="news-tag">Insight</span>
+              <span class="news-tag">Global</span>
+            </div>
+            <h3 class="ds-h3 news-card-title">Why TerraLex Member Firms Should Track and Report Referrals</h3>
+            <p class="news-card-excerpt">A practical guide to capturing referral data — and why the firms that measure it consistently win the next mandate.</p>
+            <div class="news-card-meta">
+              <span class="news-meta-date">March 28, 2026</span>
+              <span class="news-meta-sep" aria-hidden="true">·</span>
+              <span class="news-meta-readtime">5 min read</span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <!-- 5 -->
+      <li class="news-card-item" data-category="regions">
+        <a href="news-article.html" class="news-card">
+          <div class="news-card-img"><img src="assets/images/news/terralex-alb.jpg" alt=""></div>
+          <div class="news-card-body">
+            <div class="news-card-tags">
+              <span class="news-tag">Regions</span>
+              <span class="news-tag">Asia-Pacific</span>
+            </div>
+            <h3 class="ds-h3 news-card-title">Indonesia Sets Stage for Biggest Competition Law Reform in 25 Years</h3>
+            <p class="news-card-excerpt">Jakarta members analyse a draft KPPU bill that would restructure Indonesia's competition regime — with significant implications for inbound investment and M&amp;A clearance.</p>
+            <div class="news-card-meta">
+              <span class="news-meta-date">March 21, 2026</span>
+              <span class="news-meta-sep" aria-hidden="true">·</span>
+              <span class="news-meta-readtime">7 min read</span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <!-- 6 -->
+      <li class="news-card-item" data-category="events">
+        <a href="news-article.html" class="news-card">
+          <div class="news-card-img"><img src="assets/images/news/eu-update.jpg" alt=""></div>
+          <div class="news-card-body">
+            <div class="news-card-tags">
+              <span class="news-tag">Events</span>
+              <span class="news-tag">Madrid</span>
+            </div>
+            <h3 class="ds-h3 news-card-title">TerraLex 2026 European Regional Meeting — Madrid, June 12–14</h3>
+            <p class="news-card-excerpt">Three days of substantive working sessions for the network's European members, this year hosted by Cuatrecasas in Madrid. Registration now open to member-firm partners.</p>
+            <div class="news-card-meta">
+              <span class="news-meta-date">March 14, 2026</span>
+              <span class="news-meta-sep" aria-hidden="true">·</span>
+              <span class="news-meta-readtime">2 min read</span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <!-- 7 — initially hidden -->
+      <li class="news-card-item is-hidden" data-category="insight">
+        <a href="news-article.html" class="news-card">
+          <div class="news-card-img"><img src="assets/images/news/Belize_e6983e6d67.webp" alt=""></div>
+          <div class="news-card-body">
+            <div class="news-card-tags">
+              <span class="news-tag">Insight</span>
+              <span class="news-tag">Cross-Border</span>
+            </div>
+            <h3 class="ds-h3 news-card-title">Matouk Bassiouny &amp; Hennawy Advises El Sayyed Group on New Hotels' First Entry into Egypt</h3>
+            <p class="news-card-excerpt">Cairo-based members guided structuring, regulatory clearance and joint-venture terms for a landmark hospitality deal that opens a new chapter for the El Sayyed Group.</p>
+            <div class="news-card-meta">
+              <span class="news-meta-date">March 7, 2026</span>
+              <span class="news-meta-sep" aria-hidden="true">·</span>
+              <span class="news-meta-readtime">4 min read</span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <!-- 8 — initially hidden -->
+      <li class="news-card-item is-hidden" data-category="regions">
+        <a href="news-article.html" class="news-card">
+          <div class="news-card-img"><img src="assets/images/news/Qatar_a951779a17.webp" alt=""></div>
+          <div class="news-card-body">
+            <div class="news-card-tags">
+              <span class="news-tag">Regions</span>
+              <span class="news-tag">Australia</span>
+            </div>
+            <h3 class="ds-h3 news-card-title">Australian Privacy Law Update: What APP Entities Need to Know in 2026</h3>
+            <p class="news-card-excerpt">Sydney members walk through the second-tranche Privacy Act amendments and the practical compliance work boards should already be commissioning.</p>
+            <div class="news-card-meta">
+              <span class="news-meta-date">February 28, 2026</span>
+              <span class="news-meta-sep" aria-hidden="true">·</span>
+              <span class="news-meta-readtime">6 min read</span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <!-- 9 — initially hidden -->
+      <li class="news-card-item is-hidden" data-category="insight">
+        <a href="news-article.html" class="news-card">
+          <div class="news-card-img"><img src="assets/images/news/eu-update.jpg" alt=""></div>
+          <div class="news-card-body">
+            <div class="news-card-tags">
+              <span class="news-tag">Insight</span>
+              <span class="news-tag">Egypt</span>
+            </div>
+            <h3 class="ds-h3 news-card-title">Proposed Amendments to the Egyptian Competition Law</h3>
+            <p class="news-card-excerpt">A clause-by-clause read of the draft bill before parliament — and what cross-border counsel advising on Egypt-touching transactions should flag now.</p>
+            <div class="news-card-meta">
+              <span class="news-meta-date">February 19, 2026</span>
+              <span class="news-meta-sep" aria-hidden="true">·</span>
+              <span class="news-meta-readtime">5 min read</span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <!-- 10 — initially hidden -->
+      <li class="news-card-item is-hidden" data-category="insight">
+        <a href="news-article.html" class="news-card">
+          <div class="news-card-img"><img src="assets/images/news/EU_Update_49b60f62a3.webp" alt=""></div>
+          <div class="news-card-body">
+            <div class="news-card-tags">
+              <span class="news-tag">Insight</span>
+              <span class="news-tag">Capital Markets</span>
+            </div>
+            <h3 class="ds-h3 news-card-title">Matouk Bassiouny &amp; Hennawy Advises Bloom on EGP 1.75bn Securitisation Transaction</h3>
+            <p class="news-card-excerpt">Counsel on one of the year's largest North-African securitisations talk through structuring, regulatory engagement, and the lessons for issuers eyeing the next round.</p>
+            <div class="news-card-meta">
+              <span class="news-meta-date">February 12, 2026</span>
+              <span class="news-meta-sep" aria-hidden="true">·</span>
+              <span class="news-meta-readtime">4 min read</span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <!-- 11 — initially hidden -->
+      <li class="news-card-item is-hidden" data-category="insight">
+        <a href="news-article.html" class="news-card">
+          <div class="news-card-img"><img src="assets/images/news/terralex-alb.jpg" alt=""></div>
+          <div class="news-card-body">
+            <div class="news-card-tags">
+              <span class="news-tag">Insight</span>
+              <span class="news-tag">Arbitration</span>
+            </div>
+            <h3 class="ds-h3 news-card-title">Recognition of Partial Arbitral Awards in Light of the Court of Cassation's Decision Dated 11 June 2019</h3>
+            <p class="news-card-excerpt">A re-reading of the Cassation ruling and what it means for parties enforcing partial awards in jurisdictions modelled on the Egyptian framework.</p>
+            <div class="news-card-meta">
+              <span class="news-meta-date">February 5, 2026</span>
+              <span class="news-meta-sep" aria-hidden="true">·</span>
+              <span class="news-meta-readtime">9 min read</span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <!-- 12 — initially hidden -->
+      <li class="news-card-item is-hidden" data-category="events">
+        <a href="news-article.html" class="news-card">
+          <div class="news-card-img"><img src="assets/images/news/Qatar_a951779a17.webp" alt=""></div>
+          <div class="news-card-body">
+            <div class="news-card-tags">
+              <span class="news-tag">Events</span>
+              <span class="news-tag">Singapore</span>
+            </div>
+            <h3 class="ds-h3 news-card-title">TerraLex Asia-Pacific Forum 2026 — Singapore, September 9–11</h3>
+            <p class="news-card-excerpt">The flagship APAC working session returns to Singapore, with practice-group breakouts on M&amp;A, disputes, and tech regulation across the region.</p>
+            <div class="news-card-meta">
+              <span class="news-meta-date">January 30, 2026</span>
+              <span class="news-meta-sep" aria-hidden="true">·</span>
+              <span class="news-meta-readtime">2 min read</span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+    </ul>
+
+    <div class="news-loadmore">
+      <p class="news-loadmore-meta"><strong id="newsShown">6</strong> of <strong id="newsTotal">12</strong> articles</p>
+      <button type="button" class="ds-btn ds-btn-primary ds-btn-lg" id="newsLoadMore">Load more</button>
+    </div>
+
+    <div class="news-empty" id="newsEmpty" hidden>
+      <p class="ds-h3">No articles in this category yet.</p>
+      <p class="ds-body-lg">Try a different filter or check back soon — the network publishes weekly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA — Subscribe / Ask myLexi
+============================================================ -->
+<section class="s9-cta news-cta">
+  <img src="assets/images/misc/collab-bg.jpg" alt="" class="s9-bg-img">
+  <div class="s9-inner">
+    <p class="s9-eyebrow ds-eyebrow on-dark">Stay current</p>
+    <blockquote class="s9-quote ds-h1 on-dark">
+      <span class="s9-quote-light ds-thin">Get TerraLex insight in your inbox.</span>
+      <span class="s9-quote-bold ds-bold"> Subscribe.</span>
+    </blockquote>
+    <p class="s9-sub ds-body-lg on-dark">A monthly digest of cross-border legal updates, member-firm announcements, and original analysis from across the network.</p>
+    <div class="s9-actions">
+      <a href="contact-us.html" class="s9-btn s9-btn-primary ds-btn ds-btn-primary ds-btn-lg">Subscribe to the digest</a>
+      <a href="mylexi.html" class="s9-btn s9-btn-outline ds-btn ds-btn-outline ds-btn-lg">Ask myLexi</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img class="footer-logo" src="assets/logos/Logo white.svg" alt="TerraLex">
+      <p class="footer-tagline ds-body-sm on-dark">The elite global legal network committed to collaboration. 141 member firms in 207 jurisdictions and 134 countries.</p>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Network</p>
+      <ul class="footer-nav-list">
+        <li><a href="about.html">About TerraLex</a></li>
+        <li><a href="firms.html">Member Directory</a></li>
+        <li><a href="practice-groups-industry-sector-teams.html">Practice Groups &amp; Industry Sector Teams</a></li>
+        <li><a href="https://www.linkedin.com/company/terralex/">Follow us on LinkedIn</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Knowledge</p>
+      <ul class="footer-nav-list">
+        <li><a href="insights-cross-border-guides.html">Cross-Border Guides</a></li>
+        <li><a href="mylexi.html">myLexi AI-Powered Assistant</a></li>
+        <li><a href="news.html">Insights</a></li>
+        <li><a href="events.html">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Contact</p>
+      <ul class="footer-nav-list">
+        <li><a href="sign-in.html">TLC Sign-On (Members Only)</a></li>
+        <li><a href="contact-us.html">Contact Us</a></li>
+        <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 TerraLex. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+/* ================================================================
+   News page — client-only filter + load-more
+================================================================ */
+(function () {
+  var BATCH = 6;
+  var grid     = document.getElementById('newsGrid');
+  if (!grid) return;
+  var items    = Array.prototype.slice.call(grid.querySelectorAll('.news-card-item'));
+  var chips    = document.querySelectorAll('.news-chip');
+  var loadBtn  = document.getElementById('newsLoadMore');
+  var loadMeta = document.querySelector('.news-loadmore');
+  var shownEl  = document.getElementById('newsShown');
+  var totalEl  = document.getElementById('newsTotal');
+  var countEl  = document.getElementById('newsCount');
+  var emptyEl  = document.getElementById('newsEmpty');
+
+  var activeCategory = 'all';
+  var visibleLimit   = BATCH;
+
+  function render() {
+    var matching = items.filter(function (li) {
+      return activeCategory === 'all' || li.getAttribute('data-category') === activeCategory;
+    });
+
+    items.forEach(function (li) { li.classList.add('is-hidden'); li.hidden = true; });
+
+    var shown = 0;
+    matching.slice(0, visibleLimit).forEach(function (li) {
+      li.classList.remove('is-hidden');
+      li.hidden = false;
+      shown++;
+    });
+
+    // counts
+    if (countEl) countEl.textContent = matching.length;
+    if (totalEl) totalEl.textContent = matching.length;
+    if (shownEl) shownEl.textContent = shown;
+
+    // load-more visibility
+    if (loadMeta) {
+      if (matching.length === 0) {
+        loadMeta.style.display = 'none';
+      } else {
+        loadMeta.style.display = '';
+        if (loadBtn) loadBtn.style.display = (shown < matching.length) ? '' : 'none';
+      }
+    }
+
+    // empty state
+    if (emptyEl) emptyEl.hidden = matching.length !== 0;
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      chips.forEach(function (c) {
+        c.classList.remove('is-active');
+        c.setAttribute('aria-selected', 'false');
+      });
+      chip.classList.add('is-active');
+      chip.setAttribute('aria-selected', 'true');
+      activeCategory = chip.getAttribute('data-category') || 'all';
+      visibleLimit = BATCH;
+      render();
+    });
+  });
+
+  if (loadBtn) {
+    loadBtn.addEventListener('click', function () {
+      visibleLimit += BATCH;
+      render();
+    });
+  }
+
+  render();
+})();
+</script>
+
+</body>
+</html>

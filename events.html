@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TerraLex — Events Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/design-system.css">
+
+<!-- Page-specific stylesheet -->
+<link rel="stylesheet" href="css/events.css">
+</head>
+<body class="events-page">
+
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<header class="site-header scrolled has-solid-bg" id="siteHeader">
+  <div class="nav-topbar">
+    <a href="firms.html">Member Directory</a><span class="sep">|</span>
+    <a href="sign-in.html">TLC Sign-On</a><span class="sep">|</span>
+    <a href="mylexi.html">Ask myLexi</a><span class="sep">|</span>
+    <a href="contact-us.html">Contact Us</a>
+  </div>
+  <nav id="mainNav">
+    <a href="index.html" class="nav-logo">
+      <img class="logo-hero" src="assets/logos/Logo white.svg" alt="TerraLex">
+      <img class="logo-scrolled" src="assets/logos/Logo default.svg" alt="TerraLex">
+    </a>
+    <div class="nav-links">
+      <a href="insights-cross-border-guides.html">Cross-Border Guides</a>
+      <div class="nav-dropdown">
+        <a href="practice-groups-industry-sector-teams.html" class="nav-dropdown-trigger">Expertise <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
+        <div class="nav-mega">
+          <div class="mega-col">
+            <h4>Practice Groups</h4>
+            <a href="practice-group-detail.html">Antitrust &amp; Competition</a>
+            <a href="practice-group-detail.html">Bankruptcy / Insolvency</a>
+            <a href="practice-group-detail.html">Construction &amp; Infrastructure</a>
+            <a href="practice-group-detail.html">Energy &amp; Environmental</a>
+            <a href="practice-group-detail.html">Finance &amp; Banking</a>
+            <a href="practice-group-detail.html">Global Trade &amp; Policy</a>
+            <a href="practice-group-detail.html">Immigration</a>
+            <a href="practice-group-detail.html">Insurance</a>
+            <a href="practice-group-detail.html">Intellectual Property, Licensing &amp; Technology</a>
+            <a href="practice-group-detail.html">International Litigation &amp; Arbitration</a>
+            <a href="practice-group-detail.html">Labor &amp; Employment</a>
+            <a href="practice-group-detail.html">Mergers &amp; Acquisitions</a>
+            <a href="practice-group-detail.html">Real Estate</a>
+            <a href="practice-group-detail.html">Regulatory, Investigations &amp; Compliance</a>
+            <a href="practice-group-detail.html">Tax &amp; Wealth Services</a>
+          </div>
+          <div class="mega-col">
+            <h4>Industry Sector Teams</h4>
+            <a href="industry-sector-team-detail.html">Automotive</a>
+            <a href="industry-sector-team-detail.html">Aviation</a>
+            <a href="industry-sector-team-detail.html">Education Services</a>
+            <a href="industry-sector-team-detail.html">ESG</a>
+            <a href="industry-sector-team-detail.html">Food &amp; Beverage</a>
+            <a href="industry-sector-team-detail.html">Hospitality</a>
+            <a href="industry-sector-team-detail.html">Life Sciences</a>
+            <a href="industry-sector-team-detail.html">Mining</a>
+            <a href="industry-sector-team-detail.html">Retail</a>
+            <a href="industry-sector-team-detail.html">Sports &amp; Entertainment</a>
+            <a href="industry-sector-team-detail.html">Technology &amp; Digital Business</a>
+          </div>
+          <div class="mega-col">
+            <h4>Regions</h4>
+            <a href="firms.html">Africa &amp; the Middle East</a>
+            <a href="firms.html">Asia-Pacific</a>
+            <a href="firms.html">Europe</a>
+            <a href="firms.html">Latin America &amp; the Caribbean</a>
+            <a href="firms.html">North America</a>
+          </div>
+        </div>
+      </div>
+      <a href="events.html" class="is-active">Events Hub</a>
+      <a href="news.html">Global Insights</a>
+      <a href="success-stories.html">Success Stories</a>
+      <a href="about.html">About TerraLex</a>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-search-btn" aria-label="Search" onclick="location.href='search.html'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+      <button class="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================================================
+     HERO — compact inner-page hero
+============================================================ -->
+<section class="events-hero">
+  <div class="events-hero-inner ds-container">
+    <p class="ds-eyebrow events-hero-eyebrow">Events &amp; Webinars</p>
+    <h1 class="ds-h1 events-hero-title">
+      <span class="ds-thin">Where the network</span> <span class="ds-bold">meets.</span>
+    </h1>
+    <p class="ds-body-lg events-hero-sub">
+      Global meetings, regional gatherings and webinars across 134 countries — see what&rsquo;s coming up and revisit recent highlights.
+    </p>
+
+    <ul class="events-quick-stats" aria-label="Events at a glance">
+      <li><span class="events-stat-num">12</span><span class="events-stat-lbl">Upcoming events</span></li>
+      <li><span class="events-stat-num">5</span><span class="events-stat-lbl">Regions</span></li>
+      <li><span class="events-stat-num">141</span><span class="events-stat-lbl">Member firms hosting</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================
+     FEATURED UPCOMING EVENT
+============================================================ -->
+<section class="events-featured" aria-label="Featured upcoming event">
+  <div class="ds-container events-featured-inner">
+    <p class="ds-eyebrow events-section-eyebrow">Next up</p>
+    <article class="events-featured-card">
+      <div class="events-featured-media">
+        <img src="assets/images/events/Edinburgh.jpg" alt="Edinburgh skyline">
+        <span class="events-featured-tag">Global Meeting</span>
+      </div>
+      <div class="events-featured-body">
+        <p class="events-featured-date">
+          <span class="events-featured-dot" aria-hidden="true"></span>
+          <span class="events-featured-when">April 29 – May 2, 2026</span>
+          <span class="events-featured-sep">·</span>
+          <span class="events-featured-soon">In 6 days</span>
+        </p>
+        <h2 class="ds-h1 events-featured-title">
+          <span class="ds-bold">2026 TerraLex Global Meeting</span>
+          <span class="ds-thin"> — Edinburgh, Scotland</span>
+        </h2>
+        <p class="events-featured-meta">
+          Hosted by <strong>Brodies LLP</strong> · Edinburgh, Scotland
+        </p>
+        <p class="events-featured-desc ds-body-lg">
+          Edinburgh, Scotland&rsquo;s historic and cultural capital, sets the stage for the first 2026 TerraLex Global Meeting under the theme &ldquo;A Perfect Blend.&rdquo; Four days of plenary sessions, practice-group breakouts, and member networking.
+        </p>
+        <div class="events-featured-actions">
+          <a href="contact-us.html" class="ds-btn ds-btn-primary ds-btn-lg">RSVP</a>
+          <a href="#" class="ds-btn ds-btn-outline ds-btn-lg">View event details</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     FILTER BAR — sticky
+============================================================ -->
+<section class="events-filterbar" aria-label="Filter events">
+  <div class="events-filterbar-inner ds-container">
+    <div class="events-typebar" role="tablist" aria-label="Event type">
+      <button class="events-type-pill is-active" role="tab" aria-selected="true" type="button" data-type="all">All</button>
+      <button class="events-type-pill" role="tab" aria-selected="false" type="button" data-type="global">Global Meeting</button>
+      <button class="events-type-pill" role="tab" aria-selected="false" type="button" data-type="regional">Regional</button>
+      <button class="events-type-pill" role="tab" aria-selected="false" type="button" data-type="webinar">Webinar</button>
+      <button class="events-type-pill" role="tab" aria-selected="false" type="button" data-type="networking">Networking</button>
+    </div>
+
+    <div class="events-filter-group" role="group" aria-label="Filters">
+      <label class="events-filter">
+        <span class="events-filter-label">Region</span>
+        <select class="events-filter-select" aria-label="Filter by region">
+          <option value="">All regions</option>
+          <option>Africa &amp; the Middle East</option>
+          <option>Asia-Pacific</option>
+          <option>Europe</option>
+          <option>Latin America &amp; the Caribbean</option>
+          <option>North America</option>
+        </select>
+      </label>
+
+      <label class="events-filter">
+        <span class="events-filter-label">Year</span>
+        <select class="events-filter-select" aria-label="Filter by year">
+          <option value="">All years</option>
+          <option>2026</option>
+          <option>2025</option>
+          <option>2024</option>
+          <option>2023</option>
+        </select>
+      </label>
+
+      <div class="events-search">
+        <span class="events-search-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </span>
+        <input class="events-search-input" type="search" placeholder="Search events" aria-label="Search events">
+      </div>
+    </div>
+
+    <div class="events-filter-meta">
+      <p class="events-result-count"><strong>12</strong> upcoming events</p>
+      <div class="events-view-toggle" role="tablist" aria-label="View toggle">
+        <button class="events-view-btn is-active" role="tab" aria-selected="true" data-view="list" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          List
+        </button>
+        <button class="events-view-btn" role="tab" aria-selected="false" data-view="calendar" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Calendar
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     UPCOMING EVENTS GRID
+============================================================ -->
+<section class="events-section events-upcoming">
+  <div class="ds-container events-section-inner">
+    <header class="events-section-head">
+      <p class="ds-eyebrow events-section-eyebrow">Upcoming</p>
+      <h2 class="ds-h1 events-section-title"><span class="ds-thin">What&rsquo;s</span> <span class="ds-bold">coming up.</span></h2>
+    </header>
+
+    <ul class="events-grid" id="upcomingGrid" role="list">
+
+      <li>
+        <a class="event-card s6-event" href="#">
+          <div class="s6-event-bg"><img src="assets/images/events/antitrust meeting.jpg" alt=""></div>
+          <div class="s6-event-content">
+            <p class="s6-event-date is-upcoming" data-event-date="2026-05-08">
+              <span class="s6-event-dot" aria-hidden="true"></span>
+              <span class="s6-event-when">May 8, 2026</span>
+              <span class="s6-event-sep">·</span>
+              <span class="s6-event-when">Washington DC</span>
+            </p>
+            <span class="event-card-tag s3b-tag">Networking</span>
+            <p class="s6-event-title ds-h3 on-dark">TerraLex Networking at the 2026 Antitrust Spring Meeting</p>
+            <div class="s6-event-reveal">
+              <p class="s6-event-desc ds-body on-dark">Join TerraLex colleagues during the ABA Antitrust Spring Meeting for a curated dinner and a closed-door breakfast briefing on cross-border merger control trends.</p>
+              <span class="s6-event-link">RSVP <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="event-card s6-event" href="#">
+          <div class="s6-event-bg"><img src="assets/images/events/Shanghai.jpg" alt=""></div>
+          <div class="s6-event-content">
+            <p class="s6-event-date is-upcoming" data-event-date="2026-06-15">
+              <span class="s6-event-dot" aria-hidden="true"></span>
+              <span class="s6-event-when">Jun 15 – 17, 2026</span>
+              <span class="s6-event-sep">·</span>
+              <span class="s6-event-when">Shanghai</span>
+            </p>
+            <span class="event-card-tag s3b-tag">Regional</span>
+            <p class="s6-event-title ds-h3 on-dark">Asia-Pacific Regional Meeting in Shanghai</p>
+            <div class="s6-event-reveal">
+              <p class="s6-event-desc ds-body on-dark">Two days of practical, forward-looking discussions focused on collaboration, business development, and strengthening cross-border connections across the Asia-Pacific region.</p>
+              <span class="s6-event-link">RSVP <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="event-card s6-event" href="#">
+          <div class="s6-event-bg"><img src="assets/images/events/IAPP.jpg" alt=""></div>
+          <div class="s6-event-content">
+            <p class="s6-event-date is-upcoming" data-event-date="2026-06-22">
+              <span class="s6-event-dot" aria-hidden="true"></span>
+              <span class="s6-event-when">Jun 22, 2026</span>
+              <span class="s6-event-sep">·</span>
+              <span class="s6-event-when">Online</span>
+            </p>
+            <span class="event-card-tag s3b-tag">Webinar</span>
+            <p class="s6-event-title ds-h3 on-dark">EU Data Act &amp; AI Liability: A Practical Briefing</p>
+            <div class="s6-event-reveal">
+              <p class="s6-event-desc ds-body on-dark">A 60-minute webinar with TerraLex IP &amp; Technology leaders on what in-house teams need to do before the next phase of the EU Data Act takes effect.</p>
+              <span class="s6-event-link">Register <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="event-card s6-event" href="#">
+          <div class="s6-event-bg"><img src="assets/images/events/Automotive 2.jpg" alt=""></div>
+          <div class="s6-event-content">
+            <p class="s6-event-date" data-event-date="2026-07-09">
+              <span class="s6-event-dot" aria-hidden="true"></span>
+              <span class="s6-event-when">Jul 9, 2026</span>
+              <span class="s6-event-sep">·</span>
+              <span class="s6-event-when">Munich</span>
+            </p>
+            <span class="event-card-tag s3b-tag">Networking</span>
+            <p class="s6-event-title ds-h3 on-dark">Automotive Industry Sector Team Networking Dinner</p>
+            <div class="s6-event-reveal">
+              <p class="s6-event-desc ds-body on-dark">An invitation-only dinner for the TerraLex Automotive Industry Sector Team alongside the Automotive News Europe Congress.</p>
+              <span class="s6-event-link">RSVP <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="event-card s6-event" href="#">
+          <div class="s6-event-bg"><img src="assets/images/events/Edinburgh.jpg" alt=""></div>
+          <div class="s6-event-content">
+            <p class="s6-event-date" data-event-date="2026-09-14">
+              <span class="s6-event-dot" aria-hidden="true"></span>
+              <span class="s6-event-when">Sep 14 – 16, 2026</span>
+              <span class="s6-event-sep">·</span>
+              <span class="s6-event-when">São Paulo</span>
+            </p>
+            <span class="event-card-tag s3b-tag">Regional</span>
+            <p class="s6-event-title ds-h3 on-dark">Latin America Regional Meeting in São Paulo</p>
+            <div class="s6-event-reveal">
+              <p class="s6-event-desc ds-body on-dark">Hosted by TozziniFreire Advogados — three days of regional roundtables on energy transition, ESG, M&amp;A, and dispute resolution across Latin America.</p>
+              <span class="s6-event-link">RSVP <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="event-card s6-event" href="#">
+          <div class="s6-event-bg"><img src="assets/images/events/Epstein files.jpg" alt=""></div>
+          <div class="s6-event-content">
+            <p class="s6-event-date" data-event-date="2026-10-07">
+              <span class="s6-event-dot" aria-hidden="true"></span>
+              <span class="s6-event-when">Oct 7, 2026</span>
+              <span class="s6-event-sep">·</span>
+              <span class="s6-event-when">Online</span>
+            </p>
+            <span class="event-card-tag s3b-tag">Webinar</span>
+            <p class="s6-event-title ds-h3 on-dark">Cross-Border Investigations: 2026 Outlook</p>
+            <div class="s6-event-reveal">
+              <p class="s6-event-desc ds-body on-dark">A webinar with the TerraLex Regulatory, Investigations &amp; Compliance practice group on the latest enforcement priorities in the US, UK and EU.</p>
+              <span class="s6-event-link">Register <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+    </ul>
+
+    <div class="events-loadmore">
+      <button class="ds-btn ds-btn-secondary ds-btn-lg" type="button">Show more upcoming</button>
+      <p class="events-loadmore-meta">Showing <strong>6</strong> of <strong>12</strong> upcoming events</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PAST EVENTS — section divider + archive grid
+============================================================ -->
+<section class="events-divider" aria-hidden="true">
+  <div class="ds-container">
+    <div class="events-divider-inner">
+      <p class="ds-eyebrow on-dark events-divider-eyebrow">The archive</p>
+      <h2 class="events-divider-title">
+        <span class="ds-thin on-dark">Past meetings</span><span class="ds-bold on-dark"> &amp; webinars.</span>
+      </h2>
+      <p class="events-divider-sub ds-body-lg on-dark">
+        Twenty-plus years of TerraLex global meetings, regional gatherings and webinars — searchable and replayable where recordings exist.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="events-section events-past">
+  <div class="ds-container events-section-inner">
+    <ul class="events-grid events-grid-past" id="pastGrid" role="list">
+
+      <li>
+        <a class="event-card s6-event is-past" href="#">
+          <div class="s6-event-bg"><img src="assets/images/events/Edinburgh.jpg" alt=""></div>
+          <div class="s6-event-content">
+            <p class="s6-event-date">
+              <span class="s6-event-when">Oct 22 – 24, 2025</span>
+              <span class="s6-event-sep">·</span>
+              <span class="s6-event-when">Vancouver</span>
+            </p>
+            <span class="event-card-tag s3b-tag">Past · Global Meeting</span>
+            <p class="s6-event-title ds-h3 on-dark">2025 TerraLex Global Meeting — Vancouver</p>
+            <div class="s6-event-reveal">
+              <p class="s6-event-desc ds-body on-dark">Recap, photos and session recordings from the 2025 Global Meeting hosted by Lawson Lundell.</p>
+              <span class="s6-event-link">View recap <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="event-card s6-event is-past" href="#">
+          <div class="s6-event-bg"><img src="assets/images/events/Shanghai.jpg" alt=""></div>
+          <div class="s6-event-content">
+            <p class="s6-event-date">
+              <span class="s6-event-when">Sep 11, 2025</span>
+              <span class="s6-event-sep">·</span>
+              <span class="s6-event-when">Online</span>
+            </p>
+            <span class="event-card-tag s3b-tag">Past · Webinar</span>
+            <p class="s6-event-title ds-h3 on-dark">Cross-Border M&amp;A: Asia-Pacific Outlook</p>
+            <div class="s6-event-reveal">
+              <p class="s6-event-desc ds-body on-dark">A 60-minute panel with TerraLex M&amp;A leaders across Singapore, Tokyo, Sydney and Mumbai. Recording available.</p>
+              <span class="s6-event-link">Watch replay <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="event-card s6-event is-past" href="#">
+          <div class="s6-event-bg"><img src="assets/images/events/IAPP.jpg" alt=""></div>
+          <div class="s6-event-content">
+            <p class="s6-event-date">
+              <span class="s6-event-when">Jun 5, 2025</span>
+              <span class="s6-event-sep">·</span>
+              <span class="s6-event-when">Brussels</span>
+            </p>
+            <span class="event-card-tag s3b-tag">Past · Networking</span>
+            <p class="s6-event-title ds-h3 on-dark">TerraLex Networking at IAPP Global Privacy Summit</p>
+            <div class="s6-event-reveal">
+              <p class="s6-event-desc ds-body on-dark">A members-only reception during the IAPP Global Privacy Summit, hosted by the TerraLex Data &amp; Privacy team.</p>
+              <span class="s6-event-link">View recap <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="event-card s6-event is-past" href="#">
+          <div class="s6-event-bg"><img src="assets/images/events/antitrust meeting.jpg" alt=""></div>
+          <div class="s6-event-content">
+            <p class="s6-event-date">
+              <span class="s6-event-when">May 1 – 3, 2025</span>
+              <span class="s6-event-sep">·</span>
+              <span class="s6-event-when">Lisbon</span>
+            </p>
+            <span class="event-card-tag s3b-tag">Past · Regional</span>
+            <p class="s6-event-title ds-h3 on-dark">Europe Regional Meeting in Lisbon</p>
+            <div class="s6-event-reveal">
+              <p class="s6-event-desc ds-body on-dark">Hosted by Abreu Advogados. Three days of regional roundtables and member networking.</p>
+              <span class="s6-event-link">View recap <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="event-card s6-event is-past" href="#">
+          <div class="s6-event-bg"><img src="assets/images/events/Automotive 2.jpg" alt=""></div>
+          <div class="s6-event-content">
+            <p class="s6-event-date">
+              <span class="s6-event-when">Mar 14, 2025</span>
+              <span class="s6-event-sep">·</span>
+              <span class="s6-event-when">Online</span>
+            </p>
+            <span class="event-card-tag s3b-tag">Past · Webinar</span>
+            <p class="s6-event-title ds-h3 on-dark">Automotive Sector Webinar: Supply-Chain Resilience</p>
+            <div class="s6-event-reveal">
+              <p class="s6-event-desc ds-body on-dark">A webinar exploring contract design and litigation strategies for managing supply-chain disruption.</p>
+              <span class="s6-event-link">Watch replay <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li>
+        <a class="event-card s6-event is-past" href="#">
+          <div class="s6-event-bg"><img src="assets/images/events/Epstein files.jpg" alt=""></div>
+          <div class="s6-event-content">
+            <p class="s6-event-date">
+              <span class="s6-event-when">Oct 16 – 18, 2024</span>
+              <span class="s6-event-sep">·</span>
+              <span class="s6-event-when">Doha</span>
+            </p>
+            <span class="event-card-tag s3b-tag">Past · Global Meeting</span>
+            <p class="s6-event-title ds-h3 on-dark">2024 TerraLex Global Meeting — Doha</p>
+            <div class="s6-event-reveal">
+              <p class="s6-event-desc ds-body on-dark">Hosted by Al-Ansari &amp; Associates. Plenary recordings, photo gallery and session decks available.</p>
+              <span class="s6-event-link">View recap <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+      </li>
+
+    </ul>
+
+    <div class="events-loadmore">
+      <button class="ds-btn ds-btn-secondary ds-btn-lg" type="button">Show more from the archive</button>
+      <p class="events-loadmore-meta">Showing <strong>6</strong> of <strong>120+</strong> archived events</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA — Hosting an event?
+============================================================ -->
+<section class="s9-cta events-cta">
+  <img src="assets/images/misc/collab-bg.jpg" alt="" class="s9-bg-img">
+  <div class="s9-inner">
+    <p class="s9-eyebrow ds-eyebrow on-dark">Bring the network to your city</p>
+    <blockquote class="s9-quote ds-h1 on-dark">
+      <span class="s9-quote-light ds-thin">Hosting an event?</span>
+      <span class="s9-quote-bold ds-bold"> Let the network know.</span>
+    </blockquote>
+    <p class="s9-sub ds-body-lg on-dark">From regional meetings to industry roundtables and webinars — we&rsquo;ll help you connect with the right TerraLex members and amplify your event.</p>
+    <div class="s9-actions">
+      <a href="contact-us.html" class="s9-btn s9-btn-primary ds-btn ds-btn-primary ds-btn-lg">Submit your event</a>
+      <a href="contact-us.html" class="s9-btn s9-btn-outline ds-btn ds-btn-outline ds-btn-lg">Talk to a TerraLex Advisor</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img class="footer-logo" src="assets/logos/Logo white.svg" alt="TerraLex">
+      <p class="footer-tagline ds-body-sm on-dark">The elite global legal network committed to collaboration. 141 member firms in 207 jurisdictions and 134 countries.</p>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Network</p>
+      <ul class="footer-nav-list">
+        <li><a href="about.html">About TerraLex</a></li>
+        <li><a href="firms.html">Member Directory</a></li>
+        <li><a href="practice-groups-industry-sector-teams.html">Practice Groups &amp; Industry Sector Teams</a></li>
+        <li><a href="https://www.linkedin.com/company/terralex/">Follow us on LinkedIn</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Knowledge</p>
+      <ul class="footer-nav-list">
+        <li><a href="insights-cross-border-guides.html">Cross-Border Guides</a></li>
+        <li><a href="mylexi.html">myLexi AI-Powered Assistant</a></li>
+        <li><a href="news.html">Insights</a></li>
+        <li><a href="events.html">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Contact</p>
+      <ul class="footer-nav-list">
+        <li><a href="sign-in.html">TLC Sign-On (Members Only)</a></li>
+        <li><a href="contact-us.html">Contact Us</a></li>
+        <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 TerraLex. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+/* Lightweight client-only behaviour: type pills + view toggle */
+(function () {
+  function makeToggleGroup(selector) {
+    var btns = document.querySelectorAll(selector);
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        btns.forEach(function (x) {
+          x.classList.remove('is-active');
+          x.setAttribute('aria-selected', 'false');
+        });
+        b.classList.add('is-active');
+        b.setAttribute('aria-selected', 'true');
+      });
+    });
+  }
+  makeToggleGroup('.events-type-pill');
+  makeToggleGroup('.events-view-btn');
+})();
+</script>
+
+</body>
+</html>

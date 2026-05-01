@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TerraLex — Member Sign-in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/design-system.css">
+
+<!-- Page-specific stylesheet -->
+<link rel="stylesheet" href="css/sign-in.css">
+</head>
+<body class="sign-in-page">
+
+<!-- ============================================================
+     HEADER (kit verbatim, scrolled / solid-bg from the start)
+============================================================ -->
+<header class="site-header scrolled has-solid-bg" id="siteHeader">
+  <div class="nav-topbar">
+    <a href="firms.html">Member Directory</a><span class="sep">|</span>
+    <a href="sign-in.html" aria-current="page">TLC Sign-On</a><span class="sep">|</span>
+    <a href="mylexi.html">Ask myLexi</a><span class="sep">|</span>
+    <a href="contact-us.html">Contact Us</a>
+  </div>
+  <nav id="mainNav">
+    <a href="index.html" class="nav-logo">
+      <img class="logo-hero" src="assets/logos/Logo white.svg" alt="TerraLex">
+      <img class="logo-scrolled" src="assets/logos/Logo default.svg" alt="TerraLex">
+    </a>
+    <div class="nav-links">
+      <a href="insights-cross-border-guides.html">Cross-Border Guides</a>
+      <div class="nav-dropdown">
+        <a href="practice-groups-industry-sector-teams.html" class="nav-dropdown-trigger">Expertise <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
+        <div class="nav-mega">
+          <div class="mega-col">
+            <h4>Practice Groups</h4>
+            <a href="practice-group-detail.html">Antitrust &amp; Competition</a>
+            <a href="practice-group-detail.html">Bankruptcy / Insolvency</a>
+            <a href="practice-group-detail.html">Construction &amp; Infrastructure</a>
+            <a href="practice-group-detail.html">Energy &amp; Environmental</a>
+            <a href="practice-group-detail.html">Finance &amp; Banking</a>
+            <a href="practice-group-detail.html">Global Trade &amp; Policy</a>
+            <a href="practice-group-detail.html">Immigration</a>
+            <a href="practice-group-detail.html">Insurance</a>
+            <a href="practice-group-detail.html">Intellectual Property, Licensing &amp; Technology</a>
+            <a href="practice-group-detail.html">International Litigation &amp; Arbitration</a>
+            <a href="practice-group-detail.html">Labor &amp; Employment</a>
+            <a href="practice-group-detail.html">Mergers &amp; Acquisitions</a>
+            <a href="practice-group-detail.html">Real Estate</a>
+            <a href="practice-group-detail.html">Regulatory, Investigations &amp; Compliance</a>
+            <a href="practice-group-detail.html">Tax &amp; Wealth Services</a>
+          </div>
+          <div class="mega-col">
+            <h4>Industry Sector Teams</h4>
+            <a href="industry-sector-team-detail.html">Automotive</a>
+            <a href="industry-sector-team-detail.html">Aviation</a>
+            <a href="industry-sector-team-detail.html">Education Services</a>
+            <a href="industry-sector-team-detail.html">ESG</a>
+            <a href="industry-sector-team-detail.html">Food &amp; Beverage</a>
+            <a href="industry-sector-team-detail.html">Hospitality</a>
+            <a href="industry-sector-team-detail.html">Life Sciences</a>
+            <a href="industry-sector-team-detail.html">Mining</a>
+            <a href="industry-sector-team-detail.html">Retail</a>
+            <a href="industry-sector-team-detail.html">Sports &amp; Entertainment</a>
+            <a href="industry-sector-team-detail.html">Technology &amp; Digital Business</a>
+          </div>
+          <div class="mega-col">
+            <h4>Regions</h4>
+            <a href="firms.html">Africa &amp; the Middle East</a>
+            <a href="firms.html">Asia-Pacific</a>
+            <a href="firms.html">Europe</a>
+            <a href="firms.html">Latin America &amp; the Caribbean</a>
+            <a href="firms.html">North America</a>
+          </div>
+        </div>
+      </div>
+      <a href="events.html">Events Hub</a>
+      <a href="news.html">Global Insights</a>
+      <a href="success-stories.html">Success Stories</a>
+      <a href="about.html">About TerraLex</a>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-search-btn" aria-label="Search" onclick="location.href='search.html'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+      <button class="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================================================
+     SPLIT-SCREEN GATE — brand left / sign-in CTA right
+============================================================ -->
+<main class="signin-main">
+  <div class="signin-split">
+
+    <!-- ── Brand panel (left) ─────────────────────────── -->
+    <aside class="signin-brand on-dark" aria-label="TerraLex member network">
+      <div class="signin-brand-bg" aria-hidden="true"></div>
+      <div class="signin-brand-inner">
+        <p class="ds-eyebrow on-dark signin-brand-eyebrow">Member sign-in</p>
+        <h1 class="ds-h1 signin-brand-title">
+          <span class="ds-thin">Welcome back to</span> <span class="ds-bold">TerraLex.</span>
+        </h1>
+        <p class="ds-body-lg on-dark signin-brand-sub">
+          The connected community of 21,000 lawyers across 141 firms in 207 jurisdictions and 134 countries.
+        </p>
+
+        <ul class="signin-brand-stats" aria-label="Network at a glance">
+          <li>
+            <span class="signin-stat-num">141</span>
+            <span class="signin-stat-label">Member firms</span>
+          </li>
+          <li>
+            <span class="signin-stat-num">207</span>
+            <span class="signin-stat-label">Jurisdictions</span>
+          </li>
+          <li>
+            <span class="signin-stat-num">21,000+</span>
+            <span class="signin-stat-label">Lawyers</span>
+          </li>
+        </ul>
+
+        <p class="ds-body-sm on-dark signin-brand-note">
+          Member-firm lawyers and staff only.
+        </p>
+      </div>
+    </aside>
+
+    <!-- ── Action panel (right) ───────────────────────── -->
+    <section class="signin-action" aria-labelledby="signinActionTitle">
+      <div class="signin-card">
+        <p class="ds-eyebrow signin-action-eyebrow">Sign in to your account</p>
+        <h2 id="signinActionTitle" class="ds-h2 signin-action-title">
+          <span class="ds-bold">Continue securely.</span>
+        </h2>
+        <p class="ds-body signin-action-sub">
+          You'll be redirected to our secure sign-in to enter your credentials.
+        </p>
+
+        <a class="ds-btn ds-btn-primary ds-btn-lg signin-cta"
+           href="https://auth.terralex.org/login"
+           aria-label="Sign in to TerraLex member intranet">
+          Sign in
+          <svg class="signin-cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+
+        <p class="signin-secure">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          Secured by Auth0. Your credentials are never seen by this site.
+        </p>
+
+        <hr class="signin-divider" aria-hidden="true">
+
+        <!-- Help row -->
+        <div class="signin-help">
+          <p class="ds-body-sm signin-help-line">
+            <strong>Trouble signing in?</strong>
+            Contact your firm administrator or
+            <a href="contact-us.html">email TerraLex support</a>.
+          </p>
+          <p class="ds-body-sm signin-help-line">
+            <a href="contact-us.html">Forgot password</a>
+            <span class="signin-help-sep" aria-hidden="true">·</span>
+            <a href="contact-us.html">Get help</a>
+          </p>
+        </div>
+
+        <!-- Soft handoff for non-members -->
+        <div class="signin-handoff">
+          <p class="ds-body-sm signin-handoff-text">
+            Not a member firm?
+            <a href="about.html">Learn about TerraLex membership</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ── Trust strip ─────────────────────────────────── -->
+  <div class="signin-trust" aria-label="Member access at a glance">
+    <ul class="signin-trust-list">
+      <li>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        Member-firm-only access
+      </li>
+      <li>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        Secure sign-in via Auth0
+      </li>
+      <li>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        Available in 100+ languages
+      </li>
+      <li>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        24/7 access to myLexi
+      </li>
+    </ul>
+  </div>
+</main>
+
+<!-- ============================================================
+     FOOTER (kit verbatim)
+============================================================ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img class="footer-logo" src="assets/logos/Logo white.svg" alt="TerraLex">
+      <p class="footer-tagline ds-body-sm on-dark">The elite global legal network committed to collaboration. 141 member firms in 207 jurisdictions and 134 countries.</p>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Network</p>
+      <ul class="footer-nav-list">
+        <li><a href="about.html">About TerraLex</a></li>
+        <li><a href="firms.html">Member Directory</a></li>
+        <li><a href="practice-groups-industry-sector-teams.html">Practice Groups &amp; Industry Sector Teams</a></li>
+        <li><a href="https://www.linkedin.com/company/terralex/">Follow us on LinkedIn</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Knowledge</p>
+      <ul class="footer-nav-list">
+        <li><a href="insights-cross-border-guides.html">Cross-Border Guides</a></li>
+        <li><a href="mylexi.html">myLexi AI-Powered Assistant</a></li>
+        <li><a href="news.html">Insights</a></li>
+        <li><a href="events.html">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Contact</p>
+      <ul class="footer-nav-list">
+        <li><a href="sign-in.html">TLC Sign-On (Members Only)</a></li>
+        <li><a href="contact-us.html">Contact Us</a></li>
+        <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 TerraLex. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

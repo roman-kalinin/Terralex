@@ -3,28 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Firms Directory — TerraLex</title>
-<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<title>TerraLex — Member Firms</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/header.css">
 <link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/design-system.css">
+
+<!-- Page-specific stylesheet -->
 <link rel="stylesheet" href="css/firms.css">
 </head>
-<body>
+<body class="firms-page">
 
 <!-- ============================================================
      HEADER
 ============================================================ -->
-<header class="site-header scrolled">
+<header class="site-header scrolled has-solid-bg" id="siteHeader">
   <div class="nav-topbar">
-    <a href="#">Member Directory</a><span class="sep">|</span>
-    <a href="#">TLC Sign-On</a><span class="sep">|</span>
-    <a href="#">Ask myLexi</a><span class="sep">|</span>
-    <a href="#">Contact Us</a>
+    <a href="firms.html">Member Directory</a><span class="sep">|</span>
+    <a href="sign-in.html">TLC Sign-On</a><span class="sep">|</span>
+    <a href="mylexi.html">Ask myLexi</a><span class="sep">|</span>
+    <a href="contact-us.html">Contact Us</a>
   </div>
   <nav id="mainNav">
     <a href="index.html" class="nav-logo">
@@ -32,59 +36,59 @@
       <img class="logo-scrolled" src="assets/logos/Logo default.svg" alt="TerraLex">
     </a>
     <div class="nav-links">
-      <a href="#">Cross-Border Guides</a>
+      <a href="insights-cross-border-guides.html">Cross-Border Guides</a>
       <div class="nav-dropdown">
-        <a href="#" class="nav-dropdown-trigger">Expertise <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
+        <a href="practice-groups-industry-sector-teams.html" class="nav-dropdown-trigger">Expertise <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
         <div class="nav-mega">
           <div class="mega-col">
+            <h4>Practice Groups</h4>
+            <a href="practice-group-detail.html">Antitrust &amp; Competition</a>
+            <a href="practice-group-detail.html">Bankruptcy / Insolvency</a>
+            <a href="practice-group-detail.html">Construction &amp; Infrastructure</a>
+            <a href="practice-group-detail.html">Energy &amp; Environmental</a>
+            <a href="practice-group-detail.html">Finance &amp; Banking</a>
+            <a href="practice-group-detail.html">Global Trade &amp; Policy</a>
+            <a href="practice-group-detail.html">Immigration</a>
+            <a href="practice-group-detail.html">Insurance</a>
+            <a href="practice-group-detail.html">Intellectual Property, Licensing &amp; Technology</a>
+            <a href="practice-group-detail.html">International Litigation &amp; Arbitration</a>
+            <a href="practice-group-detail.html">Labor &amp; Employment</a>
+            <a href="practice-group-detail.html">Mergers &amp; Acquisitions</a>
+            <a href="practice-group-detail.html">Real Estate</a>
+            <a href="practice-group-detail.html">Regulatory, Investigations &amp; Compliance</a>
+            <a href="practice-group-detail.html">Tax &amp; Wealth Services</a>
+          </div>
+          <div class="mega-col">
             <h4>Industry Sector Teams</h4>
-            <a href="#">Automotive</a>
-            <a href="#">Aviation</a>
-            <a href="#">Education Services</a>
-            <a href="#">ESG</a>
-            <a href="#">Food &amp; Beverage</a>
-            <a href="#">Hospitality</a>
-            <a href="#">Life Sciences</a>
-            <a href="#">Mining</a>
-            <a href="#">Retail</a>
-            <a href="#">Sports &amp; Entertainment</a>
-            <a href="#">Technology &amp; Digital Business</a>
+            <a href="industry-sector-team-detail.html">Automotive</a>
+            <a href="industry-sector-team-detail.html">Aviation</a>
+            <a href="industry-sector-team-detail.html">Education Services</a>
+            <a href="industry-sector-team-detail.html">ESG</a>
+            <a href="industry-sector-team-detail.html">Food &amp; Beverage</a>
+            <a href="industry-sector-team-detail.html">Hospitality</a>
+            <a href="industry-sector-team-detail.html">Life Sciences</a>
+            <a href="industry-sector-team-detail.html">Mining</a>
+            <a href="industry-sector-team-detail.html">Retail</a>
+            <a href="industry-sector-team-detail.html">Sports &amp; Entertainment</a>
+            <a href="industry-sector-team-detail.html">Technology &amp; Digital Business</a>
           </div>
           <div class="mega-col">
             <h4>Regions</h4>
-            <a href="#">Africa &amp; the Middle East</a>
-            <a href="#">Asia-Pacific</a>
-            <a href="#">Europe</a>
-            <a href="#">Latin America &amp; the Caribbean</a>
-            <a href="#">North America</a>
-          </div>
-          <div class="mega-col">
-            <h4>Practice Groups</h4>
-            <a href="#">Antitrust &amp; Competition</a>
-            <a href="#">Bankruptcy / Insolvency</a>
-            <a href="#">Construction &amp; Infrastructure</a>
-            <a href="#">Energy &amp; Environmental</a>
-            <a href="#">Finance &amp; Banking</a>
-            <a href="#">Global Trade &amp; Policy</a>
-            <a href="#">Immigration</a>
-            <a href="#">Insurance</a>
-            <a href="#">Intellectual Property, Licensing &amp; Technology</a>
-            <a href="#">International Litigation &amp; Arbitration</a>
-            <a href="#">Labor &amp; Employment</a>
-            <a href="#">Mergers &amp; Acquisitions</a>
-            <a href="#">Real Estate</a>
-            <a href="#">Regulatory, Investigations &amp; Compliance</a>
-            <a href="#">Tax &amp; Wealth Services</a>
+            <a href="firms.html">Africa &amp; the Middle East</a>
+            <a href="firms.html">Asia-Pacific</a>
+            <a href="firms.html">Europe</a>
+            <a href="firms.html">Latin America &amp; the Caribbean</a>
+            <a href="firms.html">North America</a>
           </div>
         </div>
       </div>
-      <a href="#">Events Hub</a>
-      <a href="#">Global Insights</a>
-      <a href="#">Success Stories</a>
-      <a href="#">About TerraLex</a>
+      <a href="events.html">Events Hub</a>
+      <a href="news.html">Global Insights</a>
+      <a href="success-stories.html">Success Stories</a>
+      <a href="about.html">About TerraLex</a>
     </div>
     <div class="nav-actions">
-      <button class="nav-search-btn" aria-label="Search">
+      <button class="nav-search-btn" aria-label="Search" onclick="location.href='search.html'">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
@@ -97,371 +101,428 @@
 </header>
 
 <!-- ============================================================
-     HERO — Directory search
+     HERO — compact inner-page hero with search
 ============================================================ -->
 <section class="firms-hero">
-  <div class="firms-hero-map">
-    <img src="assets/images/misc/BG-map.svg" alt="">
-  </div>
-  <div class="firms-hero-text">
-    <p class="firms-label">Directory</p>
-    <h1 class="firms-heading">
-      <span class="firms-heading-bold">Find the Right Lawyer.</span><br>
-      <span class="firms-heading-light">Anywhere. Right Now.</span>
+  <div class="firms-hero-inner ds-container">
+    <p class="ds-eyebrow firms-hero-eyebrow">Member Firm Directory</p>
+    <h1 class="ds-h1 firms-hero-title">
+      <span class="ds-thin">Find counsel across</span> <span class="ds-bold">134 countries.</span>
     </h1>
-    <p class="firms-sub">TerraLex connects you with elite independent law firms across every jurisdiction and practice area — vetted, trusted, and ready to act.</p>
-    <div class="firms-search-bar">
-      <div class="firms-search-input">
+    <p class="ds-body-lg firms-hero-sub">
+      141 independent member firms. 207 jurisdictions. One trusted network. Search by firm name or city, or filter by region, country and practice.
+    </p>
+
+    <form class="firms-search" action="search.html" method="get" role="search">
+      <span class="firms-search-icon" aria-hidden="true">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
-        <input type="text" placeholder="Find...">
+      </span>
+      <input class="firms-search-input" type="search" name="q" placeholder="Search by firm name or city" aria-label="Search firms">
+      <button class="ds-btn ds-btn-primary firms-search-btn" type="submit">Search</button>
+    </form>
+
+    <ul class="firms-quick-stats" aria-label="Network at a glance">
+      <li><span class="firms-stat-num">141</span><span class="firms-stat-lbl">Member firms</span></li>
+      <li><span class="firms-stat-num">207</span><span class="firms-stat-lbl">Jurisdictions</span></li>
+      <li><span class="firms-stat-num">134</span><span class="firms-stat-lbl">Countries</span></li>
+      <li><span class="firms-stat-num">23,000+</span><span class="firms-stat-lbl">Attorneys</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================
+     FILTER BAR — sticky, with view toggle and result count
+============================================================ -->
+<section class="firms-filterbar" aria-label="Filter member firms">
+  <div class="firms-filterbar-inner ds-container">
+    <div class="firms-filter-group" role="group" aria-label="Filters">
+      <label class="firms-filter">
+        <span class="firms-filter-label">Region</span>
+        <select class="firms-filter-select" aria-label="Filter by region">
+          <option value="">All regions</option>
+          <option>Africa &amp; the Middle East</option>
+          <option>Asia-Pacific</option>
+          <option>Europe</option>
+          <option>Latin America &amp; the Caribbean</option>
+          <option>North America</option>
+        </select>
+      </label>
+
+      <label class="firms-filter">
+        <span class="firms-filter-label">Country</span>
+        <select class="firms-filter-select" aria-label="Filter by country">
+          <option value="">All countries</option>
+          <option>Argentina</option>
+          <option>Australia</option>
+          <option>Belgium</option>
+          <option>Brazil</option>
+          <option>Canada</option>
+          <option>France</option>
+          <option>Germany</option>
+          <option>India</option>
+          <option>Italy</option>
+          <option>Japan</option>
+          <option>Mexico</option>
+          <option>Portugal</option>
+          <option>Qatar</option>
+          <option>Singapore</option>
+          <option>Spain</option>
+          <option>Switzerland</option>
+          <option>United Kingdom</option>
+          <option>United States</option>
+        </select>
+      </label>
+
+      <label class="firms-filter">
+        <span class="firms-filter-label">Practice</span>
+        <select class="firms-filter-select" aria-label="Filter by practice">
+          <option value="">All practices</option>
+          <option>Antitrust &amp; Competition</option>
+          <option>Bankruptcy / Insolvency</option>
+          <option>Energy &amp; Environmental</option>
+          <option>Finance &amp; Banking</option>
+          <option>Intellectual Property</option>
+          <option>International Litigation &amp; Arbitration</option>
+          <option>Labor &amp; Employment</option>
+          <option>Mergers &amp; Acquisitions</option>
+          <option>Real Estate</option>
+          <option>Tax &amp; Wealth Services</option>
+        </select>
+      </label>
+
+      <label class="firms-filter">
+        <span class="firms-filter-label">Industry</span>
+        <select class="firms-filter-select" aria-label="Filter by industry">
+          <option value="">All industries</option>
+          <option>Automotive</option>
+          <option>Aviation</option>
+          <option>ESG</option>
+          <option>Hospitality</option>
+          <option>Life Sciences</option>
+          <option>Mining</option>
+          <option>Sports &amp; Entertainment</option>
+          <option>Technology &amp; Digital Business</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="firms-filter-meta">
+      <p class="firms-result-count"><strong>141</strong> firms</p>
+      <div class="firms-view-toggle" role="tablist" aria-label="View toggle">
+        <button class="firms-view-btn is-active" role="tab" aria-selected="true" data-view="list" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          List
+        </button>
+        <button class="firms-view-btn" role="tab" aria-selected="false" data-view="map" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+          Map
+        </button>
       </div>
-      <div class="firms-search-type">
-        <span>Firms</span>
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="#999" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <button class="firms-search-btn">Search</button>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     FILTERS
+     RESULTS GRID — firm cards
 ============================================================ -->
-<div class="firms-filters">
-  <div class="firms-filter-row">
-    <button class="firms-filter-tag active">All Firms</button>
-    <button class="firms-filter-tag">Africa &amp; Middle East</button>
-    <button class="firms-filter-tag">Asia-Pacific</button>
-    <button class="firms-filter-tag">Europe</button>
-    <button class="firms-filter-tag">Latin America</button>
-    <button class="firms-filter-tag">North America</button>
-    <span class="firms-results-count">Showing 140 member firms</span>
-  </div>
-</div>
+<section class="firms-results">
+  <div class="ds-container firms-results-inner">
 
-<!-- ============================================================
-     ALPHABETICAL INDEX
-============================================================ -->
-<div class="firms-alpha-index">
-  <button class="firms-alpha-btn active">All</button>
-  <button class="firms-alpha-btn">A</button>
-  <button class="firms-alpha-btn">B</button>
-  <button class="firms-alpha-btn">C</button>
-  <button class="firms-alpha-btn">D</button>
-  <button class="firms-alpha-btn">E</button>
-  <button class="firms-alpha-btn">F</button>
-  <button class="firms-alpha-btn">G</button>
-  <button class="firms-alpha-btn">H</button>
-  <button class="firms-alpha-btn">I</button>
-  <button class="firms-alpha-btn">J</button>
-  <button class="firms-alpha-btn">K</button>
-  <button class="firms-alpha-btn">L</button>
-  <button class="firms-alpha-btn">M</button>
-  <button class="firms-alpha-btn">N</button>
-  <button class="firms-alpha-btn">O</button>
-  <button class="firms-alpha-btn">P</button>
-  <button class="firms-alpha-btn">Q</button>
-  <button class="firms-alpha-btn">R</button>
-  <button class="firms-alpha-btn">S</button>
-  <button class="firms-alpha-btn">T</button>
-  <button class="firms-alpha-btn">U</button>
-  <button class="firms-alpha-btn">V</button>
-  <button class="firms-alpha-btn">W</button>
-  <button class="firms-alpha-btn">X</button>
-  <button class="firms-alpha-btn">Y</button>
-  <button class="firms-alpha-btn">Z</button>
-</div>
+    <ul class="firms-grid" id="firmsGrid" role="list">
 
-<!-- ============================================================
-     FIRMS GRID
-============================================================ -->
-<section class="firms-grid-section">
-  <div class="firms-grid">
+      <li>
+        <a class="firm-card" href="firm.html?slug=5a-law-firm">
+          <div class="firm-card-head">
+            <span class="firm-flag" aria-hidden="true">🇲🇾</span>
+            <span class="firm-jurisdiction">Malaysia</span>
+          </div>
+          <h3 class="firm-name">5A Law Firm LLP</h3>
+          <p class="firm-location">Kuala Lumpur · Malaysia</p>
+          <ul class="firm-tags">
+            <li class="firm-tag">M&amp;A</li>
+            <li class="firm-tag">Banking &amp; Finance</li>
+            <li class="firm-tag">Real Estate</li>
+          </ul>
+          <span class="firm-cta">View firm
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </li>
 
-    <!-- Abreu Advogados -->
-    <a class="firm-card" href="#">
-      <div class="firm-card-header">
-        <img class="firm-card-flag" src="https://flagcdn.com/w80/pt.png" alt="Portugal">
-        <span class="firm-card-name">Abreu Advogados</span>
-      </div>
-      <div class="firm-card-location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Lisbon, Portugal
-      </div>
-      <div class="firm-card-practices">
-        <span class="firm-card-practice">M&amp;A</span>
-        <span class="firm-card-practice">Tax</span>
-        <span class="firm-card-practice">Banking &amp; Finance</span>
-      </div>
-      <span class="firm-card-link">View Firm <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
+      <li>
+        <a class="firm-card" href="firm.html?slug=abreu-advogados-portugal">
+          <div class="firm-card-head">
+            <span class="firm-flag" aria-hidden="true">🇵🇹</span>
+            <span class="firm-jurisdiction">Portugal</span>
+          </div>
+          <h3 class="firm-name">Abreu Advogados</h3>
+          <p class="firm-location">Lisbon · Portugal</p>
+          <ul class="firm-tags">
+            <li class="firm-tag">Corporate</li>
+            <li class="firm-tag">Litigation</li>
+            <li class="firm-tag">Tax</li>
+          </ul>
+          <span class="firm-cta">View firm
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </li>
 
-    <!-- AKSET Law -->
-    <a class="firm-card" href="#">
-      <div class="firm-card-header">
-        <img class="firm-card-flag" src="https://flagcdn.com/w80/id.png" alt="Indonesia">
-        <span class="firm-card-name">AKSET Law</span>
-      </div>
-      <div class="firm-card-location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Jakarta, Indonesia
-      </div>
-      <div class="firm-card-practices">
-        <span class="firm-card-practice">Corporate</span>
-        <span class="firm-card-practice">Litigation</span>
-      </div>
-      <span class="firm-card-link">View Firm <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
+      <li>
+        <a class="firm-card" href="firm.html?slug=abreu-advogados-angola">
+          <div class="firm-card-head">
+            <span class="firm-flag" aria-hidden="true">🇦🇴</span>
+            <span class="firm-jurisdiction">Angola</span>
+          </div>
+          <h3 class="firm-name">Abreu Advogados</h3>
+          <p class="firm-location">Luanda · Angola</p>
+          <ul class="firm-tags">
+            <li class="firm-tag">Energy</li>
+            <li class="firm-tag">Project Finance</li>
+            <li class="firm-tag">Construction</li>
+          </ul>
+          <span class="firm-cta">View firm
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </li>
 
-    <!-- Anderson Mori & Tomotsune -->
-    <a class="firm-card" href="#">
-      <div class="firm-card-header">
-        <img class="firm-card-flag" src="https://flagcdn.com/w80/jp.png" alt="Japan">
-        <span class="firm-card-name">Anderson Mori &amp; Tomotsune</span>
-      </div>
-      <div class="firm-card-location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Tokyo, Japan
-      </div>
-      <div class="firm-card-practices">
-        <span class="firm-card-practice">IP</span>
-        <span class="firm-card-practice">M&amp;A</span>
-        <span class="firm-card-practice">Antitrust</span>
-      </div>
-      <span class="firm-card-link">View Firm <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
+      <li>
+        <a class="firm-card" href="firm.html?slug=al-ansari">
+          <div class="firm-card-head">
+            <span class="firm-flag" aria-hidden="true">🇶🇦</span>
+            <span class="firm-jurisdiction">Qatar</span>
+          </div>
+          <h3 class="firm-name">Al-Ansari &amp; Associates</h3>
+          <p class="firm-location">Doha · Qatar</p>
+          <ul class="firm-tags">
+            <li class="firm-tag">Energy</li>
+            <li class="firm-tag">Arbitration</li>
+            <li class="firm-tag">Construction</li>
+          </ul>
+          <span class="firm-cta">View firm
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </li>
 
-    <!-- Bae, Kim & Lee -->
-    <a class="firm-card" href="#">
-      <div class="firm-card-header">
-        <img class="firm-card-flag" src="https://flagcdn.com/w80/kr.png" alt="South Korea">
-        <span class="firm-card-name">Bae, Kim &amp; Lee LLC</span>
-      </div>
-      <div class="firm-card-location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Seoul, South Korea
-      </div>
-      <div class="firm-card-practices">
-        <span class="firm-card-practice">Corporate</span>
-        <span class="firm-card-practice">Finance</span>
-        <span class="firm-card-practice">IP</span>
-      </div>
-      <span class="firm-card-link">View Firm <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
+      <li>
+        <a class="firm-card" href="firm.html?slug=arendt-medernach-luxembourg">
+          <div class="firm-card-head">
+            <span class="firm-flag" aria-hidden="true">🇱🇺</span>
+            <span class="firm-jurisdiction">Luxembourg</span>
+          </div>
+          <h3 class="firm-name">Arendt &amp; Medernach</h3>
+          <p class="firm-location">Luxembourg City · Luxembourg</p>
+          <ul class="firm-tags">
+            <li class="firm-tag">Investment Funds</li>
+            <li class="firm-tag">Banking</li>
+            <li class="firm-tag">Tax</li>
+          </ul>
+          <span class="firm-cta">View firm
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </li>
 
-    <!-- Bowmans -->
-    <a class="firm-card" href="#">
-      <div class="firm-card-header">
-        <img class="firm-card-flag" src="https://flagcdn.com/w80/za.png" alt="South Africa">
-        <span class="firm-card-name">Bowmans</span>
-      </div>
-      <div class="firm-card-location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Johannesburg, South Africa
-      </div>
-      <div class="firm-card-practices">
-        <span class="firm-card-practice">Banking</span>
-        <span class="firm-card-practice">Mining</span>
-        <span class="firm-card-practice">Real Estate</span>
-      </div>
-      <span class="firm-card-link">View Firm <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
+      <li>
+        <a class="firm-card" href="firm.html?slug=arendt-medernach-ny">
+          <div class="firm-card-head">
+            <span class="firm-flag" aria-hidden="true">🇺🇸</span>
+            <span class="firm-jurisdiction">United States</span>
+          </div>
+          <h3 class="firm-name">Arendt &amp; Medernach</h3>
+          <p class="firm-location">New York City · USA</p>
+          <ul class="firm-tags">
+            <li class="firm-tag">Investment Funds</li>
+            <li class="firm-tag">Cross-Border</li>
+            <li class="firm-tag">Regulatory</li>
+          </ul>
+          <span class="firm-cta">View firm
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </li>
 
-    <!-- Carey -->
-    <a class="firm-card" href="#">
-      <div class="firm-card-header">
-        <img class="firm-card-flag" src="https://flagcdn.com/w80/cl.png" alt="Chile">
-        <span class="firm-card-name">Carey</span>
-      </div>
-      <div class="firm-card-location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Santiago, Chile
-      </div>
-      <div class="firm-card-practices">
-        <span class="firm-card-practice">Energy</span>
-        <span class="firm-card-practice">M&amp;A</span>
-        <span class="firm-card-practice">Tax</span>
-      </div>
-      <span class="firm-card-link">View Firm <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
+      <li>
+        <a class="firm-card" href="firm.html?slug=albuquerque-abogados">
+          <div class="firm-card-head">
+            <span class="firm-flag" aria-hidden="true">🇩🇴</span>
+            <span class="firm-jurisdiction">Dominican Republic</span>
+          </div>
+          <h3 class="firm-name">Albuquerque Abogados &middot; Consultores</h3>
+          <p class="firm-location">Santo Domingo · Dominican Republic</p>
+          <ul class="firm-tags">
+            <li class="firm-tag">Corporate</li>
+            <li class="firm-tag">Tax</li>
+            <li class="firm-tag">Real Estate</li>
+          </ul>
+          <span class="firm-cta">View firm
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </li>
 
-    <!-- De Brauw Blackstone Westbroek -->
-    <a class="firm-card" href="#">
-      <div class="firm-card-header">
-        <img class="firm-card-flag" src="https://flagcdn.com/w80/nl.png" alt="Netherlands">
-        <span class="firm-card-name">De Brauw Blackstone Westbroek</span>
-      </div>
-      <div class="firm-card-location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Amsterdam, Netherlands
-      </div>
-      <div class="firm-card-practices">
-        <span class="firm-card-practice">Corporate</span>
-        <span class="firm-card-practice">Litigation</span>
-        <span class="firm-card-practice">Competition</span>
-      </div>
-      <span class="firm-card-link">View Firm <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
+      <li>
+        <a class="firm-card" href="firm.html?slug=advokatfirman-lindahl">
+          <div class="firm-card-head">
+            <span class="firm-flag" aria-hidden="true">🇸🇪</span>
+            <span class="firm-jurisdiction">Sweden</span>
+          </div>
+          <h3 class="firm-name">Advokatfirman Lindahl</h3>
+          <p class="firm-location">Stockholm · Sweden</p>
+          <ul class="firm-tags">
+            <li class="firm-tag">M&amp;A</li>
+            <li class="firm-tag">IP</li>
+            <li class="firm-tag">Dispute Resolution</li>
+          </ul>
+          <span class="firm-cta">View firm
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </li>
 
-    <!-- Fangda Partners -->
-    <a class="firm-card" href="#">
-      <div class="firm-card-header">
-        <img class="firm-card-flag" src="https://flagcdn.com/w80/cn.png" alt="China">
-        <span class="firm-card-name">Fangda Partners</span>
-      </div>
-      <div class="firm-card-location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Beijing, China
-      </div>
-      <div class="firm-card-practices">
-        <span class="firm-card-practice">Capital Markets</span>
-        <span class="firm-card-practice">M&amp;A</span>
-      </div>
-      <span class="firm-card-link">View Firm <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
+      <li>
+        <a class="firm-card" href="firm.html?slug=adu-kusi">
+          <div class="firm-card-head">
+            <span class="firm-flag" aria-hidden="true">🇬🇭</span>
+            <span class="firm-jurisdiction">Ghana</span>
+          </div>
+          <h3 class="firm-name">Adu-Kusi PRUC Attorneys &amp; Consultants</h3>
+          <p class="firm-location">Accra · Ghana</p>
+          <ul class="firm-tags">
+            <li class="firm-tag">Energy</li>
+            <li class="firm-tag">Mining</li>
+            <li class="firm-tag">Corporate</li>
+          </ul>
+          <span class="firm-cta">View firm
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </li>
 
-    <!-- Gide Loyrette Nouel -->
-    <a class="firm-card" href="#">
-      <div class="firm-card-header">
-        <img class="firm-card-flag" src="https://flagcdn.com/w80/fr.png" alt="France">
-        <span class="firm-card-name">Gide Loyrette Nouel</span>
-      </div>
-      <div class="firm-card-location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Paris, France
-      </div>
-      <div class="firm-card-practices">
-        <span class="firm-card-practice">Banking</span>
-        <span class="firm-card-practice">Real Estate</span>
-        <span class="firm-card-practice">Tax</span>
-      </div>
-      <span class="firm-card-link">View Firm <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
+      <li>
+        <a class="firm-card" href="firm.html?slug=angara-abello">
+          <div class="firm-card-head">
+            <span class="firm-flag" aria-hidden="true">🇵🇭</span>
+            <span class="firm-jurisdiction">Philippines</span>
+          </div>
+          <h3 class="firm-name">Angara Abello Concepcion Regala &amp; Cruz</h3>
+          <p class="firm-location">Manila · Philippines</p>
+          <ul class="firm-tags">
+            <li class="firm-tag">Corporate</li>
+            <li class="firm-tag">Litigation</li>
+            <li class="firm-tag">Tax</li>
+          </ul>
+          <span class="firm-cta">View firm
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </li>
 
-    <!-- Hogan Lovells -->
-    <a class="firm-card" href="#">
-      <div class="firm-card-header">
-        <img class="firm-card-flag" src="https://flagcdn.com/w80/gb.png" alt="United Kingdom">
-        <span class="firm-card-name">Hogan Lovells</span>
-      </div>
-      <div class="firm-card-location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        London, United Kingdom
-      </div>
-      <div class="firm-card-practices">
-        <span class="firm-card-practice">IP</span>
-        <span class="firm-card-practice">Regulatory</span>
-        <span class="firm-card-practice">Corporate</span>
-      </div>
-      <span class="firm-card-link">View Firm <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
+      <li>
+        <a class="firm-card" href="firm.html?slug=al-zaeem">
+          <div class="firm-card-head">
+            <span class="firm-flag" aria-hidden="true">🇦🇪</span>
+            <span class="firm-jurisdiction">United Arab Emirates</span>
+          </div>
+          <h3 class="firm-name">Al Zaeem &amp; Associates</h3>
+          <p class="firm-location">Abu Dhabi · UAE</p>
+          <ul class="firm-tags">
+            <li class="firm-tag">Construction</li>
+            <li class="firm-tag">Arbitration</li>
+            <li class="firm-tag">Real Estate</li>
+          </ul>
+          <span class="firm-cta">View firm
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </li>
 
-    <!-- LALIVE -->
-    <a class="firm-card" href="#">
-      <div class="firm-card-header">
-        <img class="firm-card-flag" src="https://flagcdn.com/w80/ch.png" alt="Switzerland">
-        <span class="firm-card-name">LALIVE</span>
-      </div>
-      <div class="firm-card-location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Geneva, Switzerland
-      </div>
-      <div class="firm-card-practices">
-        <span class="firm-card-practice">Arbitration</span>
-        <span class="firm-card-practice">White Collar</span>
-      </div>
-      <span class="firm-card-link">View Firm <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
+      <li>
+        <a class="firm-card" href="firm.html?slug=wrobel-co">
+          <div class="firm-card-head">
+            <span class="firm-flag" aria-hidden="true">🇧🇿</span>
+            <span class="firm-jurisdiction">Belize</span>
+          </div>
+          <h3 class="firm-name">Wrobel &amp; Co. LLP</h3>
+          <p class="firm-location">Belize City · Belize</p>
+          <ul class="firm-tags">
+            <li class="firm-tag">Corporate</li>
+            <li class="firm-tag">Cross-Border</li>
+            <li class="firm-tag">Banking</li>
+          </ul>
+          <span class="firm-cta">View firm
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </li>
 
-    <!-- Rajah & Tann -->
-    <a class="firm-card" href="#">
-      <div class="firm-card-header">
-        <img class="firm-card-flag" src="https://flagcdn.com/w80/sg.png" alt="Singapore">
-        <span class="firm-card-name">Rajah &amp; Tann Singapore</span>
-      </div>
-      <div class="firm-card-location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Singapore
-      </div>
-      <div class="firm-card-practices">
-        <span class="firm-card-practice">M&amp;A</span>
-        <span class="firm-card-practice">Capital Markets</span>
-        <span class="firm-card-practice">Banking</span>
-      </div>
-      <span class="firm-card-link">View Firm <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
+    </ul>
 
-    <!-- Wiggin and Dana -->
-    <a class="firm-card" href="#">
-      <div class="firm-card-header">
-        <img class="firm-card-flag" src="https://flagcdn.com/w80/us.png" alt="United States">
-        <span class="firm-card-name">Wiggin and Dana LLP</span>
-      </div>
-      <div class="firm-card-location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        New Haven, United States
-      </div>
-      <div class="firm-card-practices">
-        <span class="firm-card-practice">Litigation</span>
-        <span class="firm-card-practice">IP</span>
-        <span class="firm-card-practice">Corporate</span>
-      </div>
-      <span class="firm-card-link">View Firm <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
+    <!-- Empty state (hidden by default) -->
+    <div class="firms-empty" hidden>
+      <p class="ds-h3">No firms match these filters.</p>
+      <p class="ds-body">Try removing a filter or broadening your search.</p>
+      <button class="ds-btn ds-btn-secondary" type="button">Reset filters</button>
+    </div>
 
-    <!-- Yulchon LLC -->
-    <a class="firm-card" href="#">
-      <div class="firm-card-header">
-        <img class="firm-card-flag" src="https://flagcdn.com/w80/kr.png" alt="South Korea">
-        <span class="firm-card-name">Yulchon LLC</span>
-      </div>
-      <div class="firm-card-location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Seoul, South Korea
-      </div>
-      <div class="firm-card-practices">
-        <span class="firm-card-practice">Tax</span>
-        <span class="firm-card-practice">Antitrust</span>
-        <span class="firm-card-practice">M&amp;A</span>
-      </div>
-      <span class="firm-card-link">View Firm <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
-
-    <!-- Walder Wyss -->
-    <a class="firm-card" href="#">
-      <div class="firm-card-header">
-        <img class="firm-card-flag" src="https://flagcdn.com/w80/ch.png" alt="Switzerland">
-        <span class="firm-card-name">Walder Wyss</span>
-      </div>
-      <div class="firm-card-location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Zurich, Switzerland
-      </div>
-      <div class="firm-card-practices">
-        <span class="firm-card-practice">Corporate</span>
-        <span class="firm-card-practice">Employment</span>
-        <span class="firm-card-practice">IP</span>
-      </div>
-      <span class="firm-card-link">View Firm <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
-
+    <!-- Pagination / load-more -->
+    <div class="firms-loadmore">
+      <button class="ds-btn ds-btn-secondary ds-btn-lg" type="button">Load more firms</button>
+      <p class="firms-loadmore-meta">Showing <strong>12</strong> of <strong>141</strong> firms</p>
+    </div>
   </div>
 
-  <!-- Pagination -->
-  <div class="firms-pagination">
-    <button class="firms-page-btn disabled" aria-label="Previous">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
-    <button class="firms-page-btn active">1</button>
-    <button class="firms-page-btn">2</button>
-    <button class="firms-page-btn">3</button>
-    <span class="firms-page-ellipsis">...</span>
-    <button class="firms-page-btn">10</button>
-    <button class="firms-page-btn" aria-label="Next">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-    </button>
+  <!-- A–Z rail (desktop only) -->
+  <nav class="firms-alpha-rail" aria-label="Jump to letter">
+    <a href="#A" class="firms-alpha-letter is-active">A</a>
+    <a href="#B" class="firms-alpha-letter">B</a>
+    <a href="#C" class="firms-alpha-letter">C</a>
+    <a href="#D" class="firms-alpha-letter">D</a>
+    <a href="#E" class="firms-alpha-letter">E</a>
+    <a href="#F" class="firms-alpha-letter">F</a>
+    <a href="#G" class="firms-alpha-letter">G</a>
+    <a href="#H" class="firms-alpha-letter">H</a>
+    <a href="#I" class="firms-alpha-letter">I</a>
+    <a href="#J" class="firms-alpha-letter is-disabled">J</a>
+    <a href="#K" class="firms-alpha-letter">K</a>
+    <a href="#L" class="firms-alpha-letter">L</a>
+    <a href="#M" class="firms-alpha-letter">M</a>
+    <a href="#N" class="firms-alpha-letter">N</a>
+    <a href="#O" class="firms-alpha-letter">O</a>
+    <a href="#P" class="firms-alpha-letter">P</a>
+    <a href="#Q" class="firms-alpha-letter is-disabled">Q</a>
+    <a href="#R" class="firms-alpha-letter">R</a>
+    <a href="#S" class="firms-alpha-letter">S</a>
+    <a href="#T" class="firms-alpha-letter">T</a>
+    <a href="#U" class="firms-alpha-letter">U</a>
+    <a href="#V" class="firms-alpha-letter">V</a>
+    <a href="#W" class="firms-alpha-letter">W</a>
+    <a href="#X" class="firms-alpha-letter is-disabled">X</a>
+    <a href="#Y" class="firms-alpha-letter is-disabled">Y</a>
+    <a href="#Z" class="firms-alpha-letter">Z</a>
+  </nav>
+</section>
+
+<!-- ============================================================
+     CTA — Ask myLexi
+============================================================ -->
+<section class="s9-cta firms-cta">
+  <img src="assets/images/misc/collab-bg.jpg" alt="" class="s9-bg-img">
+  <div class="s9-inner">
+    <p class="s9-eyebrow ds-eyebrow on-dark">Need a hand?</p>
+    <blockquote class="s9-quote ds-h1 on-dark">
+      <span class="s9-quote-light ds-thin">Can&rsquo;t find what you&rsquo;re looking for?</span>
+      <span class="s9-quote-bold ds-bold"> Ask myLexi.</span>
+    </blockquote>
+    <p class="s9-sub ds-body-lg on-dark">Our AI-powered assistant searches across every member firm to match your matter with the right counsel — in seconds.</p>
+    <div class="s9-actions">
+      <a href="mylexi.html" class="s9-btn s9-btn-primary ds-btn ds-btn-primary ds-btn-lg">Ask myLexi</a>
+      <a href="contact-us.html" class="s9-btn s9-btn-outline ds-btn ds-btn-outline ds-btn-lg">Contact a TerraLex Advisor</a>
+    </div>
   </div>
 </section>
 
@@ -471,81 +532,58 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <p class="footer-logo">TerraLex</p>
-      <p class="footer-tagline">The elite global legal network. 140 member firms. 120+ countries. One standard of excellence.</p>
+      <img class="footer-logo" src="assets/logos/Logo white.svg" alt="TerraLex">
+      <p class="footer-tagline ds-body-sm on-dark">The elite global legal network committed to collaboration. 141 member firms in 207 jurisdictions and 134 countries.</p>
     </div>
     <div class="footer-nav-group">
-      <p class="footer-nav-heading">Network</p>
+      <p class="footer-nav-heading ds-eyebrow on-dark">Network</p>
       <ul class="footer-nav-list">
-        <li><a href="#">Find Counsel</a></li>
-        <li><a href="#">Member Directory</a></li>
-        <li><a href="#">Why TerraLex</a></li>
-        <li><a href="#">Global Collaboration</a></li>
+        <li><a href="about.html">About TerraLex</a></li>
+        <li><a href="firms.html">Member Directory</a></li>
+        <li><a href="practice-groups-industry-sector-teams.html">Practice Groups &amp; Industry Sector Teams</a></li>
+        <li><a href="https://www.linkedin.com/company/terralex/">Follow us on LinkedIn</a></li>
       </ul>
     </div>
     <div class="footer-nav-group">
-      <p class="footer-nav-heading">Knowledge</p>
+      <p class="footer-nav-heading ds-eyebrow on-dark">Knowledge</p>
       <ul class="footer-nav-list">
-        <li><a href="#">Cross-Border Guides</a></li>
-        <li><a href="mylexi.html">myLexi AI</a></li>
-        <li><a href="#">Insights</a></li>
-        <li><a href="#">Events</a></li>
+        <li><a href="insights-cross-border-guides.html">Cross-Border Guides</a></li>
+        <li><a href="mylexi.html">myLexi AI-Powered Assistant</a></li>
+        <li><a href="news.html">Insights</a></li>
+        <li><a href="events.html">Events</a></li>
       </ul>
     </div>
     <div class="footer-nav-group">
-      <p class="footer-nav-heading">Membership</p>
+      <p class="footer-nav-heading ds-eyebrow on-dark">Contact</p>
       <ul class="footer-nav-list">
-        <li><a href="#">Why Join</a></li>
-        <li><a href="#">Standards &amp; Expectations</a></li>
-        <li><a href="#">Application Process</a></li>
-        <li><a href="#">About TerraLex</a></li>
+        <li><a href="sign-in.html">TLC Sign-On (Members Only)</a></li>
+        <li><a href="contact-us.html">Contact Us</a></li>
+        <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">&copy; 2025 TerraLex. All rights reserved.</p>
-    <div class="footer-legal">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Use</a>
-      <a href="#">Contact</a>
-    </div>
+    <p class="footer-copy">© 2026 TerraLex. All rights reserved.</p>
   </div>
 </footer>
 
-<!-- myLexi Chat Widget -->
-<link rel="stylesheet" href="css/chat-widget.css">
-<div class="chat-widget" id="chatWidget">
-  <div class="chat-pill" id="chatPill" onclick="openChat()">
-    <img class="chat-pill__logo" src="assets/logos/mylexi-logo.svg" alt="">
-    <div class="chat-pill__text">
-      <span class="chat-pill__title">myLexi</span>
-      <span class="chat-pill__sub">AI Assistant</span>
-    </div>
-  </div>
-  <div class="chat-panel" id="chatPanel">
-    <div class="chat-header">
-      <div class="chat-header__left">
-        <img class="chat-header__logo" src="assets/logos/mylexi-logo.svg" alt="">
-        <div class="chat-header__info">
-          <div class="chat-header__name">Ask myLexi</div>
-          <div class="chat-header__status"><span class="chat-header__dot"></span> Online &amp; Ready</div>
-        </div>
-      </div>
-      <button class="chat-close" onclick="closeChat()" aria-label="Close chat">
-        <svg viewBox="0 0 14 14" fill="none" stroke="#0a1f33" stroke-width="1.6" stroke-linecap="round"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
-      </button>
-    </div>
-    <div class="chat-body">
-      <div class="chat-msg"><div class="chat-msg__avatar"><img src="assets/logos/mylexi-logo.svg" alt=""></div><div class="chat-bubble">Hello! I'm <strong>myLexi</strong>. How can I help you today?</div></div>
-      <div class="chat-topics"><div class="chat-topics__label">Suggested topics:</div><div class="chat-topics__pills"><button class="chat-topic">Find a firm by jurisdiction</button><button class="chat-topic">Practice areas</button><button class="chat-topic">Cross-border guides</button></div></div>
-    </div>
-    <div class="chat-footer">
-      <div class="chat-input-row"><input type="text" placeholder="Type your question here..."><button class="chat-send" aria-label="Send"><svg viewBox="0 0 14 14" fill="none"><path d="M1 13L13 7L1 1V5.5L9 7L1 8.5V13Z" fill="white"/></svg></button></div>
-      <div class="chat-footer__bottom"><img class="chat-footer__betty" src="assets/logos/betty-logo.svg" alt="Betty Knowledge Assistant"><span class="chat-footer__dot"></span><a class="chat-footer__terms" href="#">Terms of use</a></div>
-    </div>
-  </div>
-</div>
-<script src="js/chat-widget.js"></script>
+<script>
+/* Lightweight client-only behaviour: view toggle */
+(function () {
+  var btns = document.querySelectorAll('.firms-view-btn');
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      btns.forEach(function (x) {
+        x.classList.remove('is-active');
+        x.setAttribute('aria-selected', 'false');
+      });
+      b.classList.add('is-active');
+      b.setAttribute('aria-selected', 'true');
+    });
+  });
+})();
+</script>
 
 </body>
 </html>

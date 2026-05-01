@@ -3,28 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abreu Advogados — TerraLex</title>
+<title>TerraLex — 5A Law Firm LLP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/header.css">
 <link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/design-system.css">
+
 <link rel="stylesheet" href="css/firm-profile.css">
 </head>
-<body class="fp-page-bg">
+<body class="firm-profile-page">
 
 <!-- ============================================================
-     HEADER
+     HEADER (verbatim from kit)
 ============================================================ -->
-<header class="site-header scrolled">
+<header class="site-header scrolled has-solid-bg" id="siteHeader">
   <div class="nav-topbar">
     <a href="#">Member Directory</a><span class="sep">|</span>
-    <a href="#">TLC Sign-On</a><span class="sep">|</span>
-    <a href="#">Ask myLexi</a><span class="sep">|</span>
-    <a href="#">Contact Us</a>
+    <a href="sign-in.html">TLC Sign-On</a><span class="sep">|</span>
+    <a href="mylexi.html">Ask myLexi</a><span class="sep">|</span>
+    <a href="contact-us.html">Contact Us</a>
   </div>
   <nav id="mainNav">
     <a href="index.html" class="nav-logo">
@@ -32,294 +35,511 @@
       <img class="logo-scrolled" src="assets/logos/Logo default.svg" alt="TerraLex">
     </a>
     <div class="nav-links">
-      <a href="#">Cross-Border Guides</a>
+      <a href="insights-cross-border-guides.html">Cross-Border Guides</a>
       <div class="nav-dropdown">
-        <a href="#" class="nav-dropdown-trigger">Expertise <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
+        <a href="practice-groups-industry-sector-teams.html" class="nav-dropdown-trigger">Expertise <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
         <div class="nav-mega">
-          <div class="mega-col"><h4>Industry Sector Teams</h4><a href="#">Automotive</a><a href="#">Aviation</a><a href="#">Education Services</a><a href="#">ESG</a><a href="#">Food &amp; Beverage</a><a href="#">Hospitality</a><a href="#">Life Sciences</a><a href="#">Mining</a><a href="#">Retail</a><a href="#">Sports &amp; Entertainment</a><a href="#">Technology &amp; Digital Business</a></div>
-          <div class="mega-col"><h4>Regions</h4><a href="#">Africa &amp; the Middle East</a><a href="#">Asia-Pacific</a><a href="#">Europe</a><a href="#">Latin America &amp; the Caribbean</a><a href="#">North America</a></div>
-          <div class="mega-col"><h4>Practice Groups</h4><a href="#">Antitrust &amp; Competition</a><a href="#">Bankruptcy / Insolvency</a><a href="#">Construction &amp; Infrastructure</a><a href="#">Energy &amp; Environmental</a><a href="#">Finance &amp; Banking</a><a href="#">Global Trade &amp; Policy</a><a href="#">Immigration</a><a href="#">Insurance</a><a href="#">Intellectual Property, Licensing &amp; Technology</a><a href="#">International Litigation &amp; Arbitration</a><a href="#">Labor &amp; Employment</a><a href="#">Mergers &amp; Acquisitions</a><a href="#">Real Estate</a><a href="#">Regulatory, Investigations &amp; Compliance</a><a href="#">Tax &amp; Wealth Services</a></div>
+          <div class="mega-col">
+            <h4>Practice Groups</h4>
+            <a href="practice-group-detail.html">Antitrust &amp; Competition</a>
+            <a href="practice-group-detail.html">Bankruptcy / Insolvency</a>
+            <a href="practice-group-detail.html">Construction &amp; Infrastructure</a>
+            <a href="practice-group-detail.html">Energy &amp; Environmental</a>
+            <a href="practice-group-detail.html">Finance &amp; Banking</a>
+            <a href="practice-group-detail.html">Global Trade &amp; Policy</a>
+            <a href="practice-group-detail.html">Immigration</a>
+            <a href="practice-group-detail.html">Insurance</a>
+            <a href="practice-group-detail.html">Intellectual Property, Licensing &amp; Technology</a>
+            <a href="practice-group-detail.html">International Litigation &amp; Arbitration</a>
+            <a href="practice-group-detail.html">Labor &amp; Employment</a>
+            <a href="practice-group-detail.html">Mergers &amp; Acquisitions</a>
+            <a href="practice-group-detail.html">Real Estate</a>
+            <a href="practice-group-detail.html">Regulatory, Investigations &amp; Compliance</a>
+            <a href="practice-group-detail.html">Tax &amp; Wealth Services</a>
+          </div>
+          <div class="mega-col">
+            <h4>Industry Sector Teams</h4>
+            <a href="industry-sector-team-detail.html">Automotive</a>
+            <a href="industry-sector-team-detail.html">Aviation</a>
+            <a href="industry-sector-team-detail.html">Education Services</a>
+            <a href="industry-sector-team-detail.html">ESG</a>
+            <a href="industry-sector-team-detail.html">Food &amp; Beverage</a>
+            <a href="industry-sector-team-detail.html">Hospitality</a>
+            <a href="industry-sector-team-detail.html">Life Sciences</a>
+            <a href="industry-sector-team-detail.html">Mining</a>
+            <a href="industry-sector-team-detail.html">Retail</a>
+            <a href="industry-sector-team-detail.html">Sports &amp; Entertainment</a>
+            <a href="industry-sector-team-detail.html">Technology &amp; Digital Business</a>
+          </div>
+          <div class="mega-col">
+            <h4>Regions</h4>
+            <a href="firms.html">Africa &amp; the Middle East</a>
+            <a href="firms.html">Asia-Pacific</a>
+            <a href="firms.html">Europe</a>
+            <a href="firms.html">Latin America &amp; the Caribbean</a>
+            <a href="firms.html">North America</a>
+          </div>
         </div>
       </div>
-      <a href="#">Events Hub</a>
-      <a href="#">Global Insights</a>
-      <a href="#">Success Stories</a>
-      <a href="#">About TerraLex</a>
+      <a href="events.html">Events Hub</a>
+      <a href="news.html">Global Insights</a>
+      <a href="success-stories.html">Success Stories</a>
+      <a href="about.html">About TerraLex</a>
     </div>
     <div class="nav-actions">
-      <button class="nav-search-btn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
-      <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <button class="nav-search-btn" aria-label="Search" onclick="location.href='search.html'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+      <button class="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
 </header>
 
+<main>
+
 <!-- ============================================================
-     CONTENT
+     BREADCRUMB
 ============================================================ -->
-<div class="fp-wrap">
-
-  <!-- Breadcrumb -->
-  <div class="fp-breadcrumb">
-    <a href="index.html">Home</a>
-    <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M2.5 1.5L5.5 4L2.5 6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <a href="firms.html">Firms</a>
-    <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M2.5 1.5L5.5 4L2.5 6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span>Abreu Advogados</span>
+<nav class="fp-breadcrumb-bar" aria-label="Breadcrumb">
+  <div class="fp-container">
+    <ol class="fp-breadcrumb">
+      <li><a href="index.html">Home</a></li>
+      <li class="fp-bc-sep" aria-hidden="true">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 1 7 5 3 9"/></svg>
+      </li>
+      <li><a href="firms.html">Firms</a></li>
+      <li class="fp-bc-sep" aria-hidden="true">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 1 7 5 3 9"/></svg>
+      </li>
+      <li aria-current="page"><span>5A Law Firm LLP</span></li>
+    </ol>
   </div>
+</nav>
 
-  <!-- Hero -->
-  <section class="fp-hero">
-    <div class="fp-hero-top">
-      <img class="fp-flag" src="https://flagcdn.com/w80/pt.png" alt="Portugal">
-      <h1 class="fp-firm-name">Abreu Advogados</h1>
-    </div>
-    <p class="fp-jurisdiction">Serves TerraLex in the following jurisdictions: <strong>Portugal, Angola, Mozambique, Guinea-Bissau, Timor-Leste, and Cabo Verde</strong></p>
-    <div class="fp-hero-actions">
-      <a href="https://abreuadvogados.com/en/contacts/" class="btn btn-outline" style="color:var(--c-blue);border-color:rgba(77,101,134,0.3);" target="_blank">Visit Website
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style="margin-left:6px;"><path d="M6 3h7v7M13 3L6 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-  </section>
-
-  <!-- Two-column layout -->
-  <div class="fp-layout">
-
-    <!-- LEFT: Main content -->
-    <div class="fp-main">
-
-      <!-- About -->
-      <div class="fp-section">
-        <p class="fp-section-label">About</p>
-        <div class="fp-about-text">
-          <p>TerraLex is represented in Cabo Verde by Abreu Advogados through its strategic local partner. This presence strengthens the firm's ability to advise clients across Portuguese-speaking markets and West Africa, combining international standards with local expertise.</p>
-          <p>The firm is active across Projects &amp; Infrastructure and Energy &amp; Natural Resources, with a strong pipeline in wind and solar, as well as in transport and social infrastructure. It is equally engaged in tourism and real estate development, along with the banking and financial services that support such sectors, as well as in fisheries, technology, and digital services — ensuring multidisciplinary support that integrates corporate, regulatory, and disputes capabilities.</p>
-        </div>
+<!-- ============================================================
+     HERO — firm name, jurisdiction, logo lockup, primary CTAs
+============================================================ -->
+<section class="fp-hero">
+  <div class="fp-container fp-hero-grid">
+    <div class="fp-hero-text">
+      <p class="fp-eyebrow">Member Firm Profile</p>
+      <h1 class="fp-firm-name">5A Law Firm LLP</h1>
+      <p class="fp-jurisdiction">
+        <img class="fp-flag" src="https://flagcdn.com/w80/et.png" alt="Ethiopia">
+        <span>Serves TerraLex in <strong>Ethiopia</strong></span>
+      </p>
+      <p class="fp-hero-lede">A leading Ethiopian business-law firm advising on cross-border M&amp;A, banking, energy and infrastructure across the Horn of Africa.</p>
+      <div class="fp-hero-actions">
+        <a href="contact-us.html" class="fp-btn fp-btn-primary">Request an introduction</a>
+        <a href="https://www.5alawfirm.com" target="_blank" rel="noopener" class="fp-btn fp-btn-ghost">
+          Visit firm website
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
       </div>
-
-      <!-- Practice Areas -->
-      <div class="fp-section">
-        <p class="fp-section-label">Practice Areas</p>
-        <p class="fp-text-list">Competition, Regulatory and EU &middot; Corporate and M&amp;A &middot; Criminal, Sanctions and Compliance &middot; Employment &middot; Finance &middot; Intellectual Property and Information Technology &middot; Litigation and Arbitration &middot; Public and Environment &middot; Real Estate &middot; Restructuring and Insolvency &middot; Sports &middot; Tax</p>
-      </div>
-
-      <!-- Industries -->
-      <div class="fp-section">
-        <p class="fp-section-label">Industries</p>
-        <p class="fp-text-list">Agrofood &middot; Art &middot; Automotive &middot; Aviation, Maritime &amp; Transportation &middot; Banking &amp; Financial Services &middot; Construction &middot; Defence and Homeland Security &middot; Digital Economy, Retail &amp; Distribution &middot; Education &middot; Energy &amp; Natural Resources &middot; Environment &middot; Fashion, Luxury &amp; Lifestyle &middot; Fintech &middot; Gaming &amp; Gambling &middot; Health, Life Sciences &amp; Pharmaceutics &middot; Immigration &middot; Insurance &middot; Media &amp; Telecommunications &middot; Real Estate &amp; Tourism &middot; Sports &middot; Technology</p>
-      </div>
-
     </div>
-
-    <!-- RIGHT: Sidebar — single unified card -->
-    <aside class="fp-sidebar">
-      <div class="fp-office-card">
-
-        <!-- Office selector -->
-        <p class="fp-office-card-title">Select Office</p>
-        <select class="fp-office-select" id="officeSelect" onchange="switchOffice()">
-          <option value="lisbon">Lisbon</option>
-          <option value="porto">Porto</option>
-          <option value="luanda">Luanda (Angola)</option>
-          <option value="maputo">Maputo (Mozambique)</option>
-          <option value="caboverde" selected>Cabo Verde</option>
-        </select>
-
-        <!-- Contacts (updates with office) -->
-        <div id="officeContacts">
-          <p class="fp-office-sub">Contacts</p>
-          <div class="fp-contact-row">
-            <div class="fp-contact-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span id="officeAddress">Cabo Verde c/o Av. Infante Dom Henrique 26, 1149-096 Lisboa, Portugal</span>
-            </div>
-            <div class="fp-contact-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.11 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <a href="tel:+351217231800" id="officePhone">+351 21 723 18 00</a>
-            </div>
-            <div class="fp-contact-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-              <a href="https://abreuadvogados.com/en/contacts/" target="_blank" id="officeWeb">abreuadvogados.com</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="fp-office-divider"></div>
-
-        <!-- Member Representative (updates with office) -->
-        <p class="fp-office-sub">Member Representative</p>
-        <div id="officeRep">
-          <div class="fp-rep">
-            <div class="fp-rep-avatar fp-rep-avatar--placeholder" style="width:48px;height:48px;border-radius:50%;flex-shrink:0;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <div class="fp-rep-info">
-              <span class="fp-rep-name" id="repName">Duarte de Athayde</span>
-              <span class="fp-rep-role" id="repRole">Partner</span>
-              <div class="fp-rep-contact">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                <a href="tel:+351217231800" id="repPhone">+351 21 723 1800</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
+    <aside class="fp-hero-lockup" aria-hidden="true">
+      <div class="fp-logo-card">
+        <span class="fp-logo-mark">5A</span>
+        <span class="fp-logo-wordmark">Law Firm</span>
       </div>
     </aside>
-
   </div>
-
-</div>
+</section>
 
 <!-- ============================================================
-     FOOTER
+     QUICK FACTS — Founded · Lawyers · Offices · Languages
+============================================================ -->
+<section class="fp-facts">
+  <div class="fp-container">
+    <ul class="fp-facts-grid">
+      <li class="fp-fact">
+        <span class="fp-fact-label">Founded</span>
+        <span class="fp-fact-value">2013</span>
+      </li>
+      <li class="fp-fact">
+        <span class="fp-fact-label">Lawyers</span>
+        <span class="fp-fact-value">22</span>
+        <span class="fp-fact-meta">+ 8 support staff</span>
+      </li>
+      <li class="fp-fact">
+        <span class="fp-fact-label">Offices</span>
+        <span class="fp-fact-value">1</span>
+        <span class="fp-fact-meta">Addis Ababa</span>
+      </li>
+      <li class="fp-fact">
+        <span class="fp-fact-label">Languages</span>
+        <span class="fp-fact-value">4</span>
+        <span class="fp-fact-meta">Amharic, English, French, Arabic</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================
+     OVERVIEW — prose left, pull-quote callout right
+============================================================ -->
+<section class="fp-overview">
+  <div class="fp-container fp-two-col">
+    <div class="fp-prose">
+      <p class="fp-eyebrow">Overview</p>
+      <h2 class="fp-section-title">About 5A Law Firm LLP</h2>
+      <p>5A Law Firm LLP is an Ethiopia premier law firm founded entirely by former Federal Supreme Court and Federal High Court judges. Our five founding partners — whose first names all begin with the letter "A," giving the firm its name — bring 114+ years of combined judicial and legal experience across Ethiopia's highest benches.</p>
+      <p>Headquartered in Addis Ababa, the diplomatic capital of Africa and seat of the African Union, the firm advises domestic and international clients on complex transactions, regulatory matters, and high-stakes disputes. We draw on a distinctive understanding of Ethiopian courts, regulatory institutions, procedural strategy, and dispute-resolution dynamics.</p>
+      <p>Our team comprises 22 lawyers and 8 support professionals, including 10 holders of LL.M. degrees and two PhD candidates, working in English, Amharic, French, and Arabic.</p>
+      <p>The firm acts for foreign investors and multinational corporations entering the Ethiopian market, international financial institutions, sovereign and state-owned clients, non-governmental and development organisations, and Ethiopian enterprises operating across borders. Our practice spans corporate and M&amp;A, banking, finance and capital markets, investment, trade and regulatory affairs, litigation, arbitration and ADR, tax, energy, infrastructure and PPP, real estate and property law, ESG/NGO and development organisations.</p>
+    </div>
+
+    <aside class="fp-callout">
+      <p class="fp-callout-eyebrow">Why this firm</p>
+      <blockquote class="fp-callout-quote">
+        “Founded by five former Federal Supreme Court and High Court judges — a depth of bench experience unmatched in Ethiopia.”
+      </blockquote>
+      <ul class="fp-callout-list">
+        <li><span>Bench-led</span> First fully judge-founded firm in Ethiopia</li>
+        <li><span>Cross-border</span> Active counsel on M&amp;A and energy projects</li>
+        <li><span>Languages</span> Amharic · English · French · Arabic</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================
+     KEY CONTACTS — featured attorneys
+============================================================ -->
+<section class="fp-contacts">
+  <div class="fp-container">
+    <header class="fp-section-head">
+      <p class="fp-eyebrow">Key Contacts</p>
+      <h2 class="fp-section-title">Reach the partners</h2>
+      <p class="fp-section-sub">Direct contact details for the firm's TerraLex Member Representatives and senior partners.</p>
+    </header>
+
+    <div class="fp-people-grid">
+      <article class="fp-person-card fp-person-card--featured">
+        <div class="fp-person-photo">
+          <img src="https://i.pravatar.cc/240?img=12" alt="Amare Ashenafi">
+          <span class="fp-person-tag">Member Rep</span>
+        </div>
+        <div class="fp-person-body">
+          <h3 class="fp-person-name">Amare Ashenafi</h3>
+          <p class="fp-person-role">Founding Partner · Corporate &amp; M&amp;A</p>
+          <ul class="fp-person-tags">
+            <li>Corporate</li>
+            <li>M&amp;A</li>
+            <li>Banking</li>
+          </ul>
+          <div class="fp-person-actions">
+            <a href="mailto:amare@5alawfirm.com" aria-label="Email Amare Ashenafi">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </a>
+            <a href="tel:+251115156469" aria-label="Call Amare Ashenafi">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Call
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.45zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="fp-person-card fp-person-card--featured">
+        <div class="fp-person-photo">
+          <img src="https://i.pravatar.cc/240?img=47" alt="Kokebe Wolde">
+          <span class="fp-person-tag">Member Rep</span>
+        </div>
+        <div class="fp-person-body">
+          <h3 class="fp-person-name">Kokebe Wolde</h3>
+          <p class="fp-person-role">Founding Partner · Litigation &amp; Arbitration</p>
+          <ul class="fp-person-tags">
+            <li>Litigation</li>
+            <li>Arbitration</li>
+            <li>Regulatory</li>
+          </ul>
+          <div class="fp-person-actions">
+            <a href="mailto:kokebe@5alawfirm.com" aria-label="Email Kokebe Wolde">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </a>
+            <a href="tel:+251115156469" aria-label="Call Kokebe Wolde">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Call
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.45zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="fp-person-card">
+        <div class="fp-person-photo">
+          <img src="https://i.pravatar.cc/240?img=33" alt="Aberra Tadesse">
+        </div>
+        <div class="fp-person-body">
+          <h3 class="fp-person-name">Aberra Tadesse</h3>
+          <p class="fp-person-role">Founding Partner · Banking &amp; Finance</p>
+          <ul class="fp-person-tags">
+            <li>Banking</li>
+            <li>Finance</li>
+            <li>Capital Markets</li>
+          </ul>
+          <div class="fp-person-actions">
+            <a href="mailto:aberra@5alawfirm.com" aria-label="Email Aberra Tadesse">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.45zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="fp-person-card">
+        <div class="fp-person-photo">
+          <img src="https://i.pravatar.cc/240?img=24" alt="Almaz Bekele">
+        </div>
+        <div class="fp-person-body">
+          <h3 class="fp-person-name">Almaz Bekele</h3>
+          <p class="fp-person-role">Founding Partner · Energy &amp; Infrastructure</p>
+          <ul class="fp-person-tags">
+            <li>Energy</li>
+            <li>Infrastructure</li>
+            <li>PPP</li>
+          </ul>
+          <div class="fp-person-actions">
+            <a href="mailto:almaz@5alawfirm.com" aria-label="Email Almaz Bekele">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.45zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     OFFICES & LOCATIONS
+============================================================ -->
+<section class="fp-offices">
+  <div class="fp-container">
+    <header class="fp-section-head">
+      <p class="fp-eyebrow">Offices &amp; Locations</p>
+      <h2 class="fp-section-title">Where we operate</h2>
+    </header>
+
+    <div class="fp-offices-grid">
+      <div class="fp-map">
+        <img src="assets/images/misc/BG-map.svg" alt="World map showing Addis Ababa office location">
+        <span class="fp-map-pin" style="left: 56%; top: 56%;" aria-hidden="true"></span>
+      </div>
+
+      <article class="fp-office">
+        <p class="fp-office-eyebrow">Headquarters</p>
+        <h3 class="fp-office-name">Addis Ababa, Ethiopia</h3>
+        <ul class="fp-office-info">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Tropical Mall, 5th Floor, Bole Road<br>Bole Sub City, Addis Ababa</span>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <a href="tel:+251116594949">+251 116 594949</a>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:info@5alawfirm.com">info@5alawfirm.com</a>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Mon – Fri · 8:30 – 17:30 EAT</span>
+          </li>
+        </ul>
+        <a class="fp-office-link" href="https://maps.google.com" target="_blank" rel="noopener">
+          Get directions
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRACTICE AREAS — chip grid
+============================================================ -->
+<section class="fp-practice">
+  <div class="fp-container">
+    <header class="fp-section-head">
+      <p class="fp-eyebrow">Practice Areas</p>
+      <h2 class="fp-section-title">What we advise on</h2>
+      <p class="fp-section-sub">Each practice links to the corresponding TerraLex Practice Group hub.</p>
+    </header>
+
+    <ul class="fp-chips">
+      <li><a href="practice-group-detail.html">Corporate &amp; M&amp;A</a></li>
+      <li><a href="practice-group-detail.html">Banking, Finance &amp; Capital Markets</a></li>
+      <li><a href="practice-group-detail.html">Employment &amp; Labour</a></li>
+      <li><a href="practice-group-detail.html">Energy, Infrastructure &amp; PPP</a></li>
+      <li><a href="practice-group-detail.html">ESG, NGO &amp; Development Organisations</a></li>
+      <li><a href="practice-group-detail.html">Investment, Trade &amp; Regulatory Affairs</a></li>
+      <li><a href="practice-group-detail.html">Litigation, Arbitration &amp; ADR</a></li>
+      <li><a href="practice-group-detail.html">Real Estate &amp; Construction</a></li>
+      <li><a href="practice-group-detail.html">Tax &amp; Wealth Services</a></li>
+      <li><a href="practice-group-detail.html">Technology, Telecoms &amp; Data Protection</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================
+     RELATED FIRMS — three-card horizontal rail
+============================================================ -->
+<section class="fp-related">
+  <div class="fp-container">
+    <header class="fp-section-head fp-section-head--row">
+      <div>
+        <p class="fp-eyebrow">Related Firms</p>
+        <h2 class="fp-section-title">Other TerraLex firms in Africa &amp; the Middle East</h2>
+      </div>
+      <a class="fp-section-link" href="firms.html">
+        View all firms in region
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </header>
+
+    <div class="fp-related-grid">
+      <a class="fp-related-card" href="firm.html">
+        <div class="fp-related-card-header">
+          <img class="fp-related-flag" src="https://flagcdn.com/w80/za.png" alt="South Africa">
+          <span class="fp-related-name">Bowmans</span>
+        </div>
+        <p class="fp-related-location">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Johannesburg, South Africa
+        </p>
+        <ul class="fp-related-tags">
+          <li>Banking</li>
+          <li>Mining</li>
+          <li>Real Estate</li>
+        </ul>
+        <span class="fp-related-link">View Firm
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+
+      <a class="fp-related-card" href="firm.html">
+        <div class="fp-related-card-header">
+          <img class="fp-related-flag" src="https://flagcdn.com/w80/ke.png" alt="Kenya">
+          <span class="fp-related-name">Anjarwalla &amp; Khanna</span>
+        </div>
+        <p class="fp-related-location">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Nairobi, Kenya
+        </p>
+        <ul class="fp-related-tags">
+          <li>Corporate</li>
+          <li>Energy</li>
+          <li>Tax</li>
+        </ul>
+        <span class="fp-related-link">View Firm
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+
+      <a class="fp-related-card" href="firm.html">
+        <div class="fp-related-card-header">
+          <img class="fp-related-flag" src="https://flagcdn.com/w80/qa.png" alt="Qatar">
+          <span class="fp-related-name">Al-Ansari &amp; Associates</span>
+        </div>
+        <p class="fp-related-location">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Doha, Qatar
+        </p>
+        <ul class="fp-related-tags">
+          <li>Construction</li>
+          <li>Arbitration</li>
+          <li>Regulatory</li>
+        </ul>
+        <span class="fp-related-link">View Firm
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CLOSING CTA BAND
+============================================================ -->
+<section class="fp-cta-band">
+  <div class="fp-container fp-cta-inner">
+    <div class="fp-cta-text">
+      <h2 class="fp-cta-title">Need counsel in Ethiopia?</h2>
+      <p class="fp-cta-sub">TerraLex will connect you with a vetted partner at 5A Law Firm LLP within one business day.</p>
+    </div>
+    <div class="fp-cta-actions">
+      <a href="contact-us.html" class="fp-btn fp-btn-white">Request an introduction</a>
+      <a href="firms.html" class="fp-btn fp-btn-outline">Browse the directory</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER (verbatim from kit)
 ============================================================ -->
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <p class="footer-logo">TerraLex</p>
-      <p class="footer-tagline">The elite global legal network. 140 member firms. 120+ countries. One standard of excellence.</p>
+      <img class="footer-logo" src="assets/logos/Logo white.svg" alt="TerraLex">
+      <p class="footer-tagline ds-body-sm on-dark">The elite global legal network committed to collaboration. 141 member firms in 207 jurisdictions and 134 countries.</p>
     </div>
     <div class="footer-nav-group">
-      <p class="footer-nav-heading">Network</p>
+      <p class="footer-nav-heading ds-eyebrow on-dark">Network</p>
       <ul class="footer-nav-list">
-        <li><a href="#">Find Counsel</a></li>
+        <li><a href="about.html">About TerraLex</a></li>
         <li><a href="firms.html">Member Directory</a></li>
-        <li><a href="#">Why TerraLex</a></li>
-        <li><a href="#">Global Collaboration</a></li>
+        <li><a href="practice-groups-industry-sector-teams.html">Practice Groups &amp; Industry Sector Teams</a></li>
+        <li><a href="https://www.linkedin.com/company/terralex/">Follow us on LinkedIn</a></li>
       </ul>
     </div>
     <div class="footer-nav-group">
-      <p class="footer-nav-heading">Knowledge</p>
+      <p class="footer-nav-heading ds-eyebrow on-dark">Knowledge</p>
       <ul class="footer-nav-list">
-        <li><a href="#">Cross-Border Guides</a></li>
-        <li><a href="mylexi.html">myLexi AI</a></li>
-        <li><a href="#">Insights</a></li>
-        <li><a href="#">Events</a></li>
+        <li><a href="insights-cross-border-guides.html">Cross-Border Guides</a></li>
+        <li><a href="mylexi.html">myLexi AI-Powered Assistant</a></li>
+        <li><a href="news.html">Insights</a></li>
+        <li><a href="events.html">Events</a></li>
       </ul>
     </div>
     <div class="footer-nav-group">
-      <p class="footer-nav-heading">Membership</p>
+      <p class="footer-nav-heading ds-eyebrow on-dark">Contact</p>
       <ul class="footer-nav-list">
-        <li><a href="#">Why Join</a></li>
-        <li><a href="#">Standards &amp; Expectations</a></li>
-        <li><a href="#">Application Process</a></li>
-        <li><a href="#">About TerraLex</a></li>
+        <li><a href="sign-in.html">TLC Sign-On (Members Only)</a></li>
+        <li><a href="contact-us.html">Contact Us</a></li>
+        <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">&copy; 2025 TerraLex. All rights reserved.</p>
-    <div class="footer-legal">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Use</a>
-      <a href="#">Contact</a>
-    </div>
+    <p class="footer-copy">© 2026 TerraLex. All rights reserved.</p>
   </div>
 </footer>
-
-<!-- myLexi Chat Widget -->
-<link rel="stylesheet" href="css/chat-widget.css">
-<div class="chat-widget" id="chatWidget">
-  <div class="chat-pill" id="chatPill" onclick="openChat()">
-    <img class="chat-pill__logo" src="assets/logos/mylexi-logo.svg" alt="">
-    <div class="chat-pill__text">
-      <span class="chat-pill__title">myLexi</span>
-      <span class="chat-pill__sub">AI Assistant</span>
-    </div>
-  </div>
-  <div class="chat-panel" id="chatPanel">
-    <div class="chat-header">
-      <div class="chat-header__left">
-        <img class="chat-header__logo" src="assets/logos/mylexi-logo.svg" alt="">
-        <div class="chat-header__info">
-          <div class="chat-header__name">Ask myLexi</div>
-          <div class="chat-header__status"><span class="chat-header__dot"></span> Online &amp; Ready</div>
-        </div>
-      </div>
-      <button class="chat-close" onclick="closeChat()" aria-label="Close chat">
-        <svg viewBox="0 0 14 14" fill="none" stroke="#0a1f33" stroke-width="1.6" stroke-linecap="round"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
-      </button>
-    </div>
-    <div class="chat-body">
-      <div class="chat-msg"><div class="chat-msg__avatar"><img src="assets/logos/mylexi-logo.svg" alt=""></div><div class="chat-bubble">Hello! I'm <strong>myLexi</strong>. How can I help you today?</div></div>
-      <div class="chat-topics"><div class="chat-topics__label">Suggested topics:</div><div class="chat-topics__pills"><button class="chat-topic">Tell me about Abreu Advogados</button><button class="chat-topic">Practice areas in Portugal</button></div></div>
-    </div>
-    <div class="chat-footer">
-      <div class="chat-input-row"><input type="text" placeholder="Type your question here..."><button class="chat-send" aria-label="Send"><svg viewBox="0 0 14 14" fill="none"><path d="M1 13L13 7L1 1V5.5L9 7L1 8.5V13Z" fill="white"/></svg></button></div>
-      <div class="chat-footer__bottom"><img class="chat-footer__betty" src="assets/logos/betty-logo.svg" alt="Betty Knowledge Assistant"><span class="chat-footer__dot"></span><a class="chat-footer__terms" href="#">Terms of use</a></div>
-    </div>
-  </div>
-</div>
-<script src="js/chat-widget.js"></script>
-
-<!-- Office switcher logic -->
-<script>
-const offices = {
-  lisbon: {
-    address: 'Av. Infante Dom Henrique 26, 1149-096 Lisboa, Portugal',
-    phone: '+351 21 723 18 00',
-    phoneTel: 'tel:+351217231800',
-    web: 'abreuadvogados.com',
-    webUrl: 'https://abreuadvogados.com/en/contacts/',
-    rep: 'Duarte de Athayde', repRole: 'Partner',
-    repPhone: '+351 21 723 1800', repPhoneTel: 'tel:+351217231800'
-  },
-  porto: {
-    address: 'Rua de S. Joao de Brito 605-E, 4100-455 Porto, Portugal',
-    phone: '+351 22 607 83 00',
-    phoneTel: 'tel:+351226078300',
-    web: 'abreuadvogados.com',
-    webUrl: 'https://abreuadvogados.com/en/contacts/',
-    rep: 'Duarte de Athayde', repRole: 'Partner',
-    repPhone: '+351 22 607 8300', repPhoneTel: 'tel:+351226078300'
-  },
-  luanda: {
-    address: 'Luanda, Angola',
-    phone: '+244 222 311 064',
-    phoneTel: 'tel:+244222311064',
-    web: 'abreuadvogados.com',
-    webUrl: 'https://abreuadvogados.com/en/contacts/',
-    rep: 'Duarte de Athayde', repRole: 'Partner',
-    repPhone: '+244 222 311 064', repPhoneTel: 'tel:+244222311064'
-  },
-  maputo: {
-    address: 'Maputo, Mozambique',
-    phone: '+258 21 301 616',
-    phoneTel: 'tel:+25821301616',
-    web: 'abreuadvogados.com',
-    webUrl: 'https://abreuadvogados.com/en/contacts/',
-    rep: 'Duarte de Athayde', repRole: 'Partner',
-    repPhone: '+258 21 301 616', repPhoneTel: 'tel:+25821301616'
-  },
-  caboverde: {
-    address: 'Cabo Verde c/o Av. Infante Dom Henrique 26, 1149-096 Lisboa, Portugal',
-    phone: '+351 21 723 18 00',
-    phoneTel: 'tel:+351217231800',
-    web: 'abreuadvogados.com',
-    webUrl: 'https://abreuadvogados.com/en/contacts/',
-    rep: 'Duarte de Athayde', repRole: 'Partner',
-    repPhone: '+351 21 723 1800', repPhoneTel: 'tel:+351217231800'
-  }
-};
-
-function switchOffice() {
-  const key = document.getElementById('officeSelect').value;
-  const o = offices[key];
-  if (!o) return;
-  document.getElementById('officeAddress').textContent = o.address;
-  const phoneEl = document.getElementById('officePhone');
-  phoneEl.textContent = o.phone;
-  phoneEl.href = o.phoneTel;
-  const webEl = document.getElementById('officeWeb');
-  webEl.textContent = o.web;
-  webEl.href = o.webUrl;
-  document.getElementById('repName').textContent = o.rep;
-  document.getElementById('repRole').textContent = o.repRole;
-  const rpEl = document.getElementById('repPhone');
-  rpEl.textContent = o.repPhone;
-  rpEl.href = o.repPhoneTel;
-}
-</script>
 
 </body>
 </html>

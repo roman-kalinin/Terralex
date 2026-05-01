@@ -1,0 +1,347 @@
+/* about.css — About TerraLex
+   All rules are scoped under .about-page so nothing leaks. */
+
+/* ── Header solid-bg variant on inner pages ───────────── */
+.about-page .site-header.has-solid-bg nav,
+.about-page .site-header.has-solid-bg .nav-topbar {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.about-page .site-header.has-solid-bg nav {
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.about-page .site-header.has-solid-bg .nav-topbar {
+  background: #f7f7f8;
+  border-bottom-color: rgba(0,0,0,0.04);
+}
+.about-page { color: #0a0a0f; background: #fff; }
+
+/* ── HERO ─────────────────────────────────────────────── */
+.about-page .about-hero {
+  position: relative;
+  width: 100%;
+  padding: calc(var(--ds-header-h, 60px) + var(--ds-header-topbar-h, 36px) + 96px)
+           var(--ds-section-px) 120px;
+  background:
+    radial-gradient(ellipse at 75% 30%, rgba(255,255,255,0.10) 0%, transparent 55%),
+    linear-gradient(135deg, #2c3e5a 0%, #1f2c40 60%, #16202f 100%);
+  color: #fff;
+  overflow: hidden;
+}
+.about-page .about-hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 90% 10%, rgba(77,101,134,0.35) 0%, transparent 50%);
+  pointer-events: none;
+}
+.about-page .about-hero-inner {
+  position: relative; z-index: 1;
+  max-width: 1080px;
+  display: flex; flex-direction: column; gap: 24px;
+}
+.about-page .about-hero-eyebrow { color: rgba(255,255,255,0.7); }
+.about-page .about-hero-title { margin: 8px 0 4px; }
+.about-page .about-hero-title .ds-thin { color: rgba(255,255,255,0.55); font-weight: 300; display: inline-block; }
+.about-page .about-hero-title .ds-bold { color: #fff; font-weight: 700; display: inline-block; }
+.about-page .about-hero-sub { max-width: 760px; color: rgba(255,255,255,0.85); }
+.about-page .about-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px; }
+
+/* ── MISSION / STORY ──────────────────────────────────── */
+.about-page .about-mission {
+  padding: clamp(64px, 8vw, 120px) var(--ds-section-px);
+  background: #fff;
+}
+.about-page .about-mission-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
+  gap: clamp(40px, 6vw, 80px);
+  align-items: start;
+}
+.about-page .about-mission-eyebrow { color: rgba(10,10,15,0.55); margin-bottom: 18px; }
+.about-page .about-mission-heading { margin: 0 0 24px; }
+.about-page .about-mission-heading .ds-thin { color: rgba(10,10,15,0.45); font-weight: 300; }
+.about-page .about-mission-heading .ds-bold { color: #0a0a0f; font-weight: 700; }
+.about-page .about-mission-lede { margin: 0 0 20px; color: #0a0a0f; max-width: 64ch; }
+.about-page .about-mission-body { margin: 0 0 16px; color: rgba(10,10,15,0.78); max-width: 64ch; }
+
+.about-page .about-mission-card {
+  position: sticky; top: 120px;
+  background: #f4f6f9;
+  border: 1px solid rgba(10,10,15,0.06);
+  padding: 32px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+.about-page .about-mission-card-eyebrow { color: rgba(10,10,15,0.55); }
+.about-page .about-mission-card-list {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 18px;
+}
+.about-page .about-mission-card-list li {
+  display: flex; flex-direction: column; gap: 4px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(10,10,15,0.08);
+}
+.about-page .about-mission-card-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.about-page .about-mission-card-num {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 32px; line-height: 1; letter-spacing: -0.02em;
+  font-weight: 700; color: #0a0a0f;
+}
+.about-page .about-mission-card-lbl {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: rgba(10,10,15,0.65);
+}
+
+/* ── BY THE NUMBERS — tighten reused .s3-numbers ──────── */
+.about-page .about-numbers { padding: 80px var(--ds-section-px) 200px; }
+.about-page .about-numbers .s3-header { margin-bottom: 56px; }
+
+/* ── STANDARDS ────────────────────────────────────────── */
+.about-page .about-standards {
+  padding: clamp(64px, 8vw, 120px) var(--ds-section-px);
+  background: #f7f8fa;
+  border-top: 1px solid rgba(10,10,15,0.06);
+  border-bottom: 1px solid rgba(10,10,15,0.06);
+}
+.about-page .about-standards-inner { max-width: 1280px; }
+.about-page .about-standards-eyebrow { color: rgba(10,10,15,0.55); }
+.about-page .about-standards-heading { margin: 14px 0 20px; max-width: 22ch; }
+.about-page .about-standards-heading .ds-thin { color: rgba(10,10,15,0.45); font-weight: 300; }
+.about-page .about-standards-heading .ds-bold { color: #0a0a0f; font-weight: 700; }
+.about-page .about-standards-lede { max-width: 70ch; color: rgba(10,10,15,0.78); margin: 0 0 48px; }
+.about-page .about-standards-pillars {
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+.about-page .about-standards-pillars li {
+  background: #fff;
+  border: 1px solid rgba(10,10,15,0.08);
+  padding: 28px;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: border-color var(--ds-ease), transform var(--ds-ease);
+}
+.about-page .about-standards-pillars li:hover {
+  border-color: rgba(77,101,134,0.5);
+  transform: translateY(-2px);
+}
+.about-page .about-standards-pillar-num {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; letter-spacing: 0.18em; font-weight: 600;
+  color: #4d6586;
+}
+.about-page .about-standards-pillar-title {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 22px; line-height: 1.2; letter-spacing: -0.01em;
+  font-weight: 700; margin: 0;
+}
+.about-page .about-standards-pillar-body {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px; line-height: 1.55; color: rgba(10,10,15,0.7);
+  margin: 0;
+}
+
+/* ── LEADERSHIP ───────────────────────────────────────── */
+.about-page .about-leadership {
+  padding: clamp(80px, 9vw, 140px) var(--ds-section-px) clamp(64px, 8vw, 120px);
+  background: #fff;
+}
+.about-page .about-leadership-head { max-width: 880px; margin-bottom: 40px; }
+.about-page .about-leadership-eyebrow { color: rgba(10,10,15,0.55); margin-bottom: 14px; }
+.about-page .about-leadership-heading { margin: 0 0 18px; }
+.about-page .about-leadership-heading .ds-thin { color: rgba(10,10,15,0.45); font-weight: 300; }
+.about-page .about-leadership-heading .ds-bold { color: #0a0a0f; font-weight: 700; }
+.about-page .about-leadership-sub { color: rgba(10,10,15,0.7); max-width: 70ch; }
+
+.about-page .about-leadership-tabs {
+  position: sticky; top: 96px; z-index: 5;
+  display: flex; flex-wrap: wrap; gap: 4px;
+  background: #fff;
+  padding: 18px 0;
+  margin: 32px 0 32px;
+  border-bottom: 1px solid rgba(10,10,15,0.08);
+}
+.about-page .about-tab {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 500;
+  color: rgba(10,10,15,0.6);
+  background: transparent;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  border-bottom: 2px solid transparent;
+  transition: color var(--ds-ease), border-color var(--ds-ease);
+}
+.about-page .about-tab:hover { color: #0a0a0f; }
+.about-page .about-tab.is-active {
+  color: #0a0a0f;
+  border-bottom-color: #4d6586;
+  font-weight: 600;
+}
+.about-page .about-tab-count {
+  font-size: 12px; font-weight: 500;
+  background: rgba(10,10,15,0.06);
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: rgba(10,10,15,0.6);
+}
+.about-page .about-tab.is-active .about-tab-count {
+  background: #4d6586; color: #fff;
+}
+
+.about-page .about-leadership-section-title {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 28px; line-height: 1.2; letter-spacing: -0.015em;
+  font-weight: 700; color: #0a0a0f;
+  margin: 24px 0 24px;
+}
+.about-page .about-leadership-grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.about-page .about-leader-card {
+  background: #fff;
+  border: 1px solid rgba(10,10,15,0.1);
+  padding: 22px;
+  display: flex; gap: 16px; align-items: flex-start;
+  transition: border-color var(--ds-ease), box-shadow var(--ds-ease);
+}
+.about-page .about-leader-card:hover {
+  border-color: rgba(77,101,134,0.5);
+  box-shadow: 0 6px 24px rgba(10,10,15,0.06);
+}
+.about-page .about-leader-photo {
+  flex-shrink: 0;
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, #4d6586, #2c3e5a);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-family: 'Source Sans 3', sans-serif;
+  font-weight: 700; font-size: 18px; letter-spacing: 0.04em;
+  border-radius: 50%;
+}
+.about-page .about-leader-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.about-page .about-leader-role {
+  color: #4d6586;
+  margin-bottom: 2px;
+}
+.about-page .about-leader-name {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 17px; line-height: 1.25;
+  font-weight: 700; color: #0a0a0f;
+  margin: 0 0 2px;
+}
+.about-page .about-leader-firm {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 14px; line-height: 1.45;
+  color: rgba(10,10,15,0.65); margin: 0 0 8px;
+}
+.about-page .about-leader-contact {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; line-height: 1.6;
+  margin: 0;
+}
+.about-page .about-leader-contact a {
+  color: rgba(10,10,15,0.7);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color var(--ds-ease), border-color var(--ds-ease);
+}
+.about-page .about-leader-contact a:hover {
+  color: #4d6586;
+  border-bottom-color: rgba(77,101,134,0.4);
+}
+
+.about-page .about-leadership-panel { display: none; }
+.about-page .about-leadership-panel.is-active { display: block; }
+
+/* ── GOVERNANCE ───────────────────────────────────────── */
+.about-page .about-governance {
+  padding: clamp(80px, 9vw, 140px) var(--ds-section-px);
+  background: #f7f8fa;
+  border-top: 1px solid rgba(10,10,15,0.06);
+}
+.about-page .about-governance-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+}
+.about-page .about-governance-eyebrow { color: rgba(10,10,15,0.55); }
+.about-page .about-governance-heading { margin: 14px 0 22px; }
+.about-page .about-governance-heading .ds-thin { color: rgba(10,10,15,0.45); font-weight: 300; }
+.about-page .about-governance-heading .ds-bold { color: #0a0a0f; font-weight: 700; }
+.about-page .about-governance-lede { color: rgba(10,10,15,0.8); margin: 0 0 24px; max-width: 60ch; }
+.about-page .about-governance-points {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.about-page .about-governance-points li {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px; line-height: 1.55;
+  color: rgba(10,10,15,0.78);
+  padding-left: 18px; position: relative;
+}
+.about-page .about-governance-points li::before {
+  content: ''; position: absolute; left: 0; top: 10px;
+  width: 6px; height: 6px; background: #4d6586;
+  border-radius: 50%;
+}
+.about-page .about-governance-points strong { color: #0a0a0f; font-weight: 700; }
+
+.about-page .about-governance-chart {
+  margin: 0;
+  background: #fff;
+  border: 1px solid rgba(10,10,15,0.08);
+  padding: 24px;
+}
+.about-page .about-governance-chart svg {
+  width: 100%; height: auto;
+  max-width: 560px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* ── CTA TWEAK ────────────────────────────────────────── */
+.about-page .about-cta { /* uses .s9-cta from sections.css verbatim */ }
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .about-page .about-mission-inner {
+    grid-template-columns: 1fr;
+  }
+  .about-page .about-mission-card { position: static; }
+  .about-page .about-governance-inner {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 768px) {
+  .about-page .about-hero {
+    padding: calc(var(--ds-header-h, 60px) + var(--ds-header-topbar-h, 36px) + 56px)
+             var(--ds-section-px) 72px;
+  }
+  .about-page .about-leadership-tabs {
+    top: 60px;
+    padding: 12px 0;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .about-page .about-tab { white-space: nowrap; padding: 10px 14px; }
+  .about-page .about-leadership-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-page .about-leader-card { padding: 18px; }
+}
+@media (max-width: 480px) {
+  .about-page .about-hero-actions { flex-direction: column; align-items: stretch; }
+  .about-page .about-hero-actions .ds-btn { justify-content: center; }
+  .about-page .about-mission-card { padding: 24px; }
+  .about-page .about-standards-pillars { gap: 16px; }
+  .about-page .about-standards-pillars li { padding: 22px; }
+}

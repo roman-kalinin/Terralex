@@ -1,365 +1,458 @@
-/* firms.css — Firms Directory page */
+/* firms.css — Firms Directory
+   All rules are scoped under .firms-page so nothing leaks. */
 
-/* ── HERO ─────────────────────────────────────────── */
-.firms-hero {
+/* ── Header solid-bg variant on inner pages ───────────── */
+.firms-page .site-header.has-solid-bg nav,
+.firms-page .site-header.has-solid-bg .nav-topbar {
+  /* no transparency on inner pages */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.firms-page .site-header.has-solid-bg nav {
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.firms-page .site-header.has-solid-bg .nav-topbar {
+  background: #f7f7f8;
+  border-bottom-color: rgba(0,0,0,0.04);
+}
+
+/* Body baseline — let content control colour */
+.firms-page {
+  color: #0a0a0f;
+}
+
+/* ── Hero ─────────────────────────────────────────────── */
+.firms-page .firms-hero {
   position: relative;
   width: 100%;
-  min-height: 70vh;
-  display: flex;
-  align-items: center;
-  padding: 160px 56px 80px;
-  overflow: hidden;
+  padding: calc(var(--ds-header-h, 60px) + var(--ds-header-topbar-h, 36px) + 64px)
+           var(--ds-section-px) 64px;
   background: #fff;
   background-image: var(--bg-gradient);
+  border-bottom: 1px solid rgba(10,10,15,0.06);
 }
-
-.firms-hero-text {
-  flex: 0 0 50%;
+.firms-page .firms-hero-inner {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  z-index: 2;
+  gap: 18px;
+  max-width: 920px;
 }
+.firms-page .firms-hero-eyebrow { color: rgba(10,10,15,0.5); }
+.firms-page .firms-hero-title { margin: 4px 0 0; }
+.firms-page .firms-hero-sub { max-width: 720px; }
 
-.firms-hero-map {
-  position: absolute;
-  right: -5%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 55%;
-  height: 90%;
-  opacity: 0.18;
-  pointer-events: none;
-}
-.firms-hero-map img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.firms-label {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--c-gray-body);
-}
-
-.firms-heading {
-  font-family: var(--font-body);
-  font-size: 64px;
-  line-height: 1.05;
-  letter-spacing: -2px;
-}
-.firms-heading-bold  { font-weight: 700; color: var(--c-dark); }
-.firms-heading-light { font-weight: 300; color: var(--c-dark-40); }
-
-.firms-sub {
-  font-family: var(--font-ui);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.7;
-  color: var(--c-gray-body);
-  max-width: 480px;
-}
-
-/* ── SEARCH BAR ───────────────────────────────────── */
-.firms-search-bar {
-  display: flex;
-  align-items: stretch;
-  height: 51px;
-  margin-top: 8px;
-  max-width: 648px;
-}
-
-.firms-search-input {
-  flex: 1;
+/* Hero search */
+.firms-page .firms-search {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 0 15px;
-  background: rgba(255,255,255,0.56);
-  border: 0.84px solid rgba(0,0,0,0.1);
-  border-right: none;
-  border-radius: 7px 0 0 7px;
-  font-family: var(--font-ui);
-  font-size: 14px;
-  color: var(--c-gray-body);
-}
-.firms-search-input input {
-  border: none;
-  background: transparent;
-  font-family: var(--font-ui);
-  font-size: 14px;
-  color: var(--c-dark);
-  outline: none;
+  gap: 0;
+  margin-top: 16px;
   width: 100%;
+  max-width: 720px;
+  background: #fff;
+  border: 1px solid rgba(10,10,15,0.12);
+  height: 56px;
+  padding-left: 16px;
 }
-.firms-search-input input::placeholder {
-  color: var(--c-gray-body);
-}
-.firms-search-input svg {
+.firms-page .firms-search-icon {
+  display: inline-flex;
+  align-items: center;
+  color: rgba(10,10,15,0.45);
   flex-shrink: 0;
-  color: var(--c-gray-body);
+}
+.firms-page .firms-search-input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: var(--ds-fs-body);
+  color: #0a0a0f;
+  padding: 0 16px;
+  min-width: 0;
+}
+.firms-page .firms-search-input::placeholder { color: rgba(10,10,15,0.45); }
+.firms-page .firms-search-btn {
+  height: 100%;
+  align-self: stretch;
+  flex-shrink: 0;
 }
 
-.firms-search-type {
+/* Stats strip */
+.firms-page .firms-quick-stats {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+.firms-page .firms-quick-stats li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.firms-page .firms-stat-num {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: var(--ds-fs-h3);
+  line-height: 1;
+  font-weight: 700;
+  color: #0a0a0f;
+}
+.firms-page .firms-stat-lbl {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(10,10,15,0.5);
+}
+
+/* ── Filter bar ───────────────────────────────────────── */
+.firms-page .firms-filterbar {
+  position: sticky;
+  top: calc(var(--ds-header-h, 60px) + var(--ds-header-topbar-h, 36px));
+  z-index: 50;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(10,10,15,0.08);
+  padding: 16px var(--ds-section-px);
+}
+.firms-page .firms-filterbar-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 14px 0 15px;
-  width: 130px;
-  background: rgba(255,255,255,0.56);
-  border: 0.84px solid rgba(0,0,0,0.1);
-  border-right: none;
-  font-family: var(--font-ui);
-  font-size: 14px;
-  color: var(--c-gray-body);
-  cursor: pointer;
-  user-select: none;
-}
-
-.firms-search-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 120px;
-  background: var(--c-blue);
-  color: #fff;
-  border: none;
-  border-radius: 0 7px 7px 0;
-  font-family: var(--font-ui);
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-.firms-search-btn:hover { opacity: 0.85; }
-
-/* ── FILTERS ──────────────────────────────────────── */
-.firms-filters {
-  background: #fff;
-  background-image: var(--bg-gradient);
-  padding: 0 56px 32px;
-}
-
-.firms-filter-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  gap: 24px;
   flex-wrap: wrap;
 }
+.firms-page .firms-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.firms-page .firms-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid rgba(10,10,15,0.12);
+  padding: 0 12px 0 14px;
+  height: 40px;
+}
+.firms-page .firms-filter:hover { border-color: rgba(10,10,15,0.28); }
+.firms-page .firms-filter:focus-within {
+  border-color: var(--ds-btn-primary-bg);
+  outline: 2px solid rgba(77,101,134,0.2);
+  outline-offset: 0;
+}
+.firms-page .firms-filter-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(10,10,15,0.5);
+}
+.firms-page .firms-filter-select {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 14px;
+  color: #0a0a0f;
+  cursor: pointer;
+  padding-right: 4px;
+  max-width: 200px;
+}
 
-.firms-filter-tag {
+/* Filter meta — count + view toggle */
+.firms-page .firms-filter-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+.firms-page .firms-result-count {
+  margin: 0;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 14px;
+  color: rgba(10,10,15,0.65);
+}
+.firms-page .firms-result-count strong { color: #0a0a0f; font-weight: 700; }
+
+.firms-page .firms-view-toggle {
+  display: inline-flex;
+  border: 1px solid rgba(10,10,15,0.12);
+  background: #fff;
+  height: 40px;
+  overflow: hidden;
+}
+.firms-page .firms-view-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 20px;
-  font-family: var(--font-ui);
+  padding: 0 14px;
+  height: 100%;
+  background: transparent;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
   font-size: 13px;
-  color: var(--c-gray-body);
-  background: rgba(255,255,255,0.6);
+  color: rgba(10,10,15,0.6);
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-  user-select: none;
+  transition: background 0.15s, color 0.15s;
 }
-.firms-filter-tag:hover {
-  border-color: rgba(0,0,0,0.2);
-  background: rgba(255,255,255,0.9);
-}
-.firms-filter-tag.active {
-  background: var(--c-blue);
+.firms-page .firms-view-btn + .firms-view-btn { border-left: 1px solid rgba(10,10,15,0.12); }
+.firms-page .firms-view-btn:hover { color: #0a0a0f; }
+.firms-page .firms-view-btn.is-active {
+  background: var(--ds-btn-primary-bg);
   color: #fff;
-  border-color: var(--c-blue);
-}
-.firms-filter-tag svg {
-  width: 10px;
-  height: 10px;
 }
 
-.firms-results-count {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  color: var(--c-gray-body);
-  margin-left: auto;
-}
-
-/* ── GRID ─────────────────────────────────────────── */
-.firms-grid-section {
+/* ── Results section ─────────────────────────────────── */
+.firms-page .firms-results {
+  position: relative;
+  padding: 56px var(--ds-section-px) 80px;
   background: #fff;
   background-image: var(--bg-gradient);
-  padding: 32px 56px 80px;
 }
+.firms-page .firms-results-inner { position: relative; }
 
-.firms-grid {
+.firms-page .firms-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
-/* ── FIRM CARD ────────────────────────────────────── */
-.firm-card {
+/* ── Firm card ───────────────────────────────────────── */
+.firms-page .firm-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 28px;
-  background: rgba(255,255,255,0.7);
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 12px;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-  cursor: pointer;
+  gap: 14px;
+  padding: 28px 26px;
+  background: #fff;
+  border: 1px solid rgba(10,10,15,0.08);
   text-decoration: none;
   color: inherit;
+  transition: border-color var(--ds-ease, 240ms),
+              transform var(--ds-ease, 240ms),
+              box-shadow var(--ds-ease, 240ms);
+  height: 100%;
+  min-height: 240px;
 }
-.firm-card:hover {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-  border-color: rgba(0,0,0,0.12);
+.firms-page .firm-card:hover {
+  border-color: rgba(10,10,15,0.22);
   transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(10,10,15,0.06);
+}
+.firms-page .firm-card:focus-visible {
+  outline: 2px solid var(--ds-btn-primary-bg);
+  outline-offset: 2px;
 }
 
-.firm-card-header {
+.firms-page .firm-card-head {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
+}
+.firms-page .firm-flag {
+  font-size: 22px;
+  line-height: 1;
+}
+.firms-page .firm-jurisdiction {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(10,10,15,0.5);
 }
 
-.firm-card-flag {
-  width: 36px;
-  height: 27px;
-  border-radius: 4px;
-  object-fit: cover;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+.firms-page .firm-name {
+  margin: 0;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #0a0a0f;
+}
+.firms-page .firm-location {
+  margin: 0;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 14px;
+  color: rgba(10,10,15,0.6);
 }
 
-.firm-card-name {
-  font-family: var(--font-body);
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--c-dark);
-  line-height: 1.3;
-}
-
-.firm-card-location {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-ui);
-  font-size: 13px;
-  color: var(--c-gray-body);
-}
-.firm-card-location svg {
-  flex-shrink: 0;
-  color: var(--c-blue);
-}
-
-.firm-card-practices {
+.firms-page .firm-tags {
+  list-style: none;
+  margin: auto 0 0;
+  padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
-
-.firm-card-practice {
-  padding: 4px 10px;
-  border-radius: 12px;
-  background: rgba(77,101,134,0.08);
-  font-family: var(--font-ui);
+.firms-page .firm-tag {
+  font-family: 'DM Sans', sans-serif;
   font-size: 11px;
-  color: var(--c-blue);
-  letter-spacing: 0.3px;
+  letter-spacing: 0.06em;
+  color: var(--ds-btn-primary-bg);
+  background: rgba(77,101,134,0.08);
+  padding: 4px 10px;
 }
 
-.firm-card-link {
+.firms-page .firm-cta {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: var(--font-ui);
+  margin-top: 4px;
+  font-family: 'DM Sans', sans-serif;
   font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 1px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--c-blue);
-  margin-top: auto;
-  transition: gap 0.2s;
+  color: var(--ds-btn-primary-bg);
 }
-.firm-card:hover .firm-card-link { gap: 10px; }
+.firms-page .firm-card:hover .firm-cta svg { transform: translateX(3px); }
+.firms-page .firm-cta svg { transition: transform var(--ds-ease-fast, 160ms); }
 
-/* ── PAGINATION ───────────────────────────────────── */
-.firms-pagination {
+/* ── Empty state ─────────────────────────────────────── */
+.firms-page .firms-empty {
   display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  text-align: center;
+  padding: 80px 24px;
+  border: 1px dashed rgba(10,10,15,0.12);
+  background: rgba(255,255,255,0.6);
+}
+
+/* ── Load more ───────────────────────────────────────── */
+.firms-page .firms-loadmore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-top: 56px;
+}
+.firms-page .firms-loadmore-meta {
+  margin: 0;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 13px;
+  color: rgba(10,10,15,0.5);
+}
+.firms-page .firms-loadmore-meta strong { color: #0a0a0f; }
+
+/* ── Alpha rail ───────────────────────────────────────── */
+.firms-page .firms-alpha-rail {
+  position: fixed;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 4px;
+  background: rgba(255,255,255,0.8);
+  border: 1px solid rgba(10,10,15,0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.firms-page .firms-alpha-letter {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 48px 0 0;
+  width: 22px;
+  height: 22px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(10,10,15,0.6);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
 }
-
-.firms-page-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.08);
-  background: transparent;
-  font-family: var(--font-ui);
-  font-size: 14px;
-  color: var(--c-gray-body);
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
+.firms-page .firms-alpha-letter:hover {
+  background: rgba(77,101,134,0.12);
+  color: var(--ds-btn-primary-bg);
 }
-.firms-page-btn:hover {
-  background: rgba(0,0,0,0.04);
-  border-color: rgba(0,0,0,0.15);
-}
-.firms-page-btn.active {
-  background: var(--c-blue);
+.firms-page .firms-alpha-letter.is-active {
+  background: var(--ds-btn-primary-bg);
   color: #fff;
-  border-color: var(--c-blue);
 }
-.firms-page-btn.disabled {
+.firms-page .firms-alpha-letter.is-disabled {
   opacity: 0.3;
   pointer-events: none;
 }
-.firms-page-ellipsis {
-  font-family: var(--font-ui);
-  font-size: 14px;
-  color: var(--c-gray-body);
-  padding: 0 4px;
+
+/* ── CTA section overrides ───────────────────────────── */
+.firms-page .firms-cta { min-height: 520px; }
+.firms-page .firms-cta .s9-inner { padding: 80px var(--ds-section-px); }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .firms-page .firms-grid { grid-template-columns: repeat(2, 1fr); }
+  .firms-page .firms-alpha-rail { display: none; }
+  .firms-page .firms-quick-stats { gap: 28px; }
 }
 
-/* ── LETTER INDEX ─────────────────────────────────── */
-.firms-alpha-index {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  padding: 24px 56px;
-  background: #fff;
-  background-image: var(--bg-gradient);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+/* Tablet narrow / phablet */
+@media (max-width: 820px) {
+  .firms-page .firms-filterbar {
+    position: static;
+    padding: 16px var(--ds-section-px);
+  }
+  .firms-page .firms-filter-group {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+  }
+  .firms-page .firms-filter { flex-shrink: 0; }
+  .firms-page .firms-filter-meta {
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+  }
 }
-.firms-alpha-btn {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  border: none;
-  background: transparent;
-  font-family: var(--font-ui);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--c-gray-body);
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-.firms-alpha-btn:hover { background: rgba(0,0,0,0.04); }
-.firms-alpha-btn.active {
-  background: var(--c-blue);
-  color: #fff;
+
+/* Mobile */
+@media (max-width: 640px) {
+  .firms-page .firms-hero {
+    padding: calc(var(--ds-header-h, 60px) + var(--ds-header-topbar-h, 36px) + 32px)
+             var(--ds-section-px) 40px;
+  }
+  .firms-page .firms-search {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 12px 16px;
+    gap: 12px;
+  }
+  .firms-page .firms-search-input {
+    width: 100%;
+    flex: 1 1 auto;
+    padding: 0;
+    height: 32px;
+  }
+  .firms-page .firms-search-btn { width: 100%; }
+  .firms-page .firms-quick-stats {
+    gap: 20px 28px;
+    margin-top: 20px;
+  }
+  .firms-page .firms-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .firms-page .firm-card { min-height: 0; padding: 22px 20px; }
+  .firms-page .firms-results { padding: 32px var(--ds-section-px) 56px; }
+  .firms-page .firms-cta { min-height: 420px; }
+  .firms-page .firms-cta .s9-inner { padding: 56px var(--ds-section-px); }
 }

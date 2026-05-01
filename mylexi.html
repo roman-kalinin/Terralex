@@ -3,27 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>myLexi — AI Assistant — TerraLex</title>
+<title>TerraLex — myLexi AI Assistant</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/design-system.css">
+<link rel="stylesheet" href="css/chat-widget.css">
+
+<!-- Page-specific stylesheet -->
 <link rel="stylesheet" href="css/mylexi.css">
 </head>
-<body>
+<body class="mylexi-page">
 
 <!-- ============================================================
-     HEADER
+     HEADER (verbatim from kit, with .has-solid-bg)
 ============================================================ -->
-<header class="site-header scrolled">
+<header class="site-header scrolled has-solid-bg" id="siteHeader">
   <div class="nav-topbar">
-    <a href="#">Member Directory</a><span class="sep">|</span>
-    <a href="#">TLC Sign-On</a><span class="sep">|</span>
-    <a href="#">Ask myLexi</a><span class="sep">|</span>
-    <a href="#">Contact Us</a>
+    <a href="firms.html">Member Directory</a><span class="sep">|</span>
+    <a href="sign-in.html">TLC Sign-On</a><span class="sep">|</span>
+    <a href="mylexi.html">Ask myLexi</a><span class="sep">|</span>
+    <a href="contact-us.html">Contact Us</a>
   </div>
   <nav id="mainNav">
     <a href="index.html" class="nav-logo">
@@ -31,74 +37,599 @@
       <img class="logo-scrolled" src="assets/logos/Logo default.svg" alt="TerraLex">
     </a>
     <div class="nav-links">
-      <a href="#">Cross-Border Guides</a>
+      <a href="insights-cross-border-guides.html">Cross-Border Guides</a>
       <div class="nav-dropdown">
-        <a href="#" class="nav-dropdown-trigger">Expertise <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
+        <a href="practice-groups-industry-sector-teams.html" class="nav-dropdown-trigger">Expertise <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
         <div class="nav-mega">
-          <div class="mega-col"><h4>Industry Sector Teams</h4><a href="#">Automotive</a><a href="#">Aviation</a><a href="#">Education Services</a><a href="#">ESG</a><a href="#">Food &amp; Beverage</a><a href="#">Hospitality</a><a href="#">Life Sciences</a><a href="#">Mining</a><a href="#">Retail</a><a href="#">Sports &amp; Entertainment</a><a href="#">Technology &amp; Digital Business</a></div>
-          <div class="mega-col"><h4>Regions</h4><a href="#">Africa &amp; the Middle East</a><a href="#">Asia-Pacific</a><a href="#">Europe</a><a href="#">Latin America &amp; the Caribbean</a><a href="#">North America</a></div>
-          <div class="mega-col"><h4>Practice Groups</h4><a href="#">Antitrust &amp; Competition</a><a href="#">Bankruptcy / Insolvency</a><a href="#">Construction &amp; Infrastructure</a><a href="#">Energy &amp; Environmental</a><a href="#">Finance &amp; Banking</a><a href="#">Global Trade &amp; Policy</a><a href="#">Immigration</a><a href="#">Insurance</a><a href="#">Intellectual Property, Licensing &amp; Technology</a><a href="#">International Litigation &amp; Arbitration</a><a href="#">Labor &amp; Employment</a><a href="#">Mergers &amp; Acquisitions</a><a href="#">Real Estate</a><a href="#">Regulatory, Investigations &amp; Compliance</a><a href="#">Tax &amp; Wealth Services</a></div>
+          <div class="mega-col">
+            <h4>Practice Groups</h4>
+            <a href="practice-group-detail.html">Antitrust &amp; Competition</a>
+            <a href="practice-group-detail.html">Bankruptcy / Insolvency</a>
+            <a href="practice-group-detail.html">Construction &amp; Infrastructure</a>
+            <a href="practice-group-detail.html">Energy &amp; Environmental</a>
+            <a href="practice-group-detail.html">Finance &amp; Banking</a>
+            <a href="practice-group-detail.html">Global Trade &amp; Policy</a>
+            <a href="practice-group-detail.html">Immigration</a>
+            <a href="practice-group-detail.html">Insurance</a>
+            <a href="practice-group-detail.html">Intellectual Property, Licensing &amp; Technology</a>
+            <a href="practice-group-detail.html">International Litigation &amp; Arbitration</a>
+            <a href="practice-group-detail.html">Labor &amp; Employment</a>
+            <a href="practice-group-detail.html">Mergers &amp; Acquisitions</a>
+            <a href="practice-group-detail.html">Real Estate</a>
+            <a href="practice-group-detail.html">Regulatory, Investigations &amp; Compliance</a>
+            <a href="practice-group-detail.html">Tax &amp; Wealth Services</a>
+          </div>
+          <div class="mega-col">
+            <h4>Industry Sector Teams</h4>
+            <a href="industry-sector-team-detail.html">Automotive</a>
+            <a href="industry-sector-team-detail.html">Aviation</a>
+            <a href="industry-sector-team-detail.html">Education Services</a>
+            <a href="industry-sector-team-detail.html">ESG</a>
+            <a href="industry-sector-team-detail.html">Food &amp; Beverage</a>
+            <a href="industry-sector-team-detail.html">Hospitality</a>
+            <a href="industry-sector-team-detail.html">Life Sciences</a>
+            <a href="industry-sector-team-detail.html">Mining</a>
+            <a href="industry-sector-team-detail.html">Retail</a>
+            <a href="industry-sector-team-detail.html">Sports &amp; Entertainment</a>
+            <a href="industry-sector-team-detail.html">Technology &amp; Digital Business</a>
+          </div>
+          <div class="mega-col">
+            <h4>Regions</h4>
+            <a href="firms.html">Africa &amp; the Middle East</a>
+            <a href="firms.html">Asia-Pacific</a>
+            <a href="firms.html">Europe</a>
+            <a href="firms.html">Latin America &amp; the Caribbean</a>
+            <a href="firms.html">North America</a>
+          </div>
         </div>
       </div>
-      <a href="#">Events Hub</a>
-      <a href="#">Global Insights</a>
-      <a href="#">Success Stories</a>
-      <a href="#">About TerraLex</a>
+      <a href="events.html">Events Hub</a>
+      <a href="news.html">Global Insights</a>
+      <a href="success-stories.html">Success Stories</a>
+      <a href="about.html">About TerraLex</a>
     </div>
     <div class="nav-actions">
-      <button class="nav-search-btn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
-      <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <button class="nav-search-btn" aria-label="Search" onclick="location.href='search.html'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+      <button class="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
 </header>
 
 <!-- ============================================================
-     PAGE
+     SECTION 1 — HERO
+     Dark/full-bleed product hero. Two-line ds-thin + ds-bold
+     headline, subhead, two CTAs, chat-bubble preview image.
 ============================================================ -->
-<div class="mylexi-page">
-
-  <div class="mylexi-main">
-
-    <!-- Greeting -->
-    <div class="mylexi-greeting">
-      <img src="assets/logos/mylexi-logo.svg" alt="myLexi" class="mylexi-greeting-logo">
-      <span class="mylexi-greeting-text">Hi there</span>
+<section class="mlx-hero">
+  <div class="mlx-hero-bg"></div>
+  <div class="mlx-hero-inner">
+    <div class="mlx-hero-content">
+      <div class="mlx-hero-eyebrow-row">
+        <img src="assets/logos/mylexi-logo.svg" alt="" class="mlx-hero-mark">
+        <span class="ds-eyebrow on-dark">AI-Powered Assistant</span>
+      </div>
+      <h1 class="mlx-hero-h ds-h1 on-dark">
+        <span class="ds-thin">Immediate access to network knowledge</span>
+        <span class="ds-bold">Through <span class="ds-accent">myLexi.</span></span>
+      </h1>
+      <p class="mlx-hero-sub ds-body-lg on-dark">myLexi is an AI-powered intelligent assistant designed to provide instant, 24/7 support to TerraLex member firms and their lawyers — in 100+ languages.</p>
+      <div class="mlx-hero-actions">
+        <a href="#mlx-demo" class="ds-btn ds-btn-primary ds-btn-lg">Ask myLexi</a>
+        <a href="#mlx-features" class="ds-btn ds-btn-outline ds-btn-lg">See how it works</a>
+      </div>
     </div>
+    <div class="mlx-hero-visual">
+      <img src="assets/images/misc/mylexi-preview.png" alt="myLexi assistant chat preview" class="mlx-hero-img">
+    </div>
+  </div>
+</section>
 
-    <!-- Big question -->
-    <h1 class="mylexi-question">How can myLexi help you today?</h1>
+<!-- ============================================================
+     SECTION 2 — TRUST STRIP / NUMBERS
+     4 count-up tiles. Reuses .s3-numbers visuals.
+============================================================ -->
+<section class="mlx-numbers">
+  <div class="mlx-numbers-grid">
+    <div class="mlx-stat">
+      <div class="mlx-stat-num"><span class="s3-count" data-target="100" data-suffix="+">100+</span></div>
+      <div class="mlx-stat-label">Languages supported</div>
+    </div>
+    <div class="mlx-stat">
+      <div class="mlx-stat-num">24<span class="mlx-stat-sep">/</span>7</div>
+      <div class="mlx-stat-label">Always available</div>
+    </div>
+    <div class="mlx-stat">
+      <div class="mlx-stat-num"><span class="s3-count" data-target="141">141</span></div>
+      <div class="mlx-stat-label">Member firms covered</div>
+    </div>
+    <div class="mlx-stat">
+      <div class="mlx-stat-num"><span class="s3-count" data-target="207">207</span></div>
+      <div class="mlx-stat-label">Jurisdictions indexed</div>
+    </div>
+  </div>
+</section>
 
-    <!-- Input box -->
-    <div class="mylexi-input-box">
-      <textarea rows="1" placeholder="Ask myLexi anything..."></textarea>
-      <div class="mylexi-input-actions">
-        <button class="mylexi-send" aria-label="Send">
-          <svg viewBox="0 0 14 14" fill="none">
-            <path d="M1 13L13 7L1 1V5.5L9 7L1 8.5V13Z" fill="currentColor"/>
-          </svg>
-        </button>
+<!-- ============================================================
+     SECTION 3 — WHAT myLEXI DOES
+     3 feature cards: Answer / Navigate / Strategic insights.
+============================================================ -->
+<section class="mlx-features" id="mlx-features">
+  <header class="mlx-section-head">
+    <span class="ds-eyebrow">What myLexi does</span>
+    <h2 class="mlx-section-h ds-h1">
+      <span class="ds-thin">Three ways your network</span>
+      <span class="ds-bold">answers back.</span>
+    </h2>
+  </header>
+
+  <div class="mlx-feature-grid">
+    <article class="mlx-feature">
+      <div class="mlx-feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </div>
+      <h3 class="mlx-feature-title">Answer inquiries</h3>
+      <p class="mlx-feature-desc">Instant, well-sourced answers to questions about TerraLex, member firms, and the global legal landscape.</p>
+      <span class="mlx-feature-prompt">"Who handles fintech disputes in Singapore?"</span>
+    </article>
+
+    <article class="mlx-feature">
+      <div class="mlx-feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <h3 class="mlx-feature-title">Navigate the network</h3>
+      <p class="mlx-feature-desc">Find the right partner in the right jurisdiction without flipping through directories or cross-border guides.</p>
+      <span class="mlx-feature-prompt">"Find an M&amp;A partner in São Paulo."</span>
+    </article>
+
+    <article class="mlx-feature">
+      <div class="mlx-feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+      </div>
+      <h3 class="mlx-feature-title">Strategic insights</h3>
+      <p class="mlx-feature-desc">Summaries, comparisons and on-point briefings drawn from TerraLex's cross-border knowledge base.</p>
+      <span class="mlx-feature-prompt">"Summarize the Brazil cross-border guide."</span>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4 — LIVE DEMO
+     Inline chat panel. Front-end stub: clicking a starter prompt
+     pushes a canned response into the body.
+     [CONFLICT-RESOLVED] Preserves the existing live-page chat
+     functionality (screenshot shows "Hey myLexi, please introduce
+     yourself" / "What kinds of things can you help me with?"
+     starter prompts + input + betty attribution).
+============================================================ -->
+<section class="mlx-demo" id="mlx-demo">
+  <header class="mlx-section-head mlx-section-head--center">
+    <span class="ds-eyebrow">Try it now</span>
+    <h2 class="mlx-section-h ds-h1">
+      <span class="ds-thin">Ask myLexi anything</span>
+      <span class="ds-bold">— right here.</span>
+    </h2>
+    <p class="mlx-section-sub ds-body-lg">A sandboxed preview. Click a starter prompt, or type your own to see the kind of answer myLexi gives.</p>
+  </header>
+
+  <div class="mlx-demo-panel">
+    <div class="mlx-demo-header">
+      <img class="mlx-demo-logo" src="assets/logos/mylexi-logo.svg" alt="">
+      <div class="mlx-demo-info">
+        <div class="mlx-demo-name">Ask myLexi</div>
+        <div class="mlx-demo-status">
+          <span class="mlx-demo-dot"></span> Online &amp; Ready
+        </div>
       </div>
     </div>
 
-    <!-- Suggestion pills -->
-    <div class="mylexi-suggestions">
-      <button class="mylexi-pill">Find M&amp;A firms in Germany</button>
-      <button class="mylexi-pill">Summarise the AI regulation guide</button>
-      <button class="mylexi-pill">Draft an introduction letter</button>
-      <button class="mylexi-pill">Compare employment law across EU</button>
-      <button class="mylexi-pill">FDI rules for investing in Brazil</button>
+    <div class="mlx-demo-body" id="mlxDemoBody">
+      <div class="mlx-demo-msg mlx-demo-msg--bot">
+        <div class="mlx-demo-avatar"><img src="assets/logos/mylexi-logo.svg" alt=""></div>
+        <div class="mlx-demo-bubble">Hello! I'm <strong>myLexi</strong>. Try asking me one of these to get started:</div>
+      </div>
+
+      <div class="mlx-demo-prompts" id="mlxDemoPrompts">
+        <button class="mlx-demo-prompt" data-prompt="intro">Hey myLexi, please introduce yourself</button>
+        <button class="mlx-demo-prompt" data-prompt="help">What kinds of things can you help me with?</button>
+        <button class="mlx-demo-prompt" data-prompt="ma-saopaulo">Find an M&amp;A partner in São Paulo</button>
+        <button class="mlx-demo-prompt" data-prompt="brazil-guide">Summarize the Brazil cross-border guide</button>
+        <button class="mlx-demo-prompt" data-prompt="fintech-apac">Which firms cover fintech disputes in APAC?</button>
+        <button class="mlx-demo-prompt" data-prompt="qatar-intro">Draft an intro to the Qatar member firm</button>
+      </div>
     </div>
 
+    <div class="mlx-demo-footer">
+      <div class="mlx-demo-input-row">
+        <input id="mlxDemoInput" type="text" placeholder="Ask myLexi anything…">
+        <button class="mlx-demo-send" id="mlxDemoSend" aria-label="Send">
+          <svg viewBox="0 0 14 14" fill="none">
+            <path d="M1 13L13 7L1 1V5.5L9 7L1 8.5V13Z" fill="white"/>
+          </svg>
+        </button>
+      </div>
+      <div class="mlx-demo-disclaimer">
+        <img class="mlx-demo-betty" src="assets/logos/betty-logo.svg" alt="Betty Knowledge Assistant">
+        <span class="mlx-demo-sep"></span>
+        <a href="terms-and-conditions.html">Terms of use</a>
+      </div>
+    </div>
   </div>
+</section>
 
-  <!-- Bottom bar -->
-  <div class="mylexi-bottom">
-    <img src="assets/logos/betty-logo.svg" alt="Betty Knowledge Assistant" class="mylexi-betty-logo">
-    <span class="mylexi-bottom-sep"></span>
-    <a href="#">Terms of Use</a>
+<!-- ============================================================
+     SECTION 5 — EXAMPLE PROMPT GALLERY
+     6-card grid by user role.
+============================================================ -->
+<section class="mlx-gallery">
+  <header class="mlx-section-head">
+    <span class="ds-eyebrow">Use cases</span>
+    <h2 class="mlx-section-h ds-h1">
+      <span class="ds-thin">A different question</span>
+      <span class="ds-bold">for every desk.</span>
+    </h2>
+  </header>
+
+  <div class="mlx-gallery-grid">
+    <article class="mlx-use">
+      <span class="mlx-use-tag">Partner</span>
+      <h3 class="mlx-use-title">Cross-border referrals in 30 seconds.</h3>
+      <p class="mlx-use-prompt">"Recommend three M&amp;A partners across LATAM with renewable-energy experience."</p>
+    </article>
+    <article class="mlx-use">
+      <span class="mlx-use-tag">Associate</span>
+      <h3 class="mlx-use-title">Get up to speed on a jurisdiction.</h3>
+      <p class="mlx-use-prompt">"Brief me on FDI rules in Vietnam — short version."</p>
+    </article>
+    <article class="mlx-use">
+      <span class="mlx-use-tag">Marketing</span>
+      <h3 class="mlx-use-title">Pull network stats for a pitch.</h3>
+      <p class="mlx-use-prompt">"Give me a paragraph on TerraLex's APAC footprint for a capabilities deck."</p>
+    </article>
+    <article class="mlx-use">
+      <span class="mlx-use-tag">Business Development</span>
+      <h3 class="mlx-use-title">Spot the right introduction.</h3>
+      <p class="mlx-use-prompt">"Who at the Doha firm should I send a fintech client to?"</p>
+    </article>
+    <article class="mlx-use">
+      <span class="mlx-use-tag">Knowledge Management</span>
+      <h3 class="mlx-use-title">Surface the latest cross-border guide updates.</h3>
+      <p class="mlx-use-prompt">"What changed in the EU AI Act guide this quarter?"</p>
+    </article>
+    <article class="mlx-use">
+      <span class="mlx-use-tag">Client-facing</span>
+      <h3 class="mlx-use-title">Translate a quick question on the fly.</h3>
+      <p class="mlx-use-prompt">"How do French employment-termination notice periods compare to Germany's?"</p>
+    </article>
   </div>
+</section>
 
+<!-- ============================================================
+     SECTION 6 — TRUST & CONFIDENTIALITY
+     3-column band: Member-only / Confidential / Always current.
+============================================================ -->
+<section class="mlx-trust">
+  <header class="mlx-section-head mlx-section-head--center">
+    <span class="ds-eyebrow on-dark">Built for lawyers</span>
+    <h2 class="mlx-section-h ds-h1 on-dark">
+      <span class="ds-thin">Designed around</span>
+      <span class="ds-bold">how you actually work.</span>
+    </h2>
+  </header>
+
+  <div class="mlx-trust-grid">
+    <div class="mlx-trust-cell">
+      <div class="mlx-trust-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h3 class="mlx-trust-title">Member-firm-only access</h3>
+      <p class="mlx-trust-desc">myLexi sits behind TLC Sign-On. Only authenticated member-firm lawyers can query the network.</p>
+    </div>
+
+    <div class="mlx-trust-cell">
+      <div class="mlx-trust-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3 class="mlx-trust-title">Confidential by design</h3>
+      <p class="mlx-trust-desc">Prompts are not used to train third-party models. Conversations remain private to your firm.</p>
+    </div>
+
+    <div class="mlx-trust-cell">
+      <div class="mlx-trust-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      </div>
+      <h3 class="mlx-trust-title">Always current</h3>
+      <p class="mlx-trust-desc">Synced with the live TerraLex member directory and cross-border guides — answers reflect today's network.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 7 — FAQ ACCORDION
+     5 questions. Pure CSS via <details>.
+============================================================ -->
+<section class="mlx-faq">
+  <header class="mlx-section-head">
+    <span class="ds-eyebrow">Frequently asked</span>
+    <h2 class="mlx-section-h ds-h1">
+      <span class="ds-thin">Five things lawyers</span>
+      <span class="ds-bold">always want to know.</span>
+    </h2>
+  </header>
+
+  <div class="mlx-faq-list">
+    <details class="mlx-faq-item">
+      <summary class="mlx-faq-q">What is myLexi?
+        <span class="mlx-faq-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="mlx-faq-a">myLexi is TerraLex's in-network AI assistant. It answers questions about member firms, jurisdictions, practice areas and cross-border matters using the network's own indexed knowledge — so you get answers grounded in TerraLex content rather than the open web.</div>
+    </details>
+
+    <details class="mlx-faq-item">
+      <summary class="mlx-faq-q">Who can use it?
+        <span class="mlx-faq-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="mlx-faq-a">Lawyers, marketing, business-development and knowledge-management professionals at TerraLex member firms. Access is gated by TLC Sign-On.</div>
+    </details>
+
+    <details class="mlx-faq-item">
+      <summary class="mlx-faq-q">What languages does myLexi support?
+        <span class="mlx-faq-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="mlx-faq-a">100+ languages. Ask in your working language and myLexi will respond in kind — useful when you're briefing local counsel or drafting introductions for non-English-speaking clients.</div>
+    </details>
+
+    <details class="mlx-faq-item">
+      <summary class="mlx-faq-q">How is my data handled?
+        <span class="mlx-faq-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="mlx-faq-a">Conversations are confidential and are not used to train third-party models. Prompts are scoped to your member-firm session and access logs follow TerraLex's existing privacy commitments.</div>
+    </details>
+
+    <details class="mlx-faq-item">
+      <summary class="mlx-faq-q">How do I get access?
+        <span class="mlx-faq-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="mlx-faq-a">Sign in via <a href="sign-in.html">TLC Sign-On</a>. If your firm hasn't onboarded a primary administrator yet, <a href="contact-us.html">contact TerraLex</a> and we'll set you up.</div>
+    </details>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 8 — FINAL CTA / QUOTE BAND (reuses .s9-cta pattern)
+============================================================ -->
+<section class="s9-cta mlx-final-cta">
+  <img src="Content/All images/5.jpg" alt="" class="s9-bg-img">
+  <div class="s9-inner">
+    <p class="s9-eyebrow ds-eyebrow on-dark">Ready when you are</p>
+    <blockquote class="s9-quote ds-h1 on-dark">
+      <span class="s9-quote-light ds-thin">Your network,</span>
+      <span class="s9-quote-bold ds-bold">one question away.</span>
+    </blockquote>
+    <p class="s9-sub ds-body-lg on-dark">Sign in to start a conversation with myLexi, or talk to TerraLex about getting your firm onboarded.</p>
+    <div class="s9-actions">
+      <a href="#mlx-demo" class="s9-btn s9-btn-primary ds-btn ds-btn-primary ds-btn-lg">Ask myLexi</a>
+      <a href="contact-us.html" class="s9-btn s9-btn-outline ds-btn ds-btn-outline ds-btn-lg">Talk to TerraLex</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER (verbatim from kit)
+============================================================ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img class="footer-logo" src="assets/logos/Logo white.svg" alt="TerraLex">
+      <p class="footer-tagline ds-body-sm on-dark">The elite global legal network committed to collaboration. 141 member firms in 207 jurisdictions and 134 countries.</p>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Network</p>
+      <ul class="footer-nav-list">
+        <li><a href="about.html">About TerraLex</a></li>
+        <li><a href="firms.html">Member Directory</a></li>
+        <li><a href="practice-groups-industry-sector-teams.html">Practice Groups &amp; Industry Sector Teams</a></li>
+        <li><a href="https://www.linkedin.com/company/terralex/">Follow us on LinkedIn</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Knowledge</p>
+      <ul class="footer-nav-list">
+        <li><a href="insights-cross-border-guides.html">Cross-Border Guides</a></li>
+        <li><a href="mylexi.html">myLexi AI-Powered Assistant</a></li>
+        <li><a href="news.html">Insights</a></li>
+        <li><a href="events.html">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-group">
+      <p class="footer-nav-heading ds-eyebrow on-dark">Contact</p>
+      <ul class="footer-nav-list">
+        <li><a href="sign-in.html">TLC Sign-On (Members Only)</a></li>
+        <li><a href="contact-us.html">Contact Us</a></li>
+        <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 TerraLex. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ============================================================
+     FLOATING CHAT WIDGET (reused from index.html)
+============================================================ -->
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-pill" id="chatPill" onclick="openChat()">
+    <img class="chat-pill__logo" src="assets/logos/mylexi-logo.svg" alt="">
+    <div class="chat-pill__text">
+      <span class="chat-pill__title">myLexi</span>
+      <span class="chat-pill__sub">AI Assistant</span>
+    </div>
+  </div>
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div class="chat-header__left">
+        <img class="chat-header__logo" src="assets/logos/mylexi-logo.svg" alt="">
+        <div class="chat-header__info">
+          <div class="chat-header__name">Ask myLexi</div>
+          <div class="chat-header__status">
+            <span class="chat-header__dot"></span> Online &amp; Ready
+          </div>
+        </div>
+      </div>
+      <button class="chat-close" onclick="closeChat()" aria-label="Close chat">
+        <svg viewBox="0 0 14 14" fill="none" stroke="#0a1f33" stroke-width="1.6" stroke-linecap="round">
+          <line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/>
+        </svg>
+      </button>
+    </div>
+    <div class="chat-body">
+      <div class="chat-msg">
+        <div class="chat-msg__avatar">
+          <img src="assets/logos/mylexi-logo.svg" alt="">
+        </div>
+        <div class="chat-bubble">
+          Hello! I'm <strong>myLexi</strong>. How can I help you today?
+        </div>
+      </div>
+      <div class="chat-topics">
+        <div class="chat-topics__label">Suggested topics:</div>
+        <div class="chat-topics__pills">
+          <button class="chat-topic">What kind of things can you help me with</button>
+          <button class="chat-topic">Cross-border guides</button>
+          <button class="chat-topic">Practice areas</button>
+        </div>
+      </div>
+    </div>
+    <div class="chat-footer">
+      <div class="chat-input-row">
+        <input type="text" placeholder="Type your question here...">
+        <button class="chat-send" aria-label="Send">
+          <svg viewBox="0 0 14 14" fill="none">
+            <path d="M1 13L13 7L1 1V5.5L9 7L1 8.5V13Z" fill="white"/>
+          </svg>
+        </button>
+      </div>
+      <div class="chat-footer__bottom">
+        <img class="chat-footer__betty" src="assets/logos/betty-logo.svg" alt="Betty Knowledge Assistant">
+        <span class="chat-footer__dot"></span>
+        <a class="chat-footer__terms" href="terms-and-conditions.html">Terms of use</a>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script src="js/chat-widget.js"></script>
+
+<!-- ============================================================
+     INLINE DEMO STUB — canned responses, no backend.
+============================================================ -->
+<script>
+(function(){
+  var responses = {
+    'intro': "Hi — I'm myLexi, the in-network AI assistant for TerraLex member firms. I can help you find the right partner, summarize cross-border guides, draft introductions, and answer questions about the global legal landscape across 100+ languages.",
+    'help': "I can help with three things primarily:\n\n1. Finding the right TerraLex partner in any jurisdiction.\n2. Summarizing or comparing cross-border guides.\n3. Drafting quick-turn briefings, intros and explainers grounded in network knowledge.",
+    'ma-saopaulo': "Three TerraLex M&A partners in São Paulo to consider:\n\n• Demarest Advogados — Ana Paula Reis (cross-border M&A, energy)\n• Pinheiro Neto — Rafael Setoguti Pereira (private-equity-led deals)\n• Mattos Filho — Marina Anselmo (tech M&A, fintech)\n\nWant me to draft an introduction to any of them?",
+    'brazil-guide': "Brazil cross-border guide — quick read:\n\n• Foreign-investor screening: most sectors open; restrictions apply in healthcare, mining and media.\n• M&A: CADE (antitrust) review for deals over the gross-revenue thresholds.\n• Employment: 30-day notice baseline, FGTS deposits required.\n• Tax: dividends currently exempt; withholding on royalties and interest.\n\nFull guide on Cross-Border Guides → Brazil.",
+    'fintech-apac': "TerraLex firms with active fintech-disputes practices in APAC:\n\n• Singapore — Drew & Napier (payments, crypto, MAS regulatory).\n• Hong Kong — Deacons (SFC enforcement, virtual-asset disputes).\n• Tokyo — Nishimura & Asahi (payments licensing disputes).\n• Sydney — Clayton Utz (consumer-credit & BNPL disputes).",
+    'qatar-intro': "Draft introduction to the TerraLex member firm in Qatar (Al-Ansari & Associates):\n\n\"Dear [Partner], hope you're well. I'd like to introduce you to [Client], who is exploring [matter] in Qatar and would benefit from your guidance on [area]. They're particularly interested in [specifics]. Could we schedule a 30-minute call this week? — [Sender]\""
+  };
+
+  var bodyEl = document.getElementById('mlxDemoBody');
+  var promptsWrap = document.getElementById('mlxDemoPrompts');
+  var inputEl = document.getElementById('mlxDemoInput');
+  var sendEl = document.getElementById('mlxDemoSend');
+
+  function appendUser(text){
+    var msg = document.createElement('div');
+    msg.className = 'mlx-demo-msg mlx-demo-msg--user';
+    msg.innerHTML = '<div class="mlx-demo-bubble mlx-demo-bubble--user"></div>';
+    msg.querySelector('.mlx-demo-bubble--user').textContent = text;
+    // insert before prompts wrap so prompts stay at bottom
+    bodyEl.insertBefore(msg, promptsWrap);
+    bodyEl.scrollTop = bodyEl.scrollHeight;
+  }
+
+  function appendBot(text){
+    var msg = document.createElement('div');
+    msg.className = 'mlx-demo-msg mlx-demo-msg--bot';
+    var avatar = document.createElement('div');
+    avatar.className = 'mlx-demo-avatar';
+    avatar.innerHTML = '<img src="assets/logos/mylexi-logo.svg" alt="">';
+    var bubble = document.createElement('div');
+    bubble.className = 'mlx-demo-bubble';
+    bubble.textContent = text;
+    msg.appendChild(avatar);
+    msg.appendChild(bubble);
+    bodyEl.insertBefore(msg, promptsWrap);
+    bodyEl.scrollTop = bodyEl.scrollHeight;
+  }
+
+  function ask(promptKey, label){
+    appendUser(label);
+    setTimeout(function(){
+      appendBot(responses[promptKey] || "I'm a front-end demo — sign in to TLC for the full experience.");
+    }, 400);
+  }
+
+  // wire starter prompts
+  document.querySelectorAll('.mlx-demo-prompt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var key = btn.getAttribute('data-prompt');
+      ask(key, btn.textContent.trim());
+    });
+  });
+
+  function sendInput(){
+    var v = (inputEl.value || '').trim();
+    if (!v) return;
+    appendUser(v);
+    inputEl.value = '';
+    setTimeout(function(){
+      appendBot("Thanks — this is a front-end demo, so I'll point you to a real myLexi session inside TLC Sign-On to answer that one in full.");
+    }, 400);
+  }
+
+  sendEl.addEventListener('click', sendInput);
+  inputEl.addEventListener('keydown', function(e){
+    if (e.key === 'Enter') { e.preventDefault(); sendInput(); }
+  });
+})();
+</script>
+
+<!-- Optional GSAP counter (only runs if GSAP is loaded; otherwise falls back to static text) -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script>
+if (window.gsap && window.ScrollTrigger) {
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.create({
+    trigger: '.mlx-numbers',
+    start: 'top 80%',
+    once: true,
+    onEnter: function(){
+      document.querySelectorAll('.mlx-numbers .s3-count').forEach(function(el){
+        var target = +el.dataset.target;
+        var suffix = el.dataset.suffix || '';
+        var obj = { val: 0 };
+        gsap.to(obj, {
+          val: target,
+          duration: 1.6,
+          ease: 'power2.out',
+          onUpdate: function(){ el.textContent = Math.round(obj.val) + suffix; },
+          onComplete: function(){ el.textContent = target + suffix; }
+        });
+      });
+    }
+  });
+}
+</script>
 
 </body>
 </html>

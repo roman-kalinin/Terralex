@@ -1,0 +1,306 @@
+/* sign-in.css — Member sign-in gate
+   All rules scoped under .sign-in-page so nothing leaks. */
+
+/* ── Header solid-bg variant on inner pages ───────────── */
+.sign-in-page .site-header.has-solid-bg nav,
+.sign-in-page .site-header.has-solid-bg .nav-topbar {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.sign-in-page .site-header.has-solid-bg nav {
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.sign-in-page .site-header.has-solid-bg .nav-topbar {
+  background: #f7f7f8;
+  border-bottom-color: rgba(0,0,0,0.04);
+}
+
+/* Body baseline */
+.sign-in-page {
+  color: #0a0a0f;
+  background: #fff;
+}
+
+/* ── Main shell ───────────────────────────────────────── */
+.sign-in-page .signin-main {
+  position: relative;
+  width: 100%;
+  /* sit directly under the fixed header */
+  padding-top: calc(var(--ds-header-h, 60px) + var(--ds-header-topbar-h, 36px));
+}
+
+/* ── Split layout ─────────────────────────────────────── */
+.sign-in-page .signin-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* ~ 80vh — leaves room for trust strip + footer without scroll on desktop */
+  min-height: clamp(560px, 80vh, 820px);
+}
+
+/* ── Brand panel (left) ───────────────────────────────── */
+.sign-in-page .signin-brand {
+  position: relative;
+  overflow: hidden;
+  background: #0a0a0f;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 80px);
+}
+.sign-in-page .signin-brand-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    /* dim layer for legibility */
+    linear-gradient(135deg, rgba(10,10,15,0.78) 0%, rgba(10,10,15,0.55) 60%, rgba(73,100,136,0.35) 100%),
+    url('../assets/images/misc/world-map.svg');
+  background-size: cover, 130% auto;
+  background-position: center, center;
+  background-repeat: no-repeat;
+  opacity: 1;
+}
+.sign-in-page .signin-brand-bg::after {
+  /* subtle blue corner glow, reuses brand blue accent */
+  content: "";
+  position: absolute;
+  right: -20%;
+  bottom: -20%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(73,100,136,0.45), transparent 60%);
+  pointer-events: none;
+}
+.sign-in-page .signin-brand-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.sign-in-page .signin-brand-eyebrow { color: rgba(255,255,255,0.6); }
+.sign-in-page .signin-brand-title   { margin: 4px 0 0; }
+.sign-in-page .signin-brand-sub     { max-width: 480px; }
+
+/* Stats row */
+.sign-in-page .signin-brand-stats {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: clamp(12px, 2vw, 28px);
+}
+.sign-in-page .signin-brand-stats li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+}
+.sign-in-page .signin-stat-num {
+  font-family: 'Source Sans 3', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 1rem + 1.4vw, 2.25rem);
+  line-height: 1;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.sign-in-page .signin-stat-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+
+.sign-in-page .signin-brand-note {
+  margin-top: 8px;
+  color: rgba(255,255,255,0.55);
+  font-style: italic;
+}
+
+/* ── Action panel (right) ─────────────────────────────── */
+.sign-in-page .signin-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 80px);
+  background: #fff;
+  background-image:
+    radial-gradient(circle at 100% 0%, rgba(77,101,134,0.08), transparent 45%),
+    radial-gradient(circle at 0% 100%, rgba(139,184,152,0.10), transparent 50%);
+}
+.sign-in-page .signin-card {
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid rgba(10,10,15,0.08);
+  padding: clamp(28px, 3vw, 44px);
+  box-shadow: 0 1px 2px rgba(10,10,15,0.04), 0 12px 32px -16px rgba(10,10,15,0.18);
+}
+.sign-in-page .signin-action-eyebrow { color: rgba(10,10,15,0.5); }
+.sign-in-page .signin-action-title   { margin: 0; }
+.sign-in-page .signin-action-sub     {
+  margin: 4px 0 12px;
+  color: rgba(10,10,15,0.65);
+}
+
+/* Primary CTA */
+.sign-in-page .signin-cta {
+  width: 100%;
+  margin-top: 4px;
+  /* ensure visible focus state for high-stakes button */
+}
+.sign-in-page .signin-cta:focus-visible {
+  outline: 3px solid var(--ds-btn-primary-bg);
+  outline-offset: 3px;
+}
+.sign-in-page .signin-cta-arrow {
+  transition: transform var(--ds-ease-fast);
+}
+.sign-in-page .signin-cta:hover .signin-cta-arrow { transform: translateX(3px); }
+
+/* Secure-by-Auth0 micro-line */
+.sign-in-page .signin-secure {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0 0;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 13px;
+  color: rgba(10,10,15,0.55);
+}
+.sign-in-page .signin-secure svg { color: rgba(10,10,15,0.4); flex-shrink: 0; }
+
+/* Divider */
+.sign-in-page .signin-divider {
+  border: 0;
+  border-top: 1px solid rgba(10,10,15,0.08);
+  margin: 18px 0 6px;
+  width: 100%;
+}
+
+/* Help block */
+.sign-in-page .signin-help {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sign-in-page .signin-help-line {
+  margin: 0;
+  color: rgba(10,10,15,0.65);
+}
+.sign-in-page .signin-help-line strong { color: #0a0a0f; font-weight: 600; }
+.sign-in-page .signin-help a {
+  color: var(--ds-btn-primary-bg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
+}
+.sign-in-page .signin-help a:hover { color: var(--ds-btn-primary-bg-hover); }
+.sign-in-page .signin-help-sep {
+  display: inline-block;
+  margin: 0 8px;
+  color: rgba(10,10,15,0.3);
+}
+
+/* Soft handoff for non-members */
+.sign-in-page .signin-handoff {
+  margin-top: 10px;
+  padding: 14px 16px;
+  background: #f6f7f9;
+  border-left: 2px solid var(--ds-btn-primary-bg);
+}
+.sign-in-page .signin-handoff-text { margin: 0; color: rgba(10,10,15,0.7); }
+.sign-in-page .signin-handoff a {
+  color: var(--ds-btn-primary-bg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+.sign-in-page .signin-handoff a:hover { color: var(--ds-btn-primary-bg-hover); }
+
+/* ── Trust strip ──────────────────────────────────────── */
+.sign-in-page .signin-trust {
+  border-top: 1px solid rgba(10,10,15,0.06);
+  background: #fafbfc;
+  padding: 18px clamp(24px, 5vw, 80px);
+}
+.sign-in-page .signin-trust-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px clamp(20px, 3vw, 40px);
+  justify-content: center;
+}
+.sign-in-page .signin-trust-list li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: rgba(10,10,15,0.6);
+}
+.sign-in-page .signin-trust-list svg { color: var(--ds-btn-primary-bg); flex-shrink: 0; }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+/* Tablet & below — stack brand on top, action below */
+@media (max-width: 900px) {
+  .sign-in-page .signin-split {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .sign-in-page .signin-brand {
+    padding: clamp(40px, 8vw, 64px) clamp(24px, 5vw, 48px);
+    min-height: 360px;
+  }
+  .sign-in-page .signin-action {
+    padding: clamp(40px, 6vw, 64px) clamp(24px, 5vw, 48px);
+  }
+}
+
+/* Small tablets — tighten brand stats */
+@media (max-width: 768px) {
+  .sign-in-page .signin-brand-stats {
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 14px;
+  }
+  .sign-in-page .signin-stat-num { font-size: 1.4rem; }
+  .sign-in-page .signin-stat-label { font-size: 11px; letter-spacing: 0.1em; }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+  .sign-in-page .signin-brand { min-height: 320px; }
+  .sign-in-page .signin-brand-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .sign-in-page .signin-brand-stats li {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+    padding-top: 12px;
+  }
+  .sign-in-page .signin-card {
+    padding: 24px 20px;
+    box-shadow: none;
+    border-color: rgba(10,10,15,0.10);
+  }
+  .sign-in-page .signin-trust-list {
+    justify-content: flex-start;
+    gap: 10px 18px;
+  }
+  .sign-in-page .signin-trust-list li { font-size: 12px; }
+}
